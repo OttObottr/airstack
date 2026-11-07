@@ -1,0 +1,13 @@
+{
+  "_read_by": "backend/tools/build_pages.py, build_insights.py: what counts as a price a product can be summed up by",
+  "addon_pattern": "add-?on|additional|extra\\b|credits?\\b|top-?up|overage|per (login|resource)|/\\s*login|\\bapp\\b|pack\\b|campaigns|storage|minutes",
+  "shared_hosts": [
+    "apps.apple.com",
+    "bitbucket.org",
+    "github.com",
+    "gitlab.com",
+    "play.google.com",
+    "sourceforge.net"
+  ],
+  "median_min": 5
+}

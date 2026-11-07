@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2005/Atom" xmlns:ns1="http://purl.org/rss/1.0/modules/syndication/" xmlns:ns2="com-wordpress:feed-additions:1" xmlns:ns4="http://purl.org/rss/1.0/modules/content/" version="2.0">
+
+<channel>
+	<title>Use Case: copilot - GitHub Changelog</title>
+	<ns0:link href="https://github.blog/changelog/label/copilot/feed/" rel="self" type="application/rss+xml" />
+	<link>https://github.blog/changelog/label/copilot/</link>
+	<description>Updates, ideas, and inspiration from GitHub to help developers build and design software.</description>
+	<lastBuildDate>Tue, 03 Nov 2026 16:00:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<ns1:updatePeriod>
+	hourly	</ns1:updatePeriod>
+	<ns1:updateFrequency>
+	1	</ns1:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://github.blog/wp-content/uploads/2019/01/cropped-github-favicon-512.png?fit=32%2C32</url>
+	<title>Use Case: copilot - GitHub Changelog</title>
+	<link>https://github.blog/changelog/label/copilot/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<ns2:site>153214340</ns2:site>	<item>
+		<title>Route and orchestrate models with GitHub Copilot Fusion</title>
+		<link>https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion</link>
+		
+		<dc:creator>Allison</dc:creator>
+		<pubDate>Wed, 28 Oct 2026 16:00:00 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-11-26-route-and-orchestrate-models-with-github-copilot-fusion</guid>
+
+					<description>&lt;p&gt;GitHub Copilot Fusion is generally available. Instead of picking a model for each task, choose Copilot Fusion and let Copilot intelligently route and orchestrate which models it uses for you.&amp;#8230;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion"&gt;Route and orchestrate models with GitHub Copilot Fusion&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+										<ns4:encoded>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"&gt;
+&lt;html&gt;&lt;body&gt;&lt;p&gt;GitHub Copilot Fusion is generally available. Instead of picking a model for each task, choose Copilot Fusion and let Copilot intelligently route and orchestrate which models it uses for you.&lt;/p&gt;
+&lt;p&gt;Copilot Fusion brings together &lt;a href="https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/"&gt;Project HydraFusion&amp;rsquo;s&lt;/a&gt; multi-model orchestration and &lt;a href="https://docs.github.com/copilot/concepts/models/auto-model-selection"&gt;Copilot auto model selection&amp;rsquo;s&lt;/a&gt; fine-tuned model selection, leveraging the benefits of both to balance performance and cost efficiency.&lt;/p&gt;
+&lt;p&gt;Since Project HydraFusion launched, we&amp;rsquo;ve improved its performance. In the Artificial Analysis Coding Agent Index, Copilot Fusion Max scored 60, within two points of Claude Code with Opus 5.5 Max. It delivered that result at about half the average API cost per task, using about half as many tokens and taking about 40% less time per task.&lt;/p&gt;
+&lt;h2 id="smarter-choices-for-developers" id="smarter-choices-for-developers" &gt;&lt;a class="heading-link" href="#smarter-choices-for-developers"&gt;Smarter choices for developers&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;When you select Copilot Fusion in the model picker, you aren&amp;rsquo;t selecting a specific model. You&amp;rsquo;re choosing a system that routes and orchestrates models for each task. There&amp;rsquo;s no need to switch models during a task or decide which model suits each step. For each prompt, Copilot Fusion determines which models to use and how they work together, while you choose the right level of effort.&lt;/p&gt;
+&lt;p&gt;To use it, select &lt;strong&gt;Copilot Fusion&lt;/strong&gt; in the model picker, then choose the effort level.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Fusion Standard:&lt;/strong&gt; Prioritizes versatile models for everyday coding.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fusion High:&lt;/strong&gt; Prioritizes capable models for challenging tasks and deeper reasoning. &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fusion Max:&lt;/strong&gt; Prioritizes the most capable models for the most demanding tasks and complex reasoning.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Watch as Copilot Fusion analyzes each task and selects a model to complete it, orchestrating multiple models through the following workflows when needed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Single:&lt;/strong&gt; One model solves the task directly.  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cascade:&lt;/strong&gt; An efficient model drafts a response. A quality check determines whether to accept it or escalate to a stronger model. &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Critique:&lt;/strong&gt; One model drafts an initial response, another model reviews it, and the original model revises.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img decoding="async" src="https://github.com/user-attachments/assets/1eeffdb5-0c21-4697-8007-bb6df0e70e8b" alt="Diagram titled 'Three execution patterns in Copilot Fusion,' comparing three workflows: Single, where a a primary model uses tools to request an answer; Cascade, where a primary model makes a first pass before a judge model either accepts its result as the answer or escalates to a repair model for a fresh-start answer; and Critique, where a primary model drafts an answer and a read-only critic either approves it as-is or requests a revision by the primary model."&gt;&lt;/p&gt;
+&lt;h2 id="more-control-for-administrators" id="more-control-for-administrators" &gt;&lt;a class="heading-link" href="#more-control-for-administrators"&gt;More control for administrators&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Administrators control which models Copilot Fusion can use and whether Copilot Fusion is the default.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Copilot Fusion only uses the models that are enabled in your enterprise and organization &lt;strong&gt;model policies&lt;/strong&gt;. Enterprise administrators can view what models Copilot Fusion picks from, independently set each model&amp;rsquo;s effective policy state, and disable models for Copilot Fusion without disabling the model for everyone. See &lt;a href="https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-availability-of-default-models#configuring-models-available-for-copilot-fusion"&gt;Manage availability of default models&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Administrators can set Copilot Fusion, at any effort level, as the &lt;strong&gt;default model&lt;/strong&gt; for Copilot users with Enterprise managed settings. To configure settings, see &lt;a href="https://docs.github.com/copilot/reference/enterprise-administrators/enterprise-managed-settings#fusiontier"&gt;Enterprise managed settings&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote class="gh-changelog-quote"&gt;&lt;p&gt;&amp;ldquo;GitHub Copilot Fusion Standard has improved token efficiency across AT&amp;amp;T by automatically selecting the right model for the task, reducing unnecessary spend and preserving capacity for higher-value work. Previously, developers would often choose a more powerful model for a complex task and forget to switch back for everyday activities. Copilot Fusion eliminates that friction, optimizing model selection without requiring developers to manage it themselves. We&amp;rsquo;ve also seen its decision-making improve over time, giving developers greater confidence to focus on their work while Copilot handles model selection.&amp;rdquo;&lt;br&gt;
+&lt;cite&gt;Hari Pokhrel, Principal Software Engineer, AT&amp;amp;T&lt;/cite&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id="billing" id="billing" &gt;&lt;a class="heading-link" href="#billing"&gt;Billing&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;When you use Copilot Fusion you&amp;rsquo;re billed for each model it uses, at each model&amp;rsquo;s standard rate. For a limited time, users on paid Copilot plans will receive a 30% discount on model costs when using Copilot Fusion.&lt;/p&gt;
+&lt;h2 id="get-started" id="get-started" &gt;&lt;a class="heading-link" href="#get-started"&gt;Get started&lt;span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Copilot Fusion is available on all Copilot plans in Visual Studio Code, the GitHub Copilot app, GitHub Copilot CLI, and JetBrains IDEs. Support for additional clients is coming soon.&lt;/p&gt;
+&lt;p&gt;Update your client to try it out. Open the model picker, select &lt;strong&gt;Copilot Fusion&lt;/strong&gt;, and choose an effort level.&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;
+  Note for research preview participants: if you previously enabled auto, HydraFusion, or HydraFusion Max, your selections will automatically transition to the corresponding Copilot Fusion effort levels.
+&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;To learn more, see our documentation on &lt;a href="https://docs.github.com/copilot/concepts/models/copilot-fusion?utm_source=changelog-docs-link-fusion&amp;amp;utm_medium=changelog&amp;amp;utm_campaign=universe-2026"&gt;GitHub Copilot Fusion&lt;/a&gt; and share your feedback in the &lt;a href="https://github.com/orgs/community/discussions/211017?utm_source=changelog-community-discussion-fusion&amp;amp;utm_medium=changelog&amp;amp;utm_campaign=universe-2026"&gt;GitHub Community&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+&lt;p&gt;The post &lt;a href="https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion"&gt;Route and orchestrate models with GitHub Copilot Fusion&lt;/a&gt; appeared first on &lt;a href="https://github.blog"&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;
+</ns4:encoded>
+					
+		
+		
+		<category domain="changelog-type">Release</category>
+<category domain="changelog-label">copilot</category>
+<category domain="changelog-label">enterprise management tools</category>
+<category domain="changelog-label">universe26</category>
+<ns2:post-id>99793</ns2:post-id>	</item>
+		</channel>
+</rss>

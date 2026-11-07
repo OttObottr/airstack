@@ -1,0 +1,295 @@
+<!doctype html>
+<!-- spec: AS-066 AS-100 AS-120 AS-136 AS-252 AS-255 AS-256 AS-257 AS-260 AS-265 AS-268 AS-283 AS-298 AS-316 AS-343 AS-346 AS-366 AS-D03 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AirStack — See the software market move.</title>
+<meta name="description" content="Track your stack, compare software categories, and follow meaningful market changes—each claim linked to its source.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="canonical" href="https://airstack.bot/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0A0B'/%3E%3Ccircle cx='16' cy='16' r='8.5' fill='none' stroke='%23f5f5f7' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='3.6' fill='%23f5f5f7'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AirStack">
+<meta property="og:url" content="https://airstack.bot/">
+<meta property="og:title" content="AirStack — See the software market move.">
+<meta property="og:description" content="Track your stack, compare every category, and follow the software market with source-linked evidence.">
+<meta property="og:image" content="https://airstack.bot/icons/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AirStack: software market intelligence backed by source evidence.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://airstack.bot/icons/og.png">
+<meta name="twitter:title" content="AirStack — See the software market move.">
+<meta name="twitter:description" content="Track your stack, compare every category, and follow meaningful software-market changes.">
+<link rel="preload" href="fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script defer src="site-data.js"></script><!-- generated from data/airstack-demo.db; deferred so it never blocks the first paint: it still runs before the modules, in document order -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "AirStack", "url": "https://airstack.bot/", "description": "Track your stack, compare software categories, and follow meaningful market changes—each claim linked to its source."}, {"@type": "SoftwareApplication", "name": "AirStack", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "url": "https://airstack.bot/", "description": "Track your stack, compare software categories, and follow meaningful market changes—each claim linked to its source."}]}</script>
+<link rel="stylesheet" href="src/styles/index.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><!-- icons: Lucide (ISC), only the ones used -->
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+  <symbol id="i-compare" viewBox="0 0 24 24"><rect width="7" height="16" x="3" y="4" rx="1"/><rect width="7" height="16" x="14" y="4" rx="1"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+  <symbol id="i-hist" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="i-bld" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></symbol>
+  <symbol id="i-gh" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+</svg>
+<header class="topbar"><a class="brand" href="#/"><span class="dot" aria-hidden="true"></span>AirStack</a>
+  <nav class="nav" aria-label="Views"><a href="#/" data-view="overview"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg>Overview</a><a href="#/compare" data-view="compare"><svg class="i" aria-hidden="true"><use href="#i-compare"/></svg>Compare</a><a href="#/markets" data-view="markets"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Markets</a><a href="#/insights" data-view="insights"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg>Insights</a><a href="#/calendar" data-view="calendar"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Calendar</a><a href="#/makers" data-view="makers"><svg class="i" aria-hidden="true"><use href="#i-bld"/></svg>Makers</a><a href="#/agents" data-view="agents"><svg class="i" aria-hidden="true"><use href="#i-plug"/></svg>Agents</a><a href="#/how" data-view="how"><svg class="i" aria-hidden="true"><use href="#i-hist"/></svg>How it works</a><a class="gh" href="https://github.com/OttObottr/airstack" target="_blank" rel="noopener noreferrer"><svg class="i" aria-hidden="true"><use href="#i-gh"/></svg><span>GitHub</span></a></nav></header>
+<div class="tape" id="tapeW" role="region" aria-label="Momentum: weekly downloads against each tool's own 4-week level"><div class="tape-in" id="tape"></div></div>
+<main id="main">
+  <section class="hero" id="top" data-views="overview" aria-label="AirStack">
+    <p class="lab">Software market intelligence</p>
+    <h1>See the software market move.</h1>
+    <p class="sub">Track your stack, compare every category, and catch the changes that matter—each claim linked to its source.</p>
+  </section>
+
+  <section class="work" id="check" data-views="overview" aria-labelledby="checkT">
+    <div class="wrap wide">
+      <h2 class="sr" id="checkT">Check yours</h2>
+      <button class="strip" id="strip" type="button" aria-label="Go to the full answer" hidden></button>   <!-- phones: the verdict stays in view while you tap the chips that change it; tap it for the full card -->
+      <div class="pick">
+        <p class="sr" id="qApp">Which tool do you pay for?</p>
+        <div class="find big" id="findw">
+          <svg class="i si" aria-hidden="true"><use href="#i-search"/></svg>
+          <input id="q" role="combobox" aria-labelledby="qApp" placeholder="Search every tool we track" aria-expanded="false" aria-controls="ta" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off"><kbd aria-hidden="true">/</kbd>
+          <ul class="ta" id="ta" role="listbox" aria-label="Matching tools" hidden></ul>
+        </div>
+        <div id="nf" hidden><span id="nfText"></span><button class="ghost" id="save" type="button">Save on this device</button></div>
+        <div id="browse">
+          <p class="acts"><button class="cta" id="stackStart" type="button">Add your software stack</button><a class="ghost" id="cmpGo" href="#compare=">Compare tools side by side</a></p>
+          <p class="honest" id="honest">Every fact quoted from its own page</p>   <!-- tools/assemble.sh writes the proof line from the data, as components/hero.js does -->
+          <div id="trend"></div>
+        </div>
+        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="ghost" id="starBtn" type="button" aria-pressed="false" hidden>☆ Track this tool</button><button class="ghost" id="cmpThis" type="button" data-compare="" hidden>Compare with others</button><button class="ghost" id="change" type="button">Change tool</button></div>
+      </div>
+      <div class="bench" id="bench" hidden>
+        <div class="qs" id="qs">
+          <div class="q"><p class="lab" id="qPlat">What do you already have?</p>
+            <div class="chips" role="radiogroup" aria-labelledby="qPlat" id="platforms"></div>
+            <div class="chips" role="radiogroup" aria-label="Plan" id="plans"></div></div>
+          <div class="q"><p class="lab" id="qUse">Where do you meet?</p><div class="chips" role="radiogroup" aria-labelledby="qUse" id="uses"></div></div>
+          <div class="q" id="qDevW" hidden><p class="lab" id="qDev">Which device do you record on?</p><div class="chips" role="radiogroup" aria-labelledby="qDev" id="devices"></div></div>
+          <div class="q" id="qNeedW" hidden><p class="lab" id="qNeed">What else do you use it for?</p><div class="chips" role="group" aria-labelledby="qNeed" id="needs"></div></div>
+        </div>
+        <div class="res">
+          <article class="answer" id="answer" aria-live="polite" aria-label="Your answer"></article>
+          <div id="profile"></div>
+          <article id="toolcard" hidden aria-label="About this tool"></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="movers" data-views="markets" aria-labelledby="moversT">
+    <div class="wrap wide">
+      <h2 class="h2" id="moversT">Moving this week</h2>
+      <p class="meta" id="moversSub"></p>
+      <div class="mmap" id="mmap"></div>
+      <div class="mkey"><p class="meta" id="mmapInfo" aria-live="polite">Each tile is a tool. Point at one for its numbers; open it for its page.</p>
+        <p class="lg" aria-label="Colour key: change against the tool's own 4-week level"><span class="meta">▼ 50%+</span><i class="dn4"></i><i class="dn3"></i><i class="dn2"></i><i class="dn1"></i><i class="flat"></i><i class="up1"></i><i class="up2"></i><i class="up3"></i><i class="up4"></i><span class="meta">▲ 50%+</span>
+          <i class="none"></i><span class="meta">insufficient 4-week baseline</span><i class="judged"></i><span class="meta">has a reviewed answer</span></p></div>
+      <p class="meta" id="mmapNote"></p>
+      <div class="chips mt24" role="radiogroup" aria-label="Lane" id="lanes"></div>
+      <div class="scroll"><table class="t stack" id="mvt"><thead><tr><th scope="col">Tool</th><th scope="col" class="r">Downloads, 7 days</th>
+        <th scope="col" class="r"><button type="button" class="sort" data-s="dl" aria-pressed="true">Change</button></th>
+        <th scope="col" class="r"><button type="button" class="sort" data-s="hn" aria-pressed="false">HN stories, 7 days</button></th>
+        <th scope="col" class="r"><button type="button" class="sort" data-s="stars" aria-pressed="false">GitHub stars</button></th>
+        <th scope="col">Last release</th><th scope="col">AirStack</th></tr></thead><tbody></tbody></table></div>
+      <button class="mt16 ghost" id="mvMore" type="button">Show all</button>
+      <p class="mt12 meta">Downloads: each registry’s own daily counts (npm, PyPI) · HN stories: attention, not users · Stars: today’s count, no history</p>
+    </div>
+  </section>
+
+  <section class="work" id="types" data-views="markets" aria-labelledby="typesT">
+    <div class="wrap wide">
+      <h2 class="h2" id="typesT">Every kind of software</h2>
+      <p class="meta">Pick a kind of software to see its products, sized by how widely each is documented. Registry downloads only exist for developer tools, so this is the measure every kind of software has.</p>
+      <div class="mkbar"><select id="tyPick" class="sel" aria-label="Kind of software"></select><a id="tyPage" class="chip" href="/t/">Open this category</a></div>
+      <div class="mmap"><div class="mlane tywide"><div class="tm" id="tyMap" role="group" aria-label="Products in the chosen kind of software"></div></div></div>
+      <p class="meta" id="tyInfo" aria-live="polite">Each tile is a product. Point at one for its numbers; open it for its page.</p>
+      <p class="meta" id="tyNote"></p>
+    </div>
+  </section>
+
+  <section class="work" id="mystack" data-views="overview" aria-labelledby="stackHead">
+    <div class="wrap wide">
+      <p class="lab">Your workspace</p>
+      <h2 class="h2" id="stackHead">Your software stack</h2>
+      <p class="meta" id="stackIntro">Add the tools you pay for to see renewal-answer coverage, own-page research, quoted prices and public momentum in one workspace.</p>
+      <p class="meta mt12" id="stackSum" aria-live="polite">No tools added yet.</p>
+      <ol class="stack mt16" id="stackList" hidden></ol>
+      <div class="stack-intel mt16" id="stackIntel" aria-label="Stack intelligence" hidden></div>
+      <div class="sacts mt16" id="stackActs"><button class="cta" id="stackAdd" type="button">Add your first tool</button></div>
+      <p class="meta mt12" id="stackNote">Device-local: saved in this browser only and never sent to AirStack. No account or server sync.</p>
+    </div>
+  </section>
+  <section class="work" id="news" data-views="overview" aria-labelledby="newsT" hidden>
+    <div class="wrap wide">
+      <h2 class="h2" id="newsT">What changed</h2>
+      <p class="meta" id="newsSub">From each vendor’s own feed.</p>
+      <div class="chips mt16" id="newsKinds" role="group" aria-label="Which feeds"></div>
+      <ol class="news mt16" id="newsList"><li class="meta">Loading what changed…</li></ol>
+      <button class="ghost mt16" id="newsMore" type="button" hidden>Show more</button>
+    </div>
+  </section>
+  <div class="duo">
+  <section class="work" id="brief" data-views="overview" aria-labelledby="briefT" hidden>
+    <div class="wrap wide">
+      <h2 class="h2" id="briefT">Latest evidence brief</h2>
+      <p class="meta" id="briefSub"></p>
+      <p class="bhead" id="briefHead"></p>
+      <ol class="brief" id="briefItems"></ol>
+    </div>
+  </section>
+  <section class="work" id="leaders" data-views="makers" aria-labelledby="leadersT">
+    <div class="wrap wide">
+      <h2 class="h2" id="leadersT">Software makers</h2>
+      <p class="meta">The organizations that make the listed software, as Wikidata records them. Search, filter and sort; the address keeps your view, so you can share it.</p>
+      <div class="mkbar" role="search">
+        <input id="mkQ" class="mkq" type="search" placeholder="Find a maker" aria-label="Find a maker" autocomplete="off" spellcheck="false">
+        <select id="mkCountry" class="sel" aria-label="Country"></select>
+        <select id="mkKind" class="sel" aria-label="Kind"><option value="">Businesses and organizations</option><option value="business">Businesses</option><option value="organization">Organizations</option></select>
+        <select id="mkSort" class="sel" aria-label="Sort"></select>
+        <button id="mkReset" class="chip" type="button">Reset</button><button id="mkShare" class="chip" type="button">Copy link</button><span class="meta" id="mkShareNote" role="status"></span>
+      </div>
+      <p class="meta" id="mkCount" aria-live="polite"></p>
+      <div class="scroll"><table class="t mkr"><thead><tr><th scope="col" class="r">#</th><th scope="col">Maker</th><th scope="col">Country</th><th scope="col" class="r">Founded</th><th scope="col" class="r">Employees, as Wikidata records it</th><th scope="col" class="r">Products listed</th></tr></thead><tbody id="mkList"></tbody></table></div>
+      <p><button id="mkMore" class="chip" type="button" hidden>Show more</button></p>
+    </div>
+  </section>
+  </div>
+  <section class="work" id="insights" data-views="insights" aria-labelledby="insT">
+    <div class="wrap wide">
+      <p class="lab">Evidence-led analysis</p>
+      <h2 class="h2" id="insT">Software market brief</h2>
+      <p class="msub" id="insSub">Computed from the stored facts.</p>
+      <div id="insBody"><p class="meta mt16">Loading the measurements…</p></div>
+    </div>
+  </section>
+  <section class="work" id="calendar" data-views="calendar" aria-labelledby="calT">
+    <div class="wrap wide">
+      <h2 class="h2" id="calT">The software calendar</h2>
+      <p class="msub">Behind the line: recorded releases and announcements. Ahead of it: published support dates and AirStack evidence-review dates. Forecasts are kept out of this factual calendar.</p>
+      <div class="chips mt16" id="calKinds" role="group" aria-label="Which events"></div>
+      <div class="cgridw mt16"><div class="cgrid" id="calGrid" role="img" aria-label="Activity by day: 52 weeks behind, 26 weeks ahead. The same events are listed below."></div></div>
+      <p class="clegend meta"><i class="p o2"></i> observed record <i class="f s"></i> published support date <i class="f a"></i> AirStack review date <i class="t"></i> today</p>
+      <p class="mt12" id="calSum">Loading the calendar…</p>
+      <div class="cday mt16" id="calDay" hidden></div>
+      <h3 class="h3 mt24">The next 90 days</h3>
+      <ol class="clist mt12" id="calAhead"></ol>
+    </div>
+  </section>
+  <section class="work" id="agents" data-views="agents" aria-labelledby="agentsT">
+    <div class="wrap wide">
+      <p class="lab">Agent access</p>
+      <h2 class="h2" id="agentsT">Run the evidence locally</h2>
+      <p class="meta">The repository includes a read-only MCP server for the same sourced record. Hosted access is intentionally off; local requests cannot create a Cloudflare or model bill.</p>
+      <p class="meta" id="agScope"></p>
+      <div class="agents">
+        <div class="ag"><p class="lab">Start from this repository</p><code class="mono" id="agCli">PYTHONPATH=backend python -m airstack.mcp_server data/airstack-demo.db</code><button class="ghost" type="button" data-copy="#agCli">Copy</button></div>
+        <div class="ag"><p class="lab">Client configuration</p><code class="mono" id="agJson">{"mcpServers":{"airstack":{"command":"python","args":["-m","airstack.mcp_server","data/airstack-demo.db"],"env":{"PYTHONPATH":"backend"}}}}</code><button class="ghost" type="button" data-copy="#agJson">Copy</button></div>
+        <div class="ag"><p class="lab">Cost boundary</p><p class="meta">The public site is static. Local MCP reads files already on your machine and starts no crawler, model call or hosted function.</p></div>
+        <div class="ag"><p class="lab">Guide</p><p><a class="ghost" href="https://github.com/OttObottr/airstack/blob/main/docs/MCP.md" target="_blank" rel="noopener noreferrer">Read the local setup</a></p></div>
+        <div class="ag wide"><p class="lab">Then ask it</p><code class="mono" id="agAsk">Use AirStack: can we stop paying for Fireflies if we already have Google Workspace Business Standard and meet in person on Android?</code><button class="ghost" type="button" data-copy="#agAsk">Copy</button></div>
+      </div>
+      <details class="mt12"><summary id="agToolSummary">Reviewed tool contract</summary><p class="meta">Tools: <span id="agTools">the generated contract</span>. Answers are lookups over stored, sourced data.</p></details>
+    </div>
+  </section>
+
+  <section class="work" id="chainSec" data-views="overview markets insights makers agents how" aria-labelledby="chainT" hidden>
+    <div class="wrap wide">
+      <div class="lhead"><h2 class="h2" id="chainT" tabindex="-1">Evidence chain</h2><button class="ghost" id="chainX" type="button">Close</button></div>
+      <p class="meta" id="chainSub" role="status"></p>
+      <p class="stat" id="chainSum"></p>
+      <div class="scroll"><table class="t stack" id="chainTbl"><thead><tr><th scope="col">Fact, in the page’s words</th><th scope="col">Source</th><th scope="col">Retrieved</th><th scope="col">Extracted</th><th scope="col">Quote found by code</th><th scope="col">Re-checked</th><th scope="col">Also stated on</th></tr></thead><tbody></tbody></table></div>
+      <p class="mt16 meta" id="chainNote"></p>
+    </div>
+  </section>
+
+  <section class="work" id="cmpSec" data-views="compare" aria-labelledby="cmpT">
+    <div class="wrap wide">
+      <p class="lab">Evidence comparison</p>
+      <h2 class="mhero" id="cmpT" tabindex="-1">Compare software</h2>
+      <p class="msub" id="cmpSub" role="status">Loading the evidence…</p>
+      <div id="cmpBody"></div>
+    </div>
+  </section>
+
+  <section class="work method" id="method" data-views="how" aria-labelledby="methodT">
+    <div class="wrap wide">
+      <p class="lab">How it works</p>
+      <h2 class="mhero" id="methodT">Every answer carries its evidence and monitoring status.</h2>
+      <p class="msub">One real answer, made the way every AirStack answer is made: Fireflies, for someone who already pays for Google Workspace.</p>
+      <ol class="pipe" id="pipe"></ol>
+    </div>
+  </section>
+
+  <section class="work" id="life" data-views="how" aria-labelledby="lifeT">
+    <div class="wrap wide">
+      <h2 class="h2" id="lifeT">Watch the answer change</h2>
+      <p class="meta" id="lifeSub">A worked example: Fireflies against Google Meet’s built-in notes, replayed from Google’s own dated pages</p>
+      <div class="steps" role="tablist" aria-label="Recorded steps" id="steps"></div>
+      <div role="tabpanel" id="lifepanel" aria-labelledby="lifeT">
+        <div class="lhead"><p class="cap" id="cap"></p><button class="ghost" id="replay" type="button">Replay</button></div>
+        <table class="t stack" id="lt"><thead><tr><th scope="col">Plan · device</th><th scope="col">Answer</th><th scope="col">Status</th><th scope="col">What happened</th></tr></thead><tbody></tbody></table>
+        <p class="stat" id="stat"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="market" data-views="how" aria-labelledby="marketT">
+    <div class="wrap wide">
+      <h2 class="h2" id="marketT">The same rules, across the market</h2>
+      <p class="meta" id="marketSub">Meeting notes</p>
+      <p class="stat" id="fleet"></p>
+      <div class="scroll"><table class="t stack mk-t" id="vendors"><thead><tr><th scope="col">App</th><th scope="col">Joins</th><th scope="col">Devices listed</th><th scope="col">Languages</th><th scope="col">Integrations</th><th scope="col">Compliance</th><th scope="col" class="r">Chrome users</th><th scope="col" class="r">Rating</th></tr></thead><tbody></tbody></table></div>
+      <h3 class="sub3">Where what you already have covers it</h3>
+      <div class="scroll"><table class="t stack" id="cover"><thead><tr><th scope="col">You already have</th><th scope="col">Online meetings</th><th scope="col">In-person meetings</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <section class="work" id="detail" data-views="how" aria-labelledby="detailT">
+    <div class="wrap wide">
+      <h2 class="h2" id="detailT">The record</h2>
+      <p class="meta">A complete decision audit: every source, answer revision and model call, with its time.</p>
+      <div class="tabs" role="tablist" aria-labelledby="detailT">
+        <button class="tab" role="tab" id="tab-sources" aria-controls="p-sources" aria-selected="true">Sources</button>
+        <button class="tab" role="tab" id="tab-history" aria-controls="p-history" aria-selected="false" tabindex="-1">History</button>
+        <button class="tab" role="tab" id="tab-exec" aria-controls="p-exec" aria-selected="false" tabindex="-1">Execution</button>
+      </div>
+      <div class="panel" role="tabpanel" id="p-sources" aria-labelledby="tab-sources" tabindex="0"></div>
+      <div class="panel" role="tabpanel" id="p-history" aria-labelledby="tab-history" tabindex="0" hidden></div>
+      <div class="panel" role="tabpanel" id="p-exec" aria-labelledby="tab-exec" tabindex="0" hidden></div>
+    </div>
+  </section>
+
+  <section class="work" id="fineprint" data-views="how" aria-labelledby="fineT">
+    <div class="wrap wide">
+      <h2 class="lab" id="fineT">Fine print</h2>
+      <ul class="fine" id="fine"></ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot"><b>AirStack</b><span id="built">Built for Muse Spark</span><a href="/legal/">Terms and privacy</a><a href="https://github.com/OttObottr/airstack" target="_blank" rel="noopener noreferrer">GitHub</a><button id="mcpLink" type="button">MCP</button></footer>
+<div class="sr" id="sr" aria-live="polite"></div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

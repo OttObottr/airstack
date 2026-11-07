@@ -1,0 +1,22 @@
+/* spec: AS-112 AS-120 AS-253 AS-256 AS-343 */
+/* The page's styles, in cascade order: the tokens, the reset, then each component's rules. Plain CSS in standard cascade layers, so a rule
+   in a later layer wins over the reset whatever its specificity. A browser can load this file as it is; tools/assemble.sh inlines the
+   same files, in the same order and layers, into the page's <head>. */
+@layer base, components;
+@import "./theme.css";
+@import "./base.css" layer(base);
+@import "./landing.css" layer(components);
+@import "./workspace.css" layer(components);
+@import "./market-map.css" layer(components);
+@import "./insights.css" layer(components);
+@import "./makers.css" layer(components);
+@import "./guide.css" layer(components);
+@import "./news.css" layer(components);
+@import "./method.css" layer(components);
+@import "./stack.css" layer(components);
+@import "./calendar.css" layer(components);
+@import "./coverage-map.css" layer(components);
+@import "./replay.css" layer(components);
+@import "./record.css" layer(components);
+@import "./motion.css" layer(components);
+@import "./terminal.css" layer(components);

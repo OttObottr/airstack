@@ -1,0 +1,71 @@
+{
+  "_read_by": "backend/tools/pages/: wording and tables of the generated product, maker, category, comparison and taxonomy pages",
+  "labels": [
+    ["what_it_does", "What it says it does"],
+    ["platforms", "Platforms"],
+    ["deployment", "Deployment"],
+    ["integrations", "Integrations"],
+    ["compliance", "Compliance"],
+    ["free_plan", "Free plan"],
+    ["plan_names", "Plans"],
+    ["open_source", "Open source"],
+    ["license", "License"],
+    ["sdk_languages", "SDK languages"],
+    ["models_supported", "Models supported"],
+    ["pricing_basis", "Pricing basis"],
+    ["customers_claimed", "Customers (their claim)"]
+  ],
+  "currency": {
+    "$": "USD",
+    "€": "EUR",
+    "£": "GBP",
+    "¥": "JPY"
+  },
+  "links": {
+    "linkedin": ["LinkedIn", "https://www.linkedin.com/company/{}/"],
+    "x": ["X", "https://x.com/{}"],
+    "subreddit": ["Reddit", "https://www.reddit.com/{}/"],
+    "youtube": ["YouTube", "https://www.youtube.com/channel/{}"],
+    "github": ["GitHub", "https://github.com/{}"],
+    "bluesky": ["Bluesky", "https://bsky.app/profile/{}"],
+    "threads": ["Threads", "https://www.threads.net/@{}"],
+    "instagram": ["Instagram", "https://www.instagram.com/{}/"],
+    "facebook": ["Facebook", "https://www.facebook.com/{}"],
+    "tiktok": ["TikTok", "https://www.tiktok.com/@{}"],
+    "discord_invite": ["Discord", "https://discord.gg/{}"],
+    "blog": ["Blog", "{}"]
+  },
+  "roles": {
+    "founder": "Founder",
+    "ceo": "Chief executive",
+    "director": "Director"
+  },
+  "platforms": {
+    "x": "X",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "subreddit": "Reddit",
+    "github": "GitHub",
+    "mastodon": "Mastodon",
+    "bluesky": "Bluesky",
+    "threads": "Threads",
+    "tiktok": "TikTok"
+  },
+  "category_models": {
+    "creative-ai": ["text-to-image", "text-to-video", "text-to-speech"],
+    "ai-assistants": ["text-generation"],
+    "ai-coding": ["text-generation"],
+    "speech-ai": ["automatic-speech-recognition", "text-to-speech"],
+    "meeting-notes": ["automatic-speech-recognition"],
+    "local-inference": ["text-generation"],
+    "vector-dbs": ["feature-extraction"],
+    "llm-sdks-and-routers": ["text-generation"],
+    "coding-agents": ["text-generation"]
+  },
+  "not_a_business_pattern": "universit|college|institut|school|academy|ministry|department of|agency|government|council|city of|municipal|landeshauptstadt|bundes|armed forces|army|navy|air force|police|bank of|central bank|national|federal|state of|nasa|isro|cern|max planck|fraunhofer|nhs",
+  "min_country": 3,
+  "shared_facts": 4,
+  "taxonomy_rows": 150
+}

@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "policy": {
+    "public_runtime_fetches": false,
+    "visitor_triggered_fetches": false,
+    "automatic_recharge": false,
+    "output": "reviewed static snapshots only",
+    "rule": "A search result may discover a source; only a source-native record may become a platform metric."
+  },
+  "connectors": {
+    "github": {
+      "state": "build_only",
+      "cost": "no API fee",
+      "auth": "maintainer environment only",
+      "publishes": ["stars", "forks", "open issues", "release date"],
+      "retention": "dated public repository snapshot"
+    },
+    "hacker_news": {
+      "state": "build_only",
+      "cost": "no API fee",
+      "auth": "none",
+      "publishes": ["story", "points", "discussion URL", "read window"],
+      "retention": "dated public story snapshot"
+    },
+    "reddit": {
+      "state": "off",
+      "reason": "commercial data access and deletion terms require approval",
+      "publishes": [],
+      "retention": "none"
+    },
+    "x": {
+      "state": "off",
+      "reason": "metered post reads have no approved AirStack budget",
+      "publishes": [],
+      "retention": "none"
+    },
+    "threads": {
+      "state": "off",
+      "reason": "keyword search requires approved access and a reviewed retention policy",
+      "publishes": [],
+      "retention": "none"
+    },
+    "exa": {
+      "state": "off",
+      "reason": "metered search is discovery, not a source-native social count",
+      "publishes": [],
+      "retention": "none"
+    },
+    "muse_web_search": {
+      "state": "off",
+      "reason": "model search is metered discovery, not a source-native social count",
+      "publishes": [],
+      "retention": "none"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+/* spec: AS-256 */
+/* AirStack's visual primitives. Five type sizes: display, answer, lead 20, body 15, meta 12. Spacing stays on the 4 px scale.
+   Green and coral mean momentum, blue means researched and orange means a decision; depth comes from light, not extra semantic colour. */
+:root{
+  --color-bg: #07090B; --color-s1: #0C0F13; --color-s2: #11161C; --color-s3: #182029;
+  --color-up: #38E2A0; --color-dn: #FF7163; --color-info: #8DBBFF;
+  --color-ink: #F4F6F8; --color-ink-2: #F4F6F8B3; --color-ink-3: #F4F6F882;
+  --color-hair: #FFFFFF1C;
+  --color-accent: #FF5A1F;
+  --font-sans: "Inter", ui-sans-serif, -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-display: clamp(40px,7vw,72px); --text-answer: 44px; --text-lead: 20px; --text-body: 15px; --text-meta: 12px;
+  --font-weight-medium: 500;
+  --tracking-caps: .12em;
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px; --radius-full: 999px;
+  --shadow-panel: 0 24px 64px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.045);
+  --shadow-lift: 0 18px 48px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.07);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}

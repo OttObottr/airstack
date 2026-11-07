@@ -1,0 +1,3566 @@
+{
+ "source": {
+  "name": "AirStack taxonomy crosswalk",
+  "made_by": "Hand-curated by AirStack",
+  "license": "CC BY 4.0 (AirStack's own work); Wikidata type ids and labels are CC0 1.0",
+  "note": "How outside classifications reach data/taxonomy.json. types: each Wikidata type in directory.json that was reviewed, as [English label, node, relation or status, why]. Relation says how the type relates to the node: equivalent, narrower or overlapping (some of its products may belong elsewhere). Status generic: the type names a licence, delivery or platform, not a job, so its products stay unplaced. Status excluded: not a software product. A type that is not listed takes the nearest listed type above it (walking up Wikidata's subclass links, stopping at generic and excluded types); if the nearest ones disagree, its products stay unplaced as ambiguous. catalog and lanes map AirStack's own categories; products places catalog and registry products one by one where a category holds more than one kind of software."
+ },
+ "types": {
+  "Q171": [
+   "wiki",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q341": [
+   "free software",
+   null,
+   "generic"
+  ],
+  "Q416": [
+   "disk magazine",
+   null,
+   "excluded",
+   "a magazine, not software"
+  ],
+  "Q6368": [
+   "web browser",
+   "web-browsers",
+   "equivalent"
+  ],
+  "Q7397": [
+   "software",
+   null,
+   "generic"
+  ],
+  "Q9135": [
+   "operating system",
+   "operating-systems",
+   "overlapping"
+  ],
+  "Q9158": [
+   "email",
+   "email",
+   "narrower"
+  ],
+  "Q11189": [
+   "proxy server",
+   "web-servers",
+   "narrower"
+  ],
+  "Q11287": [
+   "exploit",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q11288": [
+   "web server",
+   "web-servers",
+   "narrower"
+  ],
+  "Q13741": [
+   "integrated development environment",
+   "ide-editors",
+   "equivalent"
+  ],
+  "Q14001": [
+   "malware",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q14644": [
+   "spyware",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q14645": [
+   "rootkit",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q14663": [
+   "Unix shell",
+   "terminals-shells",
+   "narrower"
+  ],
+  "Q18109": [
+   "operating system shell",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q19541": [
+   "search engine",
+   "web-search",
+   "overlapping",
+   "Wikidata's general search-engine class: mostly web search services, but it also holds search-engine software such as Apache Solr"
+  ],
+  "Q27973": [
+   "ridesharing company",
+   "travel-delivery",
+   "narrower"
+  ],
+  "Q35127": [
+   "website",
+   null,
+   "generic"
+  ],
+  "Q40056": [
+   "computer program",
+   null,
+   "generic"
+  ],
+  "Q45211": [
+   "web content management system",
+   "cms",
+   "narrower"
+  ],
+  "Q45842": [
+   "web crawler",
+   "web-scraping",
+   "equivalent"
+  ],
+  "Q47506": [
+   "compiler",
+   "languages-runtimes",
+   "narrower"
+  ],
+  "Q54277": [
+   "word processor",
+   "documents",
+   "equivalent"
+  ],
+  "Q55541": [
+   "Internet Relay Chat daemon",
+   "messaging-apps",
+   "overlapping"
+  ],
+  "Q58199": [
+   "instant messaging",
+   "messaging-apps",
+   "narrower"
+  ],
+  "Q71550": [
+   "application server",
+   "web-servers",
+   "narrower"
+  ],
+  "Q75050": [
+   "genealogy software",
+   "genealogy",
+   "equivalent"
+  ],
+  "Q82231": [
+   "NoSQL database management system",
+   "nosql-databases",
+   "narrower"
+  ],
+  "Q93249": [
+   "antivirus software",
+   "endpoint-security",
+   "narrower"
+  ],
+  "Q93661": [
+   "integrated library system",
+   "libraries-museums",
+   "narrower"
+  ],
+  "Q104851": [
+   "firmware",
+   "embedded-systems",
+   "narrower"
+  ],
+  "Q114106": [
+   "metasearch engine",
+   "web-search",
+   "narrower"
+  ],
+  "Q118171": [
+   "object database management system",
+   "databases",
+   "narrower"
+  ],
+  "Q131093": [
+   "content management system",
+   "cms",
+   "equivalent"
+  ],
+  "Q131212": [
+   "text editor",
+   "ide-editors",
+   "narrower"
+  ],
+  "Q131508": [
+   "enterprise resource planning",
+   "erp",
+   "narrower"
+  ],
+  "Q131669": [
+   "Linux distribution",
+   "linux-distributions",
+   "equivalent"
+  ],
+  "Q146768": [
+   "middleware",
+   "sdks-libraries",
+   "overlapping"
+  ],
+  "Q146923": [
+   "middleware of distributed system",
+   "middleware-messaging",
+   "narrower"
+  ],
+  "Q164274": [
+   "spell checker",
+   "writing-assistants",
+   "narrower"
+  ],
+  "Q166142": [
+   "application software",
+   null,
+   "generic"
+  ],
+  "Q167035": [
+   "project management software",
+   "project-management",
+   "equivalent"
+  ],
+  "Q174989": [
+   "file system",
+   "backup-storage",
+   "overlapping"
+  ],
+  "Q176165": [
+   "database management system",
+   "databases",
+   "narrower"
+  ],
+  "Q178285": [
+   "freeware",
+   null,
+   "generic"
+  ],
+  "Q183197": [
+   "spreadsheet",
+   "spreadsheets",
+   "equivalent"
+  ],
+  "Q183427": [
+   "hash function",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q184148": [
+   "plug-in",
+   null,
+   "generic"
+  ],
+  "Q184748": [
+   "codec",
+   "media-players",
+   "narrower"
+  ],
+  "Q185534": [
+   "shareware",
+   null,
+   "generic"
+  ],
+  "Q188506": [
+   "online banking",
+   "personal-finance",
+   "narrower"
+  ],
+  "Q189210": [
+   "web application",
+   null,
+   "generic"
+  ],
+  "Q191865": [
+   "Internet bot",
+   null,
+   "generic"
+  ],
+  "Q192726": [
+   "virtual machine",
+   "virtualization",
+   "narrower"
+  ],
+  "Q193231": [
+   "debugger",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q193345": [
+   "adware",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q193424": [
+   "web service",
+   null,
+   "generic"
+  ],
+  "Q202871": [
+   "emulator",
+   "emulators",
+   "overlapping",
+   "Wikidata files terminal emulators under it; those are mapped to Terminals and shells on their own"
+  ],
+  "Q207170": [
+   "office suite",
+   "office-suites",
+   "equivalent"
+  ],
+  "Q208218": [
+   "patch",
+   null,
+   "generic"
+  ],
+  "Q210337": [
+   "media player software",
+   "media-players",
+   "narrower"
+  ],
+  "Q210499": [
+   "bulletin board system",
+   "forums-communities",
+   "narrower"
+  ],
+  "Q212474": [
+   "font editor",
+   "desktop-publishing",
+   "narrower"
+  ],
+  "Q213666": [
+   "real-time operating system",
+   "embedded-systems",
+   "narrower"
+  ],
+  "Q216177": [
+   "social bookmarking",
+   "notes",
+   "narrower"
+  ],
+  "Q216653": [
+   "window manager",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q218616": [
+   "proprietary software",
+   null,
+   "generic"
+  ],
+  "Q226264": [
+   "BIOS",
+   "embedded-systems",
+   "narrower"
+  ],
+  "Q229371": [
+   "3D computer graphics software",
+   "animation-3d",
+   "narrower"
+  ],
+  "Q240795": [
+   "tag editor",
+   "media-players",
+   "narrower"
+  ],
+  "Q261918": [
+   "init",
+   "operating-systems",
+   "narrower"
+  ],
+  "Q279650": [
+   "disassembler",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q281039": [
+   "abandonware",
+   null,
+   "generic"
+  ],
+  "Q282283": [
+   "prediction market",
+   "trading-crypto",
+   "narrower"
+  ],
+  "Q283770": [
+   "vulnerability scanner",
+   "vulnerability-management",
+   "narrower"
+  ],
+  "Q308980": [
+   "daemon",
+   null,
+   "generic"
+  ],
+  "Q312466": [
+   "utility software",
+   "system-utilities",
+   "overlapping"
+  ],
+  "Q330268": [
+   "decision support system",
+   "bi",
+   "overlapping"
+  ],
+  "Q350882": [
+   "route planning software",
+   "maps-navigation",
+   "narrower"
+  ],
+  "Q351507": [
+   "template processor",
+   "sdks-libraries",
+   "narrower"
+  ],
+  "Q383826": [
+   "music tracker",
+   "audio-production",
+   "narrower"
+  ],
+  "Q387950": [
+   "Debian Pure Blend",
+   "linux-distributions",
+   "narrower"
+  ],
+  "Q442781": [
+   "webinar",
+   null,
+   "excluded",
+   "an event, not software"
+  ],
+  "Q444835": [
+   "virtual world",
+   "gaming",
+   "narrower"
+  ],
+  "Q453843": [
+   "ontology editor",
+   "graph-databases",
+   "narrower"
+  ],
+  "Q467707": [
+   "software development kit",
+   "sdks-libraries",
+   "overlapping"
+  ],
+  "Q474157": [
+   "collaborative software",
+   "productivity",
+   "overlapping"
+  ],
+  "Q477202": [
+   "cryptographic hash function",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q483130": [
+   "geographic information system",
+   "gis",
+   "narrower"
+  ],
+  "Q498267": [
+   "news aggregator",
+   "news-reading",
+   "narrower"
+  ],
+  "Q506883": [
+   "free and open-source software",
+   null,
+   "generic"
+  ],
+  "Q522972": [
+   "source code editor",
+   "ide-editors",
+   "narrower"
+  ],
+  "Q528166": [
+   "client",
+   null,
+   "generic"
+  ],
+  "Q529029": [
+   "input method",
+   "accessibility-input",
+   "narrower"
+  ],
+  "Q537993": [
+   "database engine",
+   "databases",
+   "narrower"
+  ],
+  "Q543151": [
+   "block cipher",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q565428": [
+   "download manager",
+   "downloads-file-sharing",
+   "narrower"
+  ],
+  "Q569915": [
+   "mail delivery agent",
+   "email",
+   "narrower"
+  ],
+  "Q570871": [
+   "email client",
+   "email",
+   "narrower"
+  ],
+  "Q574582": [
+   "anti-cheat software",
+   "gaming",
+   "narrower"
+  ],
+  "Q575771": [
+   "web hosting control panel",
+   "web-hosting",
+   "narrower"
+  ],
+  "Q577697": [
+   "virtual globe",
+   "maps-navigation",
+   "narrower"
+  ],
+  "Q580148": [
+   "employment website",
+   "job-boards",
+   "equivalent"
+  ],
+  "Q587992": [
+   "comparison shopping website",
+   "shopping-reviews",
+   "narrower"
+  ],
+  "Q598205": [
+   "homebrew",
+   null,
+   "generic"
+  ],
+  "Q612694": [
+   "remote access trojan",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q620615": [
+   "mobile app",
+   null,
+   "generic"
+  ],
+  "Q635540": [
+   "softphone",
+   "business-phone",
+   "narrower"
+  ],
+  "Q651476": [
+   "computer and network surveillance",
+   "it-security",
+   "narrower"
+  ],
+  "Q653475": [
+   "X display manager",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q676202": [
+   "system software",
+   null,
+   "generic"
+  ],
+  "Q692199": [
+   "screen magnifier",
+   "accessibility-input",
+   "narrower"
+  ],
+  "Q694007": [
+   "learning management system",
+   "education-lms",
+   "equivalent"
+  ],
+  "Q725485": [
+   "rich web application",
+   null,
+   "generic"
+  ],
+  "Q726761": [
+   "HTML editor",
+   "ide-editors",
+   "narrower"
+  ],
+  "Q732970": [
+   "file manager",
+   "system-utilities",
+   "narrower"
+  ],
+  "Q745881": [
+   "intrusion detection system",
+   "network-security",
+   "narrower"
+  ],
+  "Q747948": [
+   "hex editor",
+   "ide-editors",
+   "narrower"
+  ],
+  "Q751850": [
+   "astronomy software",
+   "science-research",
+   "narrower"
+  ],
+  "Q753486": [
+   "screensaver",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q756230": [
+   "directory service",
+   "iam",
+   "narrower"
+  ],
+  "Q758870": [
+   "digital audio editor",
+   "audio-production",
+   "narrower"
+  ],
+  "Q762157": [
+   "scenery generator",
+   "animation-3d",
+   "narrower"
+  ],
+  "Q767899": [
+   "level editor",
+   "game-development",
+   "narrower"
+  ],
+  "Q778043": [
+   "electronic trading platform",
+   "trading-crypto",
+   "narrower"
+  ],
+  "Q784561": [
+   "authentication server",
+   "iam",
+   "narrower"
+  ],
+  "Q831677": [
+   "document management system",
+   "file-storage",
+   "narrower"
+  ],
+  "Q836795": [
+   "bootloader",
+   "operating-systems",
+   "narrower"
+  ],
+  "Q840703": [
+   "offline reader",
+   "reference",
+   "narrower"
+  ],
+  "Q854840": [
+   "taskbar",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q856108": [
+   "Biblical software",
+   "religion",
+   "narrower"
+  ],
+  "Q859477": [
+   "message transfer agent",
+   "email",
+   "narrower"
+  ],
+  "Q860676": [
+   "image viewer",
+   "photos",
+   "narrower"
+  ],
+  "Q860760": [
+   "image organizer",
+   "photos",
+   "narrower"
+  ],
+  "Q861170": [
+   "virtual keyboard",
+   "accessibility-input",
+   "narrower"
+  ],
+  "Q864718": [
+   "stream cipher",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q868410": [
+   "graphics software",
+   "design",
+   "overlapping"
+  ],
+  "Q870780": [
+   "chatbot",
+   "ai-assistants",
+   "narrower"
+  ],
+  "Q870898": [
+   "computer security software",
+   "it-security",
+   "overlapping"
+  ],
+  "Q874411": [
+   "browser extension",
+   null,
+   "generic"
+  ],
+  "Q891055": [
+   "package manager",
+   "build-ci",
+   "narrower"
+  ],
+  "Q907342": [
+   "compatibility layer",
+   "virtualization",
+   "narrower"
+  ],
+  "Q913697": [
+   "decompiler",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q920890": [
+   "mobile operating system",
+   "mobile-operating-systems",
+   "equivalent"
+  ],
+  "Q956238": [
+   "interactive computing",
+   null,
+   "generic"
+  ],
+  "Q974828": [
+   "accounting software",
+   "accounting",
+   "equivalent"
+  ],
+  "Q985394": [
+   "editor",
+   null,
+   "generic"
+  ],
+  "Q1004415": [
+   "run-time system",
+   "languages-runtimes",
+   "narrower"
+  ],
+  "Q1023097": [
+   "CD ripper",
+   "media-players",
+   "narrower"
+  ],
+  "Q1033951": [
+   "device driver",
+   "operating-systems",
+   "narrower"
+  ],
+  "Q1035852": [
+   "postcardware",
+   null,
+   "generic"
+  ],
+  "Q1037852": [
+   "public-domain software",
+   null,
+   "generic"
+  ],
+  "Q1044361": [
+   "Feistel cipher",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q1050567": [
+   "computer-aided engineering",
+   "cae-simulation",
+   "narrower"
+  ],
+  "Q1060750": [
+   "digital audio workstation",
+   "audio-production",
+   "equivalent"
+  ],
+  "Q1070421": [
+   "script file",
+   null,
+   "generic"
+  ],
+  "Q1071233": [
+   "terminal emulator",
+   "terminals-shells",
+   "equivalent"
+  ],
+  "Q1074158": [
+   "educational software",
+   "learning-apps",
+   "narrower"
+  ],
+  "Q1077480": [
+   "hypervisor",
+   "virtualization",
+   "equivalent"
+  ],
+  "Q1077784": [
+   "programming tool",
+   "engineering",
+   "overlapping"
+  ],
+  "Q1096695": [
+   "rich client platform",
+   "sdks-libraries",
+   "narrower"
+  ],
+  "Q1130645": [
+   "open-source software",
+   null,
+   "generic"
+  ],
+  "Q1138815": [
+   "desktop search",
+   "system-utilities",
+   "narrower"
+  ],
+  "Q1139923": [
+   "embedded operating system",
+   "embedded-systems",
+   "narrower"
+  ],
+  "Q1142282": [
+   "cryptographic file system",
+   "encryption",
+   "narrower"
+  ],
+  "Q1143070": [
+   "software suite",
+   null,
+   "generic"
+  ],
+  "Q1155404": [
+   "vector graphics editor",
+   "vector-illustration",
+   "narrower"
+  ],
+  "Q1155702": [
+   "skin",
+   null,
+   "generic"
+  ],
+  "Q1156072": [
+   "DVD ripper",
+   "media-players",
+   "narrower"
+  ],
+  "Q1156881": [
+   "ad blocker",
+   "privacy-tools",
+   "narrower"
+  ],
+  "Q1172313": [
+   "file viewer",
+   "pdf-tools",
+   "narrower"
+  ],
+  "Q1172474": [
+   "data hub",
+   "data",
+   "overlapping"
+  ],
+  "Q1178921": [
+   "Monitorial System",
+   "system-utilities",
+   "narrower"
+  ],
+  "Q1186978": [
+   "DOS extender",
+   "languages-runtimes",
+   "overlapping"
+  ],
+  "Q1194864": [
+   "electronic design automation",
+   "eda",
+   "equivalent"
+  ],
+  "Q1199316": [
+   "Linux on embedded systems",
+   "embedded-systems",
+   "narrower"
+  ],
+  "Q1220872": [
+   "service",
+   null,
+   "generic"
+  ],
+  "Q1224694": [
+   "digital asset management system",
+   "creative-assets",
+   "narrower"
+  ],
+  "Q1238961": [
+   "web log analysis software",
+   "web-analytics",
+   "narrower"
+  ],
+  "Q1248874": [
+   "chess engine",
+   "gaming",
+   "narrower"
+  ],
+  "Q1254596": [
+   "software as a service",
+   null,
+   "generic"
+  ],
+  "Q1281199": [
+   "password manager",
+   "password-managers",
+   "equivalent"
+  ],
+  "Q1315933": [
+   "game server",
+   "gaming",
+   "narrower"
+  ],
+  "Q1318054": [
+   "enterprise software",
+   null,
+   "generic"
+  ],
+  "Q1324042": [
+   "newsreader",
+   "forums-communities",
+   "narrower"
+  ],
+  "Q1328864": [
+   "screen reader",
+   "accessibility-input",
+   "narrower"
+  ],
+  "Q1340449": [
+   "review site",
+   "shopping-reviews",
+   "overlapping",
+   "also holds employer review sites (Glassdoor, Indeed), which are job-search sites"
+  ],
+  "Q1340793": [
+   "commercial software",
+   null,
+   "generic"
+  ],
+  "Q1341685": [
+   "inference engine",
+   "ai",
+   "overlapping"
+  ],
+  "Q1344636": [
+   "enterprise content management system",
+   "file-storage",
+   "narrower"
+  ],
+  "Q1365703": [
+   "mobile payment",
+   "personal-finance",
+   "narrower"
+  ],
+  "Q1368899": [
+   "command-line interpreter",
+   "terminals-shells",
+   "narrower"
+  ],
+  "Q1370727": [
+   "Windows service",
+   null,
+   "generic"
+  ],
+  "Q1371279": [
+   "server software",
+   null,
+   "generic"
+  ],
+  "Q1373429": [
+   "video editing software",
+   "video-editing",
+   "equivalent"
+  ],
+  "Q1391080": [
+   "business software",
+   null,
+   "generic"
+  ],
+  "Q1403556": [
+   "reference management software",
+   "research-publishing",
+   "narrower"
+  ],
+  "Q1416052": [
+   "computer-assisted legal research",
+   "legal-research",
+   "narrower"
+  ],
+  "Q1427675": [
+   "knowledge management software",
+   "wikis-knowledge",
+   "narrower"
+  ],
+  "Q1440548": [
+   "fractal-generating software",
+   "design",
+   "narrower"
+  ],
+  "Q1461523": [
+   "console application",
+   null,
+   "generic"
+  ],
+  "Q1464880": [
+   "installer",
+   "build-ci",
+   "narrower"
+  ],
+  "Q1480561": [
+   "issue tracking system",
+   "issue-tracking",
+   "equivalent"
+  ],
+  "Q1487455": [
+   "graphical user interface builder",
+   "ide-editors",
+   "narrower"
+  ],
+  "Q1502841": [
+   "spatial data service",
+   "gis",
+   "narrower"
+  ],
+  "Q1531370": [
+   "outliner",
+   "notes",
+   "narrower"
+  ],
+  "Q1551207": [
+   "sound server",
+   "operating-systems",
+   "narrower"
+  ],
+  "Q1568118": [
+   "personal information manager",
+   "notes",
+   "narrower"
+  ],
+  "Q1607417": [
+   "vertical search",
+   "web-search",
+   "narrower"
+  ],
+  "Q1625990": [
+   "website builder",
+   "website-builders",
+   "narrower"
+  ],
+  "Q1639024": [
+   "mathematical software",
+   "mathematics",
+   "narrower"
+  ],
+  "Q1641413": [
+   "job scheduler",
+   "containers-orchestration",
+   "overlapping"
+  ],
+  "Q1645817": [
+   "media server",
+   "media-players",
+   "narrower"
+  ],
+  "Q1663795": [
+   "software extension",
+   null,
+   "generic"
+  ],
+  "Q1668023": [
+   "Internet booking engine",
+   "travel-delivery",
+   "narrower"
+  ],
+  "Q1674651": [
+   "virtual research environment",
+   "science-research",
+   "narrower"
+  ],
+  "Q1757693": [
+   "protocol stack",
+   "network-management",
+   "narrower"
+  ],
+  "Q1760545": [
+   "XML editor",
+   "ide-editors",
+   "narrower"
+  ],
+  "Q1810858": [
+   "blog software",
+   "cms",
+   "narrower"
+  ],
+  "Q1892116": [
+   "Internet Map Server",
+   "gis",
+   "narrower"
+  ],
+  "Q1897589": [
+   "software synthesizer",
+   "audio-production",
+   "narrower"
+  ],
+  "Q1955251": [
+   "music software",
+   "audio-production",
+   "narrower"
+  ],
+  "Q1980652": [
+   "DNS resolver",
+   "network-management",
+   "narrower"
+  ],
+  "Q1981057": [
+   "web user interface",
+   null,
+   "generic"
+  ],
+  "Q1995545": [
+   "software package",
+   null,
+   "generic"
+  ],
+  "Q2023643": [
+   "on-premises software",
+   null,
+   "generic"
+  ],
+  "Q2072225": [
+   "human resource management system",
+   "hris",
+   "equivalent"
+  ],
+  "Q2114277": [
+   "processor",
+   null,
+   "generic"
+  ],
+  "Q2115026": [
+   "presentation software",
+   "presentations",
+   "equivalent"
+  ],
+  "Q2164323": [
+   "documentation generator",
+   "developer-docs",
+   "narrower"
+  ],
+  "Q2164499": [
+   "optical disc authoring software",
+   "media-players",
+   "narrower"
+  ],
+  "Q2257348": [
+   "grammar checker",
+   "writing-assistants",
+   "narrower"
+  ],
+  "Q2259352": [
+   "pre-installed software",
+   null,
+   "generic"
+  ],
+  "Q2273119": [
+   "voting advice application",
+   "government",
+   "narrower"
+  ],
+  "Q2297769": [
+   "software agent",
+   "agent-frameworks",
+   "overlapping"
+  ],
+  "Q2349394": [
+   "Virtual learning environment",
+   "education-lms",
+   "narrower"
+  ],
+  "Q2351962": [
+   "raster graphics editor",
+   "photo-editing",
+   "narrower"
+  ],
+  "Q2429814": [
+   "software system",
+   null,
+   "generic"
+  ],
+  "Q2462003": [
+   "instant messaging client",
+   "messaging-apps",
+   "narrower"
+  ],
+  "Q2467310": [
+   "UML tool",
+   "whiteboards-diagramming",
+   "narrower"
+  ],
+  "Q2467894": [
+   "Mozilla extension",
+   null,
+   "generic"
+  ],
+  "Q2639241": [
+   "payment gateway",
+   "payments",
+   "narrower"
+  ],
+  "Q2916479": [
+   "shopping cart software",
+   "ecommerce",
+   "narrower"
+  ],
+  "Q2933820": [
+   "digital calendar",
+   "calendars-scheduling",
+   "narrower"
+  ],
+  "Q2979024": [
+   "HTTP client",
+   null,
+   "generic"
+  ],
+  "Q2996416": [
+   "file converter",
+   "system-utilities",
+   "narrower"
+  ],
+  "Q3077240": [
+   "forge",
+   "source-control",
+   "narrower"
+  ],
+  "Q3181044": [
+   "online food ordering",
+   "travel-delivery",
+   "narrower"
+  ],
+  "Q3257916": [
+   "animation software",
+   "animation-3d",
+   "narrower"
+  ],
+  "Q3257930": [
+   "version control system",
+   "source-control",
+   "equivalent"
+  ],
+  "Q3257939": [
+   "personal accounting software",
+   "personal-finance",
+   "narrower"
+  ],
+  "Q3307487": [
+   "diagramming software",
+   "whiteboards-diagramming",
+   "narrower"
+  ],
+  "Q3467906": [
+   "virtual assistant",
+   "ai-assistants",
+   "narrower"
+  ],
+  "Q3503189": [
+   "FTP client",
+   "system-utilities",
+   "narrower"
+  ],
+  "Q3635085": [
+   "communication software",
+   "communication",
+   "overlapping"
+  ],
+  "Q3653635": [
+   "3D modeling software",
+   "animation-3d",
+   "overlapping",
+   "Wikidata files it under both CAD and 3D graphics; it holds general 3D modellers"
+  ],
+  "Q3751111": [
+   "medical software",
+   "healthcare",
+   "narrower"
+  ],
+  "Q3814081": [
+   "app marketplace",
+   "app-stores",
+   "equivalent"
+  ],
+  "Q3932296": [
+   "relational database management system",
+   "relational-databases",
+   "narrower"
+  ],
+  "Q3958017": [
+   "FTP server",
+   "web-servers",
+   "overlapping"
+  ],
+  "Q3963243": [
+   "social news website",
+   "social-networks",
+   "narrower"
+  ],
+  "Q4034719": [
+   "Creatio",
+   "crm",
+   "narrower"
+  ],
+  "Q4043509": [
+   "MUD client",
+   "gaming",
+   "narrower"
+  ],
+  "Q4112110": [
+   "virtual digital assistant",
+   "ai-assistants",
+   "narrower"
+  ],
+  "Q4117406": [
+   "implementation of a programming language",
+   "languages-runtimes",
+   "narrower"
+  ],
+  "Q4182287": [
+   "search engine",
+   "web-search",
+   "overlapping"
+  ],
+  "Q4303335": [
+   "program",
+   null,
+   "generic"
+  ],
+  "Q4343954": [
+   "web development tools",
+   "engineering",
+   "narrower"
+  ],
+  "Q4388320": [
+   "Transaction Processing Monitor",
+   "middleware-messaging",
+   "narrower"
+  ],
+  "Q4418079": [
+   "campaign setting",
+   null,
+   "excluded",
+   "a game supplement or card set, not software"
+  ],
+  "Q4497736": [
+   "chemistry software",
+   "chemistry-life-sciences",
+   "narrower"
+  ],
+  "Q4550939": [
+   "Computer assisted qualitative data analysis software",
+   "data-science",
+   "narrower"
+  ],
+  "Q4681865": [
+   "cipher",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q4839801": [
+   "backup software",
+   "backup-storage",
+   "narrower"
+  ],
+  "Q4873124": [
+   "battlefield management system",
+   "government",
+   "narrower"
+  ],
+  "Q4994515": [
+   "file sharing software",
+   "file-storage",
+   "overlapping"
+  ],
+  "Q5133829": [
+   "clinical decision support system",
+   "healthcare",
+   "narrower"
+  ],
+  "Q5155687": [
+   "e-book reader software",
+   "news-reading",
+   "narrower"
+  ],
+  "Q5155929": [
+   "note-taking software",
+   "notes",
+   "narrower"
+  ],
+  "Q5156780": [
+   "compositing software",
+   "animation-3d",
+   "narrower"
+  ],
+  "Q5157583": [
+   "Computer shogi",
+   "gaming",
+   "narrower"
+  ],
+  "Q5164835": [
+   "contact manager",
+   "notes",
+   "narrower"
+  ],
+  "Q5249204": [
+   "decision-making software",
+   "productivity",
+   "overlapping"
+  ],
+  "Q5282021": [
+   "discovery system",
+   "libraries-museums",
+   "narrower"
+  ],
+  "Q5375622": [
+   "encryption software",
+   "encryption",
+   "narrower"
+  ],
+  "Q5500964": [
+   "freely redistributable software",
+   null,
+   "generic"
+  ],
+  "Q5519929": [
+   "game creation system",
+   "game-development",
+   "narrower"
+  ],
+  "Q5519933": [
+   "game development tool",
+   "game-development",
+   "narrower"
+  ],
+  "Q5535060": [
+   "geographic information systems software",
+   "gis",
+   "narrower"
+  ],
+  "Q5570938": [
+   "translation management system",
+   "translation",
+   "narrower"
+  ],
+  "Q5583816": [
+   "Google Chrome extension",
+   null,
+   "generic"
+  ],
+  "Q5717061": [
+   "load balancer",
+   "web-servers",
+   "narrower"
+  ],
+  "Q5892272": [
+   "web hosting service",
+   "web-hosting",
+   "overlapping"
+  ],
+  "Q5988403": [
+   "identity provider",
+   "iam",
+   "narrower"
+  ],
+  "Q6059927": [
+   "inventory management software",
+   "inventory-management",
+   "narrower"
+  ],
+  "Q6078050": [
+   "education platform",
+   "learning-apps",
+   "narrower"
+  ],
+  "Q6543035": [
+   "software license manager",
+   "it-asset-saas",
+   "narrower"
+  ],
+  "Q6577295": [
+   "MIDI editor",
+   "audio-production",
+   "narrower"
+  ],
+  "Q6584911": [
+   "Project:Tools",
+   null,
+   "generic"
+  ],
+  "Q7001229": [
+   "network utility",
+   "network-management",
+   "narrower"
+  ],
+  "Q7063032": [
+   "notification service",
+   "communications-apis",
+   "narrower"
+  ],
+  "Q7094135": [
+   "online wallet",
+   "personal-finance",
+   "narrower"
+  ],
+  "Q7096323": [
+   "open-access repository",
+   "research-publishing",
+   "narrower"
+  ],
+  "Q7144983": [
+   "patient administration system",
+   "healthcare",
+   "narrower"
+  ],
+  "Q7247856": [
+   "productivity software",
+   "productivity",
+   "overlapping"
+  ],
+  "Q7314108": [
+   "report generator",
+   "bi",
+   "overlapping"
+  ],
+  "Q7544035": [
+   "smart contract",
+   null,
+   "excluded",
+   "a crypto token, not a software product"
+  ],
+  "Q7558983": [
+   "software stack",
+   "sdks-libraries",
+   "narrower"
+  ],
+  "Q7593080": [
+   "add-on",
+   null,
+   "generic"
+  ],
+  "Q7702738": [
+   "terminal multiplexer",
+   "terminals-shells",
+   "narrower"
+  ],
+  "Q7705753": [
+   "test automation management tool",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q7805487": [
+   "time tracking software",
+   "time-tracking",
+   "equivalent"
+  ],
+  "Q7935096": [
+   "virtual event",
+   null,
+   "excluded",
+   "an event, not software"
+  ],
+  "Q7936632": [
+   "visualization software",
+   "data-visualization",
+   "narrower"
+  ],
+  "Q7978562": [
+   "Dynamic Application Security Testing",
+   "application-security",
+   "narrower"
+  ],
+  "Q10123170": [
+   "scholarly search service",
+   "research-publishing",
+   "narrower"
+  ],
+  "Q11121294": [
+   "simulation software",
+   "cae-simulation",
+   "narrower"
+  ],
+  "Q11275354": [
+   "postcard creation software",
+   "graphic-design",
+   "narrower"
+  ],
+  "Q11320567": [
+   "desktop application",
+   null,
+   "generic"
+  ],
+  "Q11338907": [
+   "singing voice synthesizer",
+   "audio-production",
+   "narrower"
+  ],
+  "Q11463684": [
+   "story self-publishing website",
+   "news-reading",
+   "narrower"
+  ],
+  "Q12014419": [
+   "peer-to-peer software",
+   "downloads-file-sharing",
+   "narrower"
+  ],
+  "Q12048082": [
+   "converter",
+   null,
+   "generic"
+  ],
+  "Q12313595": [
+   "collaborative real-time editor",
+   "documents",
+   "narrower"
+  ],
+  "Q12758225": [
+   "parser",
+   "languages-runtimes",
+   "narrower"
+  ],
+  "Q13199995": [
+   "statistical package",
+   "data-science",
+   "overlapping",
+   "Wikidata files it under mathematical software; buyers look for it with statistics and data science"
+  ],
+  "Q13224353": [
+   "monitoring application",
+   "observability",
+   "narrower"
+  ],
+  "Q13429867": [
+   "anti-malware",
+   "endpoint-security",
+   "narrower"
+  ],
+  "Q13515741": [
+   "Internet filter",
+   "privacy-tools",
+   "narrower"
+  ],
+  "Q15008061": [
+   "Firefox extension",
+   null,
+   "generic"
+  ],
+  "Q15008073": [
+   "Firefox add-on",
+   null,
+   "generic"
+  ],
+  "Q15077416": [
+   "display server",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q15478230": [
+   "data synchronization software",
+   "file-storage",
+   "narrower"
+  ],
+  "Q15505266": [
+   "login manager",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q15544757": [
+   "science software",
+   "science-research",
+   "overlapping"
+  ],
+  "Q15548044": [
+   "application launcher",
+   "desktop-environments",
+   "narrower"
+  ],
+  "Q15548064": [
+   "computer-aided manufacturing software",
+   "manufacturing",
+   "narrower"
+  ],
+  "Q15548075": [
+   "electronics circuit design software",
+   "eda",
+   "narrower"
+  ],
+  "Q15548076": [
+   "computer-aided design software",
+   "cad",
+   "equivalent"
+  ],
+  "Q15590034": [
+   "plotting software",
+   "data-visualization",
+   "narrower"
+  ],
+  "Q15593630": [
+   "Windows software",
+   null,
+   "generic"
+  ],
+  "Q15614005": [
+   "typesetting software",
+   "desktop-publishing",
+   "narrower"
+  ],
+  "Q15614008": [
+   "typographic software",
+   "desktop-publishing",
+   "narrower"
+  ],
+  "Q15614016": [
+   "surveillance software",
+   "government",
+   "overlapping"
+  ],
+  "Q15614021": [
+   "VoIP software",
+   "business-phone",
+   "narrower"
+  ],
+  "Q15618491": [
+   "speech synthesis software",
+   "speech-ai",
+   "narrower"
+  ],
+  "Q15618492": [
+   "software testing tool",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q15618637": [
+   "data management software",
+   "data",
+   "narrower"
+  ],
+  "Q15618646": [
+   "ETL tool",
+   "data-integration",
+   "narrower"
+  ],
+  "Q15623421": [
+   "image processing software",
+   "photo-editing",
+   "narrower"
+  ],
+  "Q15633582": [
+   "MediaWiki wiki",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q16000093": [
+   "financial software",
+   "finance",
+   "narrower"
+  ],
+  "Q16676491": [
+   "mail server",
+   "email",
+   "narrower"
+  ],
+  "Q16920237": [
+   "code reviewing software",
+   "code-review",
+   "narrower"
+  ],
+  "Q16947796": [
+   "continuous integration software",
+   "build-ci",
+   "equivalent"
+  ],
+  "Q17004595": [
+   "neural network software",
+   "ml-frameworks",
+   "narrower"
+  ],
+  "Q17049334": [
+   "virtual concert",
+   null,
+   "excluded",
+   "an event, not software"
+  ],
+  "Q17077007": [
+   "Q&A software",
+   "forums-communities",
+   "narrower"
+  ],
+  "Q17167101": [
+   "TeX editor",
+   "desktop-publishing",
+   "narrower"
+  ],
+  "Q18343316": [
+   "standard UNIX utility or command",
+   "terminals-shells",
+   "narrower"
+  ],
+  "Q18456364": [
+   "news app",
+   "news-reading",
+   "narrower"
+  ],
+  "Q19862852": [
+   "massive open online course provider",
+   "online-courses",
+   "equivalent"
+  ],
+  "Q19868411": [
+   "router firmware",
+   "network-management",
+   "narrower"
+  ],
+  "Q19967801": [
+   "online service",
+   null,
+   "generic"
+  ],
+  "Q19967846": [
+   "online gaming service",
+   "gaming",
+   "narrower"
+  ],
+  "Q21031275": [
+   "enterprise file synchronization and sharing",
+   "file-storage",
+   "narrower"
+  ],
+  "Q21041173": [
+   "custom firmware",
+   "embedded-systems",
+   "narrower"
+  ],
+  "Q21743174": [
+   "mobile software",
+   null,
+   "generic"
+  ],
+  "Q22001389": [
+   "Wiktionary language edition",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q22815098": [
+   "Magic: The Gathering set",
+   null,
+   "excluded",
+   "a game supplement or card set, not software"
+  ],
+  "Q22907102": [
+   "multi-model database system",
+   "databases",
+   "narrower"
+  ],
+  "Q22907861": [
+   "potentially unwanted program",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q22918958": [
+   "Flat File Content Management System",
+   "cms",
+   "narrower"
+  ],
+  "Q23679990": [
+   "progressive web app",
+   null,
+   "generic"
+  ],
+  "Q23930024": [
+   "streaming media receiver",
+   "music-audio",
+   "overlapping"
+  ],
+  "Q23931362": [
+   "legal tech",
+   "legal",
+   "narrower"
+  ],
+  "Q24021076": [
+   "subtitle editor",
+   "video-editing",
+   "narrower"
+  ],
+  "Q24091050": [
+   "HSM software",
+   "backup-storage",
+   "narrower"
+  ],
+  "Q24657198": [
+   "podcatcher",
+   "music-audio",
+   "narrower"
+  ],
+  "Q25053629": [
+   "collections management system",
+   "libraries-museums",
+   "narrower"
+  ],
+  "Q25104379": [
+   "generative adversarial network",
+   "ai-image",
+   "narrower"
+  ],
+  "Q25104632": [
+   "fitness app",
+   "health-fitness",
+   "narrower"
+  ],
+  "Q25303346": [
+   "file synchronisation software",
+   "file-storage",
+   "narrower"
+  ],
+  "Q25374232": [
+   "closed-circuit television software",
+   "it-security",
+   "overlapping"
+  ],
+  "Q25588783": [
+   "driver assistance software",
+   "automotive",
+   "narrower"
+  ],
+  "Q25595203": [
+   "Internet forum software",
+   "forums-communities",
+   "narrower"
+  ],
+  "Q26726974": [
+   "dynamic geometry software",
+   "mathematics",
+   "narrower"
+  ],
+  "Q26921397": [
+   "password cracking software",
+   "vulnerability-management",
+   "narrower"
+  ],
+  "Q26921434": [
+   "anti-rootkit software",
+   "endpoint-security",
+   "narrower"
+  ],
+  "Q27021481": [
+   "formerly proprietary software",
+   null,
+   "generic"
+  ],
+  "Q28031555": [
+   "machine translation software",
+   "translation",
+   "narrower"
+  ],
+  "Q28050159": [
+   "data analysis software",
+   "data-science",
+   "narrower"
+  ],
+  "Q28051323": [
+   "video-conferencing software",
+   "video-conferencing",
+   "narrower"
+  ],
+  "Q28057030": [
+   "ERP software",
+   "erp",
+   "equivalent"
+  ],
+  "Q28057052": [
+   "clustering software",
+   "containers-orchestration",
+   "overlapping"
+  ],
+  "Q28059995": [
+   "CASE tool",
+   "whiteboards-diagramming",
+   "narrower"
+  ],
+  "Q28061130": [
+   "static program analysis tool",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q28134845": [
+   "dating app",
+   "social-networks",
+   "narrower"
+  ],
+  "Q28454366": [
+   "data collection system",
+   "data",
+   "overlapping"
+  ],
+  "Q28601953": [
+   "email system",
+   "email",
+   "narrower"
+  ],
+  "Q28964688": [
+   "data recovery software",
+   "backup-storage",
+   "narrower"
+  ],
+  "Q28966214": [
+   "peer-to-peer web hosting software",
+   "web-hosting",
+   "narrower"
+  ],
+  "Q29032804": [
+   "configuration manager",
+   "infrastructure-as-code",
+   "narrower"
+  ],
+  "Q29032808": [
+   "software configuration manager",
+   "source-control",
+   "narrower"
+  ],
+  "Q29364197": [
+   "desktop publishing software",
+   "desktop-publishing",
+   "narrower"
+  ],
+  "Q29558845": [
+   "SSH client",
+   "terminals-shells",
+   "narrower"
+  ],
+  "Q29645725": [
+   "printing software",
+   "operating-systems",
+   "narrower"
+  ],
+  "Q30047053": [
+   "web archive",
+   "reference",
+   "narrower"
+  ],
+  "Q30113732": [
+   "badware",
+   null,
+   "excluded",
+   "malicious software: recorded by Wikidata, not a category anyone buys"
+  ],
+  "Q30748179": [
+   "endpoint detection and response",
+   "endpoint-security",
+   "narrower"
+  ],
+  "Q33120867": [
+   "Wikimedia wiki",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q33120876": [
+   "Wikimedia content project",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q37307899": [
+   "bitcoin wallet",
+   "trading-crypto",
+   "narrower"
+  ],
+  "Q39049892": [
+   "ERC-20",
+   null,
+   "excluded",
+   "a crypto token, not a software product"
+  ],
+  "Q39999225": [
+   "Apache Software Foundation project",
+   null,
+   "generic"
+  ],
+  "Q47525747": [
+   "question-answering engine",
+   "reference",
+   "narrower"
+  ],
+  "Q52990223": [
+   "open science tool",
+   "research-publishing",
+   "narrower"
+  ],
+  "Q55080113": [
+   "decentralized application",
+   "trading-crypto",
+   "narrower"
+  ],
+  "Q56273712": [
+   "source-available software",
+   null,
+   "generic"
+  ],
+  "Q56369138": [
+   "data grid",
+   "databases",
+   "narrower"
+  ],
+  "Q57326878": [
+   "macro processor",
+   "languages-runtimes",
+   "narrower"
+  ],
+  "Q57590076": [
+   "hotel booking website",
+   "travel-delivery",
+   "narrower"
+  ],
+  "Q60474521": [
+   "board game expansion",
+   null,
+   "excluded",
+   "a game supplement or card set, not software"
+  ],
+  "Q61906203": [
+   "speech recognition software",
+   "speech-ai",
+   "narrower"
+  ],
+  "Q62694393": [
+   "URL shortener",
+   "marketing",
+   "narrower"
+  ],
+  "Q63067479": [
+   "electronic mailing list manager",
+   "forums-communities",
+   "narrower"
+  ],
+  "Q63862928": [
+   "Internet application",
+   null,
+   "generic"
+  ],
+  "Q64769132": [
+   "bioinformatics software",
+   "chemistry-life-sciences",
+   "narrower"
+  ],
+  "Q65048190": [
+   "mind mapping software",
+   "whiteboards-diagramming",
+   "narrower"
+  ],
+  "Q65940638": [
+   "phlog hosting service",
+   "web-hosting",
+   "narrower"
+  ],
+  "Q65966993": [
+   "hypertext system",
+   "wikis-knowledge",
+   "narrower"
+  ],
+  "Q66088840": [
+   "audio processor",
+   "audio-production",
+   "narrower"
+  ],
+  "Q71176790": [
+   "Petri net editor",
+   "whiteboards-diagramming",
+   "narrower"
+  ],
+  "Q71631512": [
+   "tabletop role-playing game supplement",
+   null,
+   "excluded",
+   "a game supplement or card set, not software"
+  ],
+  "Q73539779": [
+   "R package",
+   "sdks-libraries",
+   "narrower"
+  ],
+  "Q76443836": [
+   "character map",
+   "accessibility-input",
+   "narrower"
+  ],
+  "Q79600797": [
+   "synthetic voice",
+   "speech-ai",
+   "narrower"
+  ],
+  "Q80261011": [
+   "Fediverse app",
+   "social-networks",
+   "narrower"
+  ],
+  "Q84177695": [
+   "to-do list manager",
+   "task-management",
+   "equivalent"
+  ],
+  "Q85632250": [
+   "cloud gaming service",
+   "gaming",
+   "narrower"
+  ],
+  "Q87993016": [
+   "Android distribution",
+   "mobile-operating-systems",
+   "narrower"
+  ],
+  "Q91348108": [
+   "daemon-managing daemon",
+   "operating-systems",
+   "narrower"
+  ],
+  "Q91447167": [
+   "COVID-19 computer application",
+   "government",
+   "narrower"
+  ],
+  "Q95001953": [
+   "research software",
+   "science-research",
+   "narrower"
+  ],
+  "Q95988573": [
+   "customer relationship management software",
+   "crm",
+   "equivalent"
+  ],
+  "Q96369982": [
+   "digital image model",
+   "ai-image",
+   "narrower"
+  ],
+  "Q97644802": [
+   "farm management software",
+   "agriculture",
+   "narrower"
+  ],
+  "Q98660409": [
+   "online food ordering service",
+   "travel-delivery",
+   "narrower"
+  ],
+  "Q98808364": [
+   "digital calendar",
+   "calendars-scheduling",
+   "narrower"
+  ],
+  "Q98905977": [
+   "dictionary software",
+   "reference",
+   "narrower"
+  ],
+  "Q99263266": [
+   "anti-plagiarism software",
+   "education-lms",
+   "narrower"
+  ],
+  "Q99898668": [
+   "contact tracing app",
+   "government",
+   "narrower"
+  ],
+  "Q100744571": [
+   "rendering software",
+   "animation-3d",
+   "narrower"
+  ],
+  "Q101408242": [
+   "filestore",
+   "backup-storage",
+   "narrower"
+  ],
+  "Q104804744": [
+   "X11 application",
+   null,
+   "generic"
+  ],
+  "Q104901669": [
+   "online software",
+   null,
+   "generic"
+  ],
+  "Q106466562": [
+   "analytical software",
+   "data",
+   "narrower"
+  ],
+  "Q107466928": [
+   "expansion pack",
+   null,
+   "excluded",
+   "a game supplement or card set, not software"
+  ],
+  "Q108444799": [
+   "bot prevention",
+   "application-security",
+   "narrower"
+  ],
+  "Q109337002": [
+   "Electron application",
+   null,
+   "generic"
+  ],
+  "Q110498923": [
+   "password generator",
+   "password-managers",
+   "narrower"
+  ],
+  "Q110509708": [
+   "natural language processing software",
+   "ml-frameworks",
+   "narrower"
+  ],
+  "Q111100275": [
+   "remote administration software",
+   "remote-access-rmm",
+   "narrower"
+  ],
+  "Q111211097": [
+   "endpoint protection platform",
+   "endpoint-security",
+   "narrower"
+  ],
+  "Q111735921": [
+   "blog search engine",
+   "web-search",
+   "narrower"
+  ],
+  "Q111915979": [
+   "calorie tracking application",
+   "health-fitness",
+   "narrower"
+  ],
+  "Q112123596": [
+   "modelling software",
+   "whiteboards-diagramming",
+   "narrower"
+  ],
+  "Q112255924": [
+   "routing software",
+   "network-management",
+   "narrower"
+  ],
+  "Q112757532": [
+   "peer-to-peer file sharing software",
+   "downloads-file-sharing",
+   "narrower"
+  ],
+  "Q113470369": [
+   "data platform",
+   "data",
+   "overlapping"
+  ],
+  "Q113614232": [
+   "decentralized cryptocurrency exchange",
+   "trading-crypto",
+   "narrower"
+  ],
+  "Q113709736": [
+   "social media app",
+   "social-networks",
+   "narrower"
+  ],
+  "Q113940039": [
+   "text-to-image model",
+   "ai-image",
+   "narrower"
+  ],
+  "Q113953810": [
+   "television software",
+   "video-streaming",
+   "overlapping"
+  ],
+  "Q113953813": [
+   "smartwatch software",
+   null,
+   "generic"
+  ],
+  "Q113953819": [
+   "smartwatch app",
+   null,
+   "generic"
+  ],
+  "Q113958159": [
+   "servlet",
+   "web-servers",
+   "narrower"
+  ],
+  "Q114344728": [
+   "bookmark manager",
+   "notes",
+   "narrower"
+  ],
+  "Q114461696": [
+   "cave surveying software",
+   "science-research",
+   "narrower"
+  ],
+  "Q114617315": [
+   "diffusion model",
+   "ai-image",
+   "narrower"
+  ],
+  "Q114654291": [
+   "color scheme for multiple software",
+   null,
+   "excluded",
+   "a colour theme, not software"
+  ],
+  "Q114893143": [
+   "SPARQL query tool",
+   "graph-databases",
+   "narrower"
+  ],
+  "Q114900460": [
+   "build system",
+   "build-ci",
+   "narrower"
+  ],
+  "Q114900488": [
+   "build tool",
+   "build-ci",
+   "narrower"
+  ],
+  "Q114901705": [
+   "SQL server",
+   "relational-databases",
+   "narrower"
+  ],
+  "Q114929183": [
+   "userstyle manager",
+   null,
+   "generic"
+  ],
+  "Q115035207": [
+   "web analytics software",
+   "web-analytics",
+   "equivalent"
+  ],
+  "Q115113111": [
+   "language exchange platform",
+   "learning-apps",
+   "narrower"
+  ],
+  "Q115214659": [
+   "command-line tool",
+   null,
+   "generic"
+  ],
+  "Q115249821": [
+   "subject indexing software",
+   "libraries-museums",
+   "narrower"
+  ],
+  "Q115252929": [
+   "music recognition software",
+   "music-audio",
+   "narrower"
+  ],
+  "Q115517227": [
+   "text-to-video model",
+   "ai-video",
+   "narrower"
+  ],
+  "Q115910931": [
+   "code formatter",
+   "testing-qa",
+   "narrower"
+  ],
+  "Q115945663": [
+   "WordPress Plugin",
+   null,
+   "generic"
+  ],
+  "Q116275715": [
+   "Web GIS",
+   "gis",
+   "narrower"
+  ],
+  "Q116447644": [
+   "diagnostic software",
+   "healthcare",
+   "narrower"
+  ],
+  "Q116447683": [
+   "vehicle diagnostic software",
+   "automotive",
+   "narrower"
+  ],
+  "Q116687357": [
+   "national digital identity system",
+   "government",
+   "narrower"
+  ],
+  "Q116961403": [
+   "conversational AI",
+   "ai-assistants",
+   "narrower"
+  ],
+  "Q117038666": [
+   "PHP extension",
+   null,
+   "generic"
+  ],
+  "Q117051290": [
+   "log analyzer",
+   "observability",
+   "narrower"
+  ],
+  "Q117246174": [
+   "generative artificial intelligence",
+   "ai",
+   "overlapping"
+  ],
+  "Q117349473": [
+   "artificial intelligence model",
+   "ai",
+   "overlapping"
+  ],
+  "Q118140435": [
+   "very large online platform",
+   null,
+   "generic"
+  ],
+  "Q118315829": [
+   "web comic distribution app",
+   "news-reading",
+   "narrower"
+  ],
+  "Q118482835": [
+   "review service",
+   "shopping-reviews",
+   "narrower"
+  ],
+  "Q119438219": [
+   "non-cryptographic hash function",
+   null,
+   "excluded",
+   "an algorithm, not a software product"
+  ],
+  "Q120942996": [
+   "government website",
+   "government",
+   "narrower"
+  ],
+  "Q121566283": [
+   "map service",
+   "gis",
+   "narrower"
+  ],
+  "Q121889130": [
+   "artificial intelligence image scaling technology",
+   "ai-image",
+   "narrower"
+  ],
+  "Q122200371": [
+   "ROM hacking utility",
+   "gaming",
+   "narrower"
+  ],
+  "Q122307299": [
+   "virtualization software",
+   "virtualization",
+   "narrower"
+  ],
+  "Q122538751": [
+   "video streaming service app",
+   "video-streaming",
+   "narrower"
+  ],
+  "Q122903770": [
+   "OSM vector tile provider",
+   "gis",
+   "narrower"
+  ],
+  "Q122928875": [
+   "Copernicus service",
+   "gis",
+   "narrower"
+  ],
+  "Q123135887": [
+   "homebrew software",
+   "gaming",
+   "narrower"
+  ],
+  "Q123407493": [
+   "MediaWiki instance",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q124051048": [
+   "virtual singer software",
+   "audio-production",
+   "narrower"
+  ],
+  "Q124322466": [
+   "image optimization utility",
+   "photo-editing",
+   "narrower"
+  ],
+  "Q124587498": [
+   "internet map service",
+   "maps-navigation",
+   "narrower"
+  ],
+  "Q124653107": [
+   "semantic web software",
+   "graph-databases",
+   "narrower"
+  ],
+  "Q124711597": [
+   "comic book reader",
+   "news-reading",
+   "narrower"
+  ],
+  "Q124739592": [
+   "workload manager",
+   "containers-orchestration",
+   "narrower"
+  ],
+  "Q124739892": [
+   "mapping software",
+   "gis",
+   "narrower"
+  ],
+  "Q125118130": [
+   "OpenStreetMap software",
+   "gis",
+   "narrower"
+  ],
+  "Q125128043": [
+   "online festival",
+   null,
+   "excluded",
+   "an event, not software"
+  ],
+  "Q125180532": [
+   "voice assistant",
+   "ai-assistants",
+   "narrower"
+  ],
+  "Q125499737": [
+   "music streaming service app",
+   "music-audio",
+   "narrower"
+  ],
+  "Q125531904": [
+   "API testing tool",
+   "api-tools",
+   "narrower"
+  ],
+  "Q125847609": [
+   "home automation software",
+   "home-automation",
+   "narrower"
+  ],
+  "Q126000626": [
+   "OCR software",
+   "computer-vision",
+   "narrower"
+  ],
+  "Q127604715": [
+   "Eclipse Foundation project",
+   null,
+   "generic"
+  ],
+  "Q127899209": [
+   "OpenInfra Foundation project",
+   null,
+   "generic"
+  ],
+  "Q128247799": [
+   "digital ink software",
+   "notes",
+   "narrower"
+  ],
+  "Q128800988": [
+   "web map application",
+   "gis",
+   "narrower"
+  ],
+  "Q128800992": [
+   "web mapping application",
+   "gis",
+   "narrower"
+  ],
+  "Q130352703": [
+   "IP search engine",
+   "vulnerability-management",
+   "overlapping"
+  ],
+  "Q131461199": [
+   "penetration testing software",
+   "vulnerability-management",
+   "narrower"
+  ],
+  "Q131531819": [
+   "Android app",
+   null,
+   "generic"
+  ],
+  "Q132189548": [
+   "molecular dynamics engine",
+   "chemistry-life-sciences",
+   "narrower"
+  ],
+  "Q133699400": [
+   "patch management system",
+   "code-review",
+   "narrower"
+  ],
+  "Q133730744": [
+   "Local AI art web interface",
+   "ai-image",
+   "narrower"
+  ],
+  "Q134348028": [
+   "AI pair programming tool",
+   "ai-coding",
+   "narrower"
+  ],
+  "Q134372617": [
+   "icon software",
+   "vector-illustration",
+   "narrower"
+  ],
+  "Q135526947": [
+   "Quality Assurance Software",
+   "quality-management",
+   "narrower"
+  ],
+  "Q136682809": [
+   "fundraising platform",
+   "nonprofit",
+   "narrower"
+  ],
+  "Q136979084": [
+   "data explorer",
+   "data-visualization",
+   "narrower"
+  ],
+  "Q137916409": [
+   "graph database management system",
+   "graph-databases",
+   "narrower"
+  ],
+  "Q138055453": [
+   "alternative software build for compatibility with an older platform",
+   null,
+   "generic"
+  ],
+  "Q138079699": [
+   "database administration tool",
+   "databases",
+   "narrower"
+  ],
+  "Q138081210": [
+   "Git GUI client",
+   "source-control",
+   "narrower"
+  ],
+  "Q138081351": [
+   "infrastructure automation software",
+   "infrastructure-as-code",
+   "narrower"
+  ],
+  "Q138750257": [
+   "shogi software",
+   "gaming",
+   "narrower"
+  ],
+  "Q139147221": [
+   "world model",
+   "foundation-models",
+   "narrower"
+  ],
+  "Q139496431": [
+   "Molecular Visualization Software",
+   "chemistry-life-sciences",
+   "narrower"
+  ],
+  "Q141089604": [
+   "VPN software",
+   "vpn-secure-access",
+   "equivalent"
+  ],
+  "Q141130726": [
+   "firewall software",
+   "network-security",
+   "narrower"
+  ],
+  "Q141175266": [
+   "Wii channel",
+   "gaming",
+   "narrower"
+  ],
+  "Q141596028": [
+   "Uncyclopedia language edition",
+   null,
+   "excluded",
+   "a wiki edition: an online reference work written by volunteers, not a software product"
+  ],
+  "Q141808355": [
+   "name server software",
+   "network-management",
+   "narrower"
+  ],
+  "Q141979347": [
+   "delivery app",
+   "travel-delivery",
+   "narrower"
+  ]
+ },
+ "catalog": {
+  "crm-sales": {
+   "node": "sales",
+   "relation": "equivalent"
+  },
+  "marketing": {
+   "node": "marketing",
+   "relation": "narrower"
+  },
+  "support": {
+   "node": "customer-service",
+   "relation": "equivalent"
+  },
+  "hr-people": {
+   "node": "hr",
+   "relation": "narrower"
+  },
+  "finance": {
+   "node": "finance",
+   "relation": "narrower"
+  },
+  "spend-procurement": {
+   "node": "finance",
+   "relation": "narrower",
+   "note": "spend, procurement and travel sit in Finance & accounting"
+  },
+  "legal-contracts": {
+   "node": "legal",
+   "relation": "equivalent"
+  },
+  "dev-platforms": {
+   "node": "engineering",
+   "relation": "narrower"
+  },
+  "ai-coding": {
+   "node": "ai-coding",
+   "relation": "overlapping",
+   "note": "also holds coding agents, code review and editors; each product is placed below"
+  },
+  "data-bi": {
+   "node": "data",
+   "relation": "narrower"
+  },
+  "security-it": {
+   "node": "it-security",
+   "relation": "narrower"
+  },
+  "it-service": {
+   "node": "itsm",
+   "relation": "overlapping",
+   "note": "also holds remote access and asset management tools; each is placed below"
+  },
+  "design": {
+   "node": "design",
+   "relation": "narrower"
+  },
+  "creative-ai": {
+   "node": "design",
+   "relation": "narrower",
+   "note": "AI image, video and audio generation sit in Design & creative"
+  },
+  "project-management": {
+   "node": "productivity",
+   "relation": "narrower",
+   "note": "project, work, task and time tools sit in Productivity & collaboration; issue trackers in Engineering"
+  },
+  "docs-storage": {
+   "node": "productivity",
+   "relation": "narrower"
+  },
+  "chat-meetings": {
+   "node": "communication",
+   "relation": "narrower"
+  },
+  "email-calendar": {
+   "node": "communication",
+   "relation": "overlapping",
+   "note": "email sits in Communication; calendars and scheduling in Productivity & collaboration"
+  },
+  "ai-assistants": {
+   "node": "ai-assistants",
+   "relation": "overlapping",
+   "note": "also holds AI search, writing, translation and copywriting tools; each is placed below"
+  },
+  "web-commerce": {
+   "node": "sales",
+   "relation": "overlapping",
+   "note": "holds e-commerce, website builders, content management and web hosting; each product is placed below"
+  },
+  "forms-surveys": {
+   "node": "forms-surveys",
+   "relation": "equivalent"
+  },
+  "video-webinars": {
+   "node": "marketing",
+   "relation": "overlapping",
+   "note": "webinars and business video sit in Marketing; video editing in Design & creative"
+  },
+  "learning": {
+   "node": "corporate-learning",
+   "relation": "overlapping",
+   "note": "also holds training libraries and course platforms; each is placed below"
+  },
+  "meta": {
+   "node": null,
+   "relation": "collection",
+   "note": "one company's products, not a kind of software: each product is placed below"
+  }
+ },
+ "lanes": {
+  "coding-agents": "coding-agents",
+  "llm-sdks-and-routers": "llm-apis",
+  "vector-dbs": "vector-databases",
+  "llm-observability": "llm-observability",
+  "meeting-notes": "meeting-notetakers",
+  "agent-frameworks": "agent-frameworks",
+  "llm-evals": "llm-evaluation",
+  "local-inference": "model-serving",
+  "speech-ai": "speech-ai",
+  "browser-agents": "browser-agents",
+  "ai-app-builders": "ai-app-builders",
+  "workflow-automation": "workflow-automation"
+ },
+ "products": {
+  "15five": "performance-engagement",
+  "1password": "password-managers",
+  "8x8": "business-phone",
+  "activecampaign": "marketing-automation",
+  "acuity-scheduling": "calendars-scheduling",
+  "ada": "ai-support-agents",
+  "adobe-acrobat": "pdf-tools",
+  "adobe-acrobat-sign": "e-signature",
+  "adobe-after-effects": "animation-3d",
+  "adobe-express": "graphic-design",
+  "adobe-firefly": "ai-image",
+  "adobe-illustrator": "vector-illustration",
+  "adobe-indesign": "desktop-publishing",
+  "adobe-photoshop": "photo-editing",
+  "adobe-premiere-pro": "video-editing",
+  "adobe-stock": "stock-media",
+  "adp": "payroll",
+  "adyen": "payments",
+  "agiloft": "contract-management",
+  "aha": "product-management",
+  "ahrefs": "seo",
+  "airbase": "spend-management",
+  "airbyte": "data-integration",
+  "aircall": "business-phone",
+  "airmeet": "webinars-events",
+  "airtable": "spreadsheets",
+  "algolia": "search-infrastructure",
+  "alteryx": "data-integration",
+  "amazon-redshift": "data-warehouse",
+  "amp": "coding-agents",
+  "amplitude": "product-analytics",
+  "anaplan": "fpa",
+  "anydesk": "remote-access-rmm",
+  "apollo-io": "sales-intelligence",
+  "asana": "work-management",
+  "ashby": "recruiting",
+  "atera": "remote-access-rmm",
+  "attio": "crm",
+  "auth0": "customer-identity",
+  "avalara": "tax-compliance",
+  "aws": "cloud-platforms",
+  "axure-rp": "ui-design",
+  "azure": "cloud-platforms",
+  "balsamiq": "ui-design",
+  "bamboohr": "hris",
+  "basecamp": "project-management",
+  "beehiiv": "email-marketing",
+  "bigcommerce": "ecommerce",
+  "bigmarker": "webinars-events",
+  "bigquery": "data-warehouse",
+  "bill": "accounts-payable",
+  "bitbucket": "source-control",
+  "bitwarden": "password-managers",
+  "black-forest-labs": "ai-image",
+  "blackline": "financial-close",
+  "bluehost": "web-hosting",
+  "box": "file-storage",
+  "braze": "customer-engagement",
+  "brevo": "email-marketing",
+  "brex": "spend-management",
+  "brightcove": "video-hosting",
+  "browserstack": "testing-qa",
+  "buck2": "build-ci",
+  "buffer": "social-media",
+  "cal-com": "calendars-scheduling",
+  "calendly": "calendars-scheduling",
+  "camtasia": "video-editing",
+  "canva": "graphic-design",
+  "capcut": "video-editing",
+  "capsule-crm": "crm",
+  "captions": "video-editing",
+  "carta": "equity-management",
+  "chargebee": "billing-subscriptions",
+  "chili-piper": "calendars-scheduling",
+  "circleci": "build-ci",
+  "clay": "sales-intelligence",
+  "clerk": "customer-identity",
+  "clickhouse-cloud": "data-warehouse",
+  "clickup": "work-management",
+  "clio": "legal-practice",
+  "clockify": "time-tracking",
+  "close": "crm",
+  "cloudflare": {
+   "nodes": [
+    "web-servers",
+    "vpn-secure-access"
+   ],
+   "why": "Cloudflare runs a CDN and edge network and sells zero-trust network access"
+  },
+  "coda": "documents",
+  "coderabbit": "code-review",
+  "cognism": "sales-intelligence",
+  "confluence": "wikis-knowledge",
+  "connectwise": "remote-access-rmm",
+  "constant-contact": "email-marketing",
+  "contentful": "cms",
+  "contentsquare": "experience-analytics",
+  "copper": "crm",
+  "copy-ai": "content-creation",
+  "coupa": "procurement",
+  "coursera-for-business": "training-content",
+  "crawl4ai": "web-scraping",
+  "crisp": "live-chat",
+  "crowdstrike": "endpoint-security",
+  "culture-amp": "performance-engagement",
+  "customer-io": "customer-engagement",
+  "cvent": "webinars-events",
+  "dashlane": "password-managers",
+  "databricks": "data-warehouse",
+  "datadog": "observability",
+  "dbt": "data-orchestration",
+  "deel": "global-employment",
+  "deepl": "translation",
+  "demio": "webinars-events",
+  "deputy": "workforce-scheduling",
+  "descript": "video-editing",
+  "devin": "coding-agents",
+  "dialpad": "business-phone",
+  "dify": "agent-frameworks",
+  "digitalocean": "cloud-platforms",
+  "discord": "messaging-apps",
+  "dixa": "help-desk",
+  "docker": "containers-orchestration",
+  "docusaurus": "developer-docs",
+  "docusign": "e-signature",
+  "domo": "bi",
+  "doodle": "calendars-scheduling",
+  "drata": "grc-compliance",
+  "dropbox": "file-storage",
+  "dropbox-sign": "e-signature",
+  "duda": "website-builders",
+  "duo": "iam",
+  "dynatrace": "observability",
+  "ecwid": "ecommerce",
+  "egnyte": "file-storage",
+  "elastic": {
+   "nodes": [
+    "search-infrastructure",
+    "observability",
+    "security-operations"
+   ],
+   "why": "Elastic sells search, observability and security on the same engine"
+  },
+  "elevenlabs-app": "ai-audio",
+  "elicit": "ai-search",
+  "emburse": "spend-management",
+  "everlaw": "ediscovery",
+  "evernote": "notes",
+  "expensify": "spend-management",
+  "factorial": "hris",
+  "factory": "coding-agents",
+  "fantastical": "calendars-scheduling",
+  "fastmail": "email",
+  "figma": "ui-design",
+  "firebase": "backend-services",
+  "firecrawl": "web-scraping",
+  "five9": "contact-center",
+  "fivetran": "data-integration",
+  "float": "project-management",
+  "flowise": "agent-frameworks",
+  "folk": "crm",
+  "frame-io": "creative-assets",
+  "framer": "website-builders",
+  "freepik": "stock-media",
+  "freshbooks": "accounting",
+  "freshdesk": "help-desk",
+  "freshsales": "crm",
+  "front": "shared-inbox",
+  "fullstory": "experience-analytics",
+  "gainsight": "customer-success",
+  "gamma": "presentations",
+  "genesys-cloud": "contact-center",
+  "getresponse": "email-marketing",
+  "ghost": "cms",
+  "gitbook": "developer-docs",
+  "github": "source-control",
+  "gitlab": "source-control",
+  "gladly": "help-desk",
+  "glean": "enterprise-search",
+  "gmail": "email",
+  "gocardless": "payments",
+  "godaddy": "web-hosting",
+  "gong": "revenue-intelligence",
+  "google-analytics": "web-analytics",
+  "google-calendar": "calendars-scheduling",
+  "google-chat": "team-chat",
+  "google-cloud": "cloud-platforms",
+  "google-docs": "documents",
+  "google-drive": "file-storage",
+  "google-meet": "video-conferencing",
+  "google-sheets": "spreadsheets",
+  "google-slides": "presentations",
+  "google-voice": "business-phone",
+  "google-workspace": "office-suites",
+  "gorgias": "help-desk",
+  "goto-connect": "business-phone",
+  "goto-meeting": "video-conferencing",
+  "goto-webinar": "webinars-events",
+  "grafana-cloud": "observability",
+  "grammarly": "writing-assistants",
+  "graphite": "code-review",
+  "greenhouse": "recruiting",
+  "greptile": "code-review",
+  "gumroad": "ecommerce",
+  "gusto": "payroll",
+  "hack-lang": "languages-runtimes",
+  "happyfox": "help-desk",
+  "harvest": "time-tracking",
+  "harvey": "legal-research",
+  "heap": "product-analytics",
+  "hedra": "ai-video",
+  "help-scout": "help-desk",
+  "heroku": "app-hosting",
+  "hex": "data-science",
+  "hey": "email",
+  "heygen": "ai-video",
+  "hibob": "hris",
+  "higgsfield": "ai-video",
+  "highspot": "sales-enablement",
+  "hightouch": "cdp",
+  "hive": "work-management",
+  "hiver": "shared-inbox",
+  "homebase": "workforce-scheduling",
+  "honeycomb": "observability",
+  "hootsuite": "social-media",
+  "hostinger": "web-hosting",
+  "hotjar": "experience-analytics",
+  "hubspot": {
+   "nodes": [
+    "crm",
+    "marketing-automation"
+   ],
+   "why": "HubSpot sells a CRM with marketing, sales and service products on it"
+  },
+  "hubspot-service-hub": "help-desk",
+  "hubstaff": "time-tracking",
+  "huntress": "endpoint-security",
+  "icertis": "contract-management",
+  "icims": "recruiting",
+  "ideogram": "ai-image",
+  "incident-io": "incident-management",
+  "insightly": "crm",
+  "instantly": "sales-engagement",
+  "intercom": "help-desk",
+  "invideo": "ai-video",
+  "ionos": "web-hosting",
+  "ironclad": "contract-management",
+  "iru": "device-management",
+  "iterable": "customer-engagement",
+  "ivalua": "procurement",
+  "jamf": "device-management",
+  "jasper": "content-creation",
+  "jfrog": "build-ci",
+  "jira": "issue-tracking",
+  "jira-product-discovery": "product-management",
+  "jules": "coding-agents",
+  "jumpcloud": "iam",
+  "juro": "contract-management",
+  "justcall": "business-phone",
+  "justworks": "global-employment",
+  "kajabi": "online-courses",
+  "kaltura": "video-hosting",
+  "kapwing": "video-editing",
+  "keap": "crm",
+  "keeper": "password-managers",
+  "kinsta": "web-hosting",
+  "kit": "email-marketing",
+  "klaviyo": "email-marketing",
+  "kling": "ai-video",
+  "knowbe4": "email-security",
+  "krea": "ai-image",
+  "kustomer": "help-desk",
+  "langchain": "agent-frameworks",
+  "langflow": "agent-frameworks",
+  "lansweeper": "it-asset-saas",
+  "lastpass": "password-managers",
+  "later": "social-media",
+  "lattice": "performance-engagement",
+  "launchdarkly": "feature-flags",
+  "legalzoom": "online-legal-services",
+  "lemlist": "sales-engagement",
+  "leonardo-ai": "ai-image",
+  "lever": "recruiting",
+  "lightspeed": "point-of-sale",
+  "linear": "issue-tracking",
+  "linkedin-learning": "training-content",
+  "linkedin-recruiter": "job-boards",
+  "linkedin-sales-navigator": "sales-intelligence",
+  "linksquares": "contract-management",
+  "livechat": "live-chat",
+  "livestorm": "webinars-events",
+  "llama": "foundation-models",
+  "llamaindex": "agent-frameworks",
+  "looker": "bi",
+  "loom": "video-messaging",
+  "lucidchart": "whiteboards-diagramming",
+  "luma-ai": "ai-video",
+  "lusha": "sales-intelligence",
+  "mailchimp": "email-marketing",
+  "mailerlite": "email-marketing",
+  "mattermost": "team-chat",
+  "maze": "user-research",
+  "medallia": "customer-feedback",
+  "melio": "accounts-payable",
+  "mentimeter": "presentations",
+  "mercury": "business-banking",
+  "messenger": "messaging-apps",
+  "meta-ai": "ai-assistants",
+  "meta-model-api": "llm-apis",
+  "metabase": "bi",
+  "microsoft-365": "office-suites",
+  "microsoft-dynamics-365": {
+   "nodes": [
+    "crm",
+    "erp"
+   ],
+   "why": "Dynamics 365 is sold both as a CRM and as an ERP suite"
+  },
+  "microsoft-entra-id": "iam",
+  "microsoft-excel": "spreadsheets",
+  "microsoft-exchange-online": "email",
+  "microsoft-fabric": "data-warehouse",
+  "microsoft-intune": "device-management",
+  "microsoft-planner": "work-management",
+  "microsoft-powerpoint": "presentations",
+  "microsoft-teams": "team-chat",
+  "microsoft-word": "documents",
+  "midjourney": "ai-image",
+  "mimecast": "email-security",
+  "miro": "whiteboards-diagramming",
+  "missive": "shared-inbox",
+  "mixmax": "sales-engagement",
+  "mixpanel": "product-analytics",
+  "mlx": "ml-frameworks",
+  "monday-com": "work-management",
+  "monday-crm": "crm",
+  "mongodb-atlas": "nosql-databases",
+  "monte-carlo": "data-governance",
+  "motion": "calendars-scheduling",
+  "moz-pro": "seo",
+  "mural": "whiteboards-diagramming",
+  "mycase": "legal-practice",
+  "namecheap": "web-hosting",
+  "navan": "travel-management",
+  "neon": "relational-databases",
+  "netlify": "app-hosting",
+  "netsuite": "erp",
+  "new-relic": "observability",
+  "nextiva": "business-phone",
+  "nice-cxone": "contact-center",
+  "ninjaone": "remote-access-rmm",
+  "nordpass": "password-managers",
+  "notebooklm": "ai-search",
+  "notion": "wikis-knowledge",
+  "nutshell": "crm",
+  "obsidian": "notes",
+  "okta": "iam",
+  "omnisend": "email-marketing",
+  "on24": "webinars-events",
+  "onedrive": "file-storage",
+  "onelogin": "iam",
+  "optimizely": "experimentation",
+  "opusclip": "video-editing",
+  "outlook": "email",
+  "outreach": "sales-engagement",
+  "oyster": "global-employment",
+  "paddle": "billing-subscriptions",
+  "pagerduty": "incident-management",
+  "pandadoc": "cpq-proposals",
+  "panopto": "video-hosting",
+  "paychex": "payroll",
+  "paycom": "payroll",
+  "paycor": "payroll",
+  "payhawk": "spend-management",
+  "paylocity": "payroll",
+  "payoneer": "business-banking",
+  "paypal": "payments",
+  "pendo": "product-analytics",
+  "perk": "travel-management",
+  "perplexity": "ai-search",
+  "personio": "hris",
+  "pictory": "ai-video",
+  "pigment": "fpa",
+  "pika": "ai-video",
+  "pilot": "accounting",
+  "ping-identity": "iam",
+  "pipedrive": "crm",
+  "pitch": "presentations",
+  "plane": "issue-tracking",
+  "playground": "ai-image",
+  "pleo": "spend-management",
+  "pluralsight": "training-content",
+  "posthog": "product-analytics",
+  "postman": "api-tools",
+  "power-bi": "bi",
+  "prezi": "presentations",
+  "procurify": "procurement",
+  "productboard": "product-management",
+  "proofpoint": "email-security",
+  "proton-mail": "email",
+  "pylon": "help-desk",
+  "pytorch": "ml-frameworks",
+  "qlik": "bi",
+  "qodo": "code-review",
+  "qualtrics": "customer-feedback",
+  "quillbot": "writing-assistants",
+  "quo": "business-phone",
+  "railway": "app-hosting",
+  "ramp": "spend-management",
+  "re-amaze": "help-desk",
+  "react": "sdks-libraries",
+  "react-native": "sdks-libraries",
+  "reclaim-ai": "calendars-scheduling",
+  "recraft": "ai-image",
+  "recurly": "billing-subscriptions",
+  "remote": "global-employment",
+  "render": "app-hosting",
+  "restream": "streaming-recording",
+  "retool": "low-code",
+  "ringcentral": "business-phone",
+  "rippling": {
+   "nodes": [
+    "hris",
+    "device-management"
+   ],
+   "why": "Rippling sells HR, payroll and IT device management on one employee record"
+  },
+  "riverside": "streaming-recording",
+  "rocket-chat": "team-chat",
+  "rocket-lawyer": "online-legal-services",
+  "rocksdb": "nosql-databases",
+  "runway": "ai-video",
+  "rydoo": "spend-management",
+  "sage-intacct": "accounting",
+  "salesforce": "crm",
+  "salesforce-commerce-cloud": "ecommerce",
+  "salesforce-marketing-cloud": "marketing-automation",
+  "salesforce-service-cloud": "help-desk",
+  "salesloft": "sales-engagement",
+  "sanity": "cms",
+  "sap-concur": "spend-management",
+  "sap-successfactors": "hris",
+  "savvycal": "calendars-scheduling",
+  "secureframe": "grc-compliance",
+  "segment": "cdp",
+  "segment-anything": "computer-vision",
+  "seismic": "sales-enablement",
+  "semrush": "seo",
+  "sentinelone": "endpoint-security",
+  "sentry": "observability",
+  "setmore": "calendars-scheduling",
+  "sharefile": "file-storage",
+  "sharepoint": "file-storage",
+  "shipstation": "shipping-fulfillment",
+  "shopify": "ecommerce",
+  "shortcut": "issue-tracking",
+  "shortwave": "email",
+  "shutterstock": "stock-media",
+  "sigma": "bi",
+  "signnow": "e-signature",
+  "similarweb": "market-research",
+  "sisense": "bi",
+  "siteground": "web-hosting",
+  "sketch": "ui-design",
+  "skillsoft": "training-content",
+  "slack": "team-chat",
+  "smartrecruiters": "recruiting",
+  "smartsheet": "project-management",
+  "smokeball": "legal-practice",
+  "snowflake": "data-warehouse",
+  "snyk": "application-security",
+  "spark-mail": "email",
+  "speechify": "accessibility-input",
+  "spellbook": "legal-research",
+  "spendesk": "spend-management",
+  "splunk": {
+   "nodes": [
+    "observability",
+    "security-operations"
+   ],
+   "why": "Splunk is sold for observability and as a SIEM"
+  },
+  "spotdraft": "contract-management",
+  "sprinklr": "social-media",
+  "sprout-social": "social-media",
+  "square": {
+   "nodes": [
+    "payments",
+    "point-of-sale"
+   ],
+   "why": "Square processes card payments and sells point-of-sale software and hardware"
+  },
+  "squarespace": "website-builders",
+  "stability-ai": "ai-image",
+  "storyblok": "cms",
+  "strapi": "cms",
+  "streak": "crm",
+  "streamyard": "streaming-recording",
+  "stripe": "payments",
+  "sugarcrm": "crm",
+  "suno": "ai-audio",
+  "supabase": "backend-services",
+  "superhuman": "email",
+  "synthesia": "ai-video",
+  "tableau": "bi",
+  "tailscale": "vpn-secure-access",
+  "talkdesk": "contact-center",
+  "teachable": "online-courses",
+  "teamgantt": "project-management",
+  "teamviewer": "remote-access-rmm",
+  "teamwork": "project-management",
+  "thinkific": "online-courses",
+  "thoughtspot": "bi",
+  "threads": "social-networks",
+  "tidio": "live-chat",
+  "tipalti": "accounts-payable",
+  "toast": {
+   "nodes": [
+    "point-of-sale",
+    "hospitality"
+   ],
+   "why": "Toast is a point-of-sale and management platform built for restaurants"
+  },
+  "todoist": "task-management",
+  "toggl-track": "time-tracking",
+  "topaz-labs": "photo-editing",
+  "torii": "it-asset-saas",
+  "trello": "work-management",
+  "tresorit": "file-storage",
+  "trinet": "global-employment",
+  "tropic": "procurement",
+  "twilio": "communications-apis",
+  "udemy-business": "training-content",
+  "udio": "ai-audio",
+  "ukg": "hris",
+  "unbounce": "website-builders",
+  "vanta": "grc-compliance",
+  "veed": "video-editing",
+  "vendr": "procurement",
+  "vercel": "app-hosting",
+  "vidyard": "video-hosting",
+  "vimeo": "video-hosting",
+  "vonage-business-communications": "business-phone",
+  "warp": "terminals-shells",
+  "wave": "accounting",
+  "webex": "video-conferencing",
+  "webflow": "website-builders",
+  "whereby": "video-conferencing",
+  "whimsical": "whiteboards-diagramming",
+  "wise-business": "business-banking",
+  "wistia": "video-hosting",
+  "wix": "website-builders",
+  "wiz": "cloud-security",
+  "woocommerce": "ecommerce",
+  "wordpress-com": "website-builders",
+  "wordtune": "writing-assistants",
+  "workable": "recruiting",
+  "workday": "hris",
+  "wp-engine": "web-hosting",
+  "wrike": "work-management",
+  "writer": "content-creation",
+  "xero": "accounting",
+  "youcanbook-me": "calendars-scheduling",
+  "zed": "ide-editors",
+  "zendesk": "help-desk",
+  "zenhub": "issue-tracking",
+  "zeplin": "ui-design",
+  "zip": "procurement",
+  "zluri": "it-asset-saas",
+  "zoho-books": "accounting",
+  "zoho-cliq": "team-chat",
+  "zoho-crm": "crm",
+  "zoho-desk": "help-desk",
+  "zoho-expense": "spend-management",
+  "zoho-mail": "email",
+  "zoho-projects": "project-management",
+  "zoom": "video-conferencing",
+  "zoom-phone": "business-phone",
+  "zoom-webinars": "webinars-events",
+  "zoominfo": "sales-intelligence",
+  "zscaler": "vpn-secure-access"
+ }
+}

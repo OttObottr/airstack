@@ -1,0 +1,29 @@
+{
+  "_read_by": "backend/airstack/catalog.py: category ids shared by the catalog, checker and pages, with their names",
+  "categories": {
+    "meta": "Meta: apps, AI and open source",
+    "creative-ai": "Creative AI (image, video, audio)",
+    "email-calendar": "Email and calendar",
+    "docs-storage": "Docs and storage",
+    "chat-meetings": "Chat and meetings",
+    "project-management": "Project management",
+    "design": "Design",
+    "ai-assistants": "AI assistants",
+    "ai-coding": "AI coding tools",
+    "crm-sales": "CRM and sales",
+    "marketing": "Marketing",
+    "support": "Customer support",
+    "hr-people": "HR and people",
+    "finance": "Finance and accounting",
+    "security-it": "Security and IT",
+    "data-bi": "Data and analytics",
+    "dev-platforms": "Developer platforms",
+    "web-commerce": "Websites and commerce",
+    "legal-contracts": "Legal and contracts",
+    "forms-surveys": "Forms and surveys",
+    "spend-procurement": "Spend and procurement",
+    "learning": "Learning and training",
+    "video-webinars": "Video and webinars",
+    "it-service": "IT and service desk"
+  }
+}

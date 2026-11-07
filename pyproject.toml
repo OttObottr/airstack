@@ -1,0 +1,16 @@
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["backend", "backend/tools", "tools"]
+filterwarnings = ["ignore::DeprecationWarning"]
+markers = [
+    "private_data: needs the saved responses and databases in data/ (not in the repository; restore from tools/backup.sh)",
+    "network: hits the real internet; opt in with AIRSTACK_NETWORK_TESTS=1",
+    "live: checks the provider contract with bounded real calls; opt in with AIRSTACK_LIVE_SMOKE=1",
+]
+
+# Lint only what a reviewer would block on. S608: SQL built from strings (every value must be a bound parameter; a formatted table or
+# column name goes through airstack.store.ident() and carries a noqa naming why). S102/S307: exec and eval. S506: unsafe YAML load.
+[tool.ruff]
+target-version = "py312"
+[tool.ruff.lint]
+select = ["S608", "S102", "S307", "S506"]

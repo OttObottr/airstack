@@ -1,0 +1,14 @@
+{
+ "body": [],
+ "command": [
+  "gh",
+  "api",
+  "repos/pgvector/pgvector/releases?per_page=20",
+  "--jq",
+  "[.[] | {tag_name, name, draft, prerelease, published_at, created_at, html_url}]"
+ ],
+ "error": null,
+ "fetched_at": "2026-11-04T04:49:49Z",
+ "status": 200,
+ "url": "https://api.github.com/repos/pgvector/pgvector/releases?per_page=20"
+}

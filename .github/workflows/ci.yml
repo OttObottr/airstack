@@ -1,0 +1,43 @@
+# spec: AS-141 AS-280
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  secrets:                                                        # the standard tool, over the full history, on every push
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0, persist-credentials: false }
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}", GITLEAKS_CONFIG: .gitleaks.toml }
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONPATH: ${{ github.workspace }}/backend
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { persist-credentials: false }
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Install (pinned)
+        run: pip install --require-hashes -r backend/requirements-dev.txt
+      - name: Lint (no SQL built from strings; pyproject.toml)
+        run: ruff check backend tools JOURNEY
+      - name: Spec audit (tickets <-> code <-> tests <-> journeys)
+        run: python tools/spec_audit.py
+      - name: Fetch the published datasets (data is not in the repository), checked against their checksums
+        run: tools/data_pull.sh
+      - name: Render the pages (from those datasets, as deploy.sh does)
+        run: python backend/tools/build_pages.py
+      - name: Tests and real-browser journeys
+        working-directory: backend
+        run: pytest -q tests ../JOURNEY

@@ -1,0 +1,30 @@
+.env
+.env.*
+!.env.example
+/public/
+# Data is not code. Everything generated, fetched or saved lives in data/ (AIRSTACK_DATA can point elsewhere) and is never committed:
+# the published datasets (data/site/), saved responses (data/*-raw/), the databases. Fetch the published datasets with tools/data_pull.sh.
+/data/
+# pages: rendered from the data by backend/tools/build_pages.py at deploy and in CI
+/p/
+/o/
+/c/
+/compare/
+/t/
+.venv/
+__pycache__/
+*.egg-info/
+*.pyc
+.pytest_cache/
+backend/logs/
+
+.DS_Store
+
+# local dev runtime state (contains machine and network metadata): never commit
+.wrangler/
+
+# agent worktrees (local only)
+.claude/worktrees/
+
+# the page installs no packages: a stray package folder is never committed
+node_modules/

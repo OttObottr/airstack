@@ -1,0 +1,20 @@
+{
+ "body": {
+  "archived": false,
+  "full_name": "openai/codex",
+  "html_url": "https://github.com/openai/codex",
+  "pushed_at": "2026-11-04T04:02:18Z",
+  "stargazers_count": 133060
+ },
+ "command": [
+  "gh",
+  "api",
+  "repos/openai/codex",
+  "--jq",
+  "{full_name, stargazers_count, pushed_at, archived, html_url}"
+ ],
+ "error": null,
+ "fetched_at": "2026-11-04T04:48:28Z",
+ "status": 200,
+ "url": "https://api.github.com/repos/openai/codex"
+}

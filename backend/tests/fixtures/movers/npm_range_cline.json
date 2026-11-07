@@ -1,0 +1,133 @@
+{
+ "body": {
+  "downloads": [
+   {
+    "day": "2026-10-04",
+    "downloads": 10715
+   },
+   {
+    "day": "2026-10-05",
+    "downloads": 12461
+   },
+   {
+    "day": "2026-10-06",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-07",
+    "downloads": 10825
+   },
+   {
+    "day": "2026-10-08",
+    "downloads": 11386
+   },
+   {
+    "day": "2026-10-09",
+    "downloads": 11127
+   },
+   {
+    "day": "2026-10-10",
+    "downloads": 12841
+   },
+   {
+    "day": "2026-10-11",
+    "downloads": 7189
+   },
+   {
+    "day": "2026-10-12",
+    "downloads": 12310
+   },
+   {
+    "day": "2026-10-13",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-14",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-15",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-16",
+    "downloads": 11920
+   },
+   {
+    "day": "2026-10-17",
+    "downloads": 11154
+   },
+   {
+    "day": "2026-10-18",
+    "downloads": 7191
+   },
+   {
+    "day": "2026-10-19",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-20",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-21",
+    "downloads": 0
+   },
+   {
+    "day": "2026-10-22",
+    "downloads": 17566
+   },
+   {
+    "day": "2026-10-23",
+    "downloads": 14567
+   },
+   {
+    "day": "2026-10-24",
+    "downloads": 8240
+   },
+   {
+    "day": "2026-10-25",
+    "downloads": 9851
+   },
+   {
+    "day": "2026-10-26",
+    "downloads": 17743
+   },
+   {
+    "day": "2026-10-27",
+    "downloads": 18091
+   },
+   {
+    "day": "2026-10-28",
+    "downloads": 18275
+   },
+   {
+    "day": "2026-10-29",
+    "downloads": 18509
+   },
+   {
+    "day": "2026-10-30",
+    "downloads": 12504
+   },
+   {
+    "day": "2026-10-31",
+    "downloads": 11174
+   },
+   {
+    "day": "2026-11-01",
+    "downloads": 7694
+   },
+   {
+    "day": "2026-11-02",
+    "downloads": 12348
+   }
+  ],
+  "end": "2026-11-02",
+  "package": "cline",
+  "start": "2026-10-04"
+ },
+ "error": null,
+ "fetched_at": "2026-11-04T04:47:44Z",
+ "status": 200,
+ "url": "https://api.npmjs.org/downloads/range/last-month/cline"
+}

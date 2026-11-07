@@ -1,0 +1,30 @@
+# spec: AS-252 AS-257 AS-285 AS-316 AS-317 AS-318 AS-319
+"""The one <head>, stylesheet and footer every generated page shares."""
+import html, json, re
+
+BASE = "https://airstack.bot"
+STYLE = '<style>:root{color-scheme:dark}body{margin:0;background:#0A0A0B;color:#F5F5F7;font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:880px;margin:0 auto;padding:32px 20px 64px}\na{color:#F5F5F7;text-decoration-color:rgba(255,255,255,.3);text-underline-offset:3px}nav{font-size:14px;color:rgba(245,245,247,.66)}nav a{color:inherit}h1{font-size:clamp(32px,6vw,48px);letter-spacing:-.03em;line-height:1.05;margin:16px 0 8px}\nh2{font-size:20px;margin:40px 0 12px}.lead{font-size:19px;color:rgba(245,245,247,.82)}.cta{display:inline-block;margin-top:20px;padding:12px 20px;border-radius:999px;background:#FF4F00;color:#0A0A0B;font-weight:600;text-decoration:none}\ntable{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:10px 8px;border-top:1px solid rgba(255,255,255,.12)}th{width:34%;font-weight:500;color:rgba(245,245,247,.66)}small{color:rgba(245,245,247,.66)}\nul{padding-left:20px}li{margin:6px 0}footer{margin-top:48px;font-size:13px;color:rgba(245,245,247,.66)}</style>\n'
+
+e = lambda s: html.escape(str(s), quote=True)
+
+foot = lambda extra="": ("<footer>AirStack: every claim about software, with the page it came from. " + extra +
+                         "Original compilation metadata is CC BY 4.0 where applicable; third-party material remains its owners’ property. "
+                         '<a href="/legal/">Terms, privacy and sources</a>. <a href="https://github.com/OttObottr/airstack">Source</a></footer>')
+
+slug = lambda s, n=60: re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:n] or "x"
+
+def trim(t, n=140):
+    t = str(t); return t if len(t) <= n else t[:n].rsplit(" ", 1)[0].rstrip(",;:-") + "…"
+
+
+def head(title, desc, url, lds, og_title=None):
+    """The <head> every page shares: title, description, canonical URL, Open Graph and Twitter tags, the JSON-LD blocks and the stylesheet."""
+    d = e(desc[:300])
+    blocks = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
+    return (f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{e(title)}</title><meta name="description" content="{d}"><link rel="canonical" href="{url}">
+<meta property="og:type" content="website"><meta property="og:title" content="{e(og_title or title)}"><meta property="og:description" content="{d}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}/icons/og.png">
+<meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/icons/icon-192.png">
+{blocks}
+{STYLE}</head>
+''')

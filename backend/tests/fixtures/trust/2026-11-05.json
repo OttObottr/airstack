@@ -1,0 +1,43 @@
+{
+  "fetched_at": "2026-11-05T09:00:00+00:00",
+  "robots": {"deps.dev": false, "pypi-integrity": false, "pypi-json": false},
+  "kept": {},
+  "universe": [
+    {"id": "alpha", "npm": ["alpha-js"], "pypi": ["alpha-py"], "github": "alpha/alpha"},
+    {"id": "beta", "npm": ["@beta/cli"], "pypi": [], "github": "Beta-Org/beta"},
+    {"id": "gamma", "npm": ["safe-env"], "pypi": [], "github": null},
+    {"id": "saas", "npm": [], "pypi": [], "github": null}
+  ],
+  "oss_repos": ["beta-org/beta", "own/app", "own/none", "own/pubpkg", "own/squatted"],
+  "responses": {
+    "https://registry.npmjs.org/alpha-js/latest": {"status": 200, "body": {"name": "alpha-js", "version": "1.2.4", "repository": {"type": "git", "url": "git+https://github.com/alpha/alpha.git"}}},
+    "https://registry.npmjs.org/@beta%2Fcli/latest": {"status": 200, "body": {"name": "@beta/cli", "version": "3.1.0", "repository": {"type": "git", "url": "git+https://github.com/Beta-Org/beta.git", "directory": "packages/cli"}}},
+    "https://registry.npmjs.org/safe-env/latest": {"status": 200, "body": {"name": "safe-env", "version": "1.0.0", "repository": null}},
+    "https://registry.npmjs.org/pubpkg/latest": {"status": 200, "body": {"name": "pubpkg", "version": "0.5.0", "repository": "github:own/pubpkg"}},
+    "https://registry.npmjs.org/squat/latest": {"status": 200, "body": {"name": "squat", "version": "9.9.9", "repository": "https://github.com/someone-else/squat"}},
+    "https://pypi.org/rss/project/alpha-py/releases.xml": {"status": 200, "body": [["2.1.0rc1", "Tue, 03 Nov 2026 10:00:00 GMT"], ["1.10.1", "Mon, 02 Nov 2026 12:00:00 GMT"], ["2.0.0", "Sun, 01 Nov 2026 10:00:00 GMT"], ["1.9.9", "Thu, 01 Oct 2026 10:00:00 GMT"]]},
+    "https://raw.githubusercontent.com/own/pubpkg/HEAD/package.json": {"status": 200, "body": {"name": "pubpkg", "private": null, "repository": "own/pubpkg"}},
+    "https://raw.githubusercontent.com/own/squatted/HEAD/package.json": {"status": 200, "body": {"name": "squat", "private": null, "repository": "own/squatted"}},
+    "https://raw.githubusercontent.com/own/app/HEAD/package.json": {"status": 200, "body": {"name": "app", "private": true, "repository": null}},
+    "https://raw.githubusercontent.com/own/none/HEAD/package.json": {"status": 404, "body": null},
+    "POST https://api.osv.dev/v1/querybatch {\"queries\": [{\"package\": {\"ecosystem\": \"npm\", \"name\": \"@beta/cli\"}, \"version\": \"3.1.0\"}, {\"package\": {\"ecosystem\": \"npm\", \"name\": \"alpha-js\"}, \"version\": \"1.2.3\"}, {\"package\": {\"ecosystem\": \"npm\", \"name\": \"pubpkg\"}, \"version\": \"0.5.0\"}, {\"package\": {\"ecosystem\": \"npm\", \"name\": \"safe-env\"}, \"version\": \"1.0.0\"}, {\"package\": {\"ecosystem\": \"PyPI\", \"name\": \"alpha-py\"}, \"version\": \"2.0.0\"}]}": {"status": 200, "body": {"results": [
+      {"vulns": [{"id": "GHSA-bbbb-cccc-dddd", "modified": "2026-10-01T00:00:00Z"}, {"id": "MAL-2025-9", "modified": "2026-09-01T00:00:00Z"}, {"id": "CVE-2026-0001", "modified": "2026-08-01T00:00:00Z"}]},
+      {"vulns": [{"id": "GHSA-aaaa-bbbb-cccc", "modified": "2026-10-02T00:00:00Z"}]},
+      {},
+      {},
+      {"vulns": [{"id": "MAL-2026-1", "modified": "2026-11-01T00:00:00Z"}]}
+    ]}},
+    "https://api.osv.dev/v1/vulns/GHSA-bbbb-cccc-dddd": {"status": 200, "body": {"id": "GHSA-bbbb-cccc-dddd", "aliases": ["CVE-2026-0001"], "published": "2026-09-30T00:00:00Z", "modified": "2026-10-01T00:00:00Z", "withdrawn": null, "severity": [{"type": "CVSS_V3", "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"}], "database_severity": "HIGH",
+      "affected": [{"package": {"ecosystem": "npm", "name": "@beta/cli"}, "ranges": [{"type": "SEMVER", "events": [{"introduced": "0"}, {"fixed": "3.2.0"}]}]}, {"package": {"ecosystem": "npm", "name": "@beta/other"}, "ranges": [{"type": "SEMVER", "events": [{"introduced": "1.0.0"}, {"fixed": "1.0.1"}]}]}]}},
+    "https://api.osv.dev/v1/vulns/MAL-2025-9": {"status": 200, "body": {"id": "MAL-2025-9", "aliases": [], "published": "2025-05-01T00:00:00Z", "modified": "2026-09-01T00:00:00Z", "withdrawn": "2026-09-01T00:00:00Z", "severity": null, "database_severity": null,
+      "affected": [{"package": {"ecosystem": "npm", "name": "@beta/cli"}, "versions": ["3.1.0"]}]}},
+    "https://api.osv.dev/v1/vulns/GHSA-aaaa-bbbb-cccc": {"status": 200, "body": {"id": "GHSA-aaaa-bbbb-cccc", "aliases": [], "published": "2026-10-02T00:00:00Z", "modified": "2026-10-02T00:00:00Z", "withdrawn": null, "severity": null, "database_severity": "MODERATE",
+      "affected": [{"package": {"ecosystem": "npm", "name": "alpha-js"}, "ranges": [{"type": "SEMVER", "events": [{"introduced": "1.0.0"}, {"fixed": "1.2.4"}]}]}]}},
+    "https://api.osv.dev/v1/vulns/MAL-2026-1": {"status": 200, "body": {"id": "MAL-2026-1", "aliases": [], "published": "2026-11-01T00:00:00Z", "modified": "2026-11-01T00:00:00Z", "withdrawn": null, "severity": null, "database_severity": null,
+      "affected": [{"package": {"ecosystem": "PyPI", "name": "Alpha_Py"}, "versions": ["2.0.0"]}]}},
+    "https://registry.npmjs.org/-/npm/v1/attestations/alpha-js@1.2.3": {"status": 200, "body": ["https://slsa.dev/provenance/v1"]},
+    "https://registry.npmjs.org/-/npm/v1/attestations/@beta%2Fcli@3.1.0": {"status": 200, "body": ["https://github.com/npm/attestation/tree/main/specs/publish/v0.1", "https://slsa.dev/provenance/v1"]},
+    "https://registry.npmjs.org/-/npm/v1/attestations/pubpkg@0.5.0": {"status": 404, "body": null},
+    "https://registry.npmjs.org/-/npm/v1/attestations/safe-env@1.0.0": {"status": 404, "body": null}
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "_read_by": "backend/tools/build_insights.py: where AI shows on a product's own pages",
+  "provider_pattern": "\\b(OpenAI|ChatGPT|GPT-?\\d|Claude|Anthropic|Gemini|Mistral|Llama|Hugging ?Face|Copilot|Perplexity|Cohere|Ollama|Groq|DeepSeek|Grok|Midjourney|Stable Diffusion)\\b",
+  "ai_pattern": "\\b(AI|A\\.I\\.|artificial intelligence|LLMs?|GPT|machine learning|generative|agentic|copilot|embeddings?|neural)\\b|\\bAI[- ](powered|native|first)|\\b(coding|AI|autonomous|software|browser) agents?\\b|\\bagents? (harness|framework|platform|runtime|builder)|\\bvector (search|database|similarity|store)"
+}

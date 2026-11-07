@@ -1,0 +1,59 @@
+/* spec: AS-256 AS-346 */
+/* the coverage map: what you pay for · your needs · what you already have, one line per need to whatever covers it */
+.cmap{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0 clamp(24px,3vw,48px);align-items:center;margin-top:28px;padding:16px;border-radius:16px;background:var(--color-s1);border:1px solid var(--color-hair)}
+.cmap>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.cmap path{fill:none;stroke:var(--color-ink);stroke-width:1.5}.cmap path.unknown{stroke:var(--color-ink-3);stroke-dasharray:3 4}.cmap.stale path{stroke:var(--color-ink-3)}
+.cmap circle{fill:var(--color-ink)}.cmap circle.hollow{fill:var(--color-bg);stroke:var(--color-ink-3);stroke-width:1.5}.cmap.stale circle{fill:var(--color-ink-3)}
+.cnode{position:relative;z-index:1;max-width:124px;padding:10px 12px;border-radius:12px;background:var(--color-s2);border:1px solid var(--color-hair);min-width:0}
+.cnode b{display:block;font-weight:600}.cnode span{display:block;margin-top:2px;font-size:var(--text-meta);color:var(--color-ink-2)}
+.cmap .needs{position:relative;z-index:1;display:grid;gap:8px}
+.cmap .needs li{min-height:36px;padding:6px 10px;line-height:1.3;border-radius:10px;background:var(--color-bg);border:1px solid var(--color-ink-3);font-size:var(--text-meta)}
+.cmap .needs li.covered,.cmap .needs li.unmet{border-color:var(--color-ink-2)}.cmap .needs li.unmet{font-weight:600;border-color:var(--color-ink)}.cmap .needs li.unknown{border-style:dashed;color:var(--color-ink-2)}
+.cmap .by{display:none;margin-left:auto;padding-left:12px;color:var(--color-ink-2);white-space:nowrap}
+@media(max-width:699px){.cmap{grid-template-columns:1fr;gap:12px;padding:16px}.cmap>svg,.cnode{display:none}.cmap .by{display:inline}}
+@media (prefers-reduced-motion:no-preference){.answer.reveal .cmap path:not(.unknown){stroke-dasharray:1;stroke-dashoffset:1;animation:draw .35s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i,0)*60ms + 120ms)}
+  .answer.reveal .cmap .needs li{animation:rise .3s var(--ease-out) both;animation-delay:calc(var(--i,0)*40ms)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.areason{margin-top:16px}
+.kv{margin-top:32px}
+.kv>div{display:grid;grid-template-columns:160px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--color-hair)}
+.kv dt{padding-top:4px}
+.kv dd{min-width:0}
+.needs{list-style:none;display:flex;flex-wrap:wrap;gap:4px 24px}
+.needs li{display:flex;align-items:center;gap:8px;min-height:32px}
+.mk{display:inline-grid;place-items:center;width:16px;font-weight:700}
+.mk.covered,.mk.unknown{color:var(--color-ink-2)}
+.mk.unmet{color:var(--color-ink)}
+.srcs{display:flex;flex-wrap:wrap;gap:0 24px}
+
+.aw.unknown{color:var(--color-ink-2)}
+.aw.potential{color:var(--color-ink)}
+.prow td{padding:0 0 24px;border-bottom:1px solid var(--color-hair)}
+.prow .kv{margin-top:0}
+.pbtn{white-space:nowrap}
+.scen{margin-bottom:16px}
+#needs .chip[aria-pressed=true]{background:var(--color-ink);border-color:var(--color-ink);color:#0A0A0B}
+th .sort{font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;min-height:44px;text-decoration:underline;text-decoration-color:var(--color-hair);text-underline-offset:4px;transition:opacity .15s}
+th .sort[aria-pressed=true]{color:var(--color-ink);text-decoration-color:var(--color-ink)}
+th .sort:hover{opacity:.72}
+#lanes{margin-top:24px}
+#profile .kv{margin-top:32px}
+.sub3{margin-top:48px}
+.src{display:inline-flex;align-items:center;min-height:24px;margin-left:4px;font-size:var(--text-meta);color:var(--color-ink-2);text-decoration:underline;text-decoration-color:var(--color-hair);text-underline-offset:3px}
+.nobs{color:var(--color-ink-2)}
+#moversSub{max-width:72rem;margin-top:8px;font-size:var(--text-body);line-height:1.55;color:var(--color-ink)}
+.state-note{display:inline-block;padding:2px 7px;border:1px solid color-mix(in oklab,var(--color-info) 32%,var(--color-hair));border-radius:999px;background:color-mix(in oklab,var(--color-info) 9%,transparent);color:color-mix(in oklab,var(--color-info) 72%,var(--color-ink));font-size:var(--text-meta);line-height:1.5;white-space:nowrap}
+.mk-t td{max-width:220px}
+.cv.retire{color:var(--color-accent);font-weight:600}
+.cv.keep,.cv.potential{font-weight:600}
+.cv.unknown{color:var(--color-ink-2)}
+/* AS-346: a line is a button; its quote shows on hover and focus (no motion), and opening it pins it and lists what would close it */
+.cmap .needs li{position:relative}.cmap .needs li:hover,.cmap .needs li:focus-within{z-index:3}
+.ln{display:flex;align-items:center;gap:8px;width:100%;min-height:32px;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:help}
+.tip{position:absolute;left:0;top:100%;z-index:3;width:min(34rem,100%);display:none;padding:12px 16px;border-radius:12px;background:var(--color-s1);border:1px solid var(--color-ink-3);font-size:var(--text-meta);font-weight:400;color:var(--color-ink);box-shadow:0 8px 24px rgb(0 0 0/.25)}
+.needs li:hover .tip,.needs li:focus-within .tip,.ln[aria-expanded=true]+.tip{display:block}
+.tip q{display:block;margin-bottom:8px;font-style:normal}.tip .ext{min-height:24px;display:flex}
+.tip .close{display:none;margin-top:8px}.ln[aria-expanded=true]+.tip .close{display:block}.tip .close ul{margin:4px 0 0 16px;list-style:disc}
+.swap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:16px}
+.swap .chip[aria-pressed=true]{background:var(--color-ink);border-color:var(--color-ink);color:var(--color-bg)}.swap .chip:disabled{opacity:.5}
+.swap select,#cmpAdd{min-height:44px;padding:0 12px;border:1px solid var(--color-hair);border-radius:999px;background:var(--color-bg);color:var(--color-ink);font:inherit}

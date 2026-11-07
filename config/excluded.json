@@ -1,0 +1,13 @@
+{
+  "_read_by": "backend/tools/build_directory.py",
+  "_why": "AirStack lists legitimate software and services. A listing is dropped when its Wikidata type, name or description says it is mainly for piracy, adult content, illegal markets or malware. BitTorrent clients, security tools and anti-piracy tools stay.",
+  "type_labels": "^(bittorrent (tracker|search engine)|computer virus|computer worm|trojan horse|ransomware|botnet)$",
+  "text": "\\bxnxx\\b|xvideos|pornhub|xhamster|porn|erotic|hentai|\\bxxx\\b|\\bescort\\b|adult (video|content|site|entertainment|website)|\\bnsfw\\b|sex (cam|chat|video)|cam ?site|babes|torrent (site|index|tracker|search)|\\bwarez\\b|pirate bay|illegal(ly)? (download|stream)|\\bkeygen\\b|cracked software|black ?market|darknet market|cybercrime|\\bcarding\\b|stolen (data|credentials)|hacking forum",
+  "ids": {
+    "Q15958643": "Popcorn Time streams pirated torrents"
+  },
+  "renames": {
+    "Q4040782": "Hotspot Shield"
+  },
+  "_renames": "Wikidata labels that carry junk text from vandalism: the product is listed under its real name"
+}

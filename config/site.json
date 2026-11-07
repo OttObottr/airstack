@@ -1,0 +1,35 @@
+{
+  "_read_by": "backend/tools/build_site_data.py: the plans, devices and recorded examples the page asks about, and how sources are named",
+  "plans": [
+    "Business Starter",
+    "Business Standard",
+    "Business Plus",
+    "Enterprise Standard",
+    "Enterprise Plus",
+    "Frontline Plus",
+    "Google AI Pro",
+    "Google AI Ultra",
+    "No Google plan"
+  ],
+  "devices": [
+    ["Android", "Android"],
+    ["iPhone", "iOS"],
+    ["Computer", "Web"]
+  ],
+  "default": ["Business Standard", "Android"],
+  "examples": {
+    "seat:A": ["Business Standard", "Android"],
+    "seat:B": ["Business Starter", "Android"]
+  },
+  "source_names": {
+    "press.9to5google": "9to5Google",
+    "workspace.updates": "Google Workspace Updates",
+    "google.meet.help": "Google Meet Help",
+    "web_search": "Web search"
+  },
+  "source_short": {
+    "workspace.updates": "Workspace Updates",
+    "google.meet.help": "Meet Help",
+    "press.9to5google": "9to5Google"
+  }
+}

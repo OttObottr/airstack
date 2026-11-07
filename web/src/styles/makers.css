@@ -1,0 +1,12 @@
+/* spec: AS-256 AS-317 */
+.mkbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px;padding:12px;border:1px solid var(--color-hair);border-radius:var(--radius-md);background:linear-gradient(145deg,rgba(24,32,41,.58),rgba(7,9,11,.42));box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.mkq{min-height:44px;min-width:200px;flex:1 1 220px;padding:0 14px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:rgba(7,9,11,.78);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);color:var(--color-ink);font:inherit}
+.mkq:focus-visible{outline:2px solid var(--color-info);outline-offset:2px}
+.t.mkr th[scope=row]{font-weight:500;text-transform:none;letter-spacing:0;font-size:var(--text-body);color:var(--color-ink);white-space:normal}
+.t.mkr td{font-weight:400}
+.t.mkr a{color:inherit}
+.t.mkr th:first-child,.t.mkr td:first-child{width:3ch;padding-right:12px;color:var(--color-ink-3);font-family:var(--font-mono)}
+.mkbar .sel{min-width:0;max-width:100%;flex:1 1 200px}
+.mkbar .chip{flex:none}
+#mkCount{margin-top:12px;font-family:var(--font-mono)}
+@media(max-width:699px){.mkbar{padding:8px}.mkq,.mkbar .sel{flex-basis:100%}.mkbar .chip{flex:1;justify-content:center}}

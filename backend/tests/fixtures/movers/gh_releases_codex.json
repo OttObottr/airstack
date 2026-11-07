@@ -1,0 +1,195 @@
+{
+ "body": [
+  {
+   "created_at": "2026-11-04T00:44:59Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.1",
+   "name": "0.168.0-alpha.1",
+   "prerelease": true,
+   "published_at": "2026-11-04T02:54:53Z",
+   "tag_name": "rust-v0.168.0-alpha.1"
+  },
+  {
+   "created_at": "2026-11-03T01:19:38Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4",
+   "name": "0.167.0-alpha.4",
+   "prerelease": true,
+   "published_at": "2026-11-03T02:24:00Z",
+   "tag_name": "rust-v0.167.0-alpha.4"
+  },
+  {
+   "created_at": "2026-11-03T23:01:57Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/libcap-v2.75",
+   "name": "libcap 2.75 source archive",
+   "prerelease": true,
+   "published_at": "2026-11-03T23:04:31Z",
+   "tag_name": "libcap-v2.75"
+  },
+  {
+   "created_at": "2026-11-01T20:58:59Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3",
+   "name": "0.167.0-alpha.3",
+   "prerelease": true,
+   "published_at": "2026-11-01T22:26:17Z",
+   "tag_name": "rust-v0.167.0-alpha.3"
+  },
+  {
+   "created_at": "2026-11-01T17:51:18Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.2",
+   "name": "0.167.0-alpha.2",
+   "prerelease": true,
+   "published_at": "2026-11-01T19:00:13Z",
+   "tag_name": "rust-v0.167.0-alpha.2"
+  },
+  {
+   "created_at": "2026-10-29T17:44:31Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0",
+   "name": "0.166.0",
+   "prerelease": false,
+   "published_at": "2026-10-29T19:47:53Z",
+   "tag_name": "rust-v0.166.0"
+  },
+  {
+   "created_at": "2026-10-28T22:10:56Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.6",
+   "name": "0.166.0-alpha.6",
+   "prerelease": true,
+   "published_at": "2026-10-29T01:41:25Z",
+   "tag_name": "rust-v0.166.0-alpha.6"
+  },
+  {
+   "created_at": "2026-10-28T17:38:55Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.5.1",
+   "name": "0.166.0-alpha.5.1",
+   "prerelease": true,
+   "published_at": "2026-10-28T19:17:02Z",
+   "tag_name": "rust-v0.166.0-alpha.5.1"
+  },
+  {
+   "created_at": "2026-10-28T02:58:16Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.5",
+   "name": "0.166.0-alpha.5",
+   "prerelease": true,
+   "published_at": "2026-10-28T04:43:10Z",
+   "tag_name": "rust-v0.166.0-alpha.5"
+  },
+  {
+   "created_at": "2026-10-27T18:19:20Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0",
+   "name": "0.165.0",
+   "prerelease": false,
+   "published_at": "2026-10-27T20:09:38Z",
+   "tag_name": "rust-v0.165.0"
+  },
+  {
+   "created_at": "2026-10-27T23:31:30Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.4",
+   "name": "0.166.0-alpha.4",
+   "prerelease": true,
+   "published_at": "2026-10-28T01:22:03Z",
+   "tag_name": "rust-v0.166.0-alpha.4"
+  },
+  {
+   "created_at": "2026-10-27T17:33:57Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.3",
+   "name": "0.166.0-alpha.3",
+   "prerelease": true,
+   "published_at": "2026-10-27T19:23:16Z",
+   "tag_name": "rust-v0.166.0-alpha.3"
+  },
+  {
+   "created_at": "2026-10-27T10:28:18Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.2",
+   "name": "0.166.0-alpha.2",
+   "prerelease": true,
+   "published_at": "2026-10-27T11:54:48Z",
+   "tag_name": "rust-v0.166.0-alpha.2"
+  },
+  {
+   "created_at": "2026-10-27T00:01:54Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.1",
+   "name": "0.166.0-alpha.1",
+   "prerelease": true,
+   "published_at": "2026-10-27T01:33:18Z",
+   "tag_name": "rust-v0.166.0-alpha.1"
+  },
+  {
+   "created_at": "2026-10-27T03:54:04Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1.2",
+   "name": "0.165.0-alpha.1.2",
+   "prerelease": true,
+   "published_at": "2026-10-27T04:57:39Z",
+   "tag_name": "rust-v0.165.0-alpha.1.2"
+  },
+  {
+   "created_at": "2026-10-26T19:53:24Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.3",
+   "name": "0.165.0-alpha.3",
+   "prerelease": true,
+   "published_at": "2026-10-26T21:54:06Z",
+   "tag_name": "rust-v0.165.0-alpha.3"
+  },
+  {
+   "created_at": "2026-10-26T23:04:07Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1.1",
+   "name": "0.165.0-alpha.1.1",
+   "prerelease": true,
+   "published_at": "2026-10-27T00:36:33Z",
+   "tag_name": "rust-v0.165.0-alpha.1.1"
+  },
+  {
+   "created_at": "2026-10-23T03:15:13Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.164.0",
+   "name": "0.164.0",
+   "prerelease": false,
+   "published_at": "2026-10-23T04:48:10Z",
+   "tag_name": "rust-v0.164.0"
+  },
+  {
+   "created_at": "2026-10-23T12:40:54Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1",
+   "name": "0.165.0-alpha.1",
+   "prerelease": true,
+   "published_at": "2026-10-23T14:09:53Z",
+   "tag_name": "rust-v0.165.0-alpha.1"
+  },
+  {
+   "created_at": "2026-10-22T10:06:11Z",
+   "draft": false,
+   "html_url": "https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.12",
+   "name": "0.164.0-alpha.12",
+   "prerelease": true,
+   "published_at": "2026-10-22T11:11:51Z",
+   "tag_name": "rust-v0.164.0-alpha.12"
+  }
+ ],
+ "command": [
+  "gh",
+  "api",
+  "repos/openai/codex/releases?per_page=20",
+  "--jq",
+  "[.[] | {tag_name, name, draft, prerelease, published_at, created_at, html_url}]"
+ ],
+ "error": null,
+ "fetched_at": "2026-11-04T04:48:31Z",
+ "status": 200,
+ "url": "https://api.github.com/repos/openai/codex/releases?per_page=20"
+}

@@ -1,0 +1,78 @@
+{
+  "_read_by": "backend/tools/build_market_data.py: what counts as a device, a meeting app, a compliance claim, and how page kinds rank",
+  "incumbents": ["fireflies", "otter", "fathom", "tldv", "readai"],
+  "devices": [
+    ["android", "Android"],
+    ["\\bios\\b|iphone", "iPhone"],
+    ["ipad", "iPad"],
+    ["chrome", "Chrome extension"],
+    ["mac", "macOS"],
+    ["windows", "Windows"],
+    ["linux", "Linux"],
+    ["browser|\\bweb\\b", "Web"],
+    ["desktop", "Desktop"],
+    ["mobile", "Mobile"]
+  ],
+  "apps": {
+    "teams": "Microsoft Teams",
+    "ms teams": "Microsoft Teams",
+    "microsoft teams": "Microsoft Teams",
+    "zoom": "Zoom",
+    "zoom meetings": "Zoom",
+    "google meet": "Google Meet",
+    "webex": "Webex",
+    "ringcentral": "RingCentral",
+    "aircall": "Aircall"
+  },
+  "compliance": [
+    ["soc ?2", "SOC 2"],
+    ["hipaa", "HIPAA"],
+    ["gdpr", "GDPR"],
+    ["iso ?27001", "ISO 27001"],
+    ["ccpa", "CCPA"]
+  ],
+  "kind_rank": {
+    "home": 0,
+    "pricing": 1,
+    "features": 1,
+    "docs": 1,
+    "integrations": 2,
+    "security": 2,
+    "help": 2,
+    "chrome": 3,
+    "appstore": 4
+  },
+  "description_rank": {
+    "home": 0,
+    "docs": 1,
+    "features": 1,
+    "help": 2,
+    "integrations": 3,
+    "security": 3,
+    "chrome": 4,
+    "appstore": 4,
+    "pricing": 5
+  },
+  "model_vendors": [
+    "alibaba",
+    "amazon",
+    "anthropic",
+    "aws",
+    "cohere",
+    "deepmind",
+    "deepseek",
+    "google",
+    "google deepmind",
+    "hugging face",
+    "ibm",
+    "meta",
+    "microsoft",
+    "mistral",
+    "mistral ai",
+    "nvidia",
+    "openai",
+    "perplexity",
+    "spacexai",
+    "xai"
+  ]
+}

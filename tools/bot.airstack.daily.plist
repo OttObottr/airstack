@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- spec: AS-263 · the daily refresh (tools/daily.sh). Installed by `tools/daily.sh --install`; remove with
+     `launchctl bootout gui/$(id -u)/bot.airstack.daily && rm ~/Library/LaunchAgents/bot.airstack.daily.plist`. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>bot.airstack.daily</string>
+  <key>ProgramArguments</key><array><string>/bin/bash</string><string>__REPO__/tools/daily.sh</string></array>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardOutPath</key><string>__HOME__/.airstack/daily/launchd.log</string>
+  <key>StandardErrorPath</key><string>__HOME__/.airstack/daily/launchd.log</string>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>

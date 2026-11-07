@@ -1,0 +1,690 @@
+{
+  "source": {
+    "name": "AirStack category guides",
+    "kind": "editorial",
+    "note": "Written by AirStack to explain what each category is for and who uses it. Not a vendor claim and not a measurement.",
+    "written": "2026-11-05"
+  },
+  "categories": {
+    "meta": {
+      "what": "Meta's apps, AI models and open-source developer projects, grouped by maker so you can see them in one place.",
+      "why": [
+        "Open-source libraries and models your team can run and change itself",
+        "Consumer apps where your customers and audience already are",
+        "One maker's AI, apps and code in one view, next to the alternatives"
+      ],
+      "jobs": [
+        "Train or fine-tune a machine learning model",
+        "Write a web or mobile app interface",
+        "Run an open model on your own hardware",
+        "Post and reply to your audience"
+      ],
+      "who": ["ML engineer", "Front-end engineer", "Mobile developer", "Data scientist", "Social media manager"],
+      "bundled_by": [],
+      "watch_for": "Open model licences can carry their own use terms; read each licence before you ship a product on it."
+    },
+    "creative-ai": {
+      "what": "Generates images, video, voice and music from a text prompt or a reference, so you can draft visual and audio work quickly.",
+      "why": [
+        "Make ad, social and product visuals without a full shoot",
+        "Draft storyboards and concepts before you commit a budget",
+        "Turn a script into a narrated or presenter-led video",
+        "Try many versions of one idea quickly"
+      ],
+      "jobs": [
+        "Generate a product or ad image",
+        "Turn a script into a short video",
+        "Create a voiceover or soundtrack",
+        "Remove a background or upscale an image"
+      ],
+      "who": ["Content creator", "Graphic designer", "Video editor", "Marketing manager", "Social media manager", "Creative director"],
+      "bundled_by": ["Adobe Creative Cloud", "Canva"],
+      "watch_for": "Generation is usually metered in credits, and usage rights for outputs differ by plan; check both before you publish."
+    },
+    "email-calendar": {
+      "what": "Your inbox, your calendar and the booking links people use to find a time with you.",
+      "why": [
+        "Fewer back-and-forth emails to find a meeting time",
+        "Shared calendars so teams see who is free",
+        "Faster sorting of a busy inbox",
+        "Booking pages that let customers pick a slot themselves"
+      ],
+      "jobs": [
+        "Send, sort and file email",
+        "Book a meeting from a shared link",
+        "See a colleague's free time",
+        "Block focus time on your calendar"
+      ],
+      "who": ["Executive assistant", "Account executive", "Recruiter", "Office manager", "Founder"],
+      "bundled_by": ["Google Workspace", "Microsoft 365"],
+      "watch_for": "Add-on scheduling and inbox tools often overlap with your email suite; check what your current plan already includes."
+    },
+    "docs-storage": {
+      "what": "Stores and shares files, and lets people write, edit and comment on documents together in one place.",
+      "why": [
+        "One current version of each document instead of attachments",
+        "Access from any device, with sharing you can revoke",
+        "A searchable home for team knowledge and how-to pages",
+        "Version history when something is deleted or overwritten"
+      ],
+      "jobs": [
+        "Write and comment on a shared document",
+        "Share a file with someone outside your company",
+        "Publish a team wiki or handbook",
+        "Restore an earlier version of a file",
+        "Sign or mark up a PDF"
+      ],
+      "who": ["Operations manager", "Product manager", "Technical writer", "Project manager", "IT administrator"],
+      "bundled_by": ["Google Workspace", "Microsoft 365", "Notion"],
+      "watch_for": "Storage caps and per-user pricing add up as you grow, and moving folders and permissions to another tool is hard."
+    },
+    "chat-meetings": {
+      "what": "Team messaging, voice and video calls in one place, so people can talk in real time or catch up later.",
+      "why": [
+        "Fewer internal emails, with questions answered in channels",
+        "Video calls with screen sharing for remote teams",
+        "A searchable history of decisions and discussions",
+        "Business phone lines and call routing for sales or support"
+      ],
+      "jobs": [
+        "Message a team or project channel",
+        "Start a video call and share your screen",
+        "Record a short video walkthrough",
+        "Route customer calls to the right person",
+        "Search past discussions"
+      ],
+      "who": ["Remote team lead", "Project manager", "Software engineer", "Customer success manager", "Sales development rep"],
+      "bundled_by": ["Google Workspace", "Microsoft 365"],
+      "watch_for": "Free tiers often limit message history or call length; check retention and guest access before your team depends on it."
+    },
+    "project-management": {
+      "what": "Tracks who is doing what by when: tasks, projects and timelines the whole team can see and update.",
+      "why": [
+        "Priorities, owners and due dates in one place",
+        "Fewer status meetings, because progress shows on the board",
+        "Spot blocked or late work before it slips further",
+        "Plan sprints, launches or client work against capacity"
+      ],
+      "jobs": [
+        "Assign a task with an owner and due date",
+        "Plan a sprint or release",
+        "Track a project on a board or timeline",
+        "Report progress to stakeholders",
+        "Log and triage bugs"
+      ],
+      "who": ["Project manager", "Product manager", "Engineering manager", "Scrum master", "Agency account manager", "Operations manager"],
+      "bundled_by": ["Microsoft 365", "Notion"],
+      "watch_for": "Per-user pricing often counts everyone who edits, not just managers; check how guests and viewers are billed."
+    },
+    "design": {
+      "what": "Creates and reviews visual work: interfaces, graphics, diagrams, whiteboards and presentations, often with others live.",
+      "why": [
+        "Designers and reviewers comment on the same file",
+        "Shared components make products and brand consistent",
+        "Non-designers make on-brand graphics from templates",
+        "Whiteboards for workshops and planning with remote teams"
+      ],
+      "jobs": [
+        "Design a screen or clickable prototype",
+        "Hand off specs to developers",
+        "Make a social graphic from a template",
+        "Run a remote whiteboard workshop",
+        "Draw a diagram or flowchart"
+      ],
+      "who": ["Product designer", "UX researcher", "Graphic designer", "Brand designer", "Front-end engineer", "Marketing manager"],
+      "bundled_by": [],
+      "watch_for": "Editor licences are often billed separately from viewers; check who needs edit rights and how files export if you switch."
+    },
+    "ai-assistants": {
+      "what": "Chat-based AI that drafts, summarises, translates and answers questions, and can search your files when you allow it.",
+      "why": [
+        "Faster first drafts of emails, documents and reports",
+        "Answers from your own company files, not just the web",
+        "Quick translation and rewriting for tone or clarity",
+        "Research summaries with links you can check"
+      ],
+      "jobs": [
+        "Draft or rewrite a document",
+        "Summarise a long file or thread",
+        "Translate text for a customer",
+        "Search across company knowledge",
+        "Answer a question with cited sources"
+      ],
+      "who": ["Marketing manager", "Business analyst", "Consultant", "Support agent", "Recruiter", "Founder"],
+      "bundled_by": ["Google Workspace", "Microsoft 365", "Notion", "Slack"],
+      "watch_for": "Check whether your data is used for training, where it is stored, and whether the plan meets your privacy rules."
+    },
+    "ai-coding": {
+      "what": "Editors and assistants that suggest, write, explain and review code inside the tools developers already use.",
+      "why": [
+        "Less time on boilerplate, tests and repetitive edits",
+        "Faster onboarding to an unfamiliar codebase",
+        "An automated first-pass review on every pull request",
+        "Answers about your code without leaving the editor"
+      ],
+      "jobs": [
+        "Complete code as you type",
+        "Explain or refactor a file",
+        "Write unit tests for a function",
+        "Review a pull request",
+        "Find and fix a bug"
+      ],
+      "who": ["Software engineer", "Front-end engineer", "Back-end engineer", "QA engineer", "DevOps engineer", "Engineering manager"],
+      "bundled_by": ["GitHub"],
+      "watch_for": "Limits on premium models can lead to usage-based overages; check the monthly allowance and how your code is handled."
+    },
+    "crm-sales": {
+      "what": "Records every customer, deal and conversation so a sales team can see its pipeline and follow up on time.",
+      "why": [
+        "One record of each customer and deal, not scattered sheets",
+        "Forecasts based on pipeline stages, not guesses",
+        "Reminders so follow-ups are not missed",
+        "Call and email history the next rep can pick up"
+      ],
+      "jobs": [
+        "Log a call or meeting with a prospect",
+        "Move a deal through pipeline stages",
+        "Make a list of target accounts",
+        "Send a sequence of follow-up emails",
+        "Forecast the quarter's revenue"
+      ],
+      "who": ["Account executive", "Sales development rep", "Sales manager", "RevOps manager", "Customer success manager", "Founder"],
+      "bundled_by": [],
+      "watch_for": "Contracts are often annual with a minimum number of users, and automation or data features may sit in add-ons."
+    },
+    "marketing": {
+      "what": "Runs campaigns: email and social posts, search and website analytics, and the lists and audiences you send them to.",
+      "why": [
+        "Automated emails that reach people at the right moment",
+        "Schedule social posts across channels from one place",
+        "See which keywords and pages bring in visitors",
+        "Learn which campaigns lead to sign-ups and sales"
+      ],
+      "jobs": [
+        "Send a newsletter or email campaign",
+        "Schedule a week of social posts",
+        "Research keywords for a blog post",
+        "Set up a welcome email sequence",
+        "See where visitors click on a page"
+      ],
+      "who": ["Marketing manager", "Email marketing specialist", "SEO specialist", "Social media manager", "Content marketer", "Growth marketer"],
+      "bundled_by": [],
+      "watch_for": "Email tools often price by contact count, so costs rise as your list grows; remove inactive contacts and check overage terms."
+    },
+    "support": {
+      "what": "Collects customer questions from email, chat and social into one queue so a team can answer, track and learn from them.",
+      "why": [
+        "No customer message lost between inboxes",
+        "Faster answers with saved replies and a help centre",
+        "Self-service articles that answer common questions",
+        "Reports on response times and recurring problems"
+      ],
+      "jobs": [
+        "Answer and assign a customer ticket",
+        "Run live chat on your website",
+        "Publish help centre articles",
+        "Escalate a bug to engineering",
+        "Track customer satisfaction"
+      ],
+      "who": ["Support agent", "Support team lead", "Support operations manager", "Customer success manager", "Community manager"],
+      "bundled_by": [],
+      "watch_for": "AI reply features are often billed by usage on top of per-agent pricing; check how each conversation is counted."
+    },
+    "hr-people": {
+      "what": "Runs the employee lifecycle: hiring, onboarding, payroll, benefits, time off, reviews and records in one system.",
+      "why": [
+        "Payroll and tax filings handled on schedule",
+        "One place for candidates, interviews and offers",
+        "Employees update their own details and request leave",
+        "Hire, pay and onboard people in other countries"
+      ],
+      "jobs": [
+        "Run payroll",
+        "Post a job and track candidates",
+        "Onboard a new hire",
+        "Approve a time-off request",
+        "Run a performance review cycle"
+      ],
+      "who": ["HR manager", "People operations specialist", "Recruiter", "Payroll specialist", "Hiring manager", "Founder"],
+      "bundled_by": [],
+      "watch_for": "Pricing is usually per employee per month, and payroll, benefits and recruiting are often separate modules."
+    },
+    "finance": {
+      "what": "Records money in and out: bookkeeping, invoices, payments, cards and expenses, so the books are right at month end.",
+      "why": [
+        "A faster month-end close with bank feeds and matching",
+        "Get paid sooner with online invoices and payments",
+        "Company cards and expense rules that cut receipt chasing",
+        "Accurate numbers for tax, investors and lenders"
+      ],
+      "jobs": [
+        "Reconcile bank transactions",
+        "Send an invoice and take payment",
+        "Approve and pay a supplier bill",
+        "Submit an expense with a receipt",
+        "Close the books for the month"
+      ],
+      "who": ["Accountant", "Bookkeeper", "Controller", "Finance manager", "Accounts payable specialist", "Founder"],
+      "bundled_by": [],
+      "watch_for": "Payment tools take a share of each transaction, and moving ledger history later is hard; check fees and exports early."
+    },
+    "security-it": {
+      "what": "Protects accounts, devices and data: passwords, sign-in, device management, threat detection and compliance evidence.",
+      "why": [
+        "One sign-in for every app, removed the day someone leaves",
+        "Shared passwords stored safely, not in spreadsheets",
+        "Laptops set up, encrypted and patched remotely",
+        "Evidence ready when customers ask about your security"
+      ],
+      "jobs": [
+        "Set up single sign-on for an app",
+        "Share a password with a team",
+        "Enrol and lock a company laptop",
+        "Collect evidence for a security audit",
+        "Respond to a security alert"
+      ],
+      "who": ["IT administrator", "Security engineer", "Security analyst", "IT manager", "Compliance manager", "Systems administrator"],
+      "bundled_by": ["Google Workspace", "Microsoft 365"],
+      "watch_for": "Single sign-on and audit logs often sit on higher tiers; check which plan includes them before you roll out."
+    },
+    "data-bi": {
+      "what": "Collects, stores and charts your data so people can answer questions about customers, product use and the business.",
+      "why": [
+        "Dashboards everyone trusts instead of conflicting spreadsheets",
+        "See how people use your product and where they drop off",
+        "Move data from your apps into one warehouse",
+        "Answer new questions without asking an engineer each time"
+      ],
+      "jobs": [
+        "Make a dashboard for weekly metrics",
+        "Track sign-ups and drop-off in a funnel",
+        "Sync app data into a warehouse",
+        "Run an ad hoc query",
+        "Share a report with leadership"
+      ],
+      "who": ["Data analyst", "Analytics engineer", "Data engineer", "Product manager", "BI developer", "Growth marketer"],
+      "bundled_by": [],
+      "watch_for": "Many tools bill by events, rows or compute used, so costs can jump as traffic grows; set alerts and limits early."
+    },
+    "dev-platforms": {
+      "what": "Where software is stored, tested, deployed and run: code hosting, cloud hosting, APIs, monitoring and on-call.",
+      "why": [
+        "Review and merge code changes safely as a team",
+        "Deploy automatically on every change",
+        "Hear about errors and outages before customers report them",
+        "Run apps and databases without managing servers"
+      ],
+      "jobs": [
+        "Host code and review pull requests",
+        "Deploy a web app",
+        "Monitor errors and performance",
+        "Page the on-call engineer",
+        "Test an API"
+      ],
+      "who": ["Software engineer", "DevOps engineer", "Platform engineer", "Site reliability engineer", "Engineering manager"],
+      "bundled_by": [],
+      "watch_for": "Usage-based billing for compute, bandwidth and logs can spike without warning; set budgets and alerts before launch."
+    },
+    "web-commerce": {
+      "what": "Creates and runs your website or online store: pages, hosting, domains, content, checkout and orders.",
+      "why": [
+        "A professional site without hiring a developer",
+        "Take payments and manage orders online",
+        "Update pages and blog posts without code",
+        "Hosting, security updates and domains handled for you"
+      ],
+      "jobs": [
+        "Launch a website from a template",
+        "Add products and take online payments",
+        "Publish a blog post",
+        "Connect a custom domain",
+        "Manage content for several sites"
+      ],
+      "who": ["Small business owner", "E-commerce manager", "Web designer", "Web developer", "Content editor", "Marketing manager"],
+      "bundled_by": [],
+      "watch_for": "Transaction fees, paid apps and themes add to the plan price, and moving a store to another platform takes real work."
+    },
+    "legal-contracts": {
+      "what": "Drafts, sends, signs and tracks contracts, and for law firms runs matters, billing and client records.",
+      "why": [
+        "Contracts signed online, without printing or scanning",
+        "Every signed agreement findable in one place",
+        "Renewal and notice dates that do not slip by",
+        "Approved templates so sales can send terms without waiting"
+      ],
+      "jobs": [
+        "Send a contract for e-signature",
+        "Draft from an approved template",
+        "Track renewal and notice dates",
+        "Review a contract against your playbook",
+        "Log time and bill a client matter"
+      ],
+      "who": ["In-house counsel", "Legal operations manager", "Contract manager", "Paralegal", "Lawyer", "Account executive"],
+      "bundled_by": [],
+      "watch_for": "E-signature plans often cap how many documents you can send; check the limit and what each extra send costs."
+    },
+    "forms-surveys": {
+      "what": "Collects answers from people: forms, quizzes, surveys and feedback, with results in a sheet or report.",
+      "why": [
+        "One structured form instead of email back-and-forth",
+        "Measure customer or employee satisfaction over time",
+        "Send answers straight into your other tools",
+        "Branded forms that show only the questions that apply"
+      ],
+      "jobs": [
+        "Create a sign-up or order form",
+        "Send a customer feedback survey",
+        "Run an employee engagement survey",
+        "Send responses into a spreadsheet or CRM",
+        "Collect payments or file uploads"
+      ],
+      "who": ["Marketing manager", "Product manager", "UX researcher", "HR manager", "Operations manager", "Customer experience manager"],
+      "bundled_by": ["Google Workspace", "Microsoft 365"],
+      "watch_for": "Response limits and branding removal are often on paid tiers; check the limits and who owns the response data."
+    },
+    "spend-procurement": {
+      "what": "Controls company spending before it happens: purchase requests, approvals, supplier contracts, travel and renewals.",
+      "why": [
+        "Every purchase approved by the right person first",
+        "See software and supplier contracts before they renew",
+        "Book travel within policy without manual checks",
+        "Fewer duplicate tools and surprise renewals"
+      ],
+      "jobs": [
+        "Request and approve a purchase",
+        "Onboard a new supplier",
+        "Book a business trip within policy",
+        "Track contract renewal dates",
+        "Negotiate a software renewal"
+      ],
+      "who": ["Procurement manager", "Finance manager", "Controller", "Travel manager", "Office manager", "IT manager"],
+      "bundled_by": [],
+      "watch_for": "A new approval step slows purchasing if it is not connected to your accounting system and cards; check both links."
+    },
+    "learning": {
+      "what": "Delivers and tracks training: course libraries, compliance courses, onboarding paths and tools to create your own lessons.",
+      "why": [
+        "Assign required compliance training and prove it was done",
+        "Onboard new hires with the same material every time",
+        "Give staff a library of courses for new skills",
+        "Sell or share your own courses with customers"
+      ],
+      "jobs": [
+        "Assign a course to a team",
+        "Track completion of required training",
+        "Create a course from your own material",
+        "Run a customer education programme",
+        "Report on skills by team"
+      ],
+      "who": ["Learning and development manager", "Instructional designer", "HR manager", "Team manager", "Customer education manager", "Course creator"],
+      "bundled_by": [],
+      "watch_for": "Course libraries are often priced per learner whether used or not; check activity reports and content exports."
+    },
+    "video-webinars": {
+      "what": "Hosts, records and streams video: webinars, virtual events, live streams and video libraries you can embed and share.",
+      "why": [
+        "Reach a large audience without a venue",
+        "Collect registrations and follow up with attendees",
+        "Record once and replay on demand",
+        "Host video on your own site without ads"
+      ],
+      "jobs": [
+        "Run a webinar with registration",
+        "Stream live to several platforms at once",
+        "Record a podcast or interview remotely",
+        "Host and embed a product video",
+        "Send replays to registrants"
+      ],
+      "who": ["Event marketer", "Demand generation manager", "Product marketing manager", "Video producer", "Podcast host", "Sales enablement manager"],
+      "bundled_by": [],
+      "watch_for": "Plans are often capped by attendee count or hosting hours; check what happens when an event goes over the limit."
+    },
+    "it-service": {
+      "what": "Takes requests and incidents from employees, tracks devices and software, and lets IT fix problems remotely.",
+      "why": [
+        "Every IT request logged, assigned and tracked to done",
+        "Self-service answers for common requests like resets",
+        "Remote access to fix a laptop without a desk visit",
+        "A current list of devices, licences and owners"
+      ],
+      "jobs": [
+        "Log and resolve an employee ticket",
+        "Reset access or a password",
+        "Patch and update company laptops",
+        "Connect remotely to a user's computer",
+        "Track hardware and software assets"
+      ],
+      "who": ["IT support specialist", "Service desk analyst", "IT manager", "Systems administrator", "Managed service provider technician"],
+      "bundled_by": [],
+      "watch_for": "Remote-access and device tools may price per technician and per device; count both before you compare plans."
+    },
+    "coding-agents": {
+      "what": "AI agents that take a coding task, read your repository, edit files and run commands until the task is done.",
+      "why": [
+        "Hand off well-defined changes and review the result",
+        "Run fixes, upgrades and tests from the terminal",
+        "Work through a backlog of small tasks in parallel",
+        "Choose or swap the model behind the agent"
+      ],
+      "jobs": [
+        "Implement a small feature from an issue",
+        "Fix a failing test",
+        "Upgrade a dependency across a repository",
+        "Explain how a codebase fits together",
+        "Open a pull request for review"
+      ],
+      "who": ["Software engineer", "Staff engineer", "Platform engineer", "Open-source maintainer", "Engineering manager"],
+      "bundled_by": [],
+      "watch_for": "Agents run commands on your machine and use model credits fast; set permissions and spend limits before you hand off work."
+    },
+    "llm-sdks-and-routers": {
+      "what": "Code libraries and gateways for calling language models from your app, often across several providers through one interface.",
+      "why": [
+        "Switch or combine model providers without rewriting code",
+        "Fall back to another model when one is down or slow",
+        "Track usage and cost per team, app or customer",
+        "Streaming, retries and structured output handled for you"
+      ],
+      "jobs": [
+        "Call a model from your application",
+        "Route requests across several providers",
+        "Stream responses to a chat interface",
+        "Set rate limits and budgets per key",
+        "Get structured data back from a model"
+      ],
+      "who": ["AI engineer", "Software engineer", "Back-end engineer", "Platform engineer", "ML engineer"],
+      "bundled_by": [],
+      "watch_for": "A layer between you and the provider can lag new model features; check how quickly it supports the options you rely on."
+    },
+    "vector-dbs": {
+      "what": "Stores text, images and other data as embeddings so your app can find items by meaning, not just keywords.",
+      "why": [
+        "Let an AI assistant answer from your own documents",
+        "Search that finds results by meaning, not exact words",
+        "Recommend similar products, articles or tickets",
+        "Filter by metadata and permissions alongside similarity"
+      ],
+      "jobs": [
+        "Index documents for retrieval",
+        "Run a semantic search query",
+        "Find similar items for recommendations",
+        "Filter results by user permissions",
+        "Update embeddings when content changes"
+      ],
+      "who": ["AI engineer", "ML engineer", "Back-end engineer", "Data engineer", "Search engineer"],
+      "bundled_by": [],
+      "watch_for": "Cost and speed depend on data size and query volume; test with your real data, and check how hard it is to export."
+    },
+    "llm-observability": {
+      "what": "Records each prompt, response, tool call and cost in your AI app so you can trace, debug and improve it.",
+      "why": [
+        "See why an AI answer went wrong",
+        "Track cost and latency per feature or customer",
+        "Catch quality drops after a model or prompt change",
+        "Turn real conversations into test cases"
+      ],
+      "jobs": [
+        "Trace a multi-step agent run",
+        "Compare two prompt versions",
+        "Monitor cost and latency",
+        "Flag bad answers for review",
+        "Export traces into an eval dataset"
+      ],
+      "who": ["AI engineer", "ML engineer", "Product manager", "Site reliability engineer", "Data scientist"],
+      "bundled_by": [],
+      "watch_for": "Traces can hold customer data and grow fast; check retention, redaction and per-trace pricing before you log everything."
+    },
+    "meeting-notes": {
+      "what": "Records, transcribes and summarises meetings, then shares notes and action items with the people who need them.",
+      "why": [
+        "Stay in the conversation instead of typing notes",
+        "A searchable record of what was decided and by whom",
+        "Action items sent to your CRM or task tool",
+        "Catch up on a missed meeting without the recording"
+      ],
+      "jobs": [
+        "Record and transcribe a call",
+        "Share a summary with attendees",
+        "Search past meetings for a decision",
+        "Send action items to a task tool",
+        "Log sales call notes in the CRM"
+      ],
+      "who": ["Account executive", "Customer success manager", "Recruiter", "Product manager", "Consultant", "Founder"],
+      "bundled_by": ["Google Workspace", "Microsoft 365", "Zoom"],
+      "watch_for": "Your meeting suite may already take notes; check its languages, in-person support and recording consent rules first."
+    },
+    "agent-frameworks": {
+      "what": "Code libraries for AI agents that plan steps, call tools, remember context and hand work to other agents.",
+      "why": [
+        "Ready-made parts for tool calls, memory and retries",
+        "Multi-step tasks structured so they are easier to debug",
+        "Several specialised agents working on one job",
+        "Less tie-in to a single model provider"
+      ],
+      "jobs": [
+        "Give a model tools to call",
+        "Chain steps into a workflow",
+        "Add memory across a conversation",
+        "Hand off between specialised agents",
+        "Pause for human approval"
+      ],
+      "who": ["AI engineer", "Software engineer", "ML engineer", "Research engineer", "Back-end engineer"],
+      "bundled_by": [],
+      "watch_for": "Frameworks change quickly and add layers to debug; prefer the smallest one that does the job, and pin versions."
+    },
+    "llm-evals": {
+      "what": "Tests the quality of AI outputs against datasets and rules, so you know if a change made answers better or worse.",
+      "why": [
+        "Catch regressions before a prompt or model change ships",
+        "Compare models on your own tasks, not public benchmarks",
+        "Score answers for accuracy, safety and format",
+        "A shared quality bar for product and engineering"
+      ],
+      "jobs": [
+        "Run a test set against a new prompt",
+        "Compare two models on your own data",
+        "Check answers for made-up facts",
+        "Red-team for unsafe outputs",
+        "Add evals to continuous integration"
+      ],
+      "who": ["AI engineer", "ML engineer", "QA engineer", "Data scientist", "Product manager", "AI safety researcher"],
+      "bundled_by": [],
+      "watch_for": "A model grading another model can be wrong too; check a sample of scores by hand before you trust them."
+    },
+    "local-inference": {
+      "what": "Runs language models on your own laptop or servers instead of sending data to a hosted provider.",
+      "why": [
+        "Data stays on machines you control",
+        "Work offline or in restricted networks",
+        "No per-request charges once you own the hardware",
+        "Try open models before you commit to one"
+      ],
+      "jobs": [
+        "Run an open model on a laptop",
+        "Serve a model behind an internal API",
+        "Test a model before deploying it",
+        "Run models in an air-gapped network",
+        "Quantise a model to fit your hardware"
+      ],
+      "who": ["ML engineer", "AI engineer", "Platform engineer", "Software engineer", "Data scientist", "Researcher"],
+      "bundled_by": [],
+      "watch_for": "Smaller local models may not match hosted quality, and serving many users needs real GPUs; test on your own tasks first."
+    },
+    "speech-ai": {
+      "what": "Turns speech into text and text into natural-sounding speech, and runs voice agents that talk with people live.",
+      "why": [
+        "Transcribe calls, videos and podcasts automatically",
+        "Add voice to apps, games or accessibility features",
+        "Answer phone calls with a voice agent",
+        "Subtitles and captions in many languages"
+      ],
+      "jobs": [
+        "Transcribe an audio or video file",
+        "Caption a video",
+        "Generate a voiceover from text",
+        "Run a live voice agent on calls",
+        "Identify who spoke when"
+      ],
+      "who": ["AI engineer", "Software engineer", "Video producer", "Accessibility specialist", "Contact centre manager", "Podcast producer"],
+      "bundled_by": [],
+      "watch_for": "Accuracy varies by accent, noise and language; test with your own recordings, and check consent rules for cloned voices."
+    },
+    "browser-agents": {
+      "what": "Lets AI agents open web pages, click, type and extract content, so they can do tasks on sites that have no API.",
+      "why": [
+        "Automate web tasks on sites that offer no API",
+        "Turn web pages into clean text for AI models",
+        "Let a coding agent test your app in a real browser",
+        "Run many browser sessions in the cloud"
+      ],
+      "jobs": [
+        "Fill in a web form automatically",
+        "Scrape a page into structured data",
+        "Test a web app end to end",
+        "Log in and download a report",
+        "Crawl a site for AI retrieval"
+      ],
+      "who": ["AI engineer", "QA engineer", "Software engineer", "Data engineer", "Growth engineer"],
+      "bundled_by": [],
+      "watch_for": "Sites change layouts and block bots; check each site's terms, expect breakage, and avoid giving agents your own passwords."
+    },
+    "ai-app-builders": {
+      "what": "Turns a plain-English description into a working web or mobile app that you can edit, host and publish.",
+      "why": [
+        "A working prototype in front of users quickly",
+        "Non-engineers can make internal tools themselves",
+        "Test an idea before hiring a development team",
+        "Hosting, database and sign-in set up for you"
+      ],
+      "jobs": [
+        "Prototype an app from a prompt",
+        "Make an internal tool or dashboard",
+        "Add sign-in and a database",
+        "Publish to a custom domain",
+        "Export the code to a repository"
+      ],
+      "who": ["Founder", "Product manager", "Product designer", "Operations manager", "Indie developer", "Marketing manager"],
+      "bundled_by": [],
+      "watch_for": "Each prompt uses credits, and apps can be hard to move off the platform; check limits and code export before you rely on one."
+    },
+    "workflow-automation": {
+      "what": "Connects your apps so an event in one, like a new form entry or email, triggers actions in others without manual work.",
+      "why": [
+        "Stop copying data between apps by hand",
+        "Fewer missed steps in routine processes",
+        "Add AI steps to processes you already run",
+        "Ops teams automate without waiting on engineers"
+      ],
+      "jobs": [
+        "Send new leads from a form to your CRM",
+        "Post alerts to a chat channel",
+        "Sync records between two apps",
+        "Run a scheduled report",
+        "Add an AI step to summarise or classify"
+      ],
+      "who": ["Operations manager", "RevOps manager", "Marketing operations specialist", "IT administrator", "Automation engineer", "Founder"],
+      "bundled_by": ["Microsoft 365", "Slack"],
+      "watch_for": "Pricing often counts every task or step run, so busy workflows can cost more than expected; estimate your volume first."
+    }
+  }
+}

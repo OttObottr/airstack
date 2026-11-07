@@ -1,0 +1,16 @@
+/* spec: AS-256 AS-268 */
+/* the methodology: one line, a four-step pipeline with real evidence, then the record and the fine print */
+.method .wrap{padding-top:40px;padding-bottom:40px;background:radial-gradient(70% 100% at 0 0,rgba(141,187,255,.075),transparent 62%),linear-gradient(145deg,rgba(24,32,41,.68),var(--color-s1) 42%)}
+.mhero{margin-top:12px;font-size:clamp(30px,4.4vw,48px);font-weight:670;letter-spacing:-.042em;line-height:1.06;max-width:20ch;text-wrap:balance}
+.msub{margin-top:14px;max-width:58ch;font-size:var(--text-lead);color:var(--color-ink-2)}
+.pipe{list-style:none;padding:0;margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;counter-reset:p}
+.pipe li{position:relative;display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:var(--radius-md);background:linear-gradient(150deg,rgba(24,32,41,.92),var(--color-s2) 55%);border:1px solid var(--color-hair);box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 10px 28px rgba(0,0,0,.16)}
+.pipe li:not(:last-child)::after{content:"";position:absolute;top:34px;right:-12px;width:12px;height:1px;background:var(--color-hair)}
+.pipe .pn{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:var(--radius-sm);border:1px solid var(--color-hair);background:rgba(7,9,11,.45);font:600 var(--text-meta)/1 var(--font-mono)}
+.pipe li:last-child .pn{border-color:var(--color-accent);color:var(--color-accent)}
+.pipe h3{font-size:var(--text-body);font-weight:600;letter-spacing:-.005em}
+.pipe p{color:var(--color-ink-2)}
+.pipe .pev{margin-top:auto;padding-top:12px;border-top:1px solid var(--color-hair);color:var(--color-ink);font-size:var(--text-meta);line-height:1.5}
+.pipe .pev .ext{min-height:24px}.pipe q{font-style:normal;color:var(--color-ink)}
+.fine{list-style:none;padding:16px;margin-top:12px;display:grid;gap:8px;max-width:80ch;border:1px solid var(--color-hair);border-radius:var(--radius-md);background:rgba(7,9,11,.35);font-size:var(--text-meta);color:var(--color-ink-2);line-height:1.6}
+.fine li::before{content:"·";margin-right:8px;color:var(--color-ink-3)}

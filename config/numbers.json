@@ -1,0 +1,23 @@
+{
+ "products": 13385,
+ "directory_products": 12679,
+ "directory_researched": 6650,
+ "organizations": 7979,
+ "businesses": 4792,
+ "types": 784,
+ "registry_tools": 130,
+ "registry_lanes": 12,
+ "catalog_products": 576,
+ "catalog_categories": 24,
+ "researched_products": 7242,
+ "facts": 30857,
+ "fact_rows": 31593,
+ "chain_claims": 30906,
+ "chain_products": 7330,
+ "registry_matches": 232,
+ "registry_disputes": 2,
+ "quotes_passed": 31704,
+ "quotes_checked": 32750,
+ "list_prices": 2667,
+ "priced_products": 689
+}

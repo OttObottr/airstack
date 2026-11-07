@@ -1,0 +1,28 @@
+{
+ "body": {
+  "exhaustive": {
+   "nbHits": true
+  },
+  "exhaustiveNbHits": true,
+  "hits": [],
+  "hitsPerPage": 0,
+  "nbHits": 89,
+  "nbPages": 0,
+  "page": 0,
+  "params": "query=%22Claude+Code%22&tags=story&numericFilters=created_at_i%3E1793059199%2Ccreated_at_i%3C1793664000&hitsPerPage=0&typoTolerance=false&queryType=prefixNone&advancedSyntax=true&analyticsTags=backend",
+  "processingTimeMS": 1,
+  "processingTimingsMS": {
+   "_request": {
+    "queue": 64,
+    "roundTrip": 23
+   },
+   "total": 1
+  },
+  "query": "\"Claude Code\"",
+  "serverTimeMS": 65
+ },
+ "error": null,
+ "fetched_at": "2026-11-04T04:48:23Z",
+ "status": 200,
+ "url": "https://hn.algolia.com/api/v1/search_by_date?query=%22Claude+Code%22&tags=story&numericFilters=created_at_i%3E1793059199%2Ccreated_at_i%3C1793664000&hitsPerPage=0&typoTolerance=false&queryType=prefixNone"
+}

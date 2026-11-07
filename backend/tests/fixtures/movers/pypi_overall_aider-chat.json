@@ -1,0 +1,98 @@
+{
+ "body": {
+  "data": [
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-18",
+    "downloads": 8642
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-19",
+    "downloads": 8770
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-20",
+    "downloads": 9407
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-21",
+    "downloads": 9061
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-22",
+    "downloads": 10210
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-23",
+    "downloads": 9342
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-24",
+    "downloads": 8863
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-25",
+    "downloads": 9548
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-26",
+    "downloads": 9396
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-27",
+    "downloads": 10404
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-28",
+    "downloads": 10480
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-29",
+    "downloads": 10620
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-30",
+    "downloads": 10892
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-10-31",
+    "downloads": 9003
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-11-01",
+    "downloads": 8769
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-11-02",
+    "downloads": 9024
+   },
+   {
+    "category": "without_mirrors",
+    "date": "2026-11-03",
+    "downloads": 10761
+   }
+  ],
+  "package": "aider-chat",
+  "type": "overall_downloads"
+ },
+ "error": null,
+ "fetched_at": "2026-11-04T04:47:51Z",
+ "fixture_note": "recorded response, rows before 2026-10-18 removed to keep the fixture small",
+ "status": 200,
+ "url": "https://pypistats.org/api/packages/aider-chat/overall?mirrors=false"
+}

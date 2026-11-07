@@ -1,0 +1,9 @@
+/* spec: AS-256 AS-258 */
+/* why teams use a category (AirStack's guide) and open models for the same job */
+.guide{padding:20px;border-radius:var(--radius-lg);background:var(--color-s2);border:1px solid var(--color-hair)}
+.gwhat{margin-top:12px;font-size:var(--text-lead);font-weight:500;letter-spacing:-.01em;max-width:60ch;text-wrap:balance}
+.gcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px 32px;margin-top:20px}
+.gcols ul{margin-top:8px;padding-left:18px;display:grid;gap:4px}
+.roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.roles span{padding:3px 10px;border-radius:var(--radius-full);border:1px solid var(--color-hair);font-size:var(--text-meta)}
+.gwatch{margin-top:20px;padding-top:14px;border-top:1px solid var(--color-hair);color:var(--color-ink-2)}.gwatch b{color:var(--color-ink);font-weight:600;margin-right:6px}
+.hfm{list-style:none;padding:0;display:grid;gap:2px;margin-top:6px}.hfm li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}

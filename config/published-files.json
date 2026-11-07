@@ -1,0 +1,28 @@
+{
+  "files": [
+    "badges.json",
+    "chain-data.json",
+    "changes.atom",
+    "community.json",
+    "directory.json",
+    "events.json",
+    "firmographics.json",
+    "freshness.json",
+    "graph.json",
+    "hf.json",
+    "insights.json",
+    "market-data.js",
+    "marks.json",
+    "news.json",
+    "open-data/README.md",
+    "oss.json",
+    "pricing.json",
+    "profiles.json",
+    "site-data.js",
+    "sitemap.xml",
+    "stats.svg",
+    "taxonomy-index.json",
+    "trust.json"
+  ],
+  "patterns": ["open-data/airstack-YYYY-MM.jsonl.gz"]
+}

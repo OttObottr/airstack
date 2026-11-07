@@ -1,0 +1,7 @@
+{
+ "body": null,
+ "error": "HTTP 404",
+ "fetched_at": "2026-11-04T04:51:43Z",
+ "status": 404,
+ "url": "https://api.npmjs.org/downloads/range/last-month/airstack-movers-no-such-package-0"
+}

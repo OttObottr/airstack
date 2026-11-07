@@ -1,0 +1,11 @@
+# gitleaks config: the standard ruleset plus an allowlist for things that look like keys but aren't.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "exact values known not to be credentials"
+regexes = [
+  '''placeholder-not-a-key''',
+  '''PLACEHOLDER-never-printed''',
+  '''^articulate-360$''',                 # a catalog product id (Articulate 360) read as a generic API key: this exact value only, so a real key is still caught
+]

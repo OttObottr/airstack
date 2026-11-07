@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Runs before every commit (enable once per clone: `git config core.hooksPath .githooks`; CI enforces the same checks).
+set -euo pipefail
+# 1. secrets in what is about to be committed
+gitleaks git --staged --redact --no-banner -c .gitleaks.toml
+# 2. machine and tooling state never belongs in git
+if git diff --cached --name-only | grep -E '(^|/)(\.env|\.wrangler/|\.DS_Store|\.venv/|node_modules/)' | grep -v '^\.env\.example$'; then
+  echo "commit blocked: machine or secret state is staged (listed above)" >&2; exit 1
+fi

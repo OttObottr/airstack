@@ -1,0 +1,25 @@
+# Workers static-assets headers. Everything stays revalidated on every load.
+# `no-transform` is set on the HTML only: it stops Cloudflare injecting its analytics beacon into the page (which cost the mobile
+# performance score), but it also stops compression, so scripts and data are left without it and are served compressed.
+# The security headers: HTTPS only for a year (no subdomains, no preload: other hosts on the domain are not ours to promise), no framing,
+# no plugins, no device APIs, and a CSP that lets the page load only from itself. Scripts run only from files on this origin (the page's
+# ES modules and data files): no inline script runs, so an injected one never does; inline style stays allowed. The CSP also stops a
+# script or request to anywhere else, the page being framed, and its forms being posted elsewhere.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+/
+  Cache-Control: no-transform
+/index.html
+  Cache-Control: no-transform
+/p/*
+  Cache-Control: no-transform
+# the embeddable stats card: image proxies (GitHub's camo) must re-check it, so an embed shows the deployed numbers
+/stats.svg
+  Cache-Control: no-cache

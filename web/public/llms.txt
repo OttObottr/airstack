@@ -1,0 +1,20 @@
+# AirStack
+
+> See the software market move. Track your stack, compare every category, and catch meaningful changes with every claim linked to its source.
+
+## What it shows today
+- Answers are Retire ("you can stop paying for this") or Keep ("nothing you already have does this yet"), each with the reason, dated sources, what would change it, and when it was last checked.
+- When a fact an answer depends on changes, the answer needs a second look before anything is re-judged. A failed or low-confidence check never publishes and never refreshes the date.
+- The page is generated from AirStack's recorded research and regenerated on deploy. The plans are example inputs; the facts are real and linked; the model calls are real muse-spark-1.3 calls made on 2026-11-04.
+
+## For agents
+- Local MCP tools: changes_since, get_entity, get_evidence, get_verdict, review_stack. Start with get_entity or get_verdict, then inspect get_evidence when the source record matters. Clone the repository and run the read-only stdio server; the public site intentionally hosts no MCP endpoint. Answers include sources, a verified-through date and monitoring status. Guide: docs/MCP.md.
+
+## Also on the page
+- Search: 13,385 software products and 7,979 organizations that make them (companies, nonprofits, universities and communities). 130 registry-tracked tools, 576 checked catalog products, and every software product Wikidata records with a website (listed as Wikidata's record, not researched). 7,242 products carry facts from their own pages, each a quote code found on the page. Every software type (784, from Wikidata) is browsable.
+- Moving this week: 130 developer and AI tools in 12 lanes with 7-day downloads (npm, PyPI), Hacker News stories, GitHub stars and last release, each with its API URL and fetch time.
+- The market: five AI meeting note-takers compared from their own pages, researched by Muse Spark and verified by code (every fact's quote was found on its page), with "Not observed" where nothing was found.
+
+## Sources behind the worked example
+- A vendor's release notes, 2026-08-13, announcing that in-person meeting notes are available, with the rollout dates by device: https://workspaceupdates.googleblog.com/2026/08/take-notes-with-me-for-in-person-meetings-is-now-available.html
+- The vendor's help page, checked 2026-11-04, listing which plan editions include the feature: https://support.google.com/meet/answer/13952129?co=GENIE.Platform%3DDesktop&hl=en

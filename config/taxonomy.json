@@ -1,0 +1,3286 @@
+{
+ "source": {
+  "name": "AirStack software taxonomy",
+  "made_by": "Hand-curated by AirStack",
+  "license": "CC BY 4.0 (AirStack's own work)",
+  "note": "Departments hold categories; a few categories hold narrower ones. Each node says what it is, what belongs in it, and gives example products. Example names are illustrations, not endorsements, and are not necessarily listed in AirStack's directory."
+ },
+ "nodes": [
+  {
+   "id": "sales",
+   "name": "Sales & CRM",
+   "parent": null,
+   "definition": "Software that sales teams use to find buyers, manage deals and record sales.",
+   "includes": "Customer records, prospecting, outreach, deal tracking, quoting and commissions, and the online stores and tills where sales are taken.",
+   "examples": [
+    "Salesforce",
+    "Gong",
+    "Shopify"
+   ]
+  },
+  {
+   "id": "marketing",
+   "name": "Marketing",
+   "parent": null,
+   "definition": "Software that marketing teams use to attract an audience, reach it and measure what works.",
+   "includes": "Email and lifecycle messaging, customer data, search and social media, advertising, websites and content, webinars and events.",
+   "examples": [
+    "Mailchimp",
+    "Semrush",
+    "Hootsuite"
+   ]
+  },
+  {
+   "id": "customer-service",
+   "name": "Customer service",
+   "parent": null,
+   "definition": "Software that teams use to answer customers and keep them successful after the sale.",
+   "includes": "Help desks, live chat, shared inboxes, contact centres, AI support agents, help centres, customer success and customer feedback.",
+   "examples": [
+    "Zendesk",
+    "Intercom",
+    "Gainsight"
+   ]
+  },
+  {
+   "id": "finance",
+   "name": "Finance & accounting",
+   "parent": null,
+   "definition": "Software that finance teams use to record, move, plan and control a company's money.",
+   "includes": "Accounting and ERP, close and planning, spend, payables, billing and payments, tax, banking, procurement, travel, equity and trading.",
+   "examples": [
+    "Xero",
+    "Stripe",
+    "Ramp"
+   ]
+  },
+  {
+   "id": "hr",
+   "name": "HR & people",
+   "parent": null,
+   "definition": "Software that HR teams use to hire, pay, develop and manage people.",
+   "includes": "HR records, payroll, global employment, recruiting and job boards, performance, learning, shift scheduling, benefits and pay.",
+   "examples": [
+    "Workday",
+    "Gusto",
+    "Greenhouse"
+   ]
+  },
+  {
+   "id": "legal",
+   "name": "Legal",
+   "parent": null,
+   "definition": "Software that legal teams and law firms use to draft, sign, manage and research legal work.",
+   "includes": "Contracts, e-signature, law practice management, e-discovery, legal research and legal AI, online legal services and privacy compliance.",
+   "examples": [
+    "Docusign",
+    "Ironclad",
+    "Clio"
+   ]
+  },
+  {
+   "id": "operations",
+   "name": "Operations & supply chain",
+   "parent": null,
+   "definition": "Software that runs the physical and process side of a business: stock, shipping, field work, facilities and routine work between systems.",
+   "includes": "Inventory, warehouses, shipping, supply-chain planning, fleets, field service, facilities and maintenance, quality, workflow automation and RPA.",
+   "examples": [
+    "ShipStation",
+    "Zapier",
+    "UiPath"
+   ]
+  },
+  {
+   "id": "productivity",
+   "name": "Productivity & collaboration",
+   "parent": null,
+   "definition": "Software that people use every day to write, calculate, organise, plan and share their work.",
+   "includes": "Office suites, documents, spreadsheets, slides, notes and wikis, files, projects and tasks, time, calendars, whiteboards, forms, writing and translation aids, enterprise search and meeting notetakers.",
+   "examples": [
+    "Microsoft 365",
+    "Notion",
+    "Asana"
+   ]
+  },
+  {
+   "id": "communication",
+   "name": "Communication",
+   "parent": null,
+   "definition": "Software that people use to talk to each other: messages, email, calls and meetings.",
+   "includes": "Team chat, messaging apps, email and mail servers, video meetings, phone systems, video messages, forums and internal communications. Not: contact centres for customers (Customer service).",
+   "examples": [
+    "Slack",
+    "Zoom",
+    "Gmail"
+   ]
+  },
+  {
+   "id": "design",
+   "name": "Design & creative",
+   "parent": null,
+   "definition": "Software for making visual, audio and video work: interfaces, graphics, photos, 3D, video, sound and AI-generated media.",
+   "includes": "UI design and research, graphics, photo and illustration, publishing, 3D and animation, CAD, video and audio production, streaming studios, AI image, video and audio generation, stock media and creative asset management.",
+   "examples": [
+    "Figma",
+    "Adobe Photoshop",
+    "Blender"
+   ]
+  },
+  {
+   "id": "data",
+   "name": "Data & analytics",
+   "parent": null,
+   "definition": "Software that stores, moves, analyses and presents data.",
+   "includes": "Databases and warehouses, integration and orchestration, BI and dashboards, product, web and experience analytics, statistics, visualisation, data governance, GIS and web scraping.",
+   "examples": [
+    "Snowflake",
+    "Tableau",
+    "PostgreSQL"
+   ]
+  },
+  {
+   "id": "engineering",
+   "name": "Engineering & developer tools",
+   "parent": null,
+   "definition": "Software that developers use to write, build, test, ship and run software.",
+   "includes": "Editors and IDEs, AI coding and coding agents, source control, issue tracking, CI/CD, testing, APIs, cloud and hosting, containers, infrastructure as code, observability, incidents, feature flags, SDKs and runtimes, embedded systems and game development.",
+   "examples": [
+    "GitHub",
+    "Visual Studio Code",
+    "Datadog"
+   ]
+  },
+  {
+   "id": "it-security",
+   "name": "IT & security",
+   "parent": null,
+   "definition": "Software that IT and security teams use to run a company's systems and protect its people, devices, networks and data.",
+   "includes": "Identity and passwords, endpoint, network, cloud and application security, security operations, compliance, encryption, device and remote management, IT service management, asset management, backup and storage, networking and virtualisation.",
+   "examples": [
+    "Okta",
+    "CrowdStrike Falcon",
+    "Jira Service Management"
+   ]
+  },
+  {
+   "id": "ai",
+   "name": "AI & machine learning",
+   "parent": null,
+   "definition": "General-purpose AI assistants, and the software for building, running and checking AI models and agents.",
+   "includes": "AI assistants and AI search, foundation models, LLM APIs, agent frameworks, model serving, vector databases, LLM observability and evaluation, ML platforms and frameworks, speech AI, computer vision, AI app builders and browser agents. AI made for one job (AI coding, AI support agents, AI image generation) sits with that job.",
+   "examples": [
+    "ChatGPT",
+    "LangChain",
+    "Pinecone"
+   ]
+  },
+  {
+   "id": "industry",
+   "name": "Industry-specific",
+   "parent": null,
+   "definition": "Software built for one industry or field rather than for a business function.",
+   "includes": "Healthcare, science and research, education, government, libraries and museums, construction, engineering simulation, manufacturing, electronics design, hospitality, real estate, insurance, financial services, nonprofits, agriculture, automotive and religion.",
+   "examples": [
+    "Moodle",
+    "OpenEMR",
+    "Altium Designer"
+   ]
+  },
+  {
+   "id": "consumer",
+   "name": "Consumer & media",
+   "parent": null,
+   "definition": "Software people use in their personal lives and on their own devices.",
+   "includes": "Operating systems and desktops, browsers, media players and streaming, social networks, news and reading, search, maps, travel, shopping and reviews, health, personal finance, games and emulators, photos, system utilities, downloads, accessibility, reference, genealogy, smart home and app stores.",
+   "examples": [
+    "Ubuntu",
+    "Mozilla Firefox",
+    "Spotify"
+   ]
+  },
+  {
+   "id": "crm",
+   "name": "CRM",
+   "parent": "sales",
+   "definition": "Software that keeps one shared record of customers, contacts, companies and deals, and of every interaction with them.",
+   "includes": "Contact and account records, deal pipelines, activity history and sales reporting. Not: a customer data platform that merges behavioural data for marketing (Customer data platforms).",
+   "examples": [
+    "Salesforce",
+    "HubSpot",
+    "Pipedrive",
+    "Zoho CRM"
+   ]
+  },
+  {
+   "id": "sales-engagement",
+   "name": "Sales engagement",
+   "parent": "sales",
+   "definition": "Software that runs a seller's outreach to prospects as sequences of emails, calls and tasks.",
+   "includes": "Sequences and cadences, sales dialers, sales email tracking and deliverability tools for sellers.",
+   "examples": [
+    "Outreach",
+    "Salesloft",
+    "lemlist",
+    "Instantly"
+   ]
+  },
+  {
+   "id": "sales-intelligence",
+   "name": "Sales intelligence and prospect data",
+   "parent": "sales",
+   "definition": "Databases and tools that find the companies and people to sell to, with their firmographics and contact details.",
+   "includes": "B2B contact databases, data enrichment, buyer intent data and prospect search.",
+   "examples": [
+    "ZoomInfo",
+    "Apollo.io",
+    "Lusha",
+    "Clay"
+   ]
+  },
+  {
+   "id": "revenue-intelligence",
+   "name": "Conversation and revenue intelligence",
+   "parent": "sales",
+   "definition": "Software that records and analyses sales calls and deal activity to coach sellers and forecast revenue.",
+   "includes": "Sales call recording and analysis, deal inspection, revenue forecasting. Not: general meeting notetakers (AI meeting notetakers).",
+   "examples": [
+    "Gong",
+    "Clari",
+    "Chorus"
+   ]
+  },
+  {
+   "id": "sales-enablement",
+   "name": "Sales enablement",
+   "parent": "sales",
+   "definition": "Software that gives sellers the content, guidance and training they need during a deal.",
+   "includes": "Sales content libraries, playbooks, digital sales rooms and seller coaching.",
+   "examples": [
+    "Highspot",
+    "Seismic",
+    "Showpad"
+   ]
+  },
+  {
+   "id": "cpq-proposals",
+   "name": "Quotes and proposals",
+   "parent": "sales",
+   "definition": "Software that configures products, prices them and produces quotes and proposals for buyers to accept.",
+   "includes": "Configure-price-quote (CPQ), proposal and quote documents with online acceptance. Not: negotiating and storing contracts (Contract management).",
+   "examples": [
+    "PandaDoc",
+    "DealHub",
+    "Proposify"
+   ]
+  },
+  {
+   "id": "sales-compensation",
+   "name": "Sales performance and commissions",
+   "parent": "sales",
+   "definition": "Software that plans territories and quotas and calculates sales commissions.",
+   "includes": "Incentive compensation, quota and territory planning.",
+   "examples": [
+    "Xactly",
+    "CaptivateIQ",
+    "Spiff"
+   ]
+  },
+  {
+   "id": "partner-management",
+   "name": "Partner and affiliate programs",
+   "parent": "sales",
+   "definition": "Software for selling through partners: partner portals, referrals and partner payouts.",
+   "includes": "Partner relationship management, B2B affiliate and referral networks, account mapping with partners.",
+   "examples": [
+    "PartnerStack",
+    "Impartner",
+    "Crossbeam"
+   ]
+  },
+  {
+   "id": "ecommerce",
+   "name": "E-commerce platforms",
+   "parent": "sales",
+   "definition": "Software for running an online store: product catalogue, cart, checkout and orders.",
+   "includes": "Hosted and self-hosted store builders, shopping carts and storefronts for digital products. Not: general website builders (Website and landing page builders).",
+   "examples": [
+    "Shopify",
+    "BigCommerce",
+    "WooCommerce",
+    "Gumroad"
+   ]
+  },
+  {
+   "id": "point-of-sale",
+   "name": "Point of sale",
+   "parent": "sales",
+   "definition": "Software and devices for taking payment and recording sales in a shop, restaurant or at an event.",
+   "includes": "In-person checkout and till software, with the inventory, staff and reporting features that come with it.",
+   "examples": [
+    "Square",
+    "Lightspeed",
+    "Toast",
+    "Clover"
+   ]
+  },
+  {
+   "id": "marketing-automation",
+   "name": "Marketing automation",
+   "parent": "marketing",
+   "definition": "Software that runs multi-step marketing programs from one contact database: lead capture, scoring and nurture campaigns.",
+   "includes": "B2B lead management and campaign automation suites. Not: B2C messaging across push, SMS and in-app (Customer engagement and lifecycle messaging).",
+   "examples": [
+    "HubSpot",
+    "ActiveCampaign",
+    "Salesforce Marketing Cloud",
+    "Marketo"
+   ]
+  },
+  {
+   "id": "email-marketing",
+   "name": "Email marketing and newsletters",
+   "parent": "marketing",
+   "definition": "Software to design, send and measure marketing emails and newsletters to a subscriber list.",
+   "includes": "Newsletters, broadcast and automated marketing email, sign-up forms and list management.",
+   "examples": [
+    "Mailchimp",
+    "Kit",
+    "beehiiv",
+    "MailerLite"
+   ]
+  },
+  {
+   "id": "customer-engagement",
+   "name": "Customer engagement and lifecycle messaging",
+   "parent": "marketing",
+   "definition": "Software that sends personalised messages to a large consumer user base across email, push, SMS and in-app, triggered by what each person does.",
+   "includes": "B2C cross-channel journeys and lifecycle messaging.",
+   "examples": [
+    "Braze",
+    "Iterable",
+    "Customer.io"
+   ]
+  },
+  {
+   "id": "cdp",
+   "name": "Customer data platforms",
+   "parent": "marketing",
+   "definition": "Software that collects customer events and attributes from every source, merges them into one profile per person and sends those profiles to other tools.",
+   "includes": "Packaged and composable CDPs, event collection and reverse ETL for audiences. Not: a CRM, where sellers keep records of accounts and deals.",
+   "examples": [
+    "Segment",
+    "Hightouch",
+    "mParticle"
+   ]
+  },
+  {
+   "id": "seo",
+   "name": "SEO and search marketing",
+   "parent": "marketing",
+   "definition": "Software to research keywords, track search rankings, audit websites and study competitors' search traffic.",
+   "includes": "SEO suites, rank trackers, site auditors and backlink tools.",
+   "examples": [
+    "Semrush",
+    "Ahrefs",
+    "Moz Pro"
+   ]
+  },
+  {
+   "id": "social-media",
+   "name": "Social media management",
+   "parent": "marketing",
+   "definition": "Software to plan, publish and measure a brand's posts across social networks and follow what people say about it.",
+   "includes": "Scheduling and publishing, social inboxes, social listening, influencer and PR tools.",
+   "examples": [
+    "Hootsuite",
+    "Buffer",
+    "Sprout Social",
+    "Later"
+   ]
+  },
+  {
+   "id": "advertising",
+   "name": "Advertising",
+   "parent": "marketing",
+   "definition": "Software to buy, serve and measure paid advertising.",
+   "includes": "Ad networks and ad managers, ad servers, demand-side platforms and ad attribution.",
+   "examples": [
+    "Google Ads",
+    "The Trade Desk",
+    "AppsFlyer"
+   ]
+  },
+  {
+   "id": "website-builders",
+   "name": "Website and landing page builders",
+   "parent": "marketing",
+   "definition": "Software to design and publish a website or landing page without writing code, usually with hosting included.",
+   "includes": "Site builders, landing page builders and no-code web design tools. Not: hosting on its own (Web hosting and domains).",
+   "examples": [
+    "Wix",
+    "Squarespace",
+    "Webflow",
+    "Unbounce"
+   ]
+  },
+  {
+   "id": "cms",
+   "name": "Content management and blogging",
+   "parent": "marketing",
+   "definition": "Software to create, organise and publish the content of websites and blogs.",
+   "includes": "Traditional, headless and flat-file content management systems and blog engines.",
+   "examples": [
+    "WordPress",
+    "Contentful",
+    "Ghost",
+    "Strapi"
+   ]
+  },
+  {
+   "id": "experimentation",
+   "name": "A/B testing and personalisation",
+   "parent": "marketing",
+   "definition": "Software to test versions of a website or app against each other and personalise what each visitor sees.",
+   "includes": "A/B and multivariate testing and website personalisation. Not: feature flags used to release code (Feature flags).",
+   "examples": [
+    "Optimizely",
+    "VWO",
+    "AB Tasty"
+   ]
+  },
+  {
+   "id": "content-creation",
+   "name": "Marketing content and copywriting",
+   "parent": "marketing",
+   "definition": "Software that drafts marketing copy and content, often with AI, in a brand's voice.",
+   "includes": "AI copywriting, content planning and brand voice tools. Not: general AI assistants (AI assistants and chatbots).",
+   "examples": [
+    "Jasper",
+    "Copy.ai",
+    "Writer"
+   ]
+  },
+  {
+   "id": "webinars-events",
+   "name": "Webinars and events",
+   "parent": "marketing",
+   "definition": "Software to run webinars and virtual, hybrid or in-person events: registration, hosting, engagement and follow-up.",
+   "includes": "Webinar platforms, virtual event platforms, event management and business event ticketing. Not: everyday video meetings (Video conferencing).",
+   "examples": [
+    "ON24",
+    "Livestorm",
+    "Cvent",
+    "Zoom Webinars"
+   ]
+  },
+  {
+   "id": "video-hosting",
+   "name": "Video hosting for business",
+   "parent": "marketing",
+   "definition": "Software that hosts, plays and measures a company's videos on its website, in sales and in training.",
+   "includes": "Business video platforms, video players and enterprise video libraries. Not: public video streaming services (Video streaming).",
+   "examples": [
+    "Vimeo",
+    "Wistia",
+    "Brightcove",
+    "Vidyard"
+   ]
+  },
+  {
+   "id": "loyalty-reviews",
+   "name": "Loyalty, referrals and reviews",
+   "parent": "marketing",
+   "definition": "Software that turns existing customers into repeat buyers and advocates through loyalty points, referral rewards and reviews.",
+   "includes": "Loyalty and referral programs, review collection and reputation management for a business. Not: public review sites (Shopping and reviews).",
+   "examples": [
+    "Yotpo",
+    "Smile.io",
+    "Birdeye",
+    "ReferralCandy"
+   ]
+  },
+  {
+   "id": "market-research",
+   "name": "Market and competitive intelligence",
+   "parent": "marketing",
+   "definition": "Software and data services that measure markets, competitors and audiences from outside a company.",
+   "includes": "Web traffic and app intelligence, competitor tracking and audience research.",
+   "examples": [
+    "Similarweb",
+    "Crayon",
+    "Klue"
+   ]
+  },
+  {
+   "id": "help-desk",
+   "name": "Help desks and ticketing",
+   "parent": "customer-service",
+   "definition": "Software that turns customer questions from email, chat, phone and social media into tickets that agents answer, route and track.",
+   "includes": "Customer help desks and omnichannel support suites. Not: internal IT service desks (IT service management).",
+   "examples": [
+    "Zendesk",
+    "Freshdesk",
+    "Help Scout",
+    "Intercom"
+   ]
+  },
+  {
+   "id": "live-chat",
+   "name": "Live chat and messaging",
+   "parent": "customer-service",
+   "definition": "Software that lets customers chat with a business on its website or app while agents answer in real time.",
+   "includes": "Website chat widgets, in-app messaging and chat-first support tools.",
+   "examples": [
+    "LiveChat",
+    "Tidio",
+    "Crisp"
+   ]
+  },
+  {
+   "id": "shared-inbox",
+   "name": "Shared inboxes",
+   "parent": "customer-service",
+   "definition": "Software that lets a team answer a shared email address and other channels together, from their own inboxes.",
+   "includes": "Collaborative inboxes for customer email, with assignment, internal comments and replies.",
+   "examples": [
+    "Front",
+    "Hiver",
+    "Missive"
+   ]
+  },
+  {
+   "id": "contact-center",
+   "name": "Contact centres",
+   "parent": "customer-service",
+   "definition": "Cloud software for customer call centres: call routing, agent desktops, workforce management and quality monitoring.",
+   "includes": "CCaaS, IVR, outbound dialers for service teams and workforce engagement. Not: phone systems for staff (Phone systems and VoIP).",
+   "examples": [
+    "Talkdesk",
+    "Five9",
+    "Genesys Cloud",
+    "NICE CXone"
+   ]
+  },
+  {
+   "id": "ai-support-agents",
+   "name": "AI customer service agents",
+   "parent": "customer-service",
+   "definition": "Software that answers customers on its own with AI and hands over to a person when it cannot.",
+   "includes": "Autonomous support agents and chatbots built for customer service. Not: general AI assistants (AI assistants and chatbots).",
+   "examples": [
+    "Ada",
+    "Sierra",
+    "Decagon"
+   ]
+  },
+  {
+   "id": "knowledge-base",
+   "name": "Help centres and knowledge bases",
+   "parent": "customer-service",
+   "definition": "Software to publish help articles and answers that customers can search themselves.",
+   "includes": "Customer-facing help centres, FAQs and self-service portals. Not: internal team wikis (Wikis and knowledge management).",
+   "examples": [
+    "Document360",
+    "HelpDocs",
+    "Helpjuice"
+   ]
+  },
+  {
+   "id": "customer-success",
+   "name": "Customer success",
+   "parent": "customer-service",
+   "definition": "Software that tracks account health, product usage and renewals so a team can keep and grow existing customers.",
+   "includes": "Health scores, success plans, renewal and expansion tracking. Not: answering support tickets (Help desks and ticketing).",
+   "examples": [
+    "Gainsight",
+    "ChurnZero",
+    "Totango",
+    "Vitally"
+   ]
+  },
+  {
+   "id": "customer-feedback",
+   "name": "Customer feedback and experience management",
+   "parent": "customer-service",
+   "definition": "Software that collects and analyses what customers say about their experience: surveys, scores and comments across channels.",
+   "includes": "NPS and CSAT programs, voice of the customer and experience management suites. Not: general-purpose forms and surveys (Forms and surveys).",
+   "examples": [
+    "Qualtrics",
+    "Medallia",
+    "Delighted"
+   ]
+  },
+  {
+   "id": "accounting",
+   "name": "Accounting and bookkeeping",
+   "parent": "finance",
+   "definition": "Software that keeps a business's books: general ledger, invoices, bills, bank reconciliation and financial statements.",
+   "includes": "Small-business and mid-market accounting software and bookkeeping services. Not: personal budgeting (Personal finance and payments).",
+   "examples": [
+    "Xero",
+    "QuickBooks",
+    "FreshBooks",
+    "Wave"
+   ]
+  },
+  {
+   "id": "erp",
+   "name": "ERP",
+   "parent": "finance",
+   "definition": "Software suites that run a company's core finance and operations in one system: ledger, purchasing, inventory, orders and often manufacturing.",
+   "includes": "Enterprise resource planning suites for mid-size and large companies.",
+   "examples": [
+    "NetSuite",
+    "SAP S/4HANA",
+    "Microsoft Dynamics 365"
+   ]
+  },
+  {
+   "id": "financial-close",
+   "name": "Financial close and consolidation",
+   "parent": "finance",
+   "definition": "Software that runs the month-end close: reconciliations, journal entries and consolidation of subsidiaries' books.",
+   "includes": "Close management, account reconciliation and consolidation.",
+   "examples": [
+    "BlackLine",
+    "FloQast",
+    "OneStream"
+   ]
+  },
+  {
+   "id": "fpa",
+   "name": "Financial planning and analysis",
+   "parent": "finance",
+   "definition": "Software for budgets, forecasts and financial models.",
+   "includes": "FP&A, corporate performance management and scenario planning.",
+   "examples": [
+    "Anaplan",
+    "Pigment",
+    "Adaptive Planning"
+   ]
+  },
+  {
+   "id": "spend-management",
+   "name": "Expenses and corporate cards",
+   "parent": "finance",
+   "definition": "Software that controls employee spending: corporate cards, expense reports, receipts and reimbursements.",
+   "includes": "Expense management, corporate card programs and spend controls.",
+   "examples": [
+    "Ramp",
+    "Brex",
+    "Expensify",
+    "SAP Concur"
+   ]
+  },
+  {
+   "id": "accounts-payable",
+   "name": "Accounts payable and bill pay",
+   "parent": "finance",
+   "definition": "Software that receives supplier invoices, gets them approved and pays them.",
+   "includes": "AP automation, bill payment and supplier payments.",
+   "examples": [
+    "BILL",
+    "Tipalti",
+    "Melio"
+   ]
+  },
+  {
+   "id": "billing-subscriptions",
+   "name": "Billing and subscriptions",
+   "parent": "finance",
+   "definition": "Software that charges customers on a recurring or usage basis and manages their subscriptions and invoices.",
+   "includes": "Subscription and usage-based billing, and merchant-of-record services.",
+   "examples": [
+    "Chargebee",
+    "Recurly",
+    "Paddle",
+    "Zuora"
+   ]
+  },
+  {
+   "id": "payments",
+   "name": "Payment processing",
+   "parent": "finance",
+   "definition": "Services that accept card, bank and wallet payments for a business, online or in person, and pay the money out.",
+   "includes": "Payment gateways and processors, direct debit and payment orchestration.",
+   "examples": [
+    "Stripe",
+    "Adyen",
+    "PayPal",
+    "GoCardless"
+   ]
+  },
+  {
+   "id": "tax-compliance",
+   "name": "Tax compliance",
+   "parent": "finance",
+   "definition": "Software that calculates, files and remits a business's taxes.",
+   "includes": "Sales tax and VAT calculation, tax filing and e-invoicing compliance.",
+   "examples": [
+    "Avalara",
+    "Vertex",
+    "TaxJar"
+   ]
+  },
+  {
+   "id": "business-banking",
+   "name": "Business banking and treasury",
+   "parent": "finance",
+   "definition": "Bank accounts, treasury and cross-border money movement built for businesses.",
+   "includes": "Business accounts, multi-currency accounts, international payouts and treasury management.",
+   "examples": [
+    "Mercury",
+    "Wise Business",
+    "Payoneer"
+   ]
+  },
+  {
+   "id": "procurement",
+   "name": "Procurement and purchasing",
+   "parent": "finance",
+   "definition": "Software that runs how a company buys: requests, approvals, suppliers, purchase orders and vendor contracts.",
+   "includes": "Procure-to-pay, purchase intake and approvals, supplier management and software purchasing services. Not: tracking the SaaS a company already uses (IT asset and SaaS management).",
+   "examples": [
+    "Coupa",
+    "Zip",
+    "Ivalua",
+    "Vendr"
+   ]
+  },
+  {
+   "id": "travel-management",
+   "name": "Business travel",
+   "parent": "finance",
+   "definition": "Software to book and pay for business trips within company policy.",
+   "includes": "Corporate travel booking and travel spend management.",
+   "examples": [
+    "Navan",
+    "Perk",
+    "Egencia"
+   ]
+  },
+  {
+   "id": "equity-management",
+   "name": "Equity and cap tables",
+   "parent": "finance",
+   "definition": "Software that tracks who owns a company and manages stock options and shareholder records.",
+   "includes": "Cap table management, equity plans and valuations.",
+   "examples": [
+    "Carta",
+    "Pulley",
+    "Ledgy"
+   ]
+  },
+  {
+   "id": "trading-crypto",
+   "name": "Trading, investing and crypto",
+   "parent": "finance",
+   "definition": "Platforms for trading securities, currencies and crypto assets, and wallets for holding crypto.",
+   "includes": "Trading platforms, prediction markets, crypto wallets, exchanges and decentralised finance apps.",
+   "examples": [
+    "Uniswap",
+    "Polymarket",
+    "Electrum"
+   ]
+  },
+  {
+   "id": "hris",
+   "name": "HR systems",
+   "parent": "hr",
+   "definition": "Software that holds employee records and runs core HR: onboarding, time off, documents and the org chart.",
+   "includes": "HRIS and HCM suites. Not: payroll on its own (Payroll).",
+   "examples": [
+    "Workday",
+    "BambooHR",
+    "HiBob",
+    "Personio"
+   ]
+  },
+  {
+   "id": "payroll",
+   "name": "Payroll",
+   "parent": "hr",
+   "definition": "Software that calculates and pays wages and files payroll taxes.",
+   "includes": "Payroll software and payroll services.",
+   "examples": [
+    "Gusto",
+    "ADP",
+    "Paychex",
+    "Paylocity"
+   ]
+  },
+  {
+   "id": "global-employment",
+   "name": "Global employment and PEO",
+   "parent": "hr",
+   "definition": "Services that legally employ or pay people on a company's behalf, at home (PEO) or abroad (employer of record).",
+   "includes": "Employer of record, international contractor payments and professional employer organisations.",
+   "examples": [
+    "Deel",
+    "Remote",
+    "Oyster",
+    "Justworks"
+   ]
+  },
+  {
+   "id": "recruiting",
+   "name": "Recruiting and applicant tracking",
+   "parent": "hr",
+   "definition": "Software that runs hiring: job openings, applicants, interviews and offers.",
+   "includes": "Applicant tracking systems, interview scheduling and recruiting CRM. Not: public job boards (Job boards and candidate sourcing).",
+   "examples": [
+    "Greenhouse",
+    "Lever",
+    "Ashby",
+    "Workable"
+   ]
+  },
+  {
+   "id": "job-boards",
+   "name": "Job boards and candidate sourcing",
+   "parent": "hr",
+   "definition": "Websites and tools where jobs are advertised and recruiters search for candidates.",
+   "includes": "Job boards, employment websites and recruiter search and outreach.",
+   "examples": [
+    "LinkedIn Recruiter",
+    "Monster.com",
+    "StepStone"
+   ]
+  },
+  {
+   "id": "performance-engagement",
+   "name": "Performance and engagement",
+   "parent": "hr",
+   "definition": "Software for performance reviews, goals, feedback and employee surveys.",
+   "includes": "Performance reviews, OKRs, one-to-ones and engagement surveys.",
+   "examples": [
+    "Lattice",
+    "Culture Amp",
+    "15Five"
+   ]
+  },
+  {
+   "id": "corporate-learning",
+   "name": "Learning management and course authoring",
+   "parent": "hr",
+   "definition": "Software that delivers, tracks and builds training for employees, partners and customers.",
+   "includes": "Corporate LMSs, learning experience platforms and course authoring tools. Not: school and university systems (School and university learning systems).",
+   "examples": [
+    "Docebo",
+    "360Learning",
+    "TalentLMS",
+    "Articulate 360"
+   ]
+  },
+  {
+   "id": "training-content",
+   "name": "Training content libraries",
+   "parent": "hr",
+   "definition": "Libraries of ready-made courses that companies buy for their staff.",
+   "includes": "Business subscriptions to online courses and skills platforms.",
+   "examples": [
+    "LinkedIn Learning",
+    "Udemy Business",
+    "Pluralsight",
+    "Coursera for Business"
+   ]
+  },
+  {
+   "id": "workforce-scheduling",
+   "name": "Shift scheduling and time clocks",
+   "parent": "hr",
+   "definition": "Software for hourly teams: rotas, shift swaps, time clocks and attendance.",
+   "includes": "Employee scheduling and time and attendance. Not: tracking time spent on projects (Time tracking).",
+   "examples": [
+    "Deputy",
+    "Homebase",
+    "When I Work"
+   ]
+  },
+  {
+   "id": "benefits-compensation",
+   "name": "Benefits and compensation",
+   "parent": "hr",
+   "definition": "Software to run employee benefits and plan pay.",
+   "includes": "Benefits administration, compensation planning and pay bands.",
+   "examples": [
+    "Benefitfocus",
+    "Pave",
+    "Ease"
+   ]
+  },
+  {
+   "id": "contract-management",
+   "name": "Contract management",
+   "parent": "legal",
+   "definition": "Software that drafts, negotiates, stores and tracks contracts through their whole life.",
+   "includes": "Contract lifecycle management, clause libraries, contract repositories and AI contract review. Not: signing on its own (E-signature).",
+   "examples": [
+    "Ironclad",
+    "Icertis",
+    "Juro",
+    "Agiloft"
+   ]
+  },
+  {
+   "id": "e-signature",
+   "name": "E-signature",
+   "parent": "legal",
+   "definition": "Software to send documents for legally binding electronic signature and keep the signed record.",
+   "includes": "E-signature and digital signing workflows.",
+   "examples": [
+    "Docusign",
+    "Dropbox Sign",
+    "Adobe Acrobat Sign",
+    "SignNow"
+   ]
+  },
+  {
+   "id": "legal-practice",
+   "name": "Law practice management",
+   "parent": "legal",
+   "definition": "Software that runs a law firm: matters, time and billing, documents and client intake.",
+   "includes": "Practice management, legal billing and client portals.",
+   "examples": [
+    "Clio",
+    "MyCase",
+    "Smokeball"
+   ]
+  },
+  {
+   "id": "ediscovery",
+   "name": "E-discovery and litigation",
+   "parent": "legal",
+   "definition": "Software to collect, review and produce documents and data for litigation and investigations.",
+   "includes": "E-discovery review, legal holds and litigation support.",
+   "examples": [
+    "Everlaw",
+    "Relativity",
+    "Logikcull"
+   ]
+  },
+  {
+   "id": "legal-research",
+   "name": "Legal research and legal AI",
+   "parent": "legal",
+   "definition": "Databases and AI assistants that search case law and statutes and help lawyers draft and review.",
+   "includes": "Legal research services, citators and AI assistants built for lawyers. Not: general AI assistants.",
+   "examples": [
+    "Harvey",
+    "Spellbook",
+    "Westlaw",
+    "vLex"
+   ]
+  },
+  {
+   "id": "online-legal-services",
+   "name": "Online legal services",
+   "parent": "legal",
+   "definition": "Services that help individuals and small businesses produce legal documents and form companies online.",
+   "includes": "Legal forms, business formation and registered agent services.",
+   "examples": [
+    "LegalZoom",
+    "Rocket Lawyer"
+   ]
+  },
+  {
+   "id": "privacy-compliance",
+   "name": "Privacy and consent management",
+   "parent": "legal",
+   "definition": "Software that manages personal-data obligations: consent banners, data-subject requests and privacy assessments.",
+   "includes": "Consent management, privacy program management and data mapping.",
+   "examples": [
+    "OneTrust",
+    "Osano",
+    "Cookiebot"
+   ]
+  },
+  {
+   "id": "inventory-management",
+   "name": "Inventory and order management",
+   "parent": "operations",
+   "definition": "Software that tracks stock, its locations and the orders that move it across sales channels.",
+   "includes": "Inventory control, order management and multichannel listing.",
+   "examples": [
+    "Cin7",
+    "Fishbowl",
+    "Linnworks"
+   ]
+  },
+  {
+   "id": "warehouse-management",
+   "name": "Warehouse management",
+   "parent": "operations",
+   "definition": "Software that runs a warehouse: receiving, put-away, picking, packing and stock counts.",
+   "includes": "Warehouse management systems and software for third-party logistics.",
+   "examples": [
+    "Manhattan Active Warehouse Management",
+    "ShipHero",
+    "Logiwa"
+   ]
+  },
+  {
+   "id": "shipping-fulfillment",
+   "name": "Shipping and fulfilment",
+   "parent": "operations",
+   "definition": "Software to buy shipping labels, compare carriers and track parcels, and services that fulfil orders.",
+   "includes": "Multi-carrier shipping, returns and fulfilment networks.",
+   "examples": [
+    "ShipStation",
+    "Shippo",
+    "EasyPost",
+    "ShipBob"
+   ]
+  },
+  {
+   "id": "supply-chain-planning",
+   "name": "Supply chain planning",
+   "parent": "operations",
+   "definition": "Software that forecasts demand and plans supply, production and inventory across a supply chain.",
+   "includes": "Demand planning, sales and operations planning and supply chain control towers.",
+   "examples": [
+    "Kinaxis",
+    "o9 Solutions",
+    "Blue Yonder"
+   ]
+  },
+  {
+   "id": "fleet-logistics",
+   "name": "Fleet and transport management",
+   "parent": "operations",
+   "definition": "Software that runs vehicles and freight: telematics, routing, dispatch and transport management.",
+   "includes": "Fleet telematics, transport management systems, route optimisation and freight visibility.",
+   "examples": [
+    "Samsara",
+    "Fleetio",
+    "project44"
+   ]
+  },
+  {
+   "id": "field-service",
+   "name": "Field service management",
+   "parent": "operations",
+   "definition": "Software that schedules, dispatches and tracks technicians and jobs at customer sites.",
+   "includes": "Field service management and job scheduling and quoting for trades.",
+   "examples": [
+    "ServiceTitan",
+    "Jobber",
+    "Housecall Pro"
+   ]
+  },
+  {
+   "id": "facilities-maintenance",
+   "name": "Facilities and maintenance",
+   "parent": "operations",
+   "definition": "Software that runs buildings and equipment: maintenance work orders, assets, desks, rooms and visitors.",
+   "includes": "CMMS and enterprise asset management, workplace and desk booking, visitor management.",
+   "examples": [
+    "UpKeep",
+    "IBM Maximo",
+    "Envoy",
+    "Robin"
+   ]
+  },
+  {
+   "id": "quality-management",
+   "name": "Quality management",
+   "parent": "operations",
+   "definition": "Software that runs quality and compliance processes: controlled documents, audits, corrective actions and training records.",
+   "includes": "Quality management systems, EHS and audit management.",
+   "examples": [
+    "MasterControl",
+    "ETQ",
+    "Qualio"
+   ]
+  },
+  {
+   "id": "workflow-automation",
+   "name": "Workflow automation and integration",
+   "parent": "operations",
+   "definition": "Software that connects apps and runs routine work between them automatically, with little or no code.",
+   "includes": "iPaaS, no-code automation and workflow engines. Not: robots that operate screens (Robotic process automation and process mining).",
+   "examples": [
+    "Zapier",
+    "Make",
+    "n8n",
+    "Workato"
+   ]
+  },
+  {
+   "id": "rpa",
+   "name": "Robotic process automation and process mining",
+   "parent": "operations",
+   "definition": "Software robots that operate other applications to do repetitive office work, and tools that show how processes really run.",
+   "includes": "RPA, desktop automation, intelligent document processing and process mining.",
+   "examples": [
+    "UiPath",
+    "Automation Anywhere",
+    "Celonis"
+   ]
+  },
+  {
+   "id": "office-suites",
+   "name": "Office suites",
+   "parent": "productivity",
+   "definition": "Bundles of everyday office applications (documents, spreadsheets, slides and often email) sold or shared as one package.",
+   "includes": "Desktop and cloud office suites.",
+   "examples": [
+    "Microsoft 365",
+    "Google Workspace",
+    "LibreOffice",
+    "Zoho Workplace"
+   ]
+  },
+  {
+   "id": "documents",
+   "name": "Documents and word processing",
+   "parent": "productivity",
+   "definition": "Software to write, format and collaborate on documents.",
+   "includes": "Word processors, collaborative document editors and screenwriting software.",
+   "examples": [
+    "Microsoft Word",
+    "Google Docs",
+    "Coda"
+   ]
+  },
+  {
+   "id": "spreadsheets",
+   "name": "Spreadsheets and no-code databases",
+   "parent": "productivity",
+   "definition": "Software for working with tables of numbers and records.",
+   "includes": "Spreadsheets and spreadsheet-database hybrids.",
+   "examples": [
+    "Microsoft Excel",
+    "Google Sheets",
+    "Airtable"
+   ]
+  },
+  {
+   "id": "presentations",
+   "name": "Presentations",
+   "parent": "productivity",
+   "definition": "Software to make and present slides.",
+   "includes": "Presentation software, AI deck makers and interactive presentations and polls.",
+   "examples": [
+    "Microsoft PowerPoint",
+    "Google Slides",
+    "Pitch",
+    "Gamma"
+   ]
+  },
+  {
+   "id": "notes",
+   "name": "Notes and personal knowledge",
+   "parent": "productivity",
+   "definition": "Software for capturing notes, ideas, bookmarks and personal information.",
+   "includes": "Note-taking apps, outliners, personal knowledge bases, personal information managers and bookmark managers.",
+   "examples": [
+    "Evernote",
+    "Obsidian",
+    "Joplin"
+   ]
+  },
+  {
+   "id": "wikis-knowledge",
+   "name": "Wikis and knowledge management",
+   "parent": "productivity",
+   "definition": "Software where a team writes down and organises what it knows so others can find it.",
+   "includes": "Team wikis, intranet knowledge bases and all-in-one workspaces. Not: customer help centres (Help centres and knowledge bases).",
+   "examples": [
+    "Confluence",
+    "Notion",
+    "Guru"
+   ]
+  },
+  {
+   "id": "file-storage",
+   "name": "File storage, sharing and document management",
+   "parent": "productivity",
+   "definition": "Software to store, sync, share and govern files and documents.",
+   "includes": "Cloud storage and sync, enterprise file sharing, and document and enterprise content management.",
+   "examples": [
+    "Dropbox",
+    "Box",
+    "Google Drive",
+    "Syncthing"
+   ]
+  },
+  {
+   "id": "pdf-tools",
+   "name": "PDF and document viewers",
+   "parent": "productivity",
+   "definition": "Software to view, edit, annotate and convert PDFs and other document files.",
+   "includes": "PDF editors and readers and document viewers.",
+   "examples": [
+    "Adobe Acrobat",
+    "Okular",
+    "Foxit PDF Editor"
+   ]
+  },
+  {
+   "id": "project-management",
+   "name": "Project management",
+   "parent": "productivity",
+   "definition": "Software to plan projects with tasks, owners, dates, dependencies and resources, and track them to completion.",
+   "includes": "Gantt-based project planning, resource and portfolio management and client project management. Not: boards for a team's ongoing work (Work management).",
+   "examples": [
+    "Smartsheet",
+    "Basecamp",
+    "TeamGantt",
+    "Microsoft Project"
+   ]
+  },
+  {
+   "id": "work-management",
+   "name": "Work management",
+   "parent": "productivity",
+   "definition": "Configurable platforms where teams track all kinds of ongoing work on boards, lists and timelines, with their own workflows.",
+   "includes": "Collaborative work management, kanban boards and team task tracking. Not: software teams' issue trackers (Issue tracking).",
+   "examples": [
+    "Asana",
+    "monday.com",
+    "ClickUp",
+    "Trello"
+   ]
+  },
+  {
+   "id": "task-management",
+   "name": "Personal task management",
+   "parent": "productivity",
+   "definition": "Software to keep one person's to-do list and reminders.",
+   "includes": "To-do lists and personal planners.",
+   "examples": [
+    "Todoist",
+    "Things",
+    "TickTick"
+   ]
+  },
+  {
+   "id": "time-tracking",
+   "name": "Time tracking",
+   "parent": "productivity",
+   "definition": "Software that records time spent on work and projects, for billing, payroll or planning.",
+   "includes": "Timers, timesheets and employee time monitoring. Not: shift scheduling and clock-ins for hourly staff (Shift scheduling and time clocks).",
+   "examples": [
+    "Toggl Track",
+    "Harvest",
+    "Clockify",
+    "Hubstaff"
+   ]
+  },
+  {
+   "id": "calendars-scheduling",
+   "name": "Calendars and scheduling",
+   "parent": "productivity",
+   "definition": "Software to manage calendars and let people book time.",
+   "includes": "Calendar apps, booking pages, meeting routing and AI daily planners.",
+   "examples": [
+    "Google Calendar",
+    "Calendly",
+    "Cal.com",
+    "Fantastical"
+   ]
+  },
+  {
+   "id": "whiteboards-diagramming",
+   "name": "Whiteboards and diagramming",
+   "parent": "productivity",
+   "definition": "Software to sketch, map and diagram ideas, alone or together.",
+   "includes": "Online whiteboards, mind maps, flowcharts, UML and other technical diagrams.",
+   "examples": [
+    "Miro",
+    "Lucidchart",
+    "Mural",
+    "draw.io"
+   ]
+  },
+  {
+   "id": "forms-surveys",
+   "name": "Forms and surveys",
+   "parent": "productivity",
+   "definition": "Software to build forms and surveys and collect the answers.",
+   "includes": "Form builders, survey tools and quizzes. Not: customer experience programs (Customer feedback and experience management).",
+   "examples": [
+    "Typeform",
+    "SurveyMonkey",
+    "Jotform",
+    "Google Forms"
+   ]
+  },
+  {
+   "id": "writing-assistants",
+   "name": "Writing and grammar assistants",
+   "parent": "productivity",
+   "definition": "Software that checks and improves writing: spelling, grammar, tone and rewording.",
+   "includes": "Grammar and spell checkers and paraphrasing tools.",
+   "examples": [
+    "Grammarly",
+    "QuillBot",
+    "Wordtune"
+   ]
+  },
+  {
+   "id": "translation",
+   "name": "Translation",
+   "parent": "productivity",
+   "definition": "Software that translates text and documents between languages, and tools to manage translation work.",
+   "includes": "Machine translation, translation memory and translation management systems.",
+   "examples": [
+    "DeepL",
+    "Google Translate",
+    "Crowdin"
+   ]
+  },
+  {
+   "id": "enterprise-search",
+   "name": "Enterprise search",
+   "parent": "productivity",
+   "definition": "Software that searches across a company's own apps and documents, often with an AI assistant on top.",
+   "includes": "Workplace search and AI work assistants over company data. Not: web search engines (Web search).",
+   "examples": [
+    "Glean",
+    "Coveo",
+    "Elastic Enterprise Search"
+   ]
+  },
+  {
+   "id": "meeting-notetakers",
+   "name": "AI meeting notetakers",
+   "parent": "productivity",
+   "definition": "Software that joins or records meetings, transcribes them and writes notes and action items.",
+   "includes": "Meeting bots and recorders, transcripts and summaries. Not: sales call analysis (Conversation and revenue intelligence).",
+   "examples": [
+    "Otter",
+    "Fireflies",
+    "Fathom",
+    "Granola"
+   ]
+  },
+  {
+   "id": "team-chat",
+   "name": "Team chat",
+   "parent": "communication",
+   "definition": "Software for persistent group conversations in channels at work.",
+   "includes": "Workplace chat and collaboration hubs.",
+   "examples": [
+    "Slack",
+    "Microsoft Teams",
+    "Mattermost",
+    "Google Chat"
+   ]
+  },
+  {
+   "id": "messaging-apps",
+   "name": "Messaging apps",
+   "parent": "communication",
+   "definition": "Apps and protocols for direct and group messages between people.",
+   "includes": "Consumer messengers, IRC, XMPP and Matrix clients and community chat.",
+   "examples": [
+    "Signal",
+    "Discord",
+    "Element",
+    "Pidgin"
+   ]
+  },
+  {
+   "id": "video-conferencing",
+   "name": "Video conferencing",
+   "parent": "communication",
+   "definition": "Software for live video meetings.",
+   "includes": "Video meeting apps and meeting rooms. Not: webinars for an audience (Webinars and events).",
+   "examples": [
+    "Zoom",
+    "Google Meet",
+    "Webex",
+    "Jitsi Meet"
+   ]
+  },
+  {
+   "id": "business-phone",
+   "name": "Phone systems and VoIP",
+   "parent": "communication",
+   "definition": "Software for making and receiving phone calls over the internet, for businesses and individuals.",
+   "includes": "Cloud phone systems (UCaaS), VoIP apps and softphones. Not: customer contact centres (Contact centres).",
+   "examples": [
+    "RingCentral",
+    "Dialpad",
+    "Aircall",
+    "Linphone"
+   ]
+  },
+  {
+   "id": "email",
+   "name": "Email",
+   "parent": "communication",
+   "definition": "Software to send, receive, organise and deliver email.",
+   "includes": "Email services, webmail, desktop and mobile email clients, and mail servers.",
+   "examples": [
+    "Gmail",
+    "Microsoft Outlook",
+    "Proton Mail",
+    "Mozilla Thunderbird"
+   ]
+  },
+  {
+   "id": "video-messaging",
+   "name": "Video messages",
+   "parent": "communication",
+   "definition": "Software to record short screen and camera videos and share them instead of meeting.",
+   "includes": "Asynchronous video and screen recording for messages.",
+   "examples": [
+    "Loom",
+    "Bubbles",
+    "Claap"
+   ]
+  },
+  {
+   "id": "forums-communities",
+   "name": "Forums and communities",
+   "parent": "communication",
+   "definition": "Software for online discussion communities: forums, mailing lists, Q&A sites and newsgroups.",
+   "includes": "Forum software, community platforms, mailing list managers and Usenet readers.",
+   "examples": [
+    "phpBB",
+    "Discourse",
+    "Circle"
+   ]
+  },
+  {
+   "id": "internal-comms",
+   "name": "Internal communications",
+   "parent": "communication",
+   "definition": "Software for a company to inform and engage its employees: intranets, newsletters and employee apps.",
+   "includes": "Intranets, employee apps and internal newsletters.",
+   "examples": [
+    "Staffbase",
+    "Simpplr",
+    "Workvivo"
+   ]
+  },
+  {
+   "id": "ui-design",
+   "name": "UI and product design",
+   "parent": "design",
+   "definition": "Software to design, prototype and hand off the screens of apps and websites.",
+   "includes": "Interface design, wireframing, prototyping and design handoff.",
+   "examples": [
+    "Figma",
+    "Sketch",
+    "Penpot",
+    "Balsamiq"
+   ]
+  },
+  {
+   "id": "user-research",
+   "name": "User research",
+   "parent": "design",
+   "definition": "Software to test designs with real users and organise research findings.",
+   "includes": "Usability testing, research repositories and user interview tools.",
+   "examples": [
+    "Maze",
+    "UserTesting",
+    "Dovetail"
+   ]
+  },
+  {
+   "id": "graphic-design",
+   "name": "Graphic design and templates",
+   "parent": "design",
+   "definition": "Easy design software to make social posts, flyers, cards and other graphics, often from templates.",
+   "includes": "Template-based design tools and card and postcard makers.",
+   "examples": [
+    "Canva",
+    "Adobe Express",
+    "VistaCreate"
+   ]
+  },
+  {
+   "id": "photo-editing",
+   "name": "Photo editing",
+   "parent": "design",
+   "definition": "Software to edit and retouch photos and other raster images.",
+   "includes": "Raster graphics editors, image processing and AI upscaling and retouching.",
+   "examples": [
+    "Adobe Photoshop",
+    "GIMP",
+    "Procreate",
+    "Topaz Labs"
+   ]
+  },
+  {
+   "id": "vector-illustration",
+   "name": "Illustration and vector graphics",
+   "parent": "design",
+   "definition": "Software to draw illustrations, logos and icons.",
+   "includes": "Vector graphics editors, digital ink and icon editors.",
+   "examples": [
+    "Adobe Illustrator",
+    "Inkscape",
+    "Affinity Designer"
+   ]
+  },
+  {
+   "id": "desktop-publishing",
+   "name": "Desktop publishing and typography",
+   "parent": "design",
+   "definition": "Software to lay out print and digital publications and to make and set type.",
+   "includes": "Page layout, typesetting (including TeX) and font editors.",
+   "examples": [
+    "Adobe InDesign",
+    "Scribus",
+    "FontForge"
+   ]
+  },
+  {
+   "id": "animation-3d",
+   "name": "3D, animation and visual effects",
+   "parent": "design",
+   "definition": "Software to model, animate, render and composite 3D scenes and 2D motion graphics.",
+   "includes": "3D modelling and rendering, 2D and 3D animation, motion graphics, compositing and VFX. Not: CAD for engineering (Computer-aided design).",
+   "examples": [
+    "Blender",
+    "Autodesk Maya",
+    "Cinema 4D",
+    "Adobe After Effects"
+   ]
+  },
+  {
+   "id": "cad",
+   "name": "Computer-aided design",
+   "parent": "design",
+   "definition": "Software for precise 2D drawings and 3D models of parts, products and buildings.",
+   "includes": "2D drafting, 3D CAD and BIM authoring. Not: electronics design (Electronic design automation).",
+   "examples": [
+    "AutoCAD",
+    "SolidWorks",
+    "FreeCAD"
+   ]
+  },
+  {
+   "id": "video-editing",
+   "name": "Video editing",
+   "parent": "design",
+   "definition": "Software to cut, edit, caption and finish video.",
+   "includes": "Desktop and online video editors, AI video editing and clipping, subtitle editors.",
+   "examples": [
+    "Adobe Premiere Pro",
+    "DaVinci Resolve",
+    "CapCut",
+    "Descript"
+   ]
+  },
+  {
+   "id": "audio-production",
+   "name": "Audio and music production",
+   "parent": "design",
+   "definition": "Software to record, edit, mix and compose audio and music.",
+   "includes": "Digital audio workstations, audio editors, software synthesizers and voicebanks, music notation and DJ software.",
+   "examples": [
+    "Ableton Live",
+    "FL Studio",
+    "Audacity",
+    "MuseScore"
+   ]
+  },
+  {
+   "id": "streaming-recording",
+   "name": "Live streaming and recording studios",
+   "parent": "design",
+   "definition": "Software to produce live streams and record remote interviews and podcasts.",
+   "includes": "Streaming studios, multistreaming and remote recording.",
+   "examples": [
+    "OBS Studio",
+    "StreamYard",
+    "Restream",
+    "Riverside"
+   ]
+  },
+  {
+   "id": "ai-image",
+   "name": "AI image generation",
+   "parent": "design",
+   "definition": "Software that generates and edits images from text prompts with AI models.",
+   "includes": "Text-to-image services and models, and AI image editors and interfaces.",
+   "examples": [
+    "Midjourney",
+    "Ideogram",
+    "Adobe Firefly",
+    "Stable Diffusion"
+   ]
+  },
+  {
+   "id": "ai-video",
+   "name": "AI video generation",
+   "parent": "design",
+   "definition": "Software that generates video, avatars and presenters from text, images or audio with AI models.",
+   "includes": "Text-to-video, AI avatars and presenters and AI video ads.",
+   "examples": [
+    "Runway",
+    "Synthesia",
+    "HeyGen",
+    "Kling AI"
+   ]
+  },
+  {
+   "id": "ai-audio",
+   "name": "AI music and voice generation",
+   "parent": "design",
+   "definition": "Software that generates songs, voices and sound with AI models for creative work.",
+   "includes": "AI music generators, AI voiceovers and voice cloning apps. Not: speech recognition and speech APIs for developers (Speech AI).",
+   "examples": [
+    "Suno",
+    "Udio",
+    "ElevenLabs"
+   ]
+  },
+  {
+   "id": "stock-media",
+   "name": "Stock media",
+   "parent": "design",
+   "definition": "Libraries of photos, video, music, fonts and templates licensed for reuse.",
+   "includes": "Stock photo, video and audio libraries and design asset marketplaces.",
+   "examples": [
+    "Shutterstock",
+    "Adobe Stock",
+    "Freepik",
+    "Getty Images"
+   ]
+  },
+  {
+   "id": "creative-assets",
+   "name": "Digital asset management and creative review",
+   "parent": "design",
+   "definition": "Software to store, find and approve a team's creative files and brand assets.",
+   "includes": "Digital asset management, brand portals and creative review and proofing.",
+   "examples": [
+    "Bynder",
+    "Frame.io",
+    "Brandfolder"
+   ]
+  },
+  {
+   "id": "bi",
+   "name": "Business intelligence and dashboards",
+   "parent": "data",
+   "definition": "Software to query business data and present it as reports and dashboards.",
+   "includes": "BI platforms, dashboards, embedded analytics and report generators.",
+   "examples": [
+    "Tableau",
+    "Power BI",
+    "Looker",
+    "Metabase"
+   ]
+  },
+  {
+   "id": "product-analytics",
+   "name": "Product analytics",
+   "parent": "data",
+   "definition": "Software that measures how people use a digital product: events, funnels, retention and cohorts.",
+   "includes": "Product analytics and in-app product experience tools. Not: page-level heatmaps and replays (Digital experience analytics).",
+   "examples": [
+    "Amplitude",
+    "Mixpanel",
+    "PostHog",
+    "Heap"
+   ]
+  },
+  {
+   "id": "web-analytics",
+   "name": "Web analytics",
+   "parent": "data",
+   "definition": "Software that counts and reports a website's visits, traffic sources and conversions.",
+   "includes": "Page analytics, log-based web statistics and privacy-friendly analytics. Not: session replay (Digital experience analytics).",
+   "examples": [
+    "Google Analytics",
+    "Matomo",
+    "Plausible Analytics"
+   ]
+  },
+  {
+   "id": "experience-analytics",
+   "name": "Digital experience analytics",
+   "parent": "data",
+   "definition": "Software that shows what visitors do on each page: heatmaps, session replays and signs of frustration.",
+   "includes": "Heatmaps, session replay and digital experience analytics.",
+   "examples": [
+    "Hotjar",
+    "FullStory",
+    "Contentsquare",
+    "Microsoft Clarity"
+   ]
+  },
+  {
+   "id": "data-warehouse",
+   "name": "Data warehouses and lakehouses",
+   "parent": "data",
+   "definition": "Databases built to store a company's data for analysis at scale.",
+   "includes": "Cloud data warehouses, lakehouses and analytical (OLAP) databases.",
+   "examples": [
+    "Snowflake",
+    "BigQuery",
+    "Databricks",
+    "Amazon Redshift"
+   ]
+  },
+  {
+   "id": "databases",
+   "name": "Databases",
+   "parent": "data",
+   "definition": "Software that stores and serves an application's data.",
+   "includes": "Database management systems and database tools of every data model.",
+   "examples": [
+    "PostgreSQL",
+    "MongoDB Atlas",
+    "Neo4j"
+   ]
+  },
+  {
+   "id": "relational-databases",
+   "name": "Relational databases",
+   "parent": "databases",
+   "definition": "Databases that store data in tables and are queried with SQL.",
+   "includes": "Relational and SQL database systems, including managed and serverless ones.",
+   "examples": [
+    "PostgreSQL",
+    "Neon",
+    "MySQL",
+    "SQLite"
+   ]
+  },
+  {
+   "id": "nosql-databases",
+   "name": "NoSQL databases",
+   "parent": "databases",
+   "definition": "Databases that store documents, key-value pairs or wide columns instead of tables.",
+   "includes": "Document, key-value and wide-column stores.",
+   "examples": [
+    "Apache Cassandra",
+    "MongoDB Atlas",
+    "RocksDB",
+    "Redis"
+   ]
+  },
+  {
+   "id": "graph-databases",
+   "name": "Graph databases and knowledge graphs",
+   "parent": "databases",
+   "definition": "Databases and tools for data stored as connected entities and relationships.",
+   "includes": "Graph databases, RDF triple stores, ontology editors and SPARQL tools.",
+   "examples": [
+    "Neo4j",
+    "Ontotext GraphDB",
+    "Protégé"
+   ]
+  },
+  {
+   "id": "data-integration",
+   "name": "Data integration and ETL",
+   "parent": "data",
+   "definition": "Software that moves data from apps and databases into a warehouse or between systems.",
+   "includes": "ELT and ETL pipelines, connectors, data preparation and change data capture.",
+   "examples": [
+    "Fivetran",
+    "Airbyte",
+    "Talend"
+   ]
+  },
+  {
+   "id": "data-orchestration",
+   "name": "Data transformation and orchestration",
+   "parent": "data",
+   "definition": "Software that transforms data in a warehouse and schedules the jobs that build it.",
+   "includes": "SQL transformation and data pipeline orchestration.",
+   "examples": [
+    "dbt",
+    "Apache Airflow",
+    "Dagster"
+   ]
+  },
+  {
+   "id": "data-governance",
+   "name": "Data quality, catalogs and governance",
+   "parent": "data",
+   "definition": "Software that documents a company's data, monitors its quality and controls who may use it.",
+   "includes": "Data catalogs, data observability and quality, governance and lineage. Not: monitoring applications and servers (Observability and monitoring).",
+   "examples": [
+    "Monte Carlo",
+    "Alation",
+    "Collibra",
+    "Atlan"
+   ]
+  },
+  {
+   "id": "data-science",
+   "name": "Statistics and data science",
+   "parent": "data",
+   "definition": "Software for statistical analysis and exploratory work on data, in point-and-click tools, code or notebooks.",
+   "includes": "Statistical packages, data science notebooks and qualitative data analysis.",
+   "examples": [
+    "SPSS",
+    "Stata",
+    "Hex"
+   ]
+  },
+  {
+   "id": "data-visualization",
+   "name": "Data visualisation",
+   "parent": "data",
+   "definition": "Software that turns data into charts, graphs and visual explorations.",
+   "includes": "Charting and plotting tools, graph visualisation and data explorers.",
+   "examples": [
+    "Datawrapper",
+    "Flourish",
+    "Gephi"
+   ]
+  },
+  {
+   "id": "gis",
+   "name": "GIS and mapping",
+   "parent": "data",
+   "definition": "Software to store, analyse and publish geographic data and maps.",
+   "includes": "GIS desktops and servers, web GIS and geoportals, map tiles and geocoding. Not: consumer maps and navigation (Maps and navigation).",
+   "examples": [
+    "QGIS",
+    "ArcGIS",
+    "Mapbox",
+    "CARTO"
+   ]
+  },
+  {
+   "id": "web-scraping",
+   "name": "Web crawling and scraping",
+   "parent": "data",
+   "definition": "Software that fetches web pages at scale and extracts their content.",
+   "includes": "Crawlers, scraping tools and scraping APIs.",
+   "examples": [
+    "Scrapy",
+    "Apify",
+    "Firecrawl",
+    "Crawl4AI"
+   ]
+  },
+  {
+   "id": "ide-editors",
+   "name": "Code editors and IDEs",
+   "parent": "engineering",
+   "definition": "Software to write and edit code and text.",
+   "includes": "IDEs, source-code and text editors, HTML and XML editors, hex editors and GUI builders. Not: AI-first coding tools (AI coding assistants).",
+   "examples": [
+    "Visual Studio Code",
+    "Vim",
+    "Zed",
+    "IntelliJ IDEA"
+   ]
+  },
+  {
+   "id": "ai-coding",
+   "name": "AI coding assistants",
+   "parent": "engineering",
+   "definition": "AI tools that suggest, write and edit code inside a developer's editor.",
+   "includes": "AI code completion, AI chat in the IDE and AI-first editors. Not: agents that take a task and complete it on their own (Coding agents).",
+   "examples": [
+    "Cursor",
+    "GitHub Copilot",
+    "JetBrains AI",
+    "Gemini Code Assist"
+   ]
+  },
+  {
+   "id": "coding-agents",
+   "name": "Coding agents",
+   "parent": "engineering",
+   "definition": "AI agents that take a software task and carry it out on their own: reading code, editing files, running commands and proposing changes.",
+   "includes": "Terminal and cloud coding agents.",
+   "examples": [
+    "Claude Code",
+    "OpenAI Codex CLI",
+    "Devin",
+    "Aider"
+   ]
+  },
+  {
+   "id": "code-review",
+   "name": "Code review",
+   "parent": "engineering",
+   "definition": "Software to review code changes before they are merged, by people or by AI.",
+   "includes": "Code review tools, AI code reviewers and stacked pull requests.",
+   "examples": [
+    "CodeRabbit",
+    "Graphite",
+    "Gerrit"
+   ]
+  },
+  {
+   "id": "source-control",
+   "name": "Source control and code hosting",
+   "parent": "engineering",
+   "definition": "Software that keeps the history of code and hosts repositories for teams.",
+   "includes": "Version control systems, Git hosting and forges, and Git clients.",
+   "examples": [
+    "GitHub",
+    "GitLab",
+    "Mercurial",
+    "Gitea"
+   ]
+  },
+  {
+   "id": "issue-tracking",
+   "name": "Issue tracking",
+   "parent": "engineering",
+   "definition": "Software that software teams use to track bugs, tasks and sprints.",
+   "includes": "Issue and bug trackers and agile boards for engineering. Not: general team work management (Work management).",
+   "examples": [
+    "Jira",
+    "Linear",
+    "Bugzilla"
+   ]
+  },
+  {
+   "id": "product-management",
+   "name": "Product management and roadmaps",
+   "parent": "engineering",
+   "definition": "Software for product managers to collect feedback, prioritise ideas and publish roadmaps.",
+   "includes": "Product roadmapping and idea and feedback management.",
+   "examples": [
+    "Productboard",
+    "Aha!",
+    "Jira Product Discovery"
+   ]
+  },
+  {
+   "id": "build-ci",
+   "name": "Build, packaging and CI/CD",
+   "parent": "engineering",
+   "definition": "Software that builds, packages, tests and delivers code automatically.",
+   "includes": "Build systems, continuous integration and delivery, package managers, artifact registries and installer builders.",
+   "examples": [
+    "CircleCI",
+    "JFrog",
+    "Buck2",
+    "GNU Make"
+   ]
+  },
+  {
+   "id": "languages-runtimes",
+   "name": "Compilers and runtimes",
+   "parent": "engineering",
+   "definition": "Software that turns source code into running programs.",
+   "includes": "Compilers, interpreters, virtual machines, parser generators and template engines. Not: programming languages themselves, which are not listed.",
+   "examples": [
+    "LLVM",
+    "GCC",
+    "Node.js",
+    "Hack"
+   ]
+  },
+  {
+   "id": "testing-qa",
+   "name": "Testing and code quality",
+   "parent": "engineering",
+   "definition": "Software to test applications and find defects in code.",
+   "includes": "Test automation, cross-browser testing, debuggers, static analysis, linters and decompilers. Not: security testing (Application security).",
+   "examples": [
+    "BrowserStack",
+    "Selenium",
+    "GDB"
+   ]
+  },
+  {
+   "id": "api-tools",
+   "name": "API development and management",
+   "parent": "engineering",
+   "definition": "Software to design, test, document and manage APIs.",
+   "includes": "API clients and testing tools, API gateways and API management.",
+   "examples": [
+    "Postman",
+    "Insomnia",
+    "Kong"
+   ]
+  },
+  {
+   "id": "cloud-platforms",
+   "name": "Cloud platforms",
+   "parent": "engineering",
+   "definition": "Providers of on-demand computing, storage, networking and managed services.",
+   "includes": "Public cloud (IaaS and PaaS) providers.",
+   "examples": [
+    "Amazon Web Services",
+    "Microsoft Azure",
+    "Google Cloud",
+    "DigitalOcean"
+   ]
+  },
+  {
+   "id": "app-hosting",
+   "name": "App hosting and deployment",
+   "parent": "engineering",
+   "definition": "Platforms that deploy and run web apps and sites straight from code.",
+   "includes": "Platform-as-a-service, frontend and serverless hosting.",
+   "examples": [
+    "Vercel",
+    "Netlify",
+    "Heroku",
+    "Render"
+   ]
+  },
+  {
+   "id": "web-hosting",
+   "name": "Web hosting and domains",
+   "parent": "engineering",
+   "definition": "Services that host websites and register domain names.",
+   "includes": "Shared and managed hosting, managed WordPress hosting, domain registrars and hosting control panels.",
+   "examples": [
+    "GoDaddy",
+    "Bluehost",
+    "Hostinger",
+    "cPanel"
+   ]
+  },
+  {
+   "id": "backend-services",
+   "name": "Backend as a service",
+   "parent": "engineering",
+   "definition": "Ready-made backends that give an app a database, authentication, storage and functions through one API.",
+   "includes": "Backend-as-a-service platforms for developers.",
+   "examples": [
+    "Firebase",
+    "Supabase",
+    "Appwrite"
+   ]
+  },
+  {
+   "id": "web-servers",
+   "name": "Web servers, proxies and CDNs",
+   "parent": "engineering",
+   "definition": "Software and networks that serve web traffic: web and application servers, proxies, load balancers and content delivery.",
+   "includes": "Web servers, application servers, reverse proxies, load balancers, CDNs and edge networks.",
+   "examples": [
+    "nginx",
+    "Apache Tomcat",
+    "Squid",
+    "Cloudflare"
+   ]
+  },
+  {
+   "id": "containers-orchestration",
+   "name": "Containers and orchestration",
+   "parent": "engineering",
+   "definition": "Software that packages applications in containers and runs them across clusters of machines.",
+   "includes": "Container runtimes, Kubernetes and other orchestrators, and cluster and batch schedulers.",
+   "examples": [
+    "Docker",
+    "Kubernetes",
+    "Apache Mesos",
+    "Nomad"
+   ]
+  },
+  {
+   "id": "infrastructure-as-code",
+   "name": "Infrastructure as code and configuration",
+   "parent": "engineering",
+   "definition": "Software that defines servers and cloud resources as code and keeps them configured.",
+   "includes": "Infrastructure as code, configuration management and provisioning.",
+   "examples": [
+    "Terraform",
+    "Chef",
+    "Ansible",
+    "Pulumi"
+   ]
+  },
+  {
+   "id": "observability",
+   "name": "Observability and monitoring",
+   "parent": "engineering",
+   "definition": "Software that collects metrics, logs, traces and errors from applications and infrastructure and alerts when something breaks.",
+   "includes": "APM, infrastructure and network monitoring, log management and error tracking. Not: product or web analytics; tracing of AI model calls (LLM observability).",
+   "examples": [
+    "Datadog",
+    "Sentry",
+    "Zabbix",
+    "Prometheus"
+   ]
+  },
+  {
+   "id": "incident-management",
+   "name": "Incident response and on-call",
+   "parent": "engineering",
+   "definition": "Software to page the right engineer and run the response when a system fails.",
+   "includes": "On-call scheduling, alerting, incident response and status pages.",
+   "examples": [
+    "PagerDuty",
+    "incident.io",
+    "Opsgenie"
+   ]
+  },
+  {
+   "id": "feature-flags",
+   "name": "Feature flags",
+   "parent": "engineering",
+   "definition": "Software to turn features on and off for chosen users without redeploying, and to measure their effect.",
+   "includes": "Feature management, progressive delivery and product experimentation for engineers.",
+   "examples": [
+    "LaunchDarkly",
+    "Statsig",
+    "Unleash"
+   ]
+  },
+  {
+   "id": "communications-apis",
+   "name": "Communications APIs",
+   "parent": "engineering",
+   "definition": "APIs that let developers send SMS, voice calls, email and push notifications from their own apps.",
+   "includes": "CPaaS, transactional email APIs and push notification services.",
+   "examples": [
+    "Twilio",
+    "SendGrid",
+    "Vonage API"
+   ]
+  },
+  {
+   "id": "search-infrastructure",
+   "name": "Search for websites and apps",
+   "parent": "engineering",
+   "definition": "Search engines and services that developers build into their own sites and apps.",
+   "includes": "Hosted search APIs and open-source search servers. Not: web search engines for the public (Web search).",
+   "examples": [
+    "Algolia",
+    "Elasticsearch",
+    "Meilisearch",
+    "Typesense"
+   ]
+  },
+  {
+   "id": "low-code",
+   "name": "Low-code and internal tools",
+   "parent": "engineering",
+   "definition": "Platforms to build business apps and internal tools with little code.",
+   "includes": "Internal tool builders and low-code app platforms. Not: services that write an app from a prompt (AI app builders).",
+   "examples": [
+    "Retool",
+    "Appsmith",
+    "Microsoft Power Apps"
+   ]
+  },
+  {
+   "id": "sdks-libraries",
+   "name": "SDKs, frameworks and middleware",
+   "parent": "engineering",
+   "definition": "Software kits, frameworks and middleware that developers build applications on.",
+   "includes": "SDKs, application frameworks, middleware and protocol stacks listed as products.",
+   "examples": [
+    "React",
+    "Android SDK",
+    "Qt",
+    ".NET"
+   ]
+  },
+  {
+   "id": "middleware-messaging",
+   "name": "Message queues and event streaming",
+   "parent": "engineering",
+   "definition": "Software that passes messages and event streams between applications.",
+   "includes": "Message brokers, event streaming platforms and transaction processing monitors.",
+   "examples": [
+    "Apache Kafka",
+    "Apache ActiveMQ",
+    "RabbitMQ"
+   ]
+  },
+  {
+   "id": "developer-docs",
+   "name": "Developer documentation",
+   "parent": "engineering",
+   "definition": "Software to write and publish technical documentation and API references.",
+   "includes": "Documentation platforms, static documentation sites and documentation generators.",
+   "examples": [
+    "GitBook",
+    "Docusaurus",
+    "Doxygen",
+    "ReadMe"
+   ]
+  },
+  {
+   "id": "game-development",
+   "name": "Game development tools",
+   "parent": "engineering",
+   "definition": "Software to make video games: game creation systems, level editors and game tools.",
+   "includes": "Game creation systems and level editors (game engines themselves are not listed).",
+   "examples": [
+    "Tiled",
+    "GameMaker",
+    "RPG Maker"
+   ]
+  },
+  {
+   "id": "embedded-systems",
+   "name": "Embedded systems and firmware",
+   "parent": "engineering",
+   "definition": "Operating systems and firmware for devices, controllers and other embedded hardware.",
+   "includes": "Real-time and embedded operating systems, firmware and embedded Linux.",
+   "examples": [
+    "FreeRTOS",
+    "Zephyr",
+    "coreboot",
+    "ArduPilot"
+   ]
+  },
+  {
+   "id": "terminals-shells",
+   "name": "Terminals and shells",
+   "parent": "engineering",
+   "definition": "Software for working at the command line: terminal emulators, shells and SSH clients.",
+   "includes": "Terminal emulators, Unix shells, terminal multiplexers, SSH clients and standard command-line utilities.",
+   "examples": [
+    "iTerm2",
+    "Alacritty",
+    "tmux",
+    "Warp"
+   ]
+  },
+  {
+   "id": "iam",
+   "name": "Identity and access management",
+   "parent": "it-security",
+   "definition": "Software that controls who in a company can sign in to what: single sign-on, multi-factor authentication, directories and access reviews.",
+   "includes": "Workforce IAM, SSO, MFA, directory services and privileged access. Not: sign-in for an app's own customers (Customer identity and authentication).",
+   "examples": [
+    "Okta",
+    "Microsoft Entra ID",
+    "JumpCloud",
+    "Active Directory"
+   ]
+  },
+  {
+   "id": "customer-identity",
+   "name": "Customer identity and authentication",
+   "parent": "it-security",
+   "definition": "Services that handle sign-up, sign-in and user accounts for an app's own customers.",
+   "includes": "Customer identity and access management (CIAM) and authentication APIs and SDKs.",
+   "examples": [
+    "Auth0",
+    "Clerk",
+    "Stytch"
+   ]
+  },
+  {
+   "id": "password-managers",
+   "name": "Password managers",
+   "parent": "it-security",
+   "definition": "Software that stores and fills passwords and other secrets for people and teams.",
+   "includes": "Personal and business password managers and password generators.",
+   "examples": [
+    "1Password",
+    "Bitwarden",
+    "KeePass",
+    "Dashlane"
+   ]
+  },
+  {
+   "id": "endpoint-security",
+   "name": "Endpoint security and antivirus",
+   "parent": "it-security",
+   "definition": "Software that protects computers and phones from malware and attacks and helps respond to them.",
+   "includes": "Antivirus, anti-malware, EDR, XDR and managed detection and response.",
+   "examples": [
+    "CrowdStrike Falcon",
+    "SentinelOne",
+    "Malwarebytes",
+    "Huntress"
+   ]
+  },
+  {
+   "id": "network-security",
+   "name": "Network security",
+   "parent": "it-security",
+   "definition": "Software that inspects and filters network traffic to keep attackers out.",
+   "includes": "Firewalls and intrusion detection and prevention.",
+   "examples": [
+    "pfSense",
+    "Snort",
+    "Palo Alto Networks"
+   ]
+  },
+  {
+   "id": "vpn-secure-access",
+   "name": "VPNs and secure access",
+   "parent": "it-security",
+   "definition": "Software that gives people encrypted, controlled access to networks and apps from anywhere.",
+   "includes": "Business and consumer VPNs, zero-trust network access, SASE and mesh VPNs.",
+   "examples": [
+    "Zscaler",
+    "Tailscale",
+    "OpenVPN",
+    "WireGuard"
+   ]
+  },
+  {
+   "id": "cloud-security",
+   "name": "Cloud security",
+   "parent": "it-security",
+   "definition": "Software that finds risks across cloud accounts, workloads and configurations.",
+   "includes": "CNAPP, CSPM and cloud workload protection.",
+   "examples": [
+    "Wiz",
+    "Prisma Cloud",
+    "Orca Security"
+   ]
+  },
+  {
+   "id": "application-security",
+   "name": "Application security",
+   "parent": "it-security",
+   "definition": "Software that finds security flaws in code, dependencies and running applications, and protects apps from abuse.",
+   "includes": "SAST, SCA, DAST, secrets scanning, bot protection and CAPTCHAs.",
+   "examples": [
+    "Snyk",
+    "Semgrep",
+    "Burp Suite"
+   ]
+  },
+  {
+   "id": "vulnerability-management",
+   "name": "Vulnerability management and penetration testing",
+   "parent": "it-security",
+   "definition": "Software that scans systems for known weaknesses, and tools for testing defences by attacking them.",
+   "includes": "Vulnerability scanners, internet-exposure search engines, penetration testing and password-cracking tools.",
+   "examples": [
+    "Metasploit",
+    "Shodan",
+    "Nessus"
+   ]
+  },
+  {
+   "id": "security-operations",
+   "name": "Security operations",
+   "parent": "it-security",
+   "definition": "Software for a security team to collect events, detect threats and run investigations.",
+   "includes": "SIEM, SOAR and threat intelligence.",
+   "examples": [
+    "Splunk",
+    "Microsoft Sentinel",
+    "Elastic"
+   ]
+  },
+  {
+   "id": "email-security",
+   "name": "Email security and awareness training",
+   "parent": "it-security",
+   "definition": "Software that stops phishing and malicious email and trains staff to spot it.",
+   "includes": "Secure email gateways, phishing protection and security awareness training.",
+   "examples": [
+    "Proofpoint",
+    "Mimecast",
+    "KnowBe4"
+   ]
+  },
+  {
+   "id": "grc-compliance",
+   "name": "Compliance and GRC",
+   "parent": "it-security",
+   "definition": "Software that prepares a company for security audits and tracks its risks and controls.",
+   "includes": "Compliance automation (SOC 2, ISO 27001), governance, risk and compliance, and trust centres.",
+   "examples": [
+    "Vanta",
+    "Drata",
+    "Secureframe"
+   ]
+  },
+  {
+   "id": "encryption",
+   "name": "Encryption",
+   "parent": "it-security",
+   "definition": "Software that encrypts files, disks and messages.",
+   "includes": "Disk and file encryption, PGP tools and steganography.",
+   "examples": [
+    "VeraCrypt",
+    "BitLocker",
+    "GNU Privacy Guard"
+   ]
+  },
+  {
+   "id": "device-management",
+   "name": "Device management",
+   "parent": "it-security",
+   "definition": "Software that enrols, configures, updates and secures a company's laptops and phones.",
+   "includes": "Mobile device and unified endpoint management, Apple device management and patching.",
+   "examples": [
+    "Jamf",
+    "Microsoft Intune",
+    "Iru"
+   ]
+  },
+  {
+   "id": "remote-access-rmm",
+   "name": "Remote access and RMM",
+   "parent": "it-security",
+   "definition": "Software to reach, monitor and fix computers remotely.",
+   "includes": "Remote desktop, and remote monitoring and management for IT teams and managed service providers.",
+   "examples": [
+    "TeamViewer",
+    "AnyDesk",
+    "NinjaOne",
+    "ConnectWise"
+   ]
+  },
+  {
+   "id": "itsm",
+   "name": "IT service management",
+   "parent": "it-security",
+   "definition": "Software for an internal IT team's service desk: tickets, requests, changes and assets.",
+   "includes": "ITSM suites and employee service desks. Not: customer help desks (Help desks and ticketing).",
+   "examples": [
+    "Jira Service Management",
+    "ServiceNow",
+    "Freshservice",
+    "TOPdesk"
+   ]
+  },
+  {
+   "id": "it-asset-saas",
+   "name": "IT asset and SaaS management",
+   "parent": "it-security",
+   "definition": "Software that finds and tracks a company's hardware, software and SaaS subscriptions and their licences.",
+   "includes": "IT asset discovery, software asset and licence management, and SaaS management.",
+   "examples": [
+    "Lansweeper",
+    "Torii",
+    "Zluri",
+    "Snipe-IT"
+   ]
+  },
+  {
+   "id": "backup-storage",
+   "name": "Backup, storage and file systems",
+   "parent": "it-security",
+   "definition": "Software that stores data and protects it with backups and recovery.",
+   "includes": "Backup and recovery, disk imaging and cloning, data recovery, storage systems and file systems.",
+   "examples": [
+    "Veeam",
+    "Clonezilla",
+    "ZFS",
+    "Acronis Cyber Protect"
+   ]
+  },
+  {
+   "id": "network-management",
+   "name": "Networking",
+   "parent": "it-security",
+   "definition": "Software that runs and troubleshoots networks: routing, DNS, router firmware and network tools.",
+   "includes": "Network management, router firmware, DNS and routing software and network utilities.",
+   "examples": [
+    "BIND",
+    "Cisco Meraki",
+    "Ubiquiti UniFi"
+   ]
+  },
+  {
+   "id": "virtualization",
+   "name": "Virtualisation",
+   "parent": "it-security",
+   "definition": "Software that runs virtual machines and other operating systems on one computer.",
+   "includes": "Hypervisors, virtual machines and compatibility layers. Not: emulators of old computers and game consoles (Emulators).",
+   "examples": [
+    "VMware ESXi",
+    "VirtualBox",
+    "Wine",
+    "Proxmox VE"
+   ]
+  },
+  {
+   "id": "ai-assistants",
+   "name": "AI assistants and chatbots",
+   "parent": "ai",
+   "definition": "General-purpose AI assistants that people talk or type to.",
+   "includes": "AI chat assistants, voice assistants and chatbots. Not: AI made for one job, which sits with that job.",
+   "examples": [
+    "ChatGPT",
+    "Claude",
+    "Gemini",
+    "Google Assistant"
+   ]
+  },
+  {
+   "id": "ai-search",
+   "name": "AI search and research assistants",
+   "parent": "ai",
+   "definition": "AI tools that answer questions from the web or from given sources, with citations.",
+   "includes": "AI answer engines and research assistants over papers or documents.",
+   "examples": [
+    "Perplexity",
+    "Elicit",
+    "NotebookLM"
+   ]
+  },
+  {
+   "id": "foundation-models",
+   "name": "Foundation models",
+   "parent": "ai",
+   "definition": "Large pretrained AI models that others call or run to build their own products.",
+   "includes": "Language, image and multimodal models, open-weight and proprietary, and world models.",
+   "examples": [
+    "Llama",
+    "Genie",
+    "Gemma"
+   ]
+  },
+  {
+   "id": "llm-apis",
+   "name": "LLM APIs, SDKs and gateways",
+   "parent": "ai",
+   "definition": "APIs and client libraries to call AI models, and gateways that route calls across providers.",
+   "includes": "Model APIs, official SDKs and LLM routers and gateways.",
+   "examples": [
+    "OpenAI SDK",
+    "Anthropic SDK",
+    "OpenRouter",
+    "LiteLLM"
+   ]
+  },
+  {
+   "id": "agent-frameworks",
+   "name": "Agent frameworks and builders",
+   "parent": "ai",
+   "definition": "Software for building AI agents and LLM applications, in code or visually.",
+   "includes": "Agent frameworks, LLM app frameworks, no-code agent builders and autonomous agents.",
+   "examples": [
+    "LangGraph",
+    "CrewAI",
+    "LangChain",
+    "Dify"
+   ]
+  },
+  {
+   "id": "model-serving",
+   "name": "Model serving and local inference",
+   "parent": "ai",
+   "definition": "Software that runs AI models efficiently on a server or on a person's own computer.",
+   "includes": "Inference servers and local model runners.",
+   "examples": [
+    "Ollama",
+    "vLLM",
+    "llama.cpp",
+    "LM Studio"
+   ]
+  },
+  {
+   "id": "vector-databases",
+   "name": "Vector databases",
+   "parent": "ai",
+   "definition": "Databases that store embeddings and find the most similar ones quickly.",
+   "includes": "Vector databases and vector search libraries and extensions.",
+   "examples": [
+    "Pinecone",
+    "Qdrant",
+    "Weaviate",
+    "pgvector"
+   ]
+  },
+  {
+   "id": "llm-observability",
+   "name": "LLM observability",
+   "parent": "ai",
+   "definition": "Software that traces, logs and monitors calls to AI models and agents in production.",
+   "includes": "LLM tracing, prompt management and cost and latency monitoring. Not: general application monitoring (Observability and monitoring).",
+   "examples": [
+    "Langfuse",
+    "LangSmith",
+    "Helicone"
+   ]
+  },
+  {
+   "id": "llm-evaluation",
+   "name": "LLM evaluation",
+   "parent": "ai",
+   "definition": "Software that tests AI model and agent outputs against datasets and scoring rules.",
+   "includes": "Evaluation frameworks, red-teaming and benchmark harnesses.",
+   "examples": [
+    "promptfoo",
+    "Ragas",
+    "DeepEval"
+   ]
+  },
+  {
+   "id": "ml-platforms",
+   "name": "ML platforms and training data",
+   "parent": "ai",
+   "definition": "Platforms for training, tracking and deploying machine-learning models, and for labelling the data they learn from.",
+   "includes": "MLOps, experiment tracking, feature stores and data labelling.",
+   "examples": [
+    "Weights & Biases",
+    "MLflow",
+    "Amazon SageMaker",
+    "Label Studio"
+   ]
+  },
+  {
+   "id": "ml-frameworks",
+   "name": "ML frameworks and libraries",
+   "parent": "ai",
+   "definition": "Libraries and frameworks for building and training machine-learning models.",
+   "includes": "Deep learning frameworks, NLP libraries and neural network software.",
+   "examples": [
+    "PyTorch",
+    "spaCy",
+    "TensorFlow",
+    "JAX"
+   ]
+  },
+  {
+   "id": "speech-ai",
+   "name": "Speech AI",
+   "parent": "ai",
+   "definition": "Software and APIs that turn speech into text and text into speech.",
+   "includes": "Speech recognition, text-to-speech engines and APIs and voice agent frameworks. Not: AI voice and music apps for creators (AI music and voice generation).",
+   "examples": [
+    "Whisper",
+    "eSpeak",
+    "Deepgram SDK",
+    "Pipecat"
+   ]
+  },
+  {
+   "id": "computer-vision",
+   "name": "Computer vision",
+   "parent": "ai",
+   "definition": "Software that recognises and segments what is in images and video.",
+   "includes": "Image recognition, segmentation and OCR engines.",
+   "examples": [
+    "OpenCV",
+    "Segment Anything (SAM)",
+    "Tesseract"
+   ]
+  },
+  {
+   "id": "ai-app-builders",
+   "name": "AI app builders",
+   "parent": "ai",
+   "definition": "Services that build a working app or website from a description in plain language.",
+   "includes": "Prompt-to-app builders.",
+   "examples": [
+    "Lovable",
+    "Bolt",
+    "v0",
+    "Replit"
+   ]
+  },
+  {
+   "id": "browser-agents",
+   "name": "Browser agents",
+   "parent": "ai",
+   "definition": "Software that lets AI agents use a web browser: clicking, typing and reading pages.",
+   "includes": "Browser automation for agents, hosted browsers for agents and browser MCP servers.",
+   "examples": [
+    "Browser Use",
+    "Browserbase",
+    "Stagehand",
+    "Playwright MCP"
+   ]
+  },
+  {
+   "id": "healthcare",
+   "name": "Healthcare",
+   "parent": "industry",
+   "definition": "Software for clinics, hospitals and the care of patients.",
+   "includes": "Electronic health records, medical practice management, clinical decision support, telehealth and digital therapeutics.",
+   "examples": [
+    "OpenEMR",
+    "Epic",
+    "athenahealth"
+   ]
+  },
+  {
+   "id": "science-research",
+   "name": "Science and research",
+   "parent": "industry",
+   "definition": "Software built for scientific research.",
+   "includes": "Research software for the sciences, astronomy and research environments.",
+   "examples": [
+    "Stellarium",
+    "Cytoscape",
+    "GROMACS"
+   ]
+  },
+  {
+   "id": "chemistry-life-sciences",
+   "name": "Chemistry and life sciences",
+   "parent": "science-research",
+   "definition": "Software for chemistry, biochemistry, biology and genomics.",
+   "includes": "Quantum chemistry, molecular dynamics, docking, molecule editors and viewers, mass spectrometry, bioinformatics and sequence assembly.",
+   "examples": [
+    "GROMACS",
+    "PyMOL",
+    "Avogadro"
+   ]
+  },
+  {
+   "id": "mathematics",
+   "name": "Mathematics",
+   "parent": "science-research",
+   "definition": "Software for mathematics: algebra, numerical computing, geometry, proofs and solvers.",
+   "includes": "Computer algebra, numerical software, dynamic geometry, proof assistants, SAT and SMT solvers and formula editors.",
+   "examples": [
+    "GeoGebra",
+    "GNU Octave",
+    "Mathematica"
+   ]
+  },
+  {
+   "id": "research-publishing",
+   "name": "Research publishing and references",
+   "parent": "science-research",
+   "definition": "Services and software for publishing, finding and citing research.",
+   "includes": "Preprint servers, open-access repositories, research data repositories, scholarly search and reference managers.",
+   "examples": [
+    "arXiv",
+    "Zotero",
+    "Mendeley"
+   ]
+  },
+  {
+   "id": "education-lms",
+   "name": "School and university learning systems",
+   "parent": "industry",
+   "definition": "Software that schools and universities use to teach courses and run academic records.",
+   "includes": "Academic LMSs, virtual learning environments, student information systems and plagiarism checkers. Not: corporate training (Learning management and course authoring).",
+   "examples": [
+    "Moodle",
+    "Blackboard Learn",
+    "Chamilo",
+    "Turnitin"
+   ]
+  },
+  {
+   "id": "learning-apps",
+   "name": "Learning apps",
+   "parent": "industry",
+   "definition": "Software that teaches people directly: languages, typing, school subjects and more.",
+   "includes": "Educational software and apps, language learning and typing tutors.",
+   "examples": [
+    "Anki",
+    "Quizlet",
+    "Duolingo",
+    "Khan Academy"
+   ]
+  },
+  {
+   "id": "online-courses",
+   "name": "Online course platforms",
+   "parent": "industry",
+   "definition": "Platforms that host and sell online courses, from MOOC providers to creators' course sites.",
+   "includes": "MOOC providers and course creator platforms. Not: course libraries companies buy for staff (Training content libraries).",
+   "examples": [
+    "Coursera",
+    "edX",
+    "Teachable",
+    "Thinkific"
+   ]
+  },
+  {
+   "id": "government",
+   "name": "Government and public sector",
+   "parent": "industry",
+   "definition": "Software and online services that governments run or buy for the public.",
+   "includes": "Government websites and portals, digital identity, public health apps, voting advice tools and defence and public safety systems.",
+   "examples": [
+    "Login.gov",
+    "Aadhaar",
+    "GOV.UK"
+   ]
+  },
+  {
+   "id": "libraries-museums",
+   "name": "Libraries, archives and museums",
+   "parent": "industry",
+   "definition": "Software that libraries, archives and museums use to catalogue and share their collections.",
+   "includes": "Integrated library systems, discovery systems, collections management and subject indexing.",
+   "examples": [
+    "CollectiveAccess",
+    "Koha",
+    "Evergreen"
+   ]
+  },
+  {
+   "id": "construction-aec",
+   "name": "Architecture and construction",
+   "parent": "industry",
+   "definition": "Software for planning, managing and building construction projects.",
+   "includes": "Construction management, BIM coordination, estimating and takeoff.",
+   "examples": [
+    "Procore",
+    "Autodesk Construction Cloud",
+    "Bluebeam"
+   ]
+  },
+  {
+   "id": "cae-simulation",
+   "name": "Engineering simulation",
+   "parent": "industry",
+   "definition": "Software that simulates physical, electrical, network and other systems to test designs before they are built.",
+   "includes": "Computer-aided engineering, finite element and CFD analysis, network and system simulators and energy system models.",
+   "examples": [
+    "COMSOL Multiphysics",
+    "ns-3",
+    "LS-DYNA",
+    "OpenFOAM"
+   ]
+  },
+  {
+   "id": "manufacturing",
+   "name": "Manufacturing",
+   "parent": "industry",
+   "definition": "Software that plans and runs production.",
+   "includes": "CAM and CNC programming, 3D-printing slicers, manufacturing execution and product lifecycle management.",
+   "examples": [
+    "Ultimaker Cura",
+    "Siemens Teamcenter",
+    "Autodesk Fusion"
+   ]
+  },
+  {
+   "id": "eda",
+   "name": "Electronic design automation",
+   "parent": "industry",
+   "definition": "Software to design electronic circuits, printed circuit boards and chips.",
+   "includes": "Schematic capture, PCB layout, circuit simulation and chip design.",
+   "examples": [
+    "KiCad",
+    "Altium Designer",
+    "Cadence Virtuoso"
+   ]
+  },
+  {
+   "id": "hospitality",
+   "name": "Restaurants and hospitality",
+   "parent": "industry",
+   "definition": "Software for restaurants, hotels and venues: reservations, property management and operations.",
+   "includes": "Hotel property management, restaurant management and reservations, and venue booking.",
+   "examples": [
+    "Toast",
+    "OpenTable",
+    "Mews",
+    "Cloudbeds"
+   ]
+  },
+  {
+   "id": "real-estate",
+   "name": "Real estate",
+   "parent": "industry",
+   "definition": "Software for property managers, landlords, brokers and agents.",
+   "includes": "Property management, real estate CRM and listings and tenant portals.",
+   "examples": [
+    "AppFolio",
+    "Buildium",
+    "Yardi"
+   ]
+  },
+  {
+   "id": "insurance",
+   "name": "Insurance",
+   "parent": "industry",
+   "definition": "Software that insurers, agencies and brokers use to sell policies and handle claims.",
+   "includes": "Policy administration, claims and agency management.",
+   "examples": [
+    "Guidewire",
+    "Duck Creek",
+    "Applied Epic"
+   ]
+  },
+  {
+   "id": "financial-services",
+   "name": "Banking and financial services",
+   "parent": "industry",
+   "definition": "Software that banks, lenders and investment firms run their business on.",
+   "includes": "Core banking, loan origination and wealth and investment management platforms.",
+   "examples": [
+    "Temenos",
+    "nCino",
+    "FIS"
+   ]
+  },
+  {
+   "id": "nonprofit",
+   "name": "Nonprofits and fundraising",
+   "parent": "industry",
+   "definition": "Software for charities, campaigns and causes to raise money and manage supporters.",
+   "includes": "Donor management and fundraising and crowdfunding platforms.",
+   "examples": [
+    "Classy",
+    "Blackbaud",
+    "GoFundMe"
+   ]
+  },
+  {
+   "id": "agriculture",
+   "name": "Agriculture",
+   "parent": "industry",
+   "definition": "Software for farms and food producers.",
+   "includes": "Farm management, agronomy and precision agriculture.",
+   "examples": [
+    "Granular",
+    "John Deere Operations Center",
+    "farmOS"
+   ]
+  },
+  {
+   "id": "automotive",
+   "name": "Automotive",
+   "parent": "industry",
+   "definition": "Software that runs in vehicles or services them.",
+   "includes": "Driver assistance, vehicle diagnostics and in-vehicle software.",
+   "examples": [
+    "openpilot",
+    "CarPlay",
+    "Android Auto"
+   ]
+  },
+  {
+   "id": "religion",
+   "name": "Religion",
+   "parent": "industry",
+   "definition": "Software for churches and other faith communities, and for studying scripture.",
+   "includes": "Church management and Bible study software.",
+   "examples": [
+    "Logos Bible Software",
+    "e-Sword",
+    "Planning Center"
+   ]
+  },
+  {
+   "id": "operating-systems",
+   "name": "Operating systems",
+   "parent": "consumer",
+   "definition": "The software that runs a computer or device and the programs on it.",
+   "includes": "Desktop, server and other general-purpose operating systems, and their core components: bootloaders, drivers, init systems and sound servers. Not: embedded and real-time systems (Embedded systems and firmware).",
+   "examples": [
+    "Microsoft Windows",
+    "FreeBSD",
+    "Haiku",
+    "macOS"
+   ]
+  },
+  {
+   "id": "linux-distributions",
+   "name": "Linux distributions",
+   "parent": "operating-systems",
+   "definition": "Operating systems built from the Linux kernel and a collection of software.",
+   "includes": "Desktop, server and lightweight Linux distributions.",
+   "examples": [
+    "Ubuntu",
+    "Fedora Linux",
+    "Debian",
+    "Arch Linux"
+   ]
+  },
+  {
+   "id": "mobile-operating-systems",
+   "name": "Mobile operating systems",
+   "parent": "operating-systems",
+   "definition": "Operating systems for phones, tablets and watches.",
+   "includes": "Mobile and wearable operating systems and Android distributions.",
+   "examples": [
+    "Android",
+    "iOS",
+    "LineageOS"
+   ]
+  },
+  {
+   "id": "desktop-environments",
+   "name": "Desktop environments and window managers",
+   "parent": "consumer",
+   "definition": "The graphical shell of an operating system: desktop, panels, window management and display servers.",
+   "includes": "Desktop environments, window managers, display servers, launchers and docks.",
+   "examples": [
+    "GNOME",
+    "KDE Plasma",
+    "i3",
+    "Xfce"
+   ]
+  },
+  {
+   "id": "web-browsers",
+   "name": "Web browsers",
+   "parent": "consumer",
+   "definition": "Software to browse the web.",
+   "includes": "Desktop and mobile web browsers, including AI browsers.",
+   "examples": [
+    "Mozilla Firefox",
+    "Safari",
+    "Opera",
+    "Vivaldi"
+   ]
+  },
+  {
+   "id": "privacy-tools",
+   "name": "Ad blockers and content filters",
+   "parent": "consumer",
+   "definition": "Software that blocks ads and trackers or filters what a person can reach online.",
+   "includes": "Ad and tracker blockers, parental controls and internet filters.",
+   "examples": [
+    "Net Nanny",
+    "AdGuard",
+    "Pi-hole"
+   ]
+  },
+  {
+   "id": "media-players",
+   "name": "Media players and media tools",
+   "parent": "consumer",
+   "definition": "Software to play, serve, convert and burn audio and video files.",
+   "includes": "Media players, media servers, codecs and converters, CD and DVD rippers and burners and tag editors.",
+   "examples": [
+    "Kodi",
+    "Plex",
+    "VLC media player",
+    "HandBrake"
+   ]
+  },
+  {
+   "id": "music-audio",
+   "name": "Music, podcasts and audio",
+   "parent": "consumer",
+   "definition": "Apps and services to stream and discover music, podcasts and radio.",
+   "includes": "Music streaming, podcast apps and music recognition.",
+   "examples": [
+    "Spotify",
+    "Deezer",
+    "Shazam",
+    "Pocket Casts"
+   ]
+  },
+  {
+   "id": "video-streaming",
+   "name": "Video streaming",
+   "parent": "consumer",
+   "definition": "Services and apps to watch films, series, live streams and people's videos.",
+   "includes": "Streaming services, video-sharing platforms and live-streaming platforms.",
+   "examples": [
+    "Netflix",
+    "YouTube",
+    "Twitch"
+   ]
+  },
+  {
+   "id": "social-networks",
+   "name": "Social networks and dating",
+   "parent": "consumer",
+   "definition": "Services where people share posts, follow others and meet new people.",
+   "includes": "Social networks, social news sites, Fediverse servers and dating apps.",
+   "examples": [
+    "Mastodon",
+    "Bluesky",
+    "Hinge"
+   ]
+  },
+  {
+   "id": "news-reading",
+   "name": "News, books and reading",
+   "parent": "consumer",
+   "definition": "Apps to read news, feeds, e-books and comics.",
+   "includes": "News aggregators and feed readers, news apps, e-book and comic readers and web fiction sites.",
+   "examples": [
+    "Feedly",
+    "Calibre",
+    "Wattpad"
+   ]
+  },
+  {
+   "id": "web-search",
+   "name": "Web search",
+   "parent": "consumer",
+   "definition": "Search engines that find pages, images and other content across the public web.",
+   "includes": "Web, metasearch and specialist search engines.",
+   "examples": [
+    "Google Search",
+    "DuckDuckGo",
+    "Ecosia",
+    "Brave Search"
+   ]
+  },
+  {
+   "id": "maps-navigation",
+   "name": "Maps and navigation",
+   "parent": "consumer",
+   "definition": "Apps and services for maps, directions, transit and getting around.",
+   "includes": "Online maps, route planners, transit and car navigation and virtual globes.",
+   "examples": [
+    "Google Maps",
+    "Google Earth",
+    "Waze"
+   ]
+  },
+  {
+   "id": "travel-delivery",
+   "name": "Travel, rides and delivery",
+   "parent": "consumer",
+   "definition": "Apps and sites to book trips and rides and to order food and goods delivered.",
+   "includes": "Hotel and travel booking, ride-hailing and food and grocery delivery.",
+   "examples": [
+    "Uber",
+    "Airbnb",
+    "Uber Eats",
+    "Lyft"
+   ]
+  },
+  {
+   "id": "shopping-reviews",
+   "name": "Shopping and reviews",
+   "parent": "consumer",
+   "definition": "Sites and apps to compare prices and read reviews before buying or visiting.",
+   "includes": "Price comparison sites, review sites and review aggregators.",
+   "examples": [
+    "Yelp",
+    "Rotten Tomatoes",
+    "Trustpilot",
+    "idealo"
+   ]
+  },
+  {
+   "id": "health-fitness",
+   "name": "Health and fitness",
+   "parent": "consumer",
+   "definition": "Apps to track exercise, diet, sleep and wellbeing.",
+   "includes": "Fitness trackers, calorie counters and meditation apps.",
+   "examples": [
+    "MyFitnessPal",
+    "Strava",
+    "Headspace"
+   ]
+  },
+  {
+   "id": "personal-finance",
+   "name": "Personal finance and payments",
+   "parent": "consumer",
+   "definition": "Apps to manage personal money: budgets, banking and paying people.",
+   "includes": "Budgeting and personal accounting, mobile banking and mobile payments and wallets.",
+   "examples": [
+    "M-Pesa",
+    "GnuCash",
+    "Venmo"
+   ]
+  },
+  {
+   "id": "gaming",
+   "name": "Games and gaming services",
+   "parent": "consumer",
+   "definition": "Platforms, services and tools that people use around games.",
+   "includes": "Game stores and online gaming services, cloud gaming, game servers, chess and board-game engines, anti-cheat software and virtual worlds (games themselves are not listed).",
+   "examples": [
+    "Steam",
+    "Stockfish",
+    "Lichess"
+   ]
+  },
+  {
+   "id": "emulators",
+   "name": "Emulators",
+   "parent": "consumer",
+   "definition": "Software that imitates another computer or game console so its programs can run.",
+   "includes": "Game console, home computer and DOS emulators. Not: virtual machines for running operating systems (Virtualisation).",
+   "examples": [
+    "MAME",
+    "DOSBox",
+    "RetroArch"
+   ]
+  },
+  {
+   "id": "photos",
+   "name": "Photo viewing and organising",
+   "parent": "consumer",
+   "definition": "Software to view, browse and organise photos and images.",
+   "includes": "Image viewers, photo organisers and galleries.",
+   "examples": [
+    "IrfanView",
+    "digiKam",
+    "Google Photos"
+   ]
+  },
+  {
+   "id": "system-utilities",
+   "name": "System utilities",
+   "parent": "consumer",
+   "definition": "Tools that maintain, tune and manage a computer: files, disks, archives and system information.",
+   "includes": "File managers, archivers, disk and partition tools, system monitors, desktop search, screenshot and clipboard tools and FTP clients.",
+   "examples": [
+    "Total Commander",
+    "Dolphin",
+    "7-Zip",
+    "CCleaner"
+   ]
+  },
+  {
+   "id": "downloads-file-sharing",
+   "name": "Downloads and file sharing",
+   "parent": "consumer",
+   "definition": "Software to download files and to share them peer to peer.",
+   "includes": "BitTorrent clients and trackers, peer-to-peer networks and download managers.",
+   "examples": [
+    "qBittorrent",
+    "Transmission",
+    "eMule",
+    "JDownloader"
+   ]
+  },
+  {
+   "id": "accessibility-input",
+   "name": "Accessibility and text input",
+   "parent": "consumer",
+   "definition": "Software that helps people read, see and type: screen readers, magnifiers, read-aloud tools, keyboards and input methods.",
+   "includes": "Screen readers and magnifiers, text-to-speech readers, input methods and virtual keyboards.",
+   "examples": [
+    "JAWS",
+    "NVDA",
+    "Speechify",
+    "Gboard"
+   ]
+  },
+  {
+   "id": "reference",
+   "name": "Reference and archives",
+   "parent": "consumer",
+   "definition": "Dictionaries, offline encyclopaedia readers, answer engines and web archives for looking things up.",
+   "includes": "Dictionary software, offline readers, web archives and answer engines.",
+   "examples": [
+    "Wayback Machine",
+    "Wolfram Alpha",
+    "Kiwix"
+   ]
+  },
+  {
+   "id": "genealogy",
+   "name": "Genealogy",
+   "parent": "consumer",
+   "definition": "Software and services for researching family history and building family trees.",
+   "includes": "Genealogy software, family tree sites and DNA-matching services.",
+   "examples": [
+    "Ancestry",
+    "Gramps",
+    "MyHeritage",
+    "FamilySearch"
+   ]
+  },
+  {
+   "id": "home-automation",
+   "name": "Smart home",
+   "parent": "consumer",
+   "definition": "Software that controls lights, heating, cameras and other devices at home.",
+   "includes": "Home automation hubs and apps.",
+   "examples": [
+    "Home Assistant",
+    "openHAB",
+    "SmartThings"
+   ]
+  },
+  {
+   "id": "app-stores",
+   "name": "App stores",
+   "parent": "consumer",
+   "definition": "Stores where people find and install apps for a device or platform.",
+   "includes": "Mobile, desktop and alternative app stores.",
+   "examples": [
+    "Mac App Store",
+    "Huawei AppGallery",
+    "F-Droid"
+   ]
+  }
+ ]
+}

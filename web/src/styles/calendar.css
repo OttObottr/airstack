@@ -1,0 +1,23 @@
+/* spec: AS-256 AS-298 */
+/* the software calendar: a year behind and half a year ahead, each status drawn differently */
+.cgridw{overflow-x:auto;padding:18px;border:1px solid var(--color-hair);border-radius:var(--radius-md);background:linear-gradient(145deg,rgba(24,32,41,.6),rgba(7,9,11,.5));box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.cgrid{display:grid;grid-template-rows:repeat(7,11px);grid-auto-columns:11px;gap:3px;width:max-content}
+.cgrid i,.clegend i{display:block;width:11px;height:11px;border-radius:2px}
+.cgrid i{cursor:pointer}
+.p{background:var(--color-s3)}.f{background:transparent;box-shadow:inset 0 0 0 1px var(--color-hair)}
+.o1{background:color-mix(in oklab,var(--color-ink) 22%,var(--color-s2))}.o2{background:color-mix(in oklab,var(--color-ink) 40%,var(--color-s2))}
+.o3{background:color-mix(in oklab,var(--color-ink) 60%,var(--color-s2))}.o4{background:color-mix(in oklab,var(--color-ink) 82%,var(--color-s2))}
+.cgrid .s,.clegend .s{box-shadow:inset 0 0 0 1.5px var(--color-ink)}
+.cgrid .a,.clegend .a{box-shadow:inset 0 0 0 2px var(--color-accent)}
+.cgrid .t,.clegend .t{outline:2px solid var(--color-accent);outline-offset:1px}
+.clegend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;padding:10px 12px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:rgba(7,9,11,.34)}.clegend i{display:inline-block;margin-left:6px}
+.clist{list-style:none;padding:0;border:1px solid var(--color-hair);border-radius:var(--radius-md);background:rgba(7,9,11,.34);overflow:hidden}
+.crow{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) auto;align-items:center;gap:6px 16px;min-height:56px;padding:6px 12px;border-bottom:1px solid var(--color-hair)}.crow:last-child{border-bottom:0}
+.crow .who{min-height:40px}.crow .who b{font-weight:600}.crow .ct{min-width:0}.crow .ct .ext{min-height:24px;font-weight:400}
+.cs{font:500 var(--text-meta)/1.5 var(--font-mono);color:var(--color-ink-2);white-space:nowrap}
+.crow.recheck .cs{color:var(--color-accent)}
+.cday{padding:16px;border-radius:var(--radius-md);background:linear-gradient(145deg,var(--color-s3),var(--color-s2));border:1px solid rgba(255,255,255,.15);box-shadow:var(--shadow-lift)}.cday .clist{margin-top:12px}
+#calKinds .chip[aria-pressed=true]{background:rgba(141,187,255,.11);border-color:var(--color-info);box-shadow:inset 0 1px 0 rgba(141,187,255,.18);color:var(--color-ink)}
+#calKinds .chip.mine[aria-pressed=true]{background:var(--color-accent);border-color:var(--color-accent)}
+#calSum{max-width:78rem;font-size:14px;line-height:1.55;color:var(--color-ink-2)}#calSum b{color:var(--color-ink);font-weight:600}#calSum .ext{min-height:24px;color:var(--color-ink)}
+@media(max-width:699px){.cgridw{padding:12px}.crow{grid-template-columns:1fr;padding:10px 12px}.cs{white-space:normal}}
