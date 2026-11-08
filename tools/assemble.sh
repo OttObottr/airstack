@@ -37,7 +37,8 @@ import json, pathlib, re, sys
 from validate_published_data import MAX_FILES, MAX_TOTAL_BYTES, parse_data
 
 site = pathlib.Path(sys.argv[1])
-allowed = set(json.loads(pathlib.Path("config/published-files.json").read_text())["files"])
+policy = json.loads(pathlib.Path("config/published-files.json").read_text())
+required = set(policy["files"]); allowed = required | set(policy.get("optional", []))  # optional: shipped when present
 monthly = re.compile(r"open-data/airstack-\d{4}-\d{2}\.jsonl\.gz")
 shipped, total = [], 0
 for path in sorted(site.rglob("*")):
@@ -47,7 +48,7 @@ for path in sorted(site.rglob("*")):
     if path.is_file() and (name in allowed or monthly.fullmatch(name)):
         shipped.append(name)
         total += len(parse_data(path))
-missing = sorted(allowed - set(shipped))
+missing = sorted(required - set(shipped))
 if missing:
     raise SystemExit(f"published datasets missing: {', '.join(missing)}")
 if len(shipped) > MAX_FILES or total > MAX_TOTAL_BYTES:
@@ -83,7 +84,7 @@ y, mo, d = re.match(r"(\d{4})-(\d{2})-(\d{2})", sd["meta"]["checked_at"]).groups
 fd = f"{int(d)} {'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()[int(mo) - 1]} {y}"
 was = '<p class="honest" id="honest">Every fact quoted from its own page</p>'
 assert page.count(was) == 1, f"the shell no longer holds {was}"
-page = page.replace(was, f'<p class="honest" id="honest">Scope: {sd["dir"]["researched"]:,} researched products · every fact quoted from its own page\nAs of {fd}</p>')
+page = page.replace(was, f'<p class="honest" id="honest">Scope: {sd["meta"]["counts"]["researched_products"] if "counts" in sd["meta"] else sd["dir"]["researched"]:,} researched products · every fact quoted from its own page\nAs of {fd}</p>')
 page, away = re.subn(r'<section class="([^"]*)"( id="[\w-]+" data-views="([^"]+)")',
                      lambda m: m[0] if "overview" in m[3].split() else f'<section class="{m[1]} view-away"{m[2]}', page)
 tab = '<a href="#/" data-view="overview">'

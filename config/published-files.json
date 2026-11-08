@@ -24,6 +24,10 @@
     "taxonomy-crosswalk.json",
     "universe.json"
   ],
+  "optional": [
+    "makers.json",
+    "suggestions.json"
+  ],
   "patterns": [
     "open-data/airstack-YYYY-MM.jsonl.gz"
   ]

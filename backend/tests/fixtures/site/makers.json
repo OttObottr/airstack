@@ -1,0 +1,88 @@
+{
+ "rule": {
+  "rising": "A maker whose product's weekly downloads or Wikipedia views rose at least 20% against its own earlier 4 weeks.",
+  "leader": "A maker whose product is among the top 3 in its category by weekly downloads or Wikipedia views.",
+  "incumbent": "A maker founded before 2010 whose product is among the top 10 in its category."
+ },
+ "makers": {
+  "Q2004": {
+   "name": "Acme Example Inc.",
+   "products": [
+    "acme-notes"
+   ],
+   "founded": "2015",
+   "lens": "rising",
+   "why": "Acme Notes Wikipedia views up 49% against its prior 4 weeks",
+   "signals": [
+    {
+     "kind": "attention",
+     "product": "acme-notes",
+     "value": 3160,
+     "change": 0.49,
+     "window": "4 weeks to 2026-11-01",
+     "source": {
+      "name": "Wikimedia pageviews API",
+      "url": "https://wikimedia.org/api/rest_v1/",
+      "read": "2026-11-07"
+     }
+    }
+   ]
+  },
+  "Q2001": {
+   "name": "Theta Example Ltd",
+   "products": [
+    "Q1001"
+   ],
+   "founded": "2016",
+   "lens": "leader",
+   "why": "Theta Sheets is first in Spreadsheets by Wikipedia views",
+   "signals": [
+    {
+     "kind": "attention",
+     "product": "Q1001",
+     "value": 1310,
+     "change": 0.02,
+     "window": "4 weeks to 2026-11-01",
+     "source": {
+      "name": "Wikimedia pageviews API",
+      "url": "https://wikimedia.org/api/rest_v1/",
+      "read": "2026-11-07"
+     }
+    }
+   ]
+  },
+  "Q2002": {
+   "name": "Iota Labs",
+   "products": [
+    "Q1002"
+   ],
+   "founded": "2008",
+   "lens": "incumbent",
+   "why": "Founded 2008; Iota Mail is in the top 10 of Email by documentation",
+   "signals": [
+    {
+     "kind": "documentation",
+     "product": "Q1002",
+     "value": 4,
+     "change": null,
+     "window": "as of 2026-11-03",
+     "source": {
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/wiki/Q1002",
+      "read": "2026-11-07"
+     }
+    }
+   ]
+  },
+  "Q2003": {
+   "name": "Pat Example",
+   "products": [
+    "Q1002"
+   ],
+   "founded": null,
+   "lens": null,
+   "why": null,
+   "signals": []
+  }
+ }
+}

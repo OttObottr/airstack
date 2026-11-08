@@ -1,3 +1,4 @@
+import { strip } from '../signals.js';
 import { priceView } from '../prices.js';
 import { renderAll } from '../app.js';
 import { catList, vendorOf } from '../browse.js';
@@ -25,7 +26,7 @@ export function dirCard(x) {
         : esc(orgName(d))
     )
     .join(', ');
-  tc.innerHTML = `${covered}<dl class="kv mt24"><div><dt>What it is</dt><dd>${x.desc ? cap(x.desc) : nobs} <span class="meta">Wikidata’s description</span></dd></div>
+  tc.innerHTML = `${covered}${strip(x)}<dl class="kv mt24"><div><dt>What it is</dt><dd>${x.desc ? cap(x.desc) : nobs} <span class="meta">Wikidata’s description</span></dd></div>
       <div><dt>Made by</dt><dd>${devs || nobs}</dd></div>
       <div><dt>Type</dt><dd class="crumb">${path.map(j => `<button type="button" data-type="${j}">${esc(T[j][1])}</button>`).join(' › ')}</dd></div>
       <div><dt>Website</dt><dd>${x.site ? `<a class="ext" href="${url(x.site)}" target="_blank" rel="noopener noreferrer">${esc(host(x.site))}${ic('out')}</a> <span class="meta">as Wikidata records it</span>` : nobs}</dd></div>

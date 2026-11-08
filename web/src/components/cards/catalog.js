@@ -1,3 +1,4 @@
+import { strip } from '../signals.js';
 import { guideView, modelsView } from './guide.js';
 import { renderAll } from '../app.js';
 import { mono } from '../avatar.js';
@@ -142,7 +143,7 @@ export function catalogCard(x) {
     : '';
   const link = u =>
     `<a class="ext" href="${url(u)}" target="_blank" rel="noopener noreferrer">${esc(host(u))}${ic('out')}</a> <span class="meta">reached ${fd(C.checked)}</span>`;
-  tc.innerHTML = `${covered}<dl class="kv mt24"><div><dt>Vendor</dt><dd>${C.vendor ? esc(C.vendor) : nobs}</dd></div><div><dt>Category</dt><dd>${esc(x.laneName)} <span class="meta">AirStack’s classification</span></dd></div>
+  tc.innerHTML = `${covered}${strip(x)}<dl class="kv mt24"><div><dt>Vendor</dt><dd>${C.vendor ? esc(C.vendor) : nobs}</dd></div><div><dt>Category</dt><dd>${esc(x.laneName)} <span class="meta">AirStack’s classification</span></dd></div>
       <div><dt>Homepage</dt><dd>${C.homepage ? link(C.homepage) : nobs}</dd></div><div><dt>Share</dt><dd><a class="ext" href="${pageOf(x)}">airstack.bot${pageOf(x)}</a></dd></div><div><dt>Pricing page</dt><dd>${C.pricing ? link(C.pricing) : '<span class="nobs">Not confirmed</span>'}</dd></div></dl>
     ${PROF ? guideView(x) : ''}
     ${PROF ? priceView(x) : ''}

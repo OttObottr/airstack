@@ -5,6 +5,7 @@ import { $, $$ } from '../lib/dom.js';
 import { esc, fd, ic, n, pct, sgn, url } from '../lib/format.js';
 import { MK } from '../lib/market.js';
 import { pview } from '../lib/profiles.js';
+import { series, spark } from '../lib/spark.js';
 
 const MV = {
   lane: 'all',
@@ -41,7 +42,7 @@ function drawMovers() {
     r.dl.delta > 0 &&
     ((r.dl.vsBase != null && r.dl.vsBase < 0) ||
       r.dl.value < 5000); /* a rebound or a tiny base ranks below solid movers */
-  const key = { dl: r => r.dl.delta, hn: r => r.hn.delta, stars: r => r.gh.stars }[MV.sort];
+  const key = { dl: r => r.dl.delta, base: r => r.dl.vsBase, hn: r => r.hn.delta, stars: r => r.gh.stars }[MV.sort];
   const tier = r =>
     MV.sort === 'dl' && weak(r) ? 1 : 0;
   const all = D.rows
@@ -66,7 +67,9 @@ function drawMovers() {
     r => `<tr>
     <td data-l="Tool">${ph ? `<button type="button" class="rowtog" aria-expanded="false" data-rt="1"><b>${esc(r.name)}</b><br><span class="meta">${esc(r.laneName)}</span></button>` : `<b>${esc(r.name)}</b><br><span class="meta">${esc(r.laneName)}</span>`}</td>
     <td data-l="Downloads, 7 days" class="r">${r.dl.value !== null ? `${n(r.dl.value)} <span class="meta">${esc(r.dl.registry)}</span>${r.dl.url ? `<a class="src" href="${url(r.dl.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(r.dl.registry)} page for ${esc(r.name)}">${ic('out')}</a>` : ''}` : why('No registry record', r.dl.why)}</td>
+    <td data-l="26 weeks">${(s => (s && spark(s[0], s[1], `${r.name}, ${r.dl.registry} downloads`)) || '<span class="nobs">Not observed</span>')(series(r))}</td>
     <td data-l="Change" class="r">${pct(r.dl.delta) !== null ? `${pct(r.dl.delta)}<span class="bar" aria-hidden="true"><i class="${r.dl.delta < 0 ? 'neg' : ''}" style="--w:${Math.max(2, (Math.abs(r.dl.delta) / mxd) * 100).toFixed(1)}%"></i></span>${weak(r) ? `<span class="meta"> ${r.dl.value < 5000 ? 'small base' : 'below its 4-week level'}</span>` : ''}` : why(r.dl.value !== null ? 'No prior week' : 'No weekly baseline', r.dl.why)}</td>
+    <td data-l="vs own 4 weeks" class="r">${r.dl.vsBase != null ? `${pct(r.dl.vsBase)}${r.dl.from ? '<span class="meta"> weekly series</span>' : ''}` : '<span class="nobs">Not observed</span>'}</td>
     <td data-l="HN stories, 7 days" class="r">${r.hn.value !== null ? `${n(r.hn.value)} <span class="meta">${sgn(r.hn.delta)}</span><a class="src" href="https://hn.algolia.com/?q=${encodeURIComponent((r.hn.query || '').replace(/"/g, ''))}" target="_blank" rel="noopener noreferrer" aria-label="Hacker News search for ${esc(r.name)}">${ic('out')}</a>` : why('No HN record', r.hn.why)}</td>
     <td data-l="GitHub stars" class="r">${r.gh.stars !== null && r.gh.stars !== undefined ? `${n(r.gh.stars)}<a class="src" href="${url(r.gh.url)}" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository for ${esc(r.name)}">${ic('out')}</a>` : why('No GitHub record', r.gh.why)}</td>
     <td data-l="Last release">${r.gh.release ? `${esc(r.gh.release)} <span class="meta">${fd(r.gh.released)}</span>` : why('No release recorded', r.gh.why)}</td>
@@ -75,7 +78,7 @@ function drawMovers() {
         ? `<button class="ghost pbtn" type="button" data-p="${esc(r.id)}" aria-expanded="${MV.open === r.id}" aria-controls="pr-${esc(r.id)}">Profile · ${MK.profiles[r.id].facts} facts</button>`
         : '<span class="state-note">Catalog only</span>'
     }</td></tr>
-    ${MV.open === r.id && MK && MK.profiles[r.id] ? `<tr class="prow" id="pr-${esc(r.id)}"><td colspan="7">${pview(r, r.id, drawMovers)}</td></tr>` : ''}`
+    ${MV.open === r.id && MK && MK.profiles[r.id] ? `<tr class="prow" id="pr-${esc(r.id)}"><td colspan="9">${pview(r, r.id, drawMovers)}</td></tr>` : ''}`
   );
   const tok = ++MV.tok,
     FIRST = 24;

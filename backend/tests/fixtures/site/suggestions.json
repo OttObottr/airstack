@@ -1,0 +1,48 @@
+{
+ "gamma-deploy": [
+  {
+   "id": "zeta-agent",
+   "label": "established",
+   "why": "Same category; GitHub releases since 2024",
+   "source": {
+    "name": "source",
+    "url": "https://github.com/zeta-example/zeta-agent",
+    "read": "2026-11-07"
+   }
+  },
+  {
+   "id": "epsilon-router",
+   "label": "trending",
+   "why": "npm downloads up 12% against its own 4-week level",
+   "source": {
+    "name": "source",
+    "url": "https://npm.registry.example/package/epsilon-router",
+    "read": "2026-11-07"
+   }
+  }
+ ],
+ "zeta-agent": [
+  {
+   "id": "gamma-deploy",
+   "label": "leader",
+   "why": "Most weekly npm downloads in Coding agents",
+   "source": {
+    "name": "source",
+    "url": "https://npm.registry.example/package/gamma-deploy-cli",
+    "read": "2026-11-07"
+   }
+  }
+ ],
+ "acme-notes": [
+  {
+   "id": "beta-board",
+   "label": "leader",
+   "why": "Most Wikipedia views in Project management",
+   "source": {
+    "name": "source",
+    "url": "https://en.wikipedia.org/wiki/Beta_Board",
+    "read": "2026-11-07"
+   }
+  }
+ ]
+}

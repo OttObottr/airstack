@@ -5,7 +5,7 @@ import { esc, fd, n, pct } from '../lib/format.js';
 import { MK } from '../lib/market.js';
 import { onMarket } from './search/index.js';
 import { squarify } from '../lib/treemap.js';
-import { mount as mountTypes } from './type-map.js';
+import { mount as mountTypes } from './attention.js';
 
 const FLAT = 2,
   CLAMP = 50;
@@ -24,7 +24,7 @@ const say = r =>
   `${r.name}: ${n(r.dl.value)} ${r.dl.registry} downloads in 7 days, ` +
   (r.dl.vsBase == null
     ? `no change shown (${r.dl.why || 'no usable earlier weeks'})`
-    : `${pct(r.dl.vsBase)} against its own 4-week level`);
+    : `${pct(r.dl.vsBase)} against its own 4-week level${r.dl.from ? ` (from its ${r.dl.from})` : ''}`);
 
 function drawMarketMap() {
   const D = (MK && MK.movers) || M.moversTop,

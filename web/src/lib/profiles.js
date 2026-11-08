@@ -11,7 +11,7 @@ export let PRICES = {},
   COMMUNITY = null,
   NEWS = null;
 let TAXP = null;
-const loadTaxonomy = () =>
+export const loadTaxonomy = () =>
   TAXP ||
   (TAXP = fetch('taxonomy-index.json')
     .then(r => {
