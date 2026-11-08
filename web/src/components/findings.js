@@ -2,6 +2,7 @@
    dropped what fails insights.* (rule 10). Two workspace panels: `panel` (the four comparisons) and `brief` (one line each). */
 import { json } from '../lib/data.js';
 import { esc, n, url } from '../lib/format.js';
+import { versus } from '../lib/charts.js';
 import { inScope, nodeOf, scopeControl, scopeName } from '../lib/scope.js';
 import { ui } from '../ui/recipes.js';
 
@@ -10,9 +11,7 @@ const k = x => (x >= 1e6 ? `${(x / 1e6).toFixed(1)}M` : x >= 1e4 ? `${Math.round
 const LINK = 'underline underline-offset-4 decoration-border hover:text-foreground';
 const cat = i => `<a class="text-sm font-medium text-foreground ${LINK}" href="/t/${esc(i.node)}/">${esc(i.name)}</a>`;
 const ext = (href, text) => `<a class="${LINK}" href="${url(href)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
-/* the category as a bar and its baseline as a tick, on one 0-to-max scale per section */
-const bar = (v, b, max) =>
-  `<span class="relative block h-1.5 w-full rounded-full bg-muted" aria-hidden="true"><span class="absolute inset-y-0 left-0 rounded-full bg-info" style="width:${(Math.min(1, v / max) * 100).toFixed(1)}%"></span><span class="absolute -inset-y-1 w-0.5 bg-foreground" style="left:${(Math.min(1, b / max) * 100).toFixed(1)}%"></span></span>`;
+const bar = (i, max) => versus(i.value, i.baseline, max, `${i.name}: ${p1(i.value)} against a baseline of ${p1(i.baseline)}`);
 const dropped = d => {
   const xs = Object.entries(d || {});
   return xs.length ? ` Not shown: ${xs.map(([why, c]) => `${n(c)} with ${esc(why)}`).join('; ')}.` : '';
@@ -75,7 +74,7 @@ function full(scope, el) {
     const xs = pick(scope, F, s).slice(0, F.params.top),
       m = Math.max(1e-9, ...xs.flatMap(i => [i.value, i.baseline]));
     return `<section class="flex flex-col gap-2"><p class="${ui.panelTitle}">${esc(s.title)}</p><p class="${ui.panelNote}">${esc(s.ask)}</p>
-      ${xs.length ? `<ol class="flex flex-col">${xs.map(i => `<li class="grid gap-1.5 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,14rem)_minmax(0,9rem)_minmax(0,1fr)] md:items-center md:gap-x-4">${cat(i)}${bar(i.value, i.baseline, m)}<span class="flex flex-col gap-1 text-xs text-muted-foreground"><span>${s.value(i)}</span><span>${s.more(i)}</span></span></li>`).join('')}</ol>` : none(scope, F)}
+      ${xs.length ? `<ol class="flex flex-col">${xs.map(i => `<li class="grid gap-1.5 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,14rem)_minmax(0,9rem)_minmax(0,1fr)] md:items-center md:gap-x-4">${cat(i)}${bar(i, m)}<span class="flex flex-col gap-1 text-xs text-muted-foreground"><span>${s.value(i)}</span><span>${s.more(i)}</span></span></li>`).join('')}</ol>` : none(scope, F)}
       <p class="${ui.panelNote}">${s.base(F[s.key])}${dropped(F[s.key].dropped)}</p></section>`;
   }).join('')}
     <p class="${ui.panelNote}">Bar: the category; tick: its baseline. Thresholds: at least ${n(F.params.min_base)} products read, ${F.params.min_gap_pp} points and ${F.params.min_z} standard errors above the average; rising needs ${n(F.params.rising_min_products)} products measured, ${k(F.params.rising_min_views)} views in the earlier weeks and ×${F.params.rising_min_ratio}.</p></div>`;

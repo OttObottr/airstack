@@ -111,14 +111,47 @@ def test_stack_stays_local_and_starts_a_comparison(chrome, app_url):
     other.close()
 
 
-def test_signal_tiles_fit_their_container(chrome, app_url):
-    context, page, errors = open_app(chrome, app_url)
+@pytest.mark.parametrize("width", [1280, 390])
+def test_signal_tiles_fit_and_share_row_baselines(chrome, app_url, width):
+    context, page, errors = open_app(chrome, app_url, width)
     page.locator("#trend .lb button").first.click()
-    page.wait_for_selector("#toolcard .tiles")
-    assert page.locator("#toolcard .tile").evaluate_all(
+    page.wait_for_selector("#sigs [data-tile]")
+    assert page.locator("#sigs [data-tile]").evaluate_all(
         "tiles => tiles.every(tile => tile.scrollWidth <= tile.clientWidth && [...tile.children].every(child => child.getBoundingClientRect().right <= tile.getBoundingClientRect().right + 1))"
     )
+    # tiles on one line share each row's top and text baseline: label, value, chart, meta
+    rows = page.evaluate("""() => {
+      const tiles = [...document.querySelectorAll('#sigs [data-tile]')], lines = new Map();
+      for (const t of tiles) { const top = Math.round(t.getBoundingClientRect().top); (lines.get(top) || lines.set(top, []).get(top)).push(t); }
+      return [...lines.values()].filter(l => l.length > 1).map(l => [0, 1, 2, 3].map(r => l.map(t => t.children[r].getBoundingClientRect().top)));
+    }""")
+    for line in rows:
+        for tops in line:
+            assert max(tops) - min(tops) <= 1, tops
     assert page.evaluate(FITS)
+    assert not errors
+    context.close()
+
+
+def test_every_chart_is_labelled_and_never_draws_a_broken_or_invalid_path(chrome, app_url):
+    context, page, errors = open_app(chrome, app_url)
+    wait(page, "document.querySelectorAll('#pulsePanel svg rect').length > 3")
+    for view in ("markets", "overview"):
+        page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
+        page.wait_for_function("view => document.body.dataset.view === view", arg=view)
+        page.wait_for_timeout(300)
+        bad = page.evaluate("""() => [...document.querySelectorAll('svg[data-chart]')].flatMap(svg => {
+          const out = [], gaps = +(svg.dataset.gaps || 0);
+          if (!(svg.getAttribute('aria-label') || svg.querySelector('title'))) out.push('unlabelled chart');
+          for (const p of svg.querySelectorAll('path')) {
+            const d = p.getAttribute('d') || '';
+            if (/NaN|undefined|Infinity/.test(d)) out.push('invalid path ' + d.slice(0, 40));
+            if (!p.dataset.gap && (d.match(/M/g) || []).length > 1) out.push('a subpath restarts without a flagged gap');
+          }
+          if (svg.querySelectorAll('path[data-gap]').length !== gaps) out.push('gaps not counted');
+          return out; })""")
+        assert not bad, (view, bad)
+    assert page.locator("svg[data-chart]").count() > 1
     assert not errors
     context.close()
 

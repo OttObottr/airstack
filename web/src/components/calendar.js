@@ -2,7 +2,7 @@
    Support and end-of-life schedules are not shown. Workspace panels: `panel` (the agenda) and `briefPanel` (Home's next few). */
 import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
-import { esc, fd, host, n, url } from '../lib/format.js';
+import { esc, fd, host, n, stamp, url } from '../lib/format.js';
 import { inScope, mountScoped, nodeOf, scopeControl, stackToggle } from '../lib/scope.js';
 import { VIEW } from '../lib/view.js';
 import { ui } from '../ui/recipes.js';
@@ -29,7 +29,7 @@ const draw = (days, shown) => (scope, el) => {
           .map(
             e => `<li class="grid grid-cols-[5.5rem_minmax(0,1fr)] items-start gap-3 py-2 border-b border-border last:border-b-0"><time class="${ui.num} text-xs text-muted-foreground leading-5" datetime="${esc(e.at)}">${fd(e.at)}</time>
           <span class="flex flex-col gap-1 min-w-0"><span class="flex flex-wrap items-center gap-2"><a class="text-sm font-medium text-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name)}</a>${stackToggle(e.id, e.name)}</span>
-          <span class="${ui.panelNote}">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.title)}</a> · ${esc(host(e.url))}, read ${fd(e.source_read)}` : esc(e.title)}</span></span></li>`
+          <span class="${ui.panelNote}">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.title)}</a> · ${esc(host(e.url))}, read ${stamp(e.source_read, E.source.built_for)}` : esc(e.title)}</span></span></li>`
           )
           .join('')}</ol>`
       : `<p class="text-sm text-muted-foreground">Nothing dated in the next ${days} days${scope.kind === 'stack' ? ' for your stack' : ''}.</p>`

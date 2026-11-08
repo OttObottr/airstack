@@ -2,7 +2,7 @@
    each side {value, quote, url, read}), worded as what each read found, never as a cause. In a stack or maker scope, attention
    (registry downloads, Wikipedia views) follows as a secondary line. Workspace panels: `panel`, and `stackPanel` for your stack. */
 import { json, PARAMS } from '../lib/data.js';
-import { esc, fd, host, pct, url } from '../lib/format.js';
+import { esc, host, pct, stamp, url } from '../lib/format.js';
 import { MK } from '../lib/market.js';
 import { inScope, nodeOf } from '../lib/scope.js';
 import { stack } from '../lib/stack.js';
@@ -12,18 +12,22 @@ const LINK = 'underline underline-offset-4 decoration-border hover:text-foregrou
 const val = v => (v == null || v === '' ? 'not stated' : Array.isArray(v) ? v.join(', ') : typeof v === 'object' ? JSON.stringify(v) : String(v));
 const side = (s, label) =>
   s && s.url
-    ? `<span>${label}: ${s.quote ? `“${esc(s.quote)}”` : 'not stated'} on <a class="${LINK}" href="${url(s.url)}" target="_blank" rel="noopener noreferrer">${esc(host(s.url))}</a>, read ${fd(s.read)}</span>`
+    ? `<span>${label}: ${s.quote ? `“${esc(s.quote)}”` : 'not stated'} on <a class="${LINK}" href="${url(s.url)}" target="_blank" rel="noopener noreferrer">${esc(host(s.url))}</a>, read ${stamp(s.read, now)}</span>`
     : `<span>${label}: not recorded</span>`;
 const names = () => new Map([...((window.AIRSTACK_DATA || {}).index || []).map(r => [r[0], r[1]]), ...stack().map(x => [x.id, x.name])]);
 
 let C = null,
+  now = '',
   A = null,
   ofNode = null,
   loading = null;
 const load = scope =>
   Promise.all([
     (loading ||= json('changes.json')
-      .then(d => (C = Array.isArray(d) ? d : d.changes || []))
+      .then(d => {
+        C = Array.isArray(d) ? d : d.changes || [];
+        now = (d.source && d.source.built_for) || C.reduce((m, c) => (c.after && c.after.read > m ? c.after.read : m), ''); /* the build's day, never the viewer's clock */
+      })
       .catch(() => (C = []))) /* not published yet: nothing recorded */,
     scope.ids && !A ? json('attention.json').then(d => (A = d), () => (A = { products: {} })) : null,
     scope.kind === 'node' && !ofNode ? nodeOf().then(f => (ofNode = f)) : null,

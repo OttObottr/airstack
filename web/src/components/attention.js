@@ -33,7 +33,7 @@ function row(id, i) {
   return `<tr><td data-l="#" class="r num">${i + 1}</td>
     <td data-l="Product"><a href="#app=${encodeURIComponent(id)}"><b>${esc(nm)}</b></a></td>
     <td data-l="Views, last ${P.window_weeks} weeks" class="r num">${p.last_4w != null ? n(p.last_4w) : '<span class="nobs">Not observed</span>'}</td>
-    <td data-c="series" data-l="${P.weeks} weeks">${spark(p.views, A.weeks, `${nm}, English Wikipedia views`) || '<span class="nobs">Not observed</span>'}</td>
+    <td data-c="series" data-l="${P.weeks} weeks">${spark(p.views, A.weeks, `${nm}, English Wikipedia views`, { maxMissing: A.source.params.max_missing_share ?? 1 }) || '<span class="nobs">Not observed</span>'}</td>
     <td data-l="vs its prior ${P.window_weeks} weeks" class="r num">${p.change != null ? pct(p.change * 100) : `<span class="nobs" title="${esc(A.source.note || '')}">Not observed</span>`}</td>
     <td data-l="Article"><a class="ext" href="${url(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.article)}${ic('out')}</a> <span class="meta">read ${fd(p.fetched)}</span></td></tr>`;
 }

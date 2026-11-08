@@ -1,6 +1,7 @@
 import { PARAMS, json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
-import { cn, esc, fd, host, ic, pct, url } from '../lib/format.js';
+import { ago, cn, esc, fd, host, ic, pct, stamp, url } from '../lib/format.js';
+import { ui } from '../ui/recipes.js';
 import { series, spark } from '../lib/spark.js';
 import { rowMap } from './browse.js';
 
@@ -16,31 +17,30 @@ const load = () =>
 
 const src = (u, l) =>
   u ? ` <a class="src" href="${url(u)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(l)}">${ic('out')}</a>` : '';
+/* a signal tile on the strip's shared rows (label, value, chart, meta), so every tile's rows line up whatever it holds */
 const tile = (lab, big, sub, chart = '') =>
-  `<div class="tile"><p class="lab">${lab}</p><p class="big">${big}</p>${chart}<p class="meta">${sub}</p></div>`;
+  `<div class="grid grid-rows-subgrid row-span-4 min-w-0 rounded-lg border border-border bg-card p-4" data-tile><p class="${ui.tileLabel}">${lab}</p><p class="${ui.tileValue}">${big}</p><div class="min-h-7">${chart}</div><p class="${ui.panelNote} [overflow-wrap:anywhere]">${sub}</p></div>`;
 
 function tiles(x) {
   const r = rowMap()[x.id],
     a = ATT && ATT.products[x.id],
-    today = EV && EV.source.built_for,
+    now = (EV && EV.source.built_for) || (ATT && ATT.source.read) || '', /* the build's day, never the viewer's clock */
     mine = EV ? EV.events.filter(e => e.id === x.id) : [],
     out = [];
   if (r && r.dl.value != null) {
     const s = series(r);
     out.push(tile('Downloads · 7 days', cn(r.dl.value),
-      `${esc(r.dl.registry)}${r.dl.vsBase != null ? ` · ${pct(r.dl.vsBase)} vs its own ${PARAMS.movers.base_weeks}-week level` : ''}${r.dl.fetched ? ` · fetched ${fd(r.dl.fetched)}` : ''}${src(r.dl.url, `${r.dl.registry} page for ${x.name}`)}`,
+      `${esc(r.dl.registry)}${r.dl.vsBase != null ? ` · ${pct(r.dl.vsBase)} vs its own ${PARAMS.movers.base_weeks}-week level` : ''}${r.dl.fetched ? ` · fetched ${stamp(r.dl.fetched, now)}` : ''}${src(r.dl.url, `${r.dl.registry} page for ${x.name}`)}`,
       s ? spark(s[0], s[1], `${x.name}, ${r.dl.registry} downloads`) : ''));
   }
   if (a && a.last_4w != null)
     out.push(tile(`Wikipedia views · ${ATT.source.params.window_weeks} weeks`, cn(a.last_4w),
-      `${a.change != null ? `${pct(a.change * 100)} vs its prior ${ATT.source.params.window_weeks} weeks · ` : ''}attention, not adoption · read ${fd(a.fetched)}${src(a.url, `Wikipedia article for ${x.name}`)}`,
-      spark(a.views, ATT.weeks, `${x.name}, English Wikipedia views`)));
+      `${a.change != null ? `${pct(a.change * 100)} vs its prior ${ATT.source.params.window_weeks} weeks · ` : ''}attention, not adoption · read ${stamp(a.fetched, ATT.source.read)}${src(a.url, `Wikipedia article for ${x.name}`)}`,
+      spark(a.views, ATT.weeks, `${x.name}, English Wikipedia views`, { maxMissing: ATT.source.params.max_missing_share ?? 1 })));
   const rel = r && r.gh.release ? { title: r.gh.release, at: r.gh.released, url: r.gh.url, from: 'GitHub' }
     : (e => e && { title: e.title, at: e.at, url: e.url, from: host(e.url || '') })(
         mine.filter(e => e.status === 'observed' && /release|changelog/.test(e.kind)).sort((p, q) => (p.at < q.at ? 1 : -1))[0]);
-  if (rel && rel.at) out.push(tile('Latest release', fd(rel.at), `${esc(rel.title)} · ${esc(rel.from)}${src(rel.url, `Release record for ${x.name}`)}`));
-  const next = mine.filter(e => e.status === 'scheduled' && /^end of/.test(e.kind) && e.at >= today).sort((p, q) => (p.at < q.at ? -1 : 1))[0];
-  if (next) out.push(tile('Next support date', fd(next.at), `${esc(next.title)} · published schedule, ${esc(host(next.url || ''))} · read ${fd(EV.source.support_schedules.read || today)}${src(next.url, `Support schedule for ${x.name}`)}`));
+  if (rel && rel.at) out.push(tile('Latest release', `<time datetime="${esc(rel.at.slice(0, 10))}" title="${fd(rel.at)}">${ago(rel.at, now)}</time>`, `${esc(rel.title)} · ${esc(rel.from)}${src(rel.url, `Release record for ${x.name}`)}`));
   return out;
 }
 
@@ -58,6 +58,6 @@ export function strip(x) {
       }
     });
   return t.length || !ready
-    ? `<div class="tiles" id="sigs" data-id="${esc(x.id)}" aria-label="Public signals for ${esc(x.name)}">${t.join('')}${ready ? '' : '<div class="tile skeleton" aria-hidden="true"></div>'}</div>`
+    ? `<div class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-x-4 gap-y-2" id="sigs" data-id="${esc(x.id)}" aria-label="Public signals for ${esc(x.name)}">${t.join('')}${ready ? '' : '<div class="skeleton row-span-4 min-h-32 rounded-lg" aria-hidden="true"></div>'}</div>`
     : '';
 }

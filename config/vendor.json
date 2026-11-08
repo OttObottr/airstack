@@ -1,0 +1,65 @@
+{
+ "note": "d3 modules as jsDelivr +esm bundles, served first-party: imports rewritten to these files and source-map comments removed. sha256 is of the file here; upstream_sha256 of the bytes jsDelivr served. Checked by backend/tests/test_repo.py.",
+ "modules": {
+  "d3-array": {
+   "version": "3.0.4",
+   "url": "https://cdn.jsdelivr.net/npm/d3-array@3.0.4/+esm",
+   "upstream_sha256": "2aeb1448572b5c4de5fa07c1115ba0a47c107a42716e3a22b70e78dbb87691c6",
+   "sha256": "84ed4e1f4dc2e65d3aed99d3853f0bd3e15ae595bb78c8314bf6a5d4c1e5f7c1"
+  },
+  "d3-color": {
+   "version": "3.0.1",
+   "url": "https://cdn.jsdelivr.net/npm/d3-color@3.0.1/+esm",
+   "upstream_sha256": "6977bea1d44836f243a39770a5cbd0198dd0aa4fe6b85fc9f45b7c0edab406d5",
+   "sha256": "37195ee1e79dd3ea4f03e64889a07cdb96dfe090eb4230a072a17bed255b5d96"
+  },
+  "d3-format": {
+   "version": "3.0.1",
+   "url": "https://cdn.jsdelivr.net/npm/d3-format@3.0.1/+esm",
+   "upstream_sha256": "03554aabc4a5e73c3e3ae8fdfc563361722ddac1d983bc437102142c5c81e125",
+   "sha256": "67f2786912fbb7013aec6ed3ed51216389111ee2dbd088b2488a8f8e210b4ada"
+  },
+  "d3-interpolate": {
+   "version": "3.0.1",
+   "url": "https://cdn.jsdelivr.net/npm/d3-interpolate@3.0.1/+esm",
+   "upstream_sha256": "7f600e69f10272fdcb8c09d3a6f94475242b860e1e2305a1af5433f692c8e63a",
+   "sha256": "72551d7d043ea0b62363537536a93ee63918f115b5a037c4afe6d1e3b0e69026"
+  },
+  "d3-path": {
+   "version": "3.1.0",
+   "url": "https://cdn.jsdelivr.net/npm/d3-path@3.1.0/+esm",
+   "upstream_sha256": "e3c198594f5556887e2073d33407c4a2d138ad07cb9099246391e77b7de76c8c",
+   "sha256": "208a5755e60c76bd36f921d296668ba2a79c6aa8a3bcb524e746282b92870b33"
+  },
+  "d3-scale": {
+   "version": "4.0.2",
+   "url": "https://cdn.jsdelivr.net/npm/d3-scale@4.0.2/+esm",
+   "upstream_sha256": "1c833c42197b5733e4daa9901e3152ad20cf5dc40fd29401f4ac1f404bb86ae7",
+   "sha256": "bf6f7c1ac00898c5c49156d0c4d7ba521d4be9e03107aa73a8da7ff6c7fa02ba"
+  },
+  "d3-shape": {
+   "version": "3.2.0",
+   "url": "https://cdn.jsdelivr.net/npm/d3-shape@3.2.0/+esm",
+   "upstream_sha256": "1d147fdf265c8793950961a0d5bc0e93a5a5e0d3e971e21544f7fb08223c39f5",
+   "sha256": "a8f78cc505ef32306be2d0553c2407aa5ddcbead148125f39af4ce55194a2474"
+  },
+  "d3-time": {
+   "version": "3.0.0",
+   "url": "https://cdn.jsdelivr.net/npm/d3-time@3.0.0/+esm",
+   "upstream_sha256": "667c66c7425fa149e5fb3911c1af7a0c870411ce63f4a48e5bbd6a18ea7764c6",
+   "sha256": "34bf9ad9df00f3b87f104505e85fe5fa052c740311331291455e0d1396974162"
+  },
+  "d3-time-format": {
+   "version": "4.0.0",
+   "url": "https://cdn.jsdelivr.net/npm/d3-time-format@4.0.0/+esm",
+   "upstream_sha256": "b27115c08af6217f59dde603589f5ddd21987479cb18b7a557de79bfa07095f3",
+   "sha256": "af5a9e807f1cb1362afb96bb99589dd03894ee934ce2c9e79cb30ad15329f9d7"
+  },
+  "internmap": {
+   "version": "2.0.3",
+   "url": "https://cdn.jsdelivr.net/npm/internmap@2.0.3/+esm",
+   "upstream_sha256": "2809979e4bda50bae77cbe33a926556ff4459e60a9f91f7a62de1392881e7679",
+   "sha256": "f650cb605e683f0d4e667faab89bbf2875dc1db291cdb69fb81a61f8af40b119"
+  }
+ }
+}

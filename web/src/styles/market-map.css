@@ -46,7 +46,6 @@ body[data-view=markets] .tile{border-radius:1px}
 body[data-view=markets] .mkey{border-radius:2px;background:color-mix(in oklab,var(--color-bg) 72%,transparent);font-family:var(--font-mono)}
 body[data-view=markets] #lanes{padding-bottom:12px;border-bottom:1px solid color-mix(in oklab,var(--color-up) 18%,transparent)}
 
-.spark{display:block;overflow:visible}.spark path{fill:none;stroke:var(--color-ink-2);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}.spark circle{fill:var(--color-ink)}
 td[data-c=series]{width:112px}
 @media(max-width:699px){
   #mvt td[data-c=series]{grid-column:2;grid-row:2;margin-top:-10px;width:auto}

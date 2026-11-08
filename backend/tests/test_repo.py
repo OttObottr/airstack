@@ -139,3 +139,16 @@ def test_every_script_comes_from_this_origin():
     page = (ROOT / "web" / "index.html").read_text()
     assert all("src=" in a or 'type="application/ld+json"' in a for a in re.findall(r"<script\b([^>]*)>", page, re.I))
     assert sorted(re.findall(r'<script[^>]* src="([^"]+)"', page)) == ["site-data.js", "src/main.js"]
+
+
+def test_vendored_modules_are_the_pinned_bytes_and_import_only_each_other():
+    import hashlib
+    lock = json.loads((ROOT / "config" / "vendor.json").read_text())["modules"]
+    vendor = ROOT / "web" / "src" / "vendor"
+    assert {f.stem for f in vendor.glob("*.js")} == set(lock)
+    for name, m in lock.items():
+        body = (vendor / f"{name}.js").read_bytes()
+        assert hashlib.sha256(body).hexdigest() == m["sha256"], name
+        assert m["url"] == f"https://cdn.jsdelivr.net/npm/{name}@{m['version']}/+esm"
+        imports = re.findall(rb'(?:from|import)\s*"([^"]+)"', body)
+        assert all(i.startswith(b"./") and i[2:-3].decode() in lock for i in imports), (name, imports)   # no runtime CDN

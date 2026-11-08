@@ -2,7 +2,8 @@
    sector's share. Hover or focus a week for its headline; select it for its events by sector, each linked to its source.
    A workspace panel (ui/panel.js): render(scope, el) for scope all, a taxonomy node, your stack or a maker. */
 import { json } from '../lib/data.js';
-import { esc, fd, host, MON, n, url } from '../lib/format.js';
+import { esc, fd, host, MON, n, stamp, url } from '../lib/format.js';
+import { columns } from '../lib/charts.js';
 import { inScope, scopeControl, scopeName, stackToggle } from '../lib/scope.js';
 import { ui } from '../ui/recipes.js';
 
@@ -37,7 +38,7 @@ function headline(list) {
   return best ? best[0] : null;
 }
 
-function columns(scope) {
+function weeksIn(scope) {
   const all = !scope || scope.kind === 'all';
   return P.weeks.map(o => {
     const e = all ? o.e : o.e.filter(([i]) => inScope(scope, P.events[i], P.tree)),
@@ -57,23 +58,13 @@ function draw(st) {
     H = top + BH + 20;
   const vs = cols.map(c => c.v).sort((a, b) => a - b),
     max = vs[Math.min(vs.length - 1, Math.floor(P.source.params.scale_quantile * vs.length))] || vs[vs.length - 1] || 1;
-  st.geo = { colW, max };
-  let bars = '',
-    clip = '',
-    axis = '';
+  const C = columns(cols, FILL, { width: W, top, height: BH, max });
+  st.geo = { colW: C.colW, max };
+  let axis = '';
   cols.forEach((c, k) => {
-    let y = top + BH;
-    const x = k * colW,
-      bw = Math.max(1, colW - (colW >= 3 ? 1 : 0));
-    c.s.forEach((v, j) => {
-      if (!v || y <= top) return;
-      const h = Math.min(y - top, (v / max) * BH);
-      y -= h;
-      bars += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${bw.toFixed(2)}" height="${h.toFixed(2)}" class="${FILL[j]}"/>`;
-    });
-    if (c.v > max) clip += `<path d="M${x.toFixed(1)} ${top - 1}h${bw.toFixed(1)}l${(-bw / 2).toFixed(1)} -4z" class="fill-foreground"/>`;
-    if (k && cols[k].w.slice(0, 4) !== cols[k - 1].w.slice(0, 4))
-      axis += `<line x1="${x}" x2="${x}" y1="${top}" y2="${top + BH + 4}" class="stroke-border"/><text x="${x + 3}" y="${H - 4}" class="fill-muted-foreground text-[10px]">${cols[k].w.slice(0, 4)}</text>`;
+    const x = k * colW;
+    if (k && c.w.slice(0, 4) !== cols[k - 1].w.slice(0, 4))
+      axis += `<line x1="${x}" x2="${x}" y1="${top}" y2="${top + BH + 4}" class="stroke-border"/><text x="${x + 3}" y="${H - 4}" class="fill-muted-foreground text-[10px]">${c.w.slice(0, 4)}</text>`;
   });
   const feeds = P.source.feeds_from,
     fk = feeds ? cols.findIndex(c => Date.parse(c.w) + 7 * DAY > Date.parse(feeds)) : -1,
@@ -103,7 +94,7 @@ function draw(st) {
   st.svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   st.svg.setAttribute('width', W);
   st.svg.setAttribute('height', H);
-  st.svg.innerHTML = `<line x1="0" x2="${W}" y1="${top + BH + 0.5}" y2="${top + BH + 0.5}" class="stroke-border"/>${axis}${bars}${clip}${marks}${sel}`;
+  st.svg.innerHTML = `<line x1="0" x2="${W}" y1="${top + BH + 0.5}" y2="${top + BH + 0.5}" class="stroke-border"/>${axis}${C.svg}${marks}${sel}`;
 }
 
 function tip(st, k) {
@@ -139,7 +130,7 @@ function detail(st) {
   const yr = (P.years[c.w.slice(0, 4)] || []).map(i => P.events[i]).filter(e => inScope(st.scope, e, P.tree));
   const row = e => `<li class="grid gap-1 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-4">
       <span class="flex flex-col gap-1 min-w-0"><span class="text-sm text-foreground">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.title)}</a>` : esc(e.title)}</span>
-      <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${fd(e.read)}` : `chronology entry; ${esc(host(e.url || ''))} not read by AirStack`}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
+      <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${stamp(e.read, P.source.built_for)}` : `chronology entry; ${esc(host(e.url || ''))} not read by AirStack`}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
       ${e.id ? `<span class="flex items-center gap-2"><a class="text-xs text-muted-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name || e.id)}</a>${stackToggle(e.id, e.name)}</span>` : '<span></span>'}</li>`;
   D.innerHTML = `<p class="${ui.panelTitle}">${esc(week(c.w))} · ${n(c.e.length)} event${c.e.length === 1 ? '' : 's'}${st.scope.kind !== 'all' ? ` · ${esc(scopeName(st.scope, P.tree))}` : ''}</p>${
     by.size
@@ -189,7 +180,7 @@ function paint(el, scope) {
   if (!st || !el.contains(st.svg)) {
     const R = P.source.params.weights;
     el.innerHTML = `<div class="flex flex-col gap-3"><div class="relative" data-box>
-        <div class="overflow-x-auto overscroll-x-contain rounded-md focus-visible:outline-2 focus-visible:outline-ring" tabindex="0" role="group" aria-roledescription="weekly chart" aria-label="Weeks: arrow keys move, Escape clears" data-scroll><svg class="block" role="img"></svg></div>
+        <div class="overflow-x-auto overscroll-x-contain rounded-md focus-visible:outline-2 focus-visible:outline-ring" tabindex="0" role="group" aria-roledescription="weekly chart" aria-label="Weeks: arrow keys move, Escape clears" data-scroll><svg class="block" role="img" data-chart="columns"></svg></div>
         <div class="absolute top-0 z-10 flex w-72 max-w-full flex-col gap-1.5 rounded-md border border-border bg-popover p-3 shadow-lg pointer-events-none" role="status" hidden data-tip></div></div>
       <ul class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground" aria-label="Sectors">${P.sectors.map((s, j) => `<li class="inline-flex items-center gap-1.5">${swatch(j)}${esc(s.name)}</li>`).join('')}</ul>
       <div class="flex flex-col gap-3 border-t border-border pt-3" aria-live="polite" data-day></div>
@@ -200,7 +191,7 @@ function paint(el, scope) {
   }
   if (st.scope && JSON.stringify(st.scope) !== JSON.stringify(scope)) st.sel = null;
   st.scope = scope;
-  st.cols = columns(scope);
+  st.cols = weeksIn(scope);
   st.svg.setAttribute('aria-label', `${scopeName(scope, P.tree)}: ${st.cols.length} weeks from ${fd(P.source.from)} to ${fd(P.source.built_for)}; ${n(st.cols.reduce((a, c) => a + c.e.length, 0))} event placements. Select a week for its events.`);
   const end = st.scroll.scrollLeft >= st.scroll.scrollWidth - st.scroll.clientWidth - 2;
   draw(st);

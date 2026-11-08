@@ -1,6 +1,6 @@
 import { mono } from './avatar.js';
 import { $ } from '../lib/dom.js';
-import { esc, fd, n, url } from '../lib/format.js';
+import { esc, fd, n, stamp, url } from '../lib/format.js';
 import { scopeControl, stackScope, stackToggle } from '../lib/scope.js';
 import { ALL } from '../ui/panel.js';
 
@@ -79,11 +79,11 @@ function render() {
     ? groups
         .map(
           ([d, items]) =>
-            `<li class="nday"><h3 class="lab">${fd(d)}</h3><ol>${items
+            `<li class="nday"><h3 class="lab">${stamp(d, N.source.read)} · ${fd(d)}</h3><ol>${items
               .map(
                 i => `<li class="nrow">
       <span class="flex flex-wrap items-center gap-2 min-w-0 max-[699px]:col-span-full"><a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>${stackToggle(i.id, i.name)}</span>
-      <span class="nt"><a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>${version(i)}${i.more.length ? `<details class="nmore"><summary class="meta">and ${i.more.length} more · ${esc(tally(i.more))}</summary><ul>${i.more.map(m => `<li><span class="meta">${fd(day(m.date))}</span> <a class="ext" href="${url(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}</a>${version(m)} <span class="meta">${esc(KIND(m.kind))}</span></li>`).join('')}</ul></details>` : ''}</span>
+      <span class="nt"><a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>${version(i)}${i.more.length ? `<details class="nmore"><summary class="meta">and ${i.more.length} more · ${esc(tally(i.more))}</summary><ul>${i.more.map(m => `<li><span class="meta">${stamp(day(m.date), N.source.read)}</span> <a class="ext" href="${url(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}</a>${version(m)} <span class="meta">${esc(KIND(m.kind))}</span></li>`).join('')}</ul></details>` : ''}</span>
       <span class="nk">${esc(KIND(i.kind))}</span>
       ${i.kind === 'hacker news' && i.discussion ? `<a class="ext meta" href="${url(i.discussion)}" target="_blank" rel="noopener noreferrer">${n(i.points)} points · discussion</a>` : ''}</li>`
               )
