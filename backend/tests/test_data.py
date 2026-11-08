@@ -244,11 +244,11 @@ def test_no_high_tier_claim_reaches_a_published_file_or_page():
         assert not any(f"<th>{labels[m]}</th>" in h for m in high if m in labels), page
         assert not re.search(r"\b(SOC 2|ISO 27001|HIPAA)\b|\bStarting at\b|\bcheapest\b|\b(BUILD|BUY|KEEP|RETIRE)\b", text), page
 
-def test_every_quoted_fact_on_a_product_page_carries_its_checks_and_a_withdrawn_quote_is_not_a_value():
+def test_every_quoted_fact_on_a_product_page_carries_its_checks():
     if not (ROOT / "p" / "gamma-deploy" / "index.html").exists():
         pytest.skip("the synthetic fixture's product")
     page = (ROOT / "p" / "gamma-deploy" / "index.html").read_text()
     facts = page.split("<table>")[-1].split("</table>")[0]
     assert facts.count(" says: <q>") == facts.count(":~:text=") == facts.count("Report a problem") > 0
-    assert "Archived copy" in facts and "first read" in facts and "Kappa Notes" not in facts
+    assert "Archived copy" in facts and "first read" in facts
     assert "github.com/OttObottr/airstack/issues/new?title=" in facts

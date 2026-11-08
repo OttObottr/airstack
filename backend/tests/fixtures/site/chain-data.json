@@ -38,7 +38,7 @@
   "price_max_age_days": 30
  },
  "summary": {
-  "facts": 27,
+  "facts": 26,
   "registry_second_record": 0,
   "registry_disputed": 0,
   "labels": {
@@ -69,7 +69,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": {
       "url": "https://web.archive.org/web/20261104100000/https://gamma-deploy.example/",
       "at": "2026-11-04"
@@ -97,7 +96,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -121,7 +119,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -142,7 +139,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -163,7 +159,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -187,7 +182,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -208,30 +202,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
-     "archived": null
-    },
-    {
-     "metric": "integrations",
-     "value": [
-      "Kappa Notes"
-     ],
-     "url": "https://gamma-deploy.example/integrations",
-     "host": "gamma-deploy.example",
-     "class": "vendor",
-     "quote": "Sync notes with Kappa Notes.",
-     "retrieved": "2026-11-03",
-     "status": 200,
-     "hash": "f2ac3f6f10b2",
-     "extracted": "2026-11-04T10:05:00Z",
-     "verified": "2026-11-04",
-     "recheck": null,
-     "agree": [],
-     "agree_independent": [],
-     "registry": [],
-     "first_read": "2026-11-03",
-     "checked": "2026-11-04",
-     "gone": "2026-11-05",
      "archived": null
     }
    ]
@@ -257,7 +227,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -281,7 +250,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -302,7 +270,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -323,7 +290,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -344,7 +310,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     }
    ]
@@ -370,7 +335,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -394,7 +358,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -418,7 +381,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -443,7 +405,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -468,7 +429,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -489,7 +449,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     }
    ]
@@ -515,7 +474,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -539,7 +497,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -564,7 +521,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -585,7 +541,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -609,7 +564,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     }
    ]
@@ -635,7 +589,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -659,7 +612,6 @@
      "registry": [],
      "first_read": "2026-11-03",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     },
     {
@@ -680,7 +632,6 @@
      "registry": [],
      "first_read": "2026-11-04",
      "checked": "2026-11-04",
-     "gone": null,
      "archived": null
     }
    ]

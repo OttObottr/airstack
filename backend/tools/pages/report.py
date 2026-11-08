@@ -36,7 +36,7 @@ def report_pages():
     urls.append(write("calendar", "Software change calendar", lead, body, {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software change calendar", "description": lead}))
 
     lead = "Every fact on AirStack is a short quote from the product's own page, with the page and the day it was read."
-    body = ('<h2>Quoted, dated, linked</h2><p>Each fact is the vendor’s own words, linked to where they appear on its page and, where one exists, an archived copy, '
+    body = ('<h2>Quoted, dated, linked</h2><p>Each fact is the vendor’s own words, linked to where they appear on its page, '
             'with the days AirStack read and re-checked it. When a page no longer says it, the fact is withdrawn.</p>'
             '<h2>What we leave out</h2><p>AirStack does not republish security, compliance or customer claims, which only the vendor can stand behind, '
             'and shows a list price only with the date it was listed.</p>'

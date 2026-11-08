@@ -18,7 +18,7 @@ export const says = (name, f) => `${f.class === 'vendor' ? `${esc(name)}’s pag
 export const checks = (name, label, f) =>
   `<span class="${ui.meta} inline-flex flex-wrap gap-x-2 gap-y-1"><a class="ext" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer">See it on ${esc(f.host)}${ic('out')}</a>${
     f.archived ? `<a class="ext" href="${url(f.archived.url)}" target="_blank" rel="noopener noreferrer">Archived copy${ic('out')}</a>` : ''
-  }${f.gone ? `<span>Not on the page since ${fd(f.gone)}</span>` : `${f.first_read ? `<span>First read ${fd(f.first_read)}</span>` : ''}${f.checked ? `<span>Re-checked ${fd(f.checked)}</span>` : ''}`}<a href="${url(reportUrl(name, label, f.url, f.quote))}" target="_blank" rel="noopener noreferrer">Report a problem</a></span>`;
+  }${f.first_read ? `<span>First read ${fd(f.first_read)}</span>` : ''}${f.checked ? `<span>Re-checked ${fd(f.checked)}</span>` : ''}<a href="${url(reportUrl(name, label, f.url, f.quote))}" target="_blank" rel="noopener noreferrer">Report a problem</a></span>`;
 export const chainNow = () => CH;
 /* the fields chain-data.json's published policy lets a page show */
 export const shown = (D, m) => !D.policy || D.policy.tiers.low.includes(m) || D.policy.tiers.medium.includes(m);
@@ -89,7 +89,7 @@ export async function openChain(id, opener) {
     <td data-l="Retrieved" class="num">${fd(f.retrieved)}<div class="meta">HTTP ${f.status || '?'} · <span class="mono">${esc(f.hash.slice(0, 8))}</span></div></td>
     <td data-l="Extracted" class="num">${fd(f.extracted)}</td>
     <td data-l="Verified">${f.verified ? `${ic('check')} quote found on the page<div class="meta num">${fd(f.verified)}</div>` : '<span class="nobs">Not verified</span>'}</td>
-    <td data-l="Re-checked">${f.gone ? `<span class="nobs">Not on the page since ${fd(f.gone)}</span>` : f.recheck ? `${fd(f.recheck.at)}<div class="meta">${esc(f.recheck.note)}</div>` : f.checked ? fd(f.checked) : '<span class="nobs">Not re-checked yet</span>'}</td>
+    <td data-l="Re-checked">${f.recheck ? `${fd(f.recheck.at)}<div class="meta">${esc(f.recheck.note)}</div>` : f.checked ? fd(f.checked) : '<span class="nobs">Not re-checked yet</span>'}</td>
     <td data-l="Also on">${f.agree.length ? `${f.agree.length} other page${f.agree.length > 1 ? 's' : ''}: ${esc(f.agree.join(', '))}` : '<span class="nobs">Only this page</span>'}${f.agree_independent.length ? `<div class="meta">Independent: ${esc(f.agree_independent.join(', '))}</div>` : ''}</td></tr>`
     )
     .join('');

@@ -14,7 +14,7 @@ DESCRIPTIONS = {
     "changes_since": "Facts whose page was read or re-checked on or after a date (YYYY-MM-DD), newest first.",
     "review_stack": "Profiles and fact counts for a list of product ids, so a stack can be reviewed against its sources. No recommendation is made.",
 }
-FACT_KEYS = ("metric", "value", "quote", "url", "class", "retrieved", "verified", "first_read", "checked", "gone", "archived")
+FACT_KEYS = ("metric", "value", "quote", "url", "class", "retrieved", "verified", "first_read", "checked", "archived")
 LIMIT = 200
 
 

@@ -63,7 +63,7 @@ def built(all_, prices):
 def evidence(pid, metric, claim):
     """The source quotes behind one normalized profile field, matched by metric and source URL: one per listed value."""
     urls = {s["url"] for s in claim.get("sources", [])}
-    facts = [f for f in CHAIN.get(pid, {}).get("facts", []) if f["metric"] == metric and f["url"] in urls and f.get("quote") and not f.get("gone")]
+    facts = [f for f in CHAIN.get(pid, {}).get("facts", []) if f["metric"] == metric and f["url"] in urls and f.get("quote")]
     items = lambda v: list(dict.fromkeys(norm(str(x)) for x in (v if isinstance(v, list) else [v])))
     out = []
     for v in items(claim["value"]):
@@ -80,8 +80,7 @@ def says(p, f):
 
 def checks(p, label, f):
     """How to check one fact: the quote highlighted on its page, an archived copy, its dates and a prefilled problem report."""
-    when = (f"Not on the page since {day(f['gone'])}" if f.get("gone") else
-            " · ".join(x for x in (f"first read {day(f['first_read'])}" if f.get("first_read") else "", f"re-checked {day(f['checked'])}" if f.get("checked") else "") if x))
+    when = " · ".join(x for x in (f"first read {day(f['first_read'])}" if f.get("first_read") else "", f"re-checked {day(f['checked'])}" if f.get("checked") else "") if x)
     archived = f' · <a href="{e(f["archived"]["url"])}" rel="nofollow noopener">Archived copy</a>' if f.get("archived") else ""
     licence = ' · quote <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>' if WIKIMEDIA.search(f["host"]) else ""
     return (f'<a href="{e(text_fragment(f["url"], f["quote"]))}" rel="nofollow noopener">See it on {e(f["host"])}</a>{archived} · {when}{licence}'

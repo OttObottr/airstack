@@ -74,7 +74,7 @@ def open_lines(chain):
     """One JSON line per published fact: the quote, never the page."""
     rows = {json.dumps({"id": pid, "name": e["name"], "metric": f["metric"], "value": f["value"], "quote": f["quote"], "url": f["url"], "read": f["retrieved"],
                         "licence": LICENCE_WIKIMEDIA if WIKIMEDIA.search(f["host"]) else LICENCE}, ensure_ascii=False, sort_keys=True)
-            for pid, e in chain["entities"].items() for f in e["facts"] if shown(chain["policy"], f["metric"]) and not f.get("gone")}
+            for pid, e in chain["entities"].items() for f in e["facts"] if shown(chain["policy"], f["metric"])}
     return sorted(rows)
 
 def pack(lines):

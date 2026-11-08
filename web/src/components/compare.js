@@ -57,7 +57,7 @@ export function sync() {
 }
 
 const nobs = '<span class="nobs">Not observed</span>';
-const LABEL = { leader: 'Most viewed', trending: 'Rising views', established: 'Earliest' }; /* what each suggestion measured, never a rank */
+const LABEL = { similar: 'Similar', leader: 'Most viewed', trending: 'Rising views', established: 'Earliest' }; /* what each suggestion measured, never a rank */
 let SUG = null;
 const norm = v =>
   Array.isArray(v)
@@ -120,7 +120,7 @@ async function draw() {
     full = ids.length >= 5,
     facts = (id, m) =>
       (D.entities[id] ? D.entities[id].facts : [])
-        .filter(f => f.verified && !f.gone && f.metric === m)
+        .filter(f => f.verified && f.metric === m)
         .sort((a, b) => (b.class === 'vendor') - (a.class === 'vendor')); /* its own site before a store listing */
   $('#cmpChips').innerHTML = ids
     .map(

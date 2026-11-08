@@ -29,7 +29,7 @@ export function profileView(r, p, redo) {
   /* each value with the vendor's own words behind it, once the evidence has loaded */
   const quotes = (k, l) =>
     ((D && D.entities[r.id] && D.entities[r.id].facts) || [])
-      .filter(f => f.metric === k && !f.gone)
+      .filter(f => f.metric === k)
       .slice(0, 2)
       .map(f => `<div class="${ui.panelNote} mt-1">${says(r.name, f)}</div><div class="mt-1">${checks(r.name, l, f)}</div>`)
       .join('');
