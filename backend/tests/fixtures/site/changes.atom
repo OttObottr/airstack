@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:airstack.bot,2026:changes</id>
+  <title>AirStack: what changed</title>
+  <subtitle>Changelogs, releases and announcements from the products AirStack tracks, in the last 30 days, each linked to its source.</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://airstack.bot/changes.atom" />
+  <link rel="alternate" type="text/html" href="https://airstack.bot/" />
+  <updated>2026-11-02T15:30:00Z</updated>
+  <author>
+    <name>AirStack</name>
+    <uri>https://airstack.bot/</uri>
+  </author>
+  <rights>Titles remain their publishers' property. Original compilation metadata is CC BY 4.0 where applicable.</rights>
+  <entry>
+    <id>tag:airstack.bot,2026:https://delta-vector.example/</id>
+    <title type="text">Show HN: Delta Vector, a small vector index</title>
+    <updated>2026-11-02T15:30:00Z</updated>
+    <link rel="alternate" type="text/html" href="https://delta-vector.example/" />
+    <link rel="replies" type="text/html" href="https://news.ycombinator.com/item?id=900000001" title="Discussion on Hacker News" />
+    <link rel="related" type="text/html" href="https://airstack.bot/p/delta-vector/" title="Delta Vector on AirStack" />
+    <category term="hacker news" />
+    <summary type="text">A Hacker News story linking to Delta Vector’s own site.</summary>
+  </entry>
+  <entry>
+    <id>tag:airstack.bot,2026:https://acme-notes.example/changelog/shared-boards</id>
+    <title type="text">Shared boards for every workspace</title>
+    <updated>2026-10-30T09:00:00Z</updated>
+    <link rel="alternate" type="text/html" href="https://acme-notes.example/changelog/shared-boards" />
+    <link rel="related" type="text/html" href="https://airstack.bot/p/acme-notes/" title="Acme Notes on AirStack" />
+    <category term="changelog" />
+    <summary type="text">From Acme Notes’s own changelog.</summary>
+  </entry>
+  <entry>
+    <id>tag:airstack.bot,2026:https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0</id>
+    <title type="text">Gamma Deploy v2.4.0: faster previews</title>
+    <updated>2026-10-28T12:00:00Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0" />
+    <link rel="related" type="text/html" href="https://airstack.bot/p/gamma-deploy/" title="Gamma Deploy on AirStack" />
+    <category term="release" />
+    <summary type="text">A GitHub release of Gamma Deploy.</summary>
+  </entry>
+  <entry>
+    <id>tag:airstack.bot,2026:https://beta-board.example/blog/plan-a-quarter</id>
+    <title type="text">How we plan a quarter on one board</title>
+    <updated>2026-10-20T08:00:00Z</updated>
+    <link rel="alternate" type="text/html" href="https://beta-board.example/blog/plan-a-quarter" />
+    <link rel="related" type="text/html" href="https://airstack.bot/p/beta-board/" title="Beta Board on AirStack" />
+    <category term="blog" />
+    <summary type="text">From Beta Board’s own blog or news feed.</summary>
+  </entry>
+</feed>

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Enable once per clone: git config core.hooksPath .githooks
+set -euo pipefail
+gitleaks git --staged --redact --no-banner -c .gitleaks.toml
+if git diff --cached --name-only | grep -E '(^|/)(\.env|\.wrangler/|\.DS_Store|\.venv/|node_modules/)'; then
+  echo "commit blocked: machine or secret state is staged" >&2; exit 1
+fi

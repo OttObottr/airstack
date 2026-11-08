@@ -1,0 +1,134 @@
+{
+ "source": {
+  "built_for": "2026-11-05",
+  "window": [
+   "2025-11-05",
+   "2027-05-05"
+  ],
+  "support_schedules": {
+   "name": "endoflife.date",
+   "url": "https://endoflife.date/",
+   "license": "MIT",
+   "read": "2026-11-04"
+  },
+  "statuses": {
+   "observed": "A dated record of a change.",
+   "scheduled": "A date its publisher has set ahead.",
+   "unconfirmed": "A published date that has passed without a record that it happened."
+  }
+ },
+ "events": [
+  {
+   "event_id": "fx-gamma-deploy-r-2.4.0",
+   "id": "gamma-deploy",
+   "name": "Gamma Deploy",
+   "at": "2026-10-28",
+   "precision": "day",
+   "status": "observed",
+   "kind": "release",
+   "title": "Gamma Deploy v2.4.0",
+   "url": "https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0",
+   "source_read": "2026-11-05"
+  },
+  {
+   "event_id": "fx-acme-notes-c-boards",
+   "id": "acme-notes",
+   "name": "Acme Notes",
+   "at": "2026-10-30",
+   "precision": "day",
+   "status": "observed",
+   "kind": "changelog",
+   "title": "Shared boards for every workspace",
+   "url": "https://acme-notes.example/changelog/shared-boards",
+   "source_read": "2026-11-05"
+  },
+  {
+   "event_id": "fx-delta-vector-r-0.9.2",
+   "id": "delta-vector",
+   "name": "Delta Vector",
+   "at": "2026-09-15",
+   "precision": "day",
+   "status": "observed",
+   "kind": "release",
+   "title": "Delta Vector v0.9.2",
+   "url": "https://github.com/delta-example/delta-vector/releases/tag/v0.9.2",
+   "source_read": "2026-11-05"
+  },
+  {
+   "event_id": "fx-gamma-deploy-eol-1",
+   "id": "gamma-deploy",
+   "name": "Gamma Deploy",
+   "at": "2026-12-15",
+   "precision": "day",
+   "status": "scheduled",
+   "kind": "end of life",
+   "title": "Gamma Deploy 1 end of life",
+   "url": "https://endoflife.date/gamma-deploy",
+   "source_read": "2026-11-04",
+   "history": [
+    {
+     "read": "2026-11-04",
+     "at": "2026-12-15"
+    }
+   ]
+  },
+  {
+   "event_id": "fx-delta-vector-eas-0.8",
+   "id": "delta-vector",
+   "name": "Delta Vector",
+   "at": "2027-01-20",
+   "precision": "day",
+   "status": "scheduled",
+   "kind": "end of active support",
+   "title": "Delta Vector 0.8 end of active support",
+   "url": "https://endoflife.date/delta-vector",
+   "source_read": "2026-11-04",
+   "history": [
+    {
+     "read": "2026-08-01",
+     "at": "2027-01-10"
+    },
+    {
+     "read": "2026-11-04",
+     "at": "2027-01-20"
+    }
+   ]
+  },
+  {
+   "event_id": "fx-zeta-agent-ees-2",
+   "id": "zeta-agent",
+   "name": "Zeta Agent",
+   "at": "2026-08-31",
+   "precision": "day",
+   "status": "unconfirmed",
+   "kind": "end of extended support",
+   "title": "Zeta Agent 2 end of extended support",
+   "url": "https://endoflife.date/zeta-agent",
+   "source_read": "2026-11-04",
+   "history": [
+    {
+     "read": "2026-06-01",
+     "at": "2026-08-31"
+    }
+   ]
+  },
+  {
+   "event_id": "fx-epsilon-router-eol-0",
+   "id": "epsilon-router",
+   "name": "Epsilon Router",
+   "at": "2026-10-01",
+   "precision": "day",
+   "status": "unconfirmed",
+   "kind": "end of life",
+   "title": "Epsilon Router 0 end of life",
+   "url": "https://endoflife.date/epsilon-router",
+   "source_read": "2026-11-04",
+   "history": [
+    {
+     "read": "2026-07-01",
+     "at": "2026-10-01"
+    }
+   ]
+  }
+ ]
+}

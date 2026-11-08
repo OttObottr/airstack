@@ -1,0 +1,377 @@
+{
+ "gamma-deploy": {
+  "what_it_does": {
+   "value": "Gamma Deploy is a coding agent that opens a preview for every change.",
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "platforms": {
+   "value": [
+    "CLI",
+    "Web",
+    "API"
+   ],
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/download",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "deployment": {
+   "value": [
+    "Cloud",
+    "Self-hosted"
+   ],
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/docs",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "open_source": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/docs",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "license": {
+   "value": "Released under the Apache-2.0 license.",
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/docs",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "integrations": {
+   "value": [
+    "Omega Chat",
+    "Sigma Tracker"
+   ],
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/integrations",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "free_plan": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://gamma-deploy.example/pricing",
+     "host": "gamma-deploy.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "facts": 7
+ },
+ "delta-vector": {
+  "what_it_does": {
+   "value": "Delta Vector is a small vector index you can embed in any service.",
+   "sources": [
+    {
+     "url": "https://delta-vector.example/",
+     "host": "delta-vector.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "deployment": {
+   "value": [
+    "Local",
+    "Self-hosted"
+   ],
+   "sources": [
+    {
+     "url": "https://delta-vector.example/docs",
+     "host": "delta-vector.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "open_source": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://delta-vector.example/docs",
+     "host": "delta-vector.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "license": {
+   "value": "Licensed under MIT.",
+   "sources": [
+    {
+     "url": "https://delta-vector.example/docs",
+     "host": "delta-vector.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "free_plan": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://delta-vector.example/pricing",
+     "host": "delta-vector.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "facts": 5
+ },
+ "acme-notes": {
+  "what_it_does": {
+   "value": "Acme Notes keeps plans, notes and tasks for a team in one shared board.",
+   "sources": [
+    {
+     "url": "https://acme-notes.example/",
+     "host": "acme-notes.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "platforms": {
+   "value": [
+    "Web",
+    "Desktop"
+   ],
+   "sources": [
+    {
+     "url": "https://acme-notes.example/download",
+     "host": "acme-notes.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "integrations": {
+   "value": [
+    "Gamma Deploy",
+    "Omega Chat"
+   ],
+   "sources": [
+    {
+     "url": "https://acme-notes.example/integrations",
+     "host": "acme-notes.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "compliance": {
+   "value": [
+    "SOC 2"
+   ],
+   "sources": [
+    {
+     "url": "https://acme-notes.example/security",
+     "host": "acme-notes.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "free_plan": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://acme-notes.example/pricing",
+     "host": "acme-notes.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "plan_names": {
+   "value": [
+    "Free",
+    "Pro",
+    "Business"
+   ],
+   "sources": [
+    {
+     "url": "https://acme-notes.example/pricing",
+     "host": "acme-notes.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "pricing_basis": {
+   "value": "Priced per user, billed each month.",
+   "sources": [
+    {
+     "url": "https://acme-notes.example/pricing",
+     "host": "acme-notes.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "facts": 7
+ },
+ "beta-board": {
+  "what_it_does": {
+   "value": "Beta Board turns a team's goals into boards, timelines and weekly check-ins.",
+   "sources": [
+    {
+     "url": "https://beta-board.example/",
+     "host": "beta-board.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "platforms": {
+   "value": [
+    "Web",
+    "Mobile"
+   ],
+   "sources": [
+    {
+     "url": "https://beta-board.example/download",
+     "host": "beta-board.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "integrations": {
+   "value": [
+    "Gamma Deploy",
+    "Omega Chat",
+    "Sigma Tracker"
+   ],
+   "sources": [
+    {
+     "url": "https://beta-board.example/integrations",
+     "host": "beta-board.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "compliance": {
+   "value": [
+    "SOC 2",
+    "ISO 27001"
+   ],
+   "sources": [
+    {
+     "url": "https://beta-board.example/security",
+     "host": "beta-board.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "free_plan": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://beta-board.example/pricing",
+     "host": "beta-board.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "plan_names": {
+   "value": [
+    "Starter",
+    "Team"
+   ],
+   "sources": [
+    {
+     "url": "https://beta-board.example/pricing",
+     "host": "beta-board.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "customers_claimed": {
+   "value": "Used by teams in schools, shops and studios.",
+   "sources": [
+    {
+     "url": "https://beta-board.example/customers",
+     "host": "beta-board.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "facts": 7
+ },
+ "Q1001": {
+  "what_it_does": {
+   "value": "Theta Sheets is a spreadsheet for shared budgets and lists.",
+   "sources": [
+    {
+     "url": "https://theta.example/",
+     "host": "theta.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "platforms": {
+   "value": [
+    "Web",
+    "Desktop"
+   ],
+   "sources": [
+    {
+     "url": "https://theta.example/download",
+     "host": "theta.example",
+     "checked": "2026-11-03"
+    }
+   ],
+   "checked": "2026-11-03"
+  },
+  "free_plan": {
+   "value": true,
+   "sources": [
+    {
+     "url": "https://theta.example/pricing",
+     "host": "theta.example",
+     "checked": "2026-11-04"
+    }
+   ],
+   "checked": "2026-11-04"
+  },
+  "facts": 3
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "source": {
+  "name": "Wikidata",
+  "license": "CC0 1.0",
+  "url": "https://www.wikidata.org/",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "fetched_at": "2026-11-03T06:00:00+00:00",
+  "note": "Synthetic listings in the shape of Wikidata records: listed, not researched."
+ },
+ "types": [
+  [
+   "Q7397",
+   "software",
+   [],
+   0,
+   2
+  ],
+  [
+   "Q9001",
+   "spreadsheet software",
+   [
+    0
+   ],
+   1,
+   1
+  ],
+  [
+   "Q9002",
+   "email client",
+   [
+    0
+   ],
+   1,
+   1
+  ]
+ ],
+ "orgs": {
+  "Q2001": [
+   "Theta Example Ltd",
+   "https://theta-example.example/",
+   "Freedonia",
+   "2016",
+   1,
+   "business",
+   40,
+   "2024",
+   3
+  ],
+  "Q2002": [
+   "Iota Labs",
+   "https://iota-labs.example/",
+   "Freedonia",
+   "2012",
+   1,
+   "organization",
+   null,
+   null,
+   1
+  ],
+  "Q2003": [
+   "Pat Example",
+   null,
+   null,
+   null,
+   1,
+   "person",
+   null,
+   null,
+   0
+  ],
+  "Q2004": [
+   "Acme Example Inc.",
+   "https://acme.example/",
+   "Freedonia",
+   "2015",
+   1,
+   "business",
+   250,
+   "2025",
+   5
+  ]
+ },
+ "implausible": {},
+ "products": [
+  [
+   "Q1001",
+   "Theta Sheets",
+   "spreadsheet for shared budgets",
+   "https://theta.example/",
+   1,
+   [
+    "Q2001"
+   ],
+   12,
+   [
+    "ThetaCalc"
+   ]
+  ],
+  [
+   "Q1002",
+   "Iota Mail",
+   "email client for small offices",
+   "https://iota-mail.example/",
+   2,
+   [
+    "Q2002",
+    "Q2003"
+   ],
+   4,
+   []
+  ]
+ ]
+}

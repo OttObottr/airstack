@@ -1,0 +1,14 @@
+# AirStack
+
+Sourced software market intelligence: facts from the product's own pages and public registries, each with its source and read date.
+
+- Products: https://airstack.bot/p/
+- Categories: https://airstack.bot/c/
+- Software types: https://airstack.bot/t/
+- Makers: https://airstack.bot/o/
+- Insights: https://airstack.bot/insights/
+- Calendar: https://airstack.bot/calendar/
+- Method: https://airstack.bot/method/
+- Changes: https://airstack.bot/changes.atom
+- Open data: https://airstack.bot/open-data/
+- Source and local MCP: https://github.com/OttObottr/airstack

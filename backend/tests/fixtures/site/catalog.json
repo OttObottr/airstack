@@ -1,0 +1,106 @@
+[
+ {
+  "id": "acme-notes",
+  "name": "Acme Notes",
+  "category": "project-management",
+  "homepage": "https://acme-notes.example/",
+  "pricing": "https://acme-notes.example/pricing",
+  "pages": {
+   "docs": "https://acme-notes.example/docs",
+   "integrations": "https://acme-notes.example/integrations",
+   "security": "https://acme-notes.example/security"
+  },
+  "aliases": [
+   "Acme Planner"
+  ],
+  "vendor": "Acme Example Inc.",
+  "domain": "acme-notes.example",
+  "checked": {
+   "date": "2026-11-04",
+   "status": 200,
+   "final_url": "https://acme-notes.example/",
+   "title": "Acme Notes: plan the work",
+   "reachable": "yes",
+   "title_matches": true,
+   "host_matches": true,
+   "pricing_tried": "https://acme-notes.example/pricing",
+   "pricing_status": 200,
+   "pricing_final_url": "https://acme-notes.example/pricing",
+   "pricing_title": "Acme Notes pricing",
+   "pages": {
+    "docs": {
+     "tried": "https://acme-notes.example/docs",
+     "status": 200,
+     "final_url": "https://acme-notes.example/docs",
+     "title": "Docs",
+     "found": "link"
+    },
+    "integrations": {
+     "tried": "https://acme-notes.example/integrations",
+     "status": 200,
+     "final_url": "https://acme-notes.example/integrations",
+     "title": "Integrations",
+     "found": "link"
+    },
+    "security": {
+     "tried": "https://acme-notes.example/security",
+     "status": 200,
+     "final_url": "https://acme-notes.example/security",
+     "title": "Security",
+     "found": "link"
+    }
+   }
+  }
+ },
+ {
+  "id": "beta-board",
+  "name": "Beta Board",
+  "category": "project-management",
+  "homepage": "https://beta-board.example/",
+  "pricing": "https://beta-board.example/pricing",
+  "pages": {
+   "docs": "https://beta-board.example/docs",
+   "integrations": "https://beta-board.example/integrations",
+   "security": "https://beta-board.example/security"
+  },
+  "aliases": [],
+  "vendor": "Beta Board Example Co.",
+  "domain": "beta-board.example",
+  "checked": {
+   "date": "2026-11-04",
+   "status": 200,
+   "final_url": "https://beta-board.example/",
+   "title": "Beta Board: plan the work",
+   "reachable": "yes",
+   "title_matches": true,
+   "host_matches": true,
+   "pricing_tried": "https://beta-board.example/pricing",
+   "pricing_status": 200,
+   "pricing_final_url": "https://beta-board.example/pricing",
+   "pricing_title": "Beta Board pricing",
+   "pages": {
+    "docs": {
+     "tried": "https://beta-board.example/docs",
+     "status": 200,
+     "final_url": "https://beta-board.example/docs",
+     "title": "Docs",
+     "found": "link"
+    },
+    "integrations": {
+     "tried": "https://beta-board.example/integrations",
+     "status": 200,
+     "final_url": "https://beta-board.example/integrations",
+     "title": "Integrations",
+     "found": "link"
+    },
+    "security": {
+     "tried": "https://beta-board.example/security",
+     "status": 200,
+     "final_url": "https://beta-board.example/security",
+     "title": "Security",
+     "found": "link"
+    }
+   }
+  }
+ }
+]

@@ -1,0 +1,70 @@
+{
+  "labels": [
+    ["what_it_does", "What it says it does"],
+    ["open_source", "Open source"],
+    ["license", "License"],
+    ["deployment", "Deployment"],
+    ["platforms", "Platforms"],
+    ["sdk_languages", "SDK languages"],
+    ["models_supported", "Models supported"],
+    ["integrations", "Integrations"],
+    ["integrations_count", "Integrations stated"],
+    ["compliance", "Compliance"],
+    ["free_plan", "Free plan"],
+    ["plan_names", "Plans"],
+    ["pricing_basis", "Pricing basis"],
+    ["customers_claimed", "Customers (their claim)"],
+    ["founded_year", "Founded"]
+  ],
+  "currency": {
+    "$": "USD",
+    "€": "EUR",
+    "£": "GBP",
+    "¥": "JPY"
+  },
+  "links": {
+    "linkedin": ["LinkedIn", "https://www.linkedin.com/company/{}/"],
+    "x": ["X", "https://x.com/{}"],
+    "subreddit": ["Reddit", "https://www.reddit.com/{}/"],
+    "youtube": ["YouTube", "https://www.youtube.com/channel/{}"],
+    "github": ["GitHub", "https://github.com/{}"],
+    "bluesky": ["Bluesky", "https://bsky.app/profile/{}"],
+    "threads": ["Threads", "https://www.threads.net/@{}"],
+    "instagram": ["Instagram", "https://www.instagram.com/{}/"],
+    "facebook": ["Facebook", "https://www.facebook.com/{}"],
+    "tiktok": ["TikTok", "https://www.tiktok.com/@{}"],
+    "discord_invite": ["Discord", "https://discord.gg/{}"],
+    "blog": ["Blog", "{}"]
+  },
+  "roles": {
+    "founder": "Founder",
+    "ceo": "Chief executive",
+    "director": "Director"
+  },
+  "platforms": {
+    "x": "X",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "subreddit": "Reddit",
+    "github": "GitHub",
+    "mastodon": "Mastodon",
+    "bluesky": "Bluesky",
+    "threads": "Threads",
+    "tiktok": "TikTok"
+  },
+  "category_models": {
+    "creative-ai": ["text-to-image", "text-to-video", "image-to-video", "text-to-speech"],
+    "ai-assistants": ["text-generation", "image-text-to-text"],
+    "ai-coding": ["text-generation"],
+    "speech-ai": ["automatic-speech-recognition", "text-to-speech"],
+    "meeting-notes": ["automatic-speech-recognition"],
+    "local-inference": ["text-generation"],
+    "vector-dbs": ["feature-extraction"],
+    "llm-sdks-and-routers": ["text-generation"],
+    "coding-agents": ["text-generation"]
+  },
+  "min_country": 3,
+  "shared_facts": 4
+}

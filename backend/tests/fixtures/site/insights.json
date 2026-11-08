@@ -1,0 +1,139 @@
+{
+ "source": {
+  "facts_from": "facts quoted from each product's own pages",
+  "documentation_from": "synthetic page counts",
+  "prices_from": "list prices quoted from pricing pages",
+  "note": "Synthetic measurements for the test fixture."
+ },
+ "map": {
+  "axes": {
+   "x": "Wikipedia and sister-site pages",
+   "y": [
+    "No AI mentioned",
+    "AI elsewhere on its pages",
+    "AI in its one-liner"
+   ]
+  },
+  "points": [
+   [
+    "acme-notes",
+    "Acme Notes",
+    "",
+    3,
+    1,
+    [
+     "providers"
+    ]
+   ],
+   [
+    "beta-board",
+    "Beta Board",
+    "",
+    2,
+    0,
+    []
+   ],
+   [
+    "Q1001",
+    "Theta Sheets",
+    "",
+    12,
+    0,
+    []
+   ]
+  ],
+  "unplaced": 2,
+  "researched": 5,
+  "bands": [
+   2,
+   1,
+   0
+  ],
+  "populations": {
+   "categories": [
+    1,
+    1,
+    0
+   ],
+   "all_listed": [
+    1,
+    0,
+    0
+   ]
+  },
+  "elsewhere": {
+   "models": 0,
+   "providers": 1,
+   "plans": 0
+  }
+ },
+ "kpis": [
+  {
+   "key": "free_plan",
+   "label": "Free plan"
+  },
+  {
+   "key": "list_price",
+   "label": "List price"
+  },
+  {
+   "key": "security_claim",
+   "label": "SOC 2 or ISO 27001"
+  },
+  {
+   "key": "open_source",
+   "label": "Open source"
+  },
+  {
+   "key": "ai_one_liner",
+   "label": "AI in its one-liner"
+  }
+ ],
+ "departments": [
+  "Operations",
+  "Engineering"
+ ],
+ "categories": {
+  "project-management": {
+   "name": "Project management",
+   "department": "Operations",
+   "listed": 2,
+   "researched": 2,
+   "free_plan": 2,
+   "security_claim": 2,
+   "open_source": 0,
+   "ai_one_liner": 0,
+   "list_price": 2,
+   "median_seat": null,
+   "works_with": [
+    [
+     "gamma-deploy",
+     2,
+     "Gamma Deploy"
+    ],
+    [
+     "",
+     2,
+     "Omega Chat"
+    ]
+   ]
+  }
+ },
+ "hubs": [
+  [
+   "gamma-deploy",
+   "Gamma Deploy",
+   2
+  ],
+  [
+   "",
+   "Omega Chat",
+   2
+  ],
+  [
+   "",
+   "Sigma Tracker",
+   2
+  ]
+ ]
+}

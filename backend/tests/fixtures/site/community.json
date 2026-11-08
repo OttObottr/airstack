@@ -1,0 +1,48 @@
+{
+ "source": {
+  "name": "Wikidata",
+  "licence": "CC0",
+  "url": "https://www.wikidata.org/",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "fetched_at": "2026-11-03T06:00:00+00:00",
+  "note": "Synthetic channel records. A missing channel means none is recorded, not that none exists."
+ },
+ "catalog": {
+  "acme-notes": [
+   "Q1900",
+   "Q2004"
+  ]
+ },
+ "entities": {
+  "Q1900": {
+   "links": {
+    "github": "acme-example/acme-notes",
+    "blog": "https://blog.acme-notes.example/"
+   },
+   "followers": [
+    [
+     "github",
+     1200,
+     "2026-09-01"
+    ]
+   ]
+  },
+  "Q2004": {
+   "links": {
+    "blog": "https://acme.example/blog"
+   },
+   "people": [
+    [
+     "Q2003",
+     "Pat Example",
+     "founder"
+    ]
+   ]
+  },
+  "Q2001": {
+   "links": {
+    "blog": "https://theta-example.example/news"
+   }
+  }
+ }
+}

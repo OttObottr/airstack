@@ -1,0 +1,29 @@
+{
+  "files": [
+    "catalog.json",
+    "category-guides.json",
+    "chain-data.json",
+    "changes.atom",
+    "community.json",
+    "directory.json",
+    "events.json",
+    "hf.json",
+    "insights.json",
+    "market-data.js",
+    "news.json",
+    "open-data/README.md",
+    "open-data/index.html",
+    "oss.json",
+    "pricing.json",
+    "profiles.json",
+    "site-data.js",
+    "sitemap.xml",
+    "stats.svg",
+    "taxonomy-index.json",
+    "taxonomy-crosswalk.json",
+    "universe.json"
+  ],
+  "patterns": [
+    "open-data/airstack-YYYY-MM.jsonl.gz"
+  ]
+}

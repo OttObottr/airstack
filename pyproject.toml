@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["backend", "backend/tools", "tools"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+# S608: SQL built from strings. S102/S307: exec and eval. S506: unsafe YAML load. F: pyflakes. E: pycodestyle, except the
+# long lines, one-line compound statements and named lambdas this codebase writes on purpose.
+[tool.ruff]
+target-version = "py312"
+[tool.ruff.lint]
+select = ["S608", "S102", "S307", "S506", "F", "E"]
+ignore = ["E501", "E701", "E702", "E731"]

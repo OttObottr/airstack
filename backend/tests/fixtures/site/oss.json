@@ -1,0 +1,178 @@
+{
+ "source": {
+  "name": "GitHub search",
+  "url": "https://github.com/search",
+  "fetched_at": "2026-11-03T06:00:00+00:00",
+  "thresholds": {
+   "established_stars": 1000,
+   "emerging_stars": 100,
+   "emerging_days": 365
+  },
+  "checks": {
+   "name": "OpenSSF Scorecard",
+   "url": "https://scorecard.dev",
+   "license": "Apache-2.0",
+   "license_url": "https://scorecard.dev/license",
+   "fetched_at": "2026-11-03T06:00:00+00:00",
+   "order": [
+    "Maintained",
+    "Code-Review",
+    "Branch-Protection",
+    "Dangerous-Workflow",
+    "Binary-Artifacts",
+    "Token-Permissions",
+    "Pinned-Dependencies",
+    "Vulnerabilities",
+    "License",
+    "Signed-Releases"
+   ],
+   "passes": "A project passes with a score of five or more and no blocking finding."
+  },
+  "note": "Synthetic repositories for the test fixture. Stars and forks are attention, not use."
+ },
+ "categories": {
+  "project-management": [
+   {
+    "repo": "open-board-example/open-board",
+    "url": "https://github.com/open-board-example/open-board",
+    "description": "A small self-hosted planning board.",
+    "stars": 1400,
+    "license": "MIT",
+    "forks": 140,
+    "open_issues_and_pull_requests": 14,
+    "discussions_enabled": true,
+    "community": {
+     "hacker_news": {
+      "status": "observed",
+      "source": "Hacker News search",
+      "query": "https://github.com/open-board-example/open-board",
+      "window": [
+       "2026-08-05",
+       "2026-11-05"
+      ],
+      "fetched_at": "2026-11-03T06:00:00+00:00",
+      "count": 1,
+      "items": [
+       {
+        "title": "Show HN: open-board",
+        "url": "https://github.com/open-board-example/open-board",
+        "discussion": "https://news.ycombinator.com/item?id=900000002",
+        "points": 31,
+        "comments": 12,
+        "date": "2026-10-10"
+       }
+      ],
+      "truncated": false
+     }
+    },
+    "pushed": "2026-10-30",
+    "created": "2024-03-01",
+    "homepage": "",
+    "scorecard": {
+     "score": 7.2,
+     "checks": [
+      10,
+      8,
+      6,
+      10,
+      10,
+      9,
+      5,
+      10,
+      10,
+      null
+     ],
+     "url": "https://scorecard.dev/viewer/?uri=github.com/open-board-example/open-board",
+     "commit": "0123456789abcdef0123456789abcdef01234567",
+     "date": "2026-10-31"
+    },
+    "flags": [],
+    "gate": null,
+    "vetted": true
+   },
+   {
+    "repo": "plan-kit-example/plan-kit",
+    "url": "https://github.com/plan-kit-example/plan-kit",
+    "description": "Plain-text project plans.",
+    "stars": 220,
+    "license": null,
+    "forks": 22,
+    "open_issues_and_pull_requests": 14,
+    "discussions_enabled": false,
+    "community": {
+     "hacker_news": {
+      "status": "not_observed",
+      "source": "Hacker News search",
+      "query": "https://github.com/plan-kit-example/plan-kit",
+      "window": [
+       "2026-08-05",
+       "2026-11-05"
+      ],
+      "fetched_at": "2026-11-03T06:00:00+00:00",
+      "count": 0,
+      "items": [],
+      "truncated": false
+     }
+    },
+    "pushed": "2026-01-10",
+    "created": "2024-03-01",
+    "homepage": "",
+    "scorecard": null,
+    "flags": [],
+    "gate": "no push in 180 days",
+    "vetted": false
+   }
+  ],
+  "coding-agents": [
+   {
+    "repo": "agent-kit-example/agent-kit",
+    "url": "https://github.com/agent-kit-example/agent-kit",
+    "description": "A minimal coding agent for the terminal.",
+    "stars": 2600,
+    "license": "MIT",
+    "forks": 260,
+    "open_issues_and_pull_requests": 14,
+    "discussions_enabled": true,
+    "community": {
+     "hacker_news": {
+      "status": "not_observed",
+      "source": "Hacker News search",
+      "query": "https://github.com/agent-kit-example/agent-kit",
+      "window": [
+       "2026-08-05",
+       "2026-11-05"
+      ],
+      "fetched_at": "2026-11-03T06:00:00+00:00",
+      "count": 0,
+      "items": [],
+      "truncated": false
+     }
+    },
+    "pushed": "2026-10-30",
+    "created": "2024-03-01",
+    "homepage": "",
+    "scorecard": {
+     "score": 7.2,
+     "checks": [
+      10,
+      8,
+      6,
+      10,
+      10,
+      9,
+      5,
+      10,
+      10,
+      null
+     ],
+     "url": "https://scorecard.dev/viewer/?uri=github.com/agent-kit-example/agent-kit",
+     "commit": "0123456789abcdef0123456789abcdef01234567",
+     "date": "2026-10-31"
+    },
+    "flags": [],
+    "gate": null,
+    "vetted": true
+   }
+  ]
+ }
+}

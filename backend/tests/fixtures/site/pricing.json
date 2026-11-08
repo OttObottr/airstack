@@ -1,0 +1,96 @@
+{
+ "acme-notes": {
+  "url": "https://acme-notes.example/pricing",
+  "checked": "2026-11-04",
+  "plans": [
+   {
+    "plan": "Free",
+    "price": "$0",
+    "period": "month",
+    "unit": "user",
+    "quote": "Free $0 per user per month"
+   },
+   {
+    "plan": "Pro",
+    "price": "$8",
+    "period": "month",
+    "unit": "user",
+    "quote": "Pro $8 per user per month"
+   },
+   {
+    "plan": "Business",
+    "price": "$15",
+    "period": "month",
+    "unit": "user",
+    "quote": "Business $15 per user per month"
+   }
+  ]
+ },
+ "beta-board": {
+  "url": "https://beta-board.example/pricing",
+  "checked": "2026-11-04",
+  "plans": [
+   {
+    "plan": "Starter",
+    "price": "$0",
+    "period": "month",
+    "unit": "user",
+    "quote": "Starter $0 forever"
+   },
+   {
+    "plan": "Team",
+    "price": "$10",
+    "period": "month",
+    "unit": "user",
+    "quote": "Team $10 per user / month"
+   },
+   {
+    "plan": "Team yearly",
+    "price": "$96",
+    "period": "year",
+    "unit": "user",
+    "quote": "Team yearly $96 per user / year"
+   }
+  ]
+ },
+ "gamma-deploy": {
+  "url": "https://gamma-deploy.example/pricing",
+  "checked": "2026-11-04",
+  "plans": [
+   {
+    "plan": "Free",
+    "price": "$0",
+    "period": "month",
+    "unit": "user",
+    "quote": "Free $0 a month"
+   },
+   {
+    "plan": "Team",
+    "price": "$19",
+    "period": "month",
+    "unit": "user",
+    "quote": "Team $19 per user a month"
+   }
+  ]
+ },
+ "Q1001": {
+  "url": "https://theta.example/pricing",
+  "checked": "2026-11-04",
+  "plans": [
+   {
+    "plan": "Personal",
+    "price": "$0",
+    "period": "month",
+    "unit": "flat",
+    "quote": "Personal $0 a month"
+   },
+   {
+    "plan": "Plus",
+    "price": "$5",
+    "period": "month",
+    "unit": "flat",
+    "quote": "Plus $5 a month"
+   }
+  ]
+ }
+}

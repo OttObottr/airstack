@@ -1,0 +1,44 @@
+{
+ "source": {
+  "read": "2026-11-05",
+  "window_days": 30,
+  "note": "Synthetic updates: changelogs, releases, blog posts and stories linking to each product's own site."
+ },
+ "items": [
+  {
+   "id": "acme-notes",
+   "name": "Acme Notes",
+   "kind": "changelog",
+   "title": "Shared boards for every workspace",
+   "url": "https://acme-notes.example/changelog/shared-boards",
+   "date": "2026-10-30T09:00:00+00:00"
+  },
+  {
+   "id": "gamma-deploy",
+   "name": "Gamma Deploy",
+   "kind": "release",
+   "title": "Gamma Deploy v2.4.0: faster previews",
+   "url": "https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0",
+   "date": "2026-10-28T12:00:00+00:00",
+   "version": "v2.4.0"
+  },
+  {
+   "id": "beta-board",
+   "name": "Beta Board",
+   "kind": "blog",
+   "title": "How we plan a quarter on one board",
+   "url": "https://beta-board.example/blog/plan-a-quarter",
+   "date": "2026-10-20T08:00:00+00:00"
+  },
+  {
+   "id": "delta-vector",
+   "name": "Delta Vector",
+   "kind": "hacker news",
+   "title": "Show HN: Delta Vector, a small vector index",
+   "url": "https://delta-vector.example/",
+   "date": "2026-11-02T15:30:00+00:00",
+   "points": 42,
+   "discussion": "https://news.ycombinator.com/item?id=900000001"
+  }
+ ]
+}

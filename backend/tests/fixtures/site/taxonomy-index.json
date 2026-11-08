@@ -1,0 +1,181 @@
+{
+ "source": {
+  "taxonomy": "config/taxonomy.json",
+  "listed_from": "the synthetic universe, catalog and directory",
+  "researched": "products with facts from their own pages",
+  "top": "the products in each node",
+  "classifications": "synthetic type records"
+ },
+ "summary": {
+  "products": 9,
+  "placed": 8,
+  "in_a_category": 8,
+  "department_only": 0,
+  "unplaced": {
+   "generic": 1,
+   "unmapped": 0,
+   "ambiguous": 0,
+   "excluded": 0,
+   "collection": 0
+  },
+  "directory": {
+   "listed": 2,
+   "placed": 2,
+   "unplaced": 0,
+   "share_placed": 1.0
+  },
+  "catalog": {
+   "listed": 2,
+   "placed": 2,
+   "unplaced": 0,
+   "share_placed": 1.0
+  },
+  "registry": {
+   "listed": 5,
+   "placed": 4,
+   "unplaced": 1,
+   "share_placed": 0.8
+  }
+ },
+ "nodes": {
+  "productivity": {
+   "name": "Productivity & collaboration",
+   "listed": 3,
+   "researched": 3,
+   "top": [
+    "acme-notes",
+    "beta-board",
+    "Q1001"
+   ]
+  },
+  "communication": {
+   "name": "Communication",
+   "listed": 1,
+   "researched": 0,
+   "top": [
+    "Q1002"
+   ]
+  },
+  "engineering": {
+   "name": "Engineering & developer tools",
+   "listed": 2,
+   "researched": 1,
+   "top": [
+    "gamma-deploy",
+    "zeta-agent"
+   ]
+  },
+  "ai": {
+   "name": "AI & machine learning",
+   "listed": 2,
+   "researched": 1,
+   "top": [
+    "delta-vector",
+    "eta-embed"
+   ]
+  },
+  "spreadsheets": {
+   "name": "Spreadsheets and no-code databases",
+   "listed": 1,
+   "researched": 1,
+   "top": [
+    "Q1001"
+   ]
+  },
+  "project-management": {
+   "name": "Project management",
+   "listed": 2,
+   "researched": 2,
+   "top": [
+    "acme-notes",
+    "beta-board"
+   ]
+  },
+  "email": {
+   "name": "Email",
+   "listed": 1,
+   "researched": 0,
+   "top": [
+    "Q1002"
+   ]
+  },
+  "coding-agents": {
+   "name": "Coding agents",
+   "listed": 2,
+   "researched": 1,
+   "top": [
+    "gamma-deploy",
+    "zeta-agent"
+   ]
+  },
+  "vector-databases": {
+   "name": "Vector databases",
+   "listed": 2,
+   "researched": 1,
+   "top": [
+    "delta-vector",
+    "eta-embed"
+   ]
+  }
+ },
+ "products": {
+  "gamma-deploy": [
+   [
+    "coding-agents",
+    "Q9101"
+   ]
+  ],
+  "zeta-agent": [
+   [
+    "coding-agents",
+    "Q9101"
+   ]
+  ],
+  "delta-vector": [
+   [
+    "vector-databases",
+    "Q9102"
+   ]
+  ],
+  "eta-embed": [
+   [
+    "vector-databases",
+    "Q9102"
+   ]
+  ],
+  "acme-notes": [
+   [
+    "project-management",
+    "Q9103"
+   ]
+  ],
+  "beta-board": [
+   [
+    "project-management",
+    "Q9103"
+   ]
+  ],
+  "Q1001": [
+   [
+    "spreadsheets",
+    "Q9001"
+   ]
+  ],
+  "Q1002": [
+   [
+    "email",
+    "Q9002"
+   ]
+  ]
+ },
+ "unplaced": {
+  "generic": [
+   "epsilon-router"
+  ],
+  "unmapped": [],
+  "ambiguous": [],
+  "excluded": [],
+  "collection": []
+ },
+ "ambiguous": {}
+}

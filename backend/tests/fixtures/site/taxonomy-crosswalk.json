@@ -1,0 +1,65 @@
+{
+ "source": {
+  "name": "AirStack taxonomy crosswalk",
+  "made_by": "hand, for the test fixture",
+  "license": "CC BY 4.0",
+  "note": "Synthetic: maps the fixture's type records, catalog categories and lanes to config/taxonomy.json nodes."
+ },
+ "types": {
+  "Q9001": [
+   "spreadsheets",
+   null,
+   "spreadsheet software",
+   "a spreadsheet application"
+  ],
+  "Q9002": [
+   "email",
+   null,
+   "email client",
+   "an email client"
+  ],
+  "Q9101": [
+   "coding-agents",
+   null,
+   "coding agent",
+   "a coding agent"
+  ],
+  "Q9102": [
+   "vector-databases",
+   null,
+   "vector index",
+   "a vector index"
+  ],
+  "Q9103": [
+   "project-management",
+   null,
+   "project planner",
+   "a project planner"
+  ]
+ },
+ "catalog": {
+  "project-management": {
+   "node": "project-management",
+   "relation": "equivalent"
+  }
+ },
+ "lanes": {
+  "coding-agents": "coding-agents",
+  "vector-dbs": "vector-databases",
+  "llm-sdks-and-routers": "llm-apis"
+ },
+ "github_topics": {
+  "project-management": [
+   "project-management",
+   "kanban",
+   "planning",
+   "tasks"
+  ],
+  "coding-agents": [
+   "coding-agent",
+   "code-generation",
+   "developer-tools",
+   "cli"
+  ]
+ }
+}

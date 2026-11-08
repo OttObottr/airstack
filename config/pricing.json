@@ -1,0 +1,12 @@
+{
+  "addon_pattern": "add-?on|additional|extra\\b|credits?\\b|top-?up|overage|per (login|resource)|/\\s*login|\\bapp\\b|pack\\b|campaigns|storage|minutes",
+  "shared_hosts": [
+    "apps.apple.com",
+    "bitbucket.org",
+    "github.com",
+    "gitlab.com",
+    "play.google.com",
+    "sourceforge.net"
+  ],
+  "median_min": 5
+}

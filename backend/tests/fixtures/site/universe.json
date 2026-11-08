@@ -1,0 +1,114 @@
+[
+ {
+  "id": "gamma-deploy",
+  "name": "Gamma Deploy",
+  "lane": "coding-agents",
+  "npm": [
+   "gamma-deploy-cli"
+  ],
+  "pypi": [],
+  "github": "https://github.com/gamma-example/gamma-deploy",
+  "hn_query": "\"Gamma Deploy\"",
+  "homepage": "https://gamma-deploy.example/",
+  "pages": {
+   "pricing": "https://gamma-deploy.example/pricing",
+   "docs": "https://gamma-deploy.example/docs",
+   "integrations": null,
+   "security": null
+  },
+  "pages_null_reasons": {
+   "integrations": "no integrations page found on the site",
+   "security": "no security page found on the site"
+  }
+ },
+ {
+  "id": "delta-vector",
+  "name": "Delta Vector",
+  "lane": "vector-dbs",
+  "npm": [],
+  "pypi": [
+   "delta-vector"
+  ],
+  "github": "https://github.com/delta-example/delta-vector",
+  "hn_query": "\"Delta Vector\"",
+  "homepage": "https://delta-vector.example/",
+  "pages": {
+   "pricing": "https://delta-vector.example/pricing",
+   "docs": "https://delta-vector.example/docs",
+   "integrations": null,
+   "security": null
+  },
+  "pages_null_reasons": {
+   "integrations": "no integrations page found on the site",
+   "security": "no security page found on the site"
+  }
+ },
+ {
+  "id": "epsilon-router",
+  "name": "Epsilon Router",
+  "lane": "llm-sdks-and-routers",
+  "npm": [
+   "epsilon-router"
+  ],
+  "pypi": [
+   "epsilon-router-py"
+  ],
+  "github": "https://github.com/epsilon-example/epsilon-router",
+  "hn_query": "\"Epsilon Router\"",
+  "homepage": "https://epsilon-router.example/",
+  "pages": {
+   "pricing": "https://epsilon-router.example/pricing",
+   "docs": "https://epsilon-router.example/docs",
+   "integrations": null,
+   "security": null
+  },
+  "pages_null_reasons": {
+   "integrations": "no integrations page found on the site",
+   "security": "no security page found on the site"
+  }
+ },
+ {
+  "id": "zeta-agent",
+  "name": "Zeta Agent",
+  "lane": "coding-agents",
+  "npm": [
+   "zeta-agent"
+  ],
+  "pypi": [],
+  "github": "https://github.com/zeta-example/zeta-agent",
+  "hn_query": "\"Zeta Agent\"",
+  "homepage": "https://zeta-agent.example/",
+  "pages": {
+   "pricing": "https://zeta-agent.example/pricing",
+   "docs": "https://zeta-agent.example/docs",
+   "integrations": null,
+   "security": null
+  },
+  "pages_null_reasons": {
+   "integrations": "no integrations page found on the site",
+   "security": "no security page found on the site"
+  }
+ },
+ {
+  "id": "eta-embed",
+  "name": "Eta Embed",
+  "lane": "vector-dbs",
+  "npm": [],
+  "pypi": [
+   "eta-embed"
+  ],
+  "github": "https://github.com/eta-example/eta-embed",
+  "hn_query": "\"Eta Embed\"",
+  "homepage": "https://eta-embed.example/",
+  "pages": {
+   "pricing": "https://eta-embed.example/pricing",
+   "docs": "https://eta-embed.example/docs",
+   "integrations": null,
+   "security": null
+  },
+  "pages_null_reasons": {
+   "integrations": "no integrations page found on the site",
+   "security": "no security page found on the site"
+  }
+ }
+]

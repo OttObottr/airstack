@@ -1,0 +1,61 @@
+{
+ "source": {
+  "name": "Hugging Face Hub",
+  "url": "https://huggingface.co/models",
+  "fetched_at": "2026-11-03T06:00:00+00:00",
+  "note": "Synthetic model records for the test fixture: a lead, not an endorsement."
+ },
+ "categories": {
+  "coding-agents": [
+   "text-generation"
+  ],
+  "llm-sdks-and-routers": [
+   "text-generation"
+  ],
+  "vector-dbs": [
+   "feature-extraction"
+  ]
+ },
+ "tasks": {
+  "text-generation": {
+   "name": "Text generation",
+   "models": [
+    {
+     "id": "example-models/tiny-writer",
+     "url": "https://huggingface.co/example-models/tiny-writer",
+     "author": "example-models",
+     "downloads": 120000,
+     "likes": 120,
+     "license": "apache-2.0",
+     "updated": "2026-10-15",
+     "gated": false
+    },
+    {
+     "id": "example-models/small-coder",
+     "url": "https://huggingface.co/example-models/small-coder",
+     "author": "example-models",
+     "downloads": 64000,
+     "likes": 64,
+     "license": "mit",
+     "updated": "2026-10-15",
+     "gated": true
+    }
+   ]
+  },
+  "feature-extraction": {
+   "name": "Embeddings",
+   "models": [
+    {
+     "id": "example-models/tiny-embed",
+     "url": "https://huggingface.co/example-models/tiny-embed",
+     "author": "example-models",
+     "downloads": 88000,
+     "likes": 88,
+     "license": "apache-2.0",
+     "updated": "2026-10-15",
+     "gated": false
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,504 @@
+{
+ "source": {
+  "name": "AirStack category guides",
+  "kind": "editorial",
+  "written": "2026-10-01",
+  "note": "AirStack's own guide to each category, written for the test fixture. Not a vendor claim and not a measurement."
+ },
+ "categories": {
+  "creative-ai": {
+   "what": "Software for creative AI (image, video, audio): it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "email-calendar": {
+   "what": "Software for email and calendar: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "docs-storage": {
+   "what": "Software for docs and storage: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "chat-meetings": {
+   "what": "Software for chat and meetings: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "project-management": {
+   "what": "Software for project management: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "design": {
+   "what": "Software for design: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "ai-assistants": {
+   "what": "Software for AI assistants: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "ai-coding": {
+   "what": "Software for AI coding tools: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "crm-sales": {
+   "what": "Software for CRM and sales: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "marketing": {
+   "what": "Software for marketing: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "support": {
+   "what": "Software for customer support: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "hr-people": {
+   "what": "Software for HR and people: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "finance": {
+   "what": "Software for finance and accounting: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "security-it": {
+   "what": "Software for security and IT: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "data-bi": {
+   "what": "Software for data and analytics: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "dev-platforms": {
+   "what": "Software for developer platforms: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "web-commerce": {
+   "what": "Software for websites and commerce: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "legal-contracts": {
+   "what": "Software for legal and contracts: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "forms-surveys": {
+   "what": "Software for forms and surveys: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "spend-procurement": {
+   "what": "Software for spend and procurement: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "learning": {
+   "what": "Software for learning and training: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "video-webinars": {
+   "what": "Software for video and webinars: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "it-service": {
+   "what": "Software for IT and service desk: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "coding-agents": {
+   "what": "Software for coding agents: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "vector-dbs": {
+   "what": "Software for vector databases: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  },
+  "llm-sdks-and-routers": {
+   "what": "Software for LLM APIs, SDKs and gateways: it keeps that work, its records and its people in one place.",
+   "why": [
+    "Keeps the work and its history in one shared place",
+    "Makes handoffs between people easier to follow"
+   ],
+   "jobs": [
+    "Capture requests",
+    "Track progress",
+    "Share results"
+   ],
+   "who": [
+    "Team leads",
+    "Individual contributors",
+    "Administrators"
+   ],
+   "bundled_by": [],
+   "watch_for": "Check how data is exported and who can see it before you commit."
+  }
+ }
+}
