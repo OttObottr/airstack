@@ -6,7 +6,7 @@
 .palin input:focus-visible{outline:2px solid var(--color-ink);outline-offset:2px}
 #pall{list-style:none;overflow:auto;min-height:0}
 #pall li{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:0 12px;border-radius:var(--radius-sm);cursor:pointer}
-#pall li[aria-selected=true]{background:linear-gradient(90deg,color-mix(in oklab,var(--color-info) 15%,transparent),rgba(255,255,255,.055));box-shadow:inset 2px 0 0 var(--color-info)}
+#pall li[aria-selected=true]{background:rgba(255,255,255,.07)}
 #pall li.tah{min-height:28px;color:var(--color-ink-3);font-size:var(--text-meta);text-transform:uppercase;letter-spacing:var(--tracking-caps);cursor:default}
 #pall li.none{cursor:default;color:var(--color-ink-2)}
 .palbar{list-style:none;display:flex;flex-wrap:wrap;gap:4px 16px;padding:8px 12px 4px;border-top:1px solid var(--color-hair);font-size:var(--text-meta);color:var(--color-ink-2)}
@@ -15,7 +15,7 @@
 
 .agents{gap:12px}
 .ag{position:relative;padding:18px;background:linear-gradient(145deg,color-mix(in oklab,var(--color-s3) 72%,transparent),color-mix(in oklab,var(--color-bg) 48%,transparent));border-color:rgba(255,255,255,.13);border-radius:var(--radius-md);box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 10px 28px rgba(0,0,0,.14);overflow:hidden}
-.ag::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,var(--color-info),transparent 52%);opacity:.55}
+.ag::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:none;opacity:.55}
 .ag code{padding:12px 14px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 68%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);line-height:1.6}
 .ag .lab{color:var(--color-info)}
 #agents>.wrap>.lab{margin-bottom:8px;color:var(--color-info)}
@@ -26,7 +26,7 @@
 
 body[data-view=agents]{background-image:radial-gradient(48% 38% at 18% 0,color-mix(in oklab,var(--color-agent) 7.5%,transparent),transparent 72%),linear-gradient(color-mix(in oklab,var(--color-agent) 1.6%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in oklab,var(--color-agent) 1.6%,transparent) 1px,transparent 1px);background-size:auto,24px 24px,24px 24px}
 #agents{padding-top:40px}
-#agents>.wrap{padding:40px clamp(20px,4vw,52px) 52px;border-color:color-mix(in oklab,var(--color-agent) 24%,transparent);border-radius:2px;background:linear-gradient(135deg,color-mix(in oklab,var(--color-agent) 4.5%,transparent),color-mix(in oklab,var(--color-bg) 94%,transparent) 28%);box-shadow:0 28px 72px rgba(0,0,0,.34),inset 3px 0 0 color-mix(in oklab,var(--color-agent) 56%,transparent)}
+#agents>.wrap{padding:40px clamp(20px,4vw,52px) 52px;border-color:color-mix(in oklab,var(--color-agent) 24%,transparent);border-radius:2px;background:linear-gradient(135deg,color-mix(in oklab,var(--color-agent) 4.5%,transparent),color-mix(in oklab,var(--color-bg) 94%,transparent) 28%);box-shadow:0 28px 72px rgba(0,0,0,.34)}
 #agents>.wrap>.lab,#agents>.wrap>details summary,.ag .lab{color:var(--color-agent)}
 #agents>.wrap>.h2{font:650 var(--text-title)/1 var(--font-mono);letter-spacing:-.045em}
 #agents>.wrap>.meta{max-width:70ch}
@@ -34,7 +34,7 @@ body[data-view=agents]{background-image:radial-gradient(48% 38% at 18% 0,color-m
 #agents .ag{grid-column:span 6;border-radius:2px;border-color:color-mix(in oklab,var(--color-agent) 16%,transparent);background:color-mix(in oklab,var(--color-bg) 74%,transparent);box-shadow:inset 0 1px 0 color-mix(in oklab,var(--color-agent) 6%,transparent)}
 #agents .ag:nth-child(n+3){grid-column:span 4}
 #agents .ag.wide{grid-column:1/-1}
-#agents .ag::before{background:linear-gradient(90deg,var(--color-agent),transparent 42%)}
+#agents .ag::before{background:none}
 #agents .ag code{border-radius:1px;border-color:color-mix(in oklab,var(--color-agent) 16%,transparent);background:var(--color-bg);color:color-mix(in oklab,var(--color-agent) 45%,var(--color-ink))}
 #agents .ghost{border-radius:2px}
 #agents>.wrap>details{border-radius:2px;border-color:color-mix(in oklab,var(--color-agent) 16%,transparent)}

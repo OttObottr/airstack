@@ -12,7 +12,7 @@
 #aimap{display:block;width:100%;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:linear-gradient(180deg,color-mix(in oklab,var(--color-s3) 70%,transparent),var(--color-s2));box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
 .aiq{display:flex;justify-content:space-between;gap:12px;margin-top:6px;font-size:var(--text-meta);color:var(--color-ink-2)}
 .aitip{min-height:20px;margin-top:8px;font-family:var(--font-mono)}
-.ins-annotation{max-width:78ch;padding:14px 16px;border-left:2px solid var(--color-info);background:linear-gradient(90deg,color-mix(in oklab,var(--color-info) 8%,transparent),transparent);color:var(--color-ink-2);line-height:1.55}.ins-annotation b{color:var(--color-ink);font-weight:600}
+.ins-annotation{max-width:78ch;padding:14px 16px;background:none;color:var(--color-ink-2);line-height:1.55}.ins-annotation b{color:var(--color-ink);font-weight:600}
 .aitop{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:12px;padding:16px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 40%,transparent)}.aitop ol{padding-left:18px}
 .aitop a,.hn a{display:inline-block;min-height:24px;line-height:24px;text-decoration:underline;text-decoration-color:var(--color-hair);text-underline-offset:4px}
 .t.kpi th[scope=row]{font-family:var(--font-sans);font-weight:600;text-transform:none;letter-spacing:-.005em;font-size:var(--text-body);color:var(--color-ink)}
@@ -31,7 +31,7 @@
 
 body[data-view=insights]{background-image:radial-gradient(55% 44% at 82% 8%,color-mix(in oklab,var(--color-info) 8%,transparent),transparent 72%),linear-gradient(rgba(255,255,255,.01) 1px,transparent 1px);background-size:auto,100% 32px}
 #insights{padding-top:40px}
-#insights>.wrap{max-width:1120px;padding:52px clamp(24px,5vw,72px) 72px;border:0;border-left:1px solid color-mix(in oklab,var(--color-info) 34%,transparent);border-radius:0;background:linear-gradient(90deg,color-mix(in oklab,var(--color-info) 4.5%,transparent),transparent 22%);box-shadow:none;overflow:visible}
+#insights>.wrap{max-width:1120px;padding:52px clamp(24px,5vw,72px) 72px;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
 #insights>.wrap::before{inset:0 auto 0 -1px;width:1px;height:auto;background:linear-gradient(var(--color-info),transparent 72%)}
 #insights #insT{max-width:12ch;font-size:var(--text-title);line-height:.98;letter-spacing:-.05em}
 #insights #insSub{padding-top:12px;border-top:1px solid var(--color-hair);font-family:var(--font-mono);color:var(--color-ink-3)}

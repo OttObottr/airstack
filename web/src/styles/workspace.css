@@ -1,6 +1,6 @@
 .work{padding:20px clamp(12px,2.5vw,32px) 0}
 .work>.wrap{position:relative;background:linear-gradient(145deg,color-mix(in oklab,var(--color-s3) 68%,transparent),color-mix(in oklab,var(--color-s1) 96%,transparent) 34%,var(--color-s1));border:1px solid var(--color-hair);border-radius:var(--radius-lg);padding:28px 32px 32px;box-shadow:var(--shadow-panel);overflow:clip}
-.work>.wrap::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,color-mix(in oklab,var(--color-info) 24%,transparent) 32%,rgba(255,255,255,.09) 68%,transparent);pointer-events:none}
+.work>.wrap::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:none;pointer-events:none}
 #check{padding-top:32px}#check>.wrap{background:radial-gradient(70% 100% at 50% 0%,color-mix(in oklab,var(--color-info) 7%,transparent),transparent 62%),linear-gradient(180deg,var(--color-s2),var(--color-s1) 72%);border-color:rgba(255,255,255,.15)}
 .wrap{max-width:960px;margin:0 auto}
 .wrap.wide{max-width:1200px}
@@ -78,7 +78,7 @@ h3{font-size:var(--text-body);font-weight:600}
 #cmpTbl th:first-child{position:sticky;left:0;z-index:2;width:9rem;background:var(--color-s1)}
 #cmpTbl tbody th{text-transform:none;letter-spacing:0;font-size:var(--text-body);font-weight:var(--font-weight-medium);color:var(--color-ink-2);white-space:normal}
 #cmpTbl td,#cmpTbl thead th:not(:first-child){min-width:15rem}
-#cmpTbl tr.diff th:first-child{box-shadow:inset 3px 0 0 var(--color-ink)}#cmpTbl tr.diff th:first-child{padding-left:12px}
+
 #cmpTbl tr.diff td{background:rgba(255,255,255,.03)}
 #cmpTbl .dtag{display:block;font-size:var(--text-meta);font-weight:400;color:var(--color-ink)}
 #cmpTbl .cv b{font-weight:500}#cmpTbl .cv q{font-style:normal;quotes:none}
@@ -93,7 +93,7 @@ h3{font-size:var(--text-body);font-weight:600}
 #cmpTbl.two th,#cmpTbl.two td,#cmpTbl.two thead th:not(:first-child){border:0;padding:0;min-width:0;overflow-wrap:anywhere}
 #cmpTbl.two thead th:first-child{display:none}
 #cmpTbl.two tbody th:first-child{position:static;grid-column:1/-1;width:auto;background:none;margin-bottom:8px}
-#cmpTbl.two tr.diff{box-shadow:inset 3px 0 0 var(--color-ink);padding-left:12px;background:rgba(255,255,255,.03)}
+#cmpTbl tr.diff{background:rgba(255,255,255,.035)}
 #cmpTbl.two tr.diff th:first-child{box-shadow:none;padding-left:0}#cmpTbl.two tr.diff td{background:none}
 #cmpTbl.two thead th{font-size:var(--text-body)}#cmpTbl.two thead th a{flex-wrap:wrap}
 #cmpTbl.two .cs{flex-direction:column;align-items:flex-start}
@@ -103,7 +103,7 @@ body[data-view=compare] #cmpSec{padding-top:40px}
 body[data-view=compare] #cmpSec>.wrap{padding:40px clamp(20px,4vw,52px) 52px;border-color:color-mix(in oklab,var(--color-accent) 22%,transparent);border-radius:4px 18px 4px 18px;background:linear-gradient(145deg,color-mix(in oklab,var(--color-accent) 5.5%,transparent),color-mix(in oklab,var(--color-s1) 96%,transparent) 30%);box-shadow:0 28px 72px rgba(0,0,0,.32),inset 0 1px 0 color-mix(in oklab,var(--color-accent) 18%,transparent)}
 body[data-view=compare] #cmpSec>.wrap>.lab{color:var(--color-accent)}
 #cmpT{font-size:var(--text-title);line-height:1.05;letter-spacing:-.045em}
-body[data-view=compare] #cmpTbl tr.diff{box-shadow:inset 3px 0 0 var(--color-accent)}
+
 .r{text-align:right}
 .mono{font-family:var(--font-mono);font-size:var(--text-meta);color:var(--color-ink-2);overflow-wrap:anywhere}
 details summary{display:inline-flex;align-items:center;min-height:44px;cursor:pointer;font-weight:500;color:var(--color-ink-2)}

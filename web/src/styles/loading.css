@@ -29,7 +29,7 @@
 .skeleton-profile{height:420px;background:
   linear-gradient(var(--sk-hi) 0 0) 0 0/36% 20px no-repeat,
   repeating-linear-gradient(to bottom,transparent 0 62px,var(--sk-hi) 62px 63px,transparent 63px 78px)}
-.load-error{min-height:96px;display:grid;align-content:center;max-width:52rem;padding:16px 18px;border:1px solid var(--color-hair);border-left:2px solid var(--color-warn);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 34%,transparent);color:var(--color-ink-2)}
+.load-error{min-height:96px;display:grid;align-content:center;max-width:52rem;padding:16px 18px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 34%,transparent);color:var(--color-ink-2)}
 .skelrow>td{padding-block:12px!important}
 #mvt .skeleton-table{height:580px}#mkList .skeleton-table{height:2388px}#mkCount{min-height:56px}
 #newsList>.skeleton{height:1188px}#insBody>.skeleton{height:4332px}#calAhead>.skeleton{height:1512px}
