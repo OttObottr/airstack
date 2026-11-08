@@ -4,4 +4,3 @@
 .tile span{font-variant-numeric:tabular-nums}
 .tile:hover,.tile:focus-visible{filter:brightness(1.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 8px 20px rgba(0,0,0,.25)}
 .tile:focus-visible{outline:2px solid var(--color-ink);outline-offset:-2px;border-radius:4px}
-.spark{display:block;overflow:visible}.spark path{fill:none;stroke:var(--color-ink-2);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}.spark circle{fill:var(--color-ink)}

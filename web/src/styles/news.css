@@ -7,5 +7,4 @@
 .nk{justify-self:start;padding:2px 8px;border-radius:var(--radius-full);border:1px solid var(--color-hair);font-size:var(--text-meta);color:var(--color-ink-2);text-transform:capitalize;white-space:nowrap}
 #newsKinds .chip[aria-pressed=true]{background:var(--color-ink);border-color:var(--color-ink);color:var(--color-bg)}
 @media(max-width:699px){.nrow{grid-template-columns:1fr auto}.nrow .who{grid-column:1/-1;min-height:32px}.nrow .nt{grid-column:1}}
-#newsKinds .chip.mine{margin-left:8px}#newsKinds .chip.mine[aria-pressed=true]{background:var(--color-accent);border-color:var(--color-accent);color:var(--color-bg)}
 .nmore{margin-top:4px}.nmore summary{cursor:pointer;min-height:24px;list-style:none}.nmore ul{list-style:none;padding:0;margin-top:4px;display:grid;gap:2px}

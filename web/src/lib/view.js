@@ -3,9 +3,6 @@
 export const VIEW = {
   homeAheadWeeks: 8 /* Home's "coming up" horizon */,
   homeShown: 6,
-  homeMinRead: 5 /* a category share over fewer products read is not shown */,
-  calendarPastWeeks: 52,
-  calendarAheadWeeks: 26,
   calendarAgendaDays: 90,
   compareRecheckDays: 14 /* a comparison older than this is due a re-check */,
   compareShown: 8,

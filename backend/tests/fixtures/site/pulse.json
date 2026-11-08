@@ -1,0 +1,1068 @@
+{
+ "source": {
+  "built_for": "2026-11-05",
+  "from": "2025-12-29",
+  "feeds_from": "2026-09-15",
+  "chronology": "the owner's dated chronology, each entry with its source link; AirStack has not read those pages",
+  "feeds": "events.json: vendor releases and changelogs, each read on its own page",
+  "attention": "Wikimedia pageviews API (English Wikipedia), weeks 2026-05-04 to 2026-10-26",
+  "headline": "the week's event whose product has the most English Wikipedia views over attention's weeks (only where the event names that product exactly, not a feature or sub-product of it); otherwise the strongest source (chronology, release, changelog), then the heaviest weight. Only full-weight events headline a week that has one.",
+  "placement": "a product's taxonomy placement; else its maker's, when every placed product of that maker is in one sector; else the chronology's kind or theme",
+  "dates": "a month-level date is spread over the weeks of its month by days; a year-level date is listed with its year, not in a week",
+  "scale": "a column taller than the 97% quantile of the shown weeks is clipped at it and marked",
+  "params": {
+   "start_year": 2026,
+   "weights": {
+    "chronology": 1,
+    "release_major": 1,
+    "release_minor": 0.2,
+    "release_patch": 0.05,
+    "changelog": 0.2,
+    "blog": 0,
+    "hacker news": 0
+   },
+   "headline_min_weight": 1,
+   "source_rank": [
+    "chronology",
+    "release",
+    "changelog"
+   ],
+   "landmarks": 3,
+   "landmark_gap_weeks": 8,
+   "scale_quantile": 0.97
+  }
+ },
+ "sectors": [
+  {
+   "id": "ai",
+   "name": "AI & machine learning",
+   "weight": 1.05
+  },
+  {
+   "id": "consumer",
+   "name": "Consumer & media",
+   "weight": 1
+  },
+  {
+   "id": "engineering",
+   "name": "Engineering & developer tools",
+   "weight": 1.2
+  },
+  {
+   "id": "design",
+   "name": "Design & creative",
+   "weight": 0
+  },
+  {
+   "id": "communication",
+   "name": "Communication",
+   "weight": 0
+  },
+  {
+   "id": "productivity",
+   "name": "Productivity & collaboration",
+   "weight": 1.2
+  },
+  {
+   "id": "data",
+   "name": "Data & analytics",
+   "weight": 0
+  },
+  {
+   "id": "other",
+   "name": "Other sectors",
+   "weight": 0
+  },
+  {
+   "id": "unplaced",
+   "name": "Not placed",
+   "weight": 1
+  }
+ ],
+ "weeks": [
+  {
+   "w": "2025-12-29",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-01-05",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-01-12",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-01-19",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-01-26",
+   "s": [
+    0.0,
+    0.0,
+    0.036,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     1,
+     0.0357
+    ]
+   ],
+   "v": 0.036
+  },
+  {
+   "w": "2026-02-02",
+   "s": [
+    0.0,
+    0.0,
+    0.25,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     1,
+     0.25
+    ]
+   ],
+   "v": 0.25
+  },
+  {
+   "w": "2026-02-09",
+   "s": [
+    0.0,
+    0.0,
+    0.25,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     1,
+     0.25
+    ]
+   ],
+   "v": 0.25
+  },
+  {
+   "w": "2026-02-16",
+   "s": [
+    0.0,
+    0.0,
+    0.25,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     1,
+     0.25
+    ]
+   ],
+   "v": 0.25
+  },
+  {
+   "w": "2026-02-23",
+   "s": [
+    0.0,
+    0.0,
+    0.214,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     1,
+     0.2143
+    ]
+   ],
+   "v": 0.214
+  },
+  {
+   "w": "2026-03-02",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-03-09",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-03-16",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-03-23",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-03-30",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.167,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     2,
+     0.1667
+    ]
+   ],
+   "v": 0.167
+  },
+  {
+   "w": "2026-04-06",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     2,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-04-13",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     2,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-04-20",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     2,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-04-27",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.133,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     2,
+     0.1333
+    ]
+   ],
+   "v": 0.133
+  },
+  {
+   "w": "2026-05-04",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-05-11",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-05-18",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-05-25",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-06-01",
+   "s": [
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     3,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-06-08",
+   "s": [
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     3,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-06-15",
+   "s": [
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     3,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-06-22",
+   "s": [
+    0.0,
+    0.233,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     3,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-06-29",
+   "s": [
+    0.0,
+    0.067,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     3,
+     0.0667
+    ]
+   ],
+   "v": 0.067
+  },
+  {
+   "w": "2026-07-06",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-07-13",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-07-20",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-07-27",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-08-03",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-08-10",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-08-17",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-08-24",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-08-31",
+   "s": [
+    0.2,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     4,
+     0.2
+    ]
+   ],
+   "v": 0.2
+  },
+  {
+   "w": "2026-09-07",
+   "s": [
+    0.233,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     4,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-09-14",
+   "s": [
+    0.283,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     4,
+     0.2333
+    ],
+    [
+     5,
+     0.05
+    ]
+   ],
+   "v": 0.283
+  },
+  {
+   "w": "2026-09-21",
+   "s": [
+    0.233,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     4,
+     0.2333
+    ]
+   ],
+   "v": 0.233
+  },
+  {
+   "w": "2026-09-28",
+   "s": [
+    0.1,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     4,
+     0.1
+    ]
+   ],
+   "v": 0.1
+  },
+  {
+   "w": "2026-10-05",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-10-12",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-10-19",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  },
+  {
+   "w": "2026-10-26",
+   "s": [
+    0.0,
+    0.0,
+    0.2,
+    0.0,
+    0.0,
+    0.2,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [
+    [
+     6,
+     0.2
+    ],
+    [
+     7,
+     0.2
+    ]
+   ],
+   "v": 0.4
+  },
+  {
+   "w": "2026-11-02",
+   "s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "e": [],
+   "v": 0.0
+  }
+ ],
+ "years": {
+  "2026": [
+   0
+  ]
+ },
+ "landmarks": [
+  1,
+  2,
+  3
+ ],
+ "tree": {
+  "productivity": [
+   null,
+   "Productivity & collaboration"
+  ],
+  "engineering": [
+   null,
+   "Engineering & developer tools"
+  ],
+  "ai": [
+   null,
+   "AI & machine learning"
+  ],
+  "project-management": [
+   "productivity",
+   "Project management"
+  ],
+  "coding-agents": [
+   "engineering",
+   "Coding agents"
+  ],
+  "vector-databases": [
+   "ai",
+   "Vector databases"
+  ]
+ },
+ "events": [
+  {
+   "at": "2026",
+   "title": "Example Standards Body formed",
+   "what": "formed",
+   "note": "A synthetic year-level entry.",
+   "sector": 8,
+   "url": "https://standards.example/about",
+   "via": "chronology",
+   "w": 1,
+   "precision": "year"
+  },
+  {
+   "at": "2026-02",
+   "title": "Zeta Agent",
+   "what": "general availability",
+   "note": "A synthetic coding agent opens to everyone.",
+   "id": "zeta-agent",
+   "sector": 2,
+   "placed_by": "product",
+   "url": "https://zeta.example/blog/ga",
+   "via": "chronology",
+   "w": 1,
+   "precision": "month",
+   "node": "coding-agents"
+  },
+  {
+   "at": "2026-04",
+   "title": "Acme Notes boards",
+   "what": "launch",
+   "note": "A synthetic launch.",
+   "id": "acme-notes",
+   "sector": 5,
+   "placed_by": "product",
+   "url": "https://acme-notes.example/blog/boards",
+   "via": "chronology",
+   "w": 1,
+   "precision": "month",
+   "node": "project-management",
+   "name": "Acme Notes"
+  },
+  {
+   "at": "2026-06",
+   "title": "Example Quest",
+   "what": "launch",
+   "note": "A synthetic game.",
+   "sector": 1,
+   "placed_by": "kind",
+   "url": "https://quest.example/news",
+   "via": "chronology",
+   "w": 1,
+   "precision": "month"
+  },
+  {
+   "at": "2026-09",
+   "title": "Delta Vector 3",
+   "what": "major release",
+   "note": "A synthetic major release.",
+   "id": "delta-vector",
+   "sector": 0,
+   "placed_by": "product",
+   "url": "https://delta.example/blog/v3",
+   "via": "chronology",
+   "w": 1,
+   "precision": "month",
+   "node": "vector-databases"
+  },
+  {
+   "at": "2026-09-15",
+   "title": "Delta Vector v0.9.2",
+   "what": "release",
+   "name": "Delta Vector",
+   "id": "delta-vector",
+   "sector": 0,
+   "placed_by": "product",
+   "url": "https://github.com/delta-example/delta-vector/releases/tag/v0.9.2",
+   "read": "2026-11-05",
+   "via": "release",
+   "w": 0.05,
+   "precision": "day",
+   "node": "vector-databases"
+  },
+  {
+   "at": "2026-10-28",
+   "title": "Gamma Deploy v2.4.0",
+   "what": "release",
+   "name": "Gamma Deploy",
+   "id": "gamma-deploy",
+   "sector": 2,
+   "placed_by": "product",
+   "url": "https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0",
+   "read": "2026-11-05",
+   "via": "release",
+   "w": 0.2,
+   "precision": "day",
+   "views": 74585,
+   "node": "coding-agents"
+  },
+  {
+   "at": "2026-10-30",
+   "title": "Shared boards for every workspace",
+   "what": "changelog",
+   "name": "Acme Notes",
+   "id": "acme-notes",
+   "sector": 5,
+   "placed_by": "product",
+   "url": "https://acme-notes.example/changelog/shared-boards",
+   "read": "2026-11-05",
+   "via": "changelog",
+   "w": 0.2,
+   "precision": "day",
+   "views": 18852,
+   "node": "project-management"
+  }
+ ]
+}

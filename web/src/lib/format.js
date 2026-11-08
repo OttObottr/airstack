@@ -50,3 +50,11 @@ export const pct = x => (x === null || x === undefined ? null : `${x > 0 ? '+' :
 export const sgn = x => (x === null || x === undefined ? null : `${x > 0 ? '+' : ''}${x}`);
 export const cn = v =>
   (CF ||= new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 })).format(v);
+/* how long before `now` (a published built_for or read date, so a page reads the same whenever it is opened): "today", "5d ago",
+   "3w ago", then the month past about 60 days; a later date reads as itself. `stamp` wraps it in <time> with the exact date. */
+export const ago = (iso, now) => {
+  const d = Math.round((Date.parse(now.slice(0, 10)) - Date.parse(iso.slice(0, 10))) / 864e5);
+  if (!(d >= 0)) return fd(iso);
+  return d === 0 ? 'today' : d < 14 ? `${d}d ago` : d <= 60 ? `${Math.round(d / 7)}w ago` : `${MON[+iso.slice(5, 7) - 1]} ${iso.slice(0, 4)}`;
+};
+export const stamp = (iso, now) => (iso ? `<time datetime="${esc(iso.slice(0, 10))}" title="${fd(iso)}">${ago(iso, now)}</time>` : '');

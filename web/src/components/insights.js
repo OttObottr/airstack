@@ -1,6 +1,7 @@
 import { json } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
-import { cnt, measures } from './home.js';
+import { mountScoped } from '../lib/scope.js';
+import { panel as findings } from './findings.js';
 import { esc, ic, n, url } from '../lib/format.js';
 
 let I = null,
@@ -15,17 +16,8 @@ const hash = s => {
   return (h >>> 0) / 4294967296;
 };
 const pct = (k, of) => (of ? Math.round((k / of) * 100) : null);
-
-function summaryView() {
-  const { bands, placed, ai, researched, totals, hub } = measures(I);
-  return `<header class="ins-lede"><p class="lab">Market insights</p><h3>${pct(ai, placed)}% of placed products mention AI on their own pages.</h3>
-    <p>${n(ai)} of ${n(placed)} placed products in the categories AirStack follows mention AI in their one-line description or elsewhere on their own pages. That is a statement about published positioning—not product quality, adoption or market share.</p></header>
-    <ol class="ins-findings" aria-label="Three measured takeaways">
-      <li><span>01</span><p><b>${pct(ai, placed)}% mention AI somewhere.</b> ${n(bands[2])} lead with it; ${n(bands[1])} mention it elsewhere; ${n(bands[0])} do not mention it in what AirStack read.</p></li>
-      <li><span>02</span><p><b>${esc(totals[0][0])} is the most frequently observed disclosure.</b> ${n(totals[0][1])} of ${n(researched)} category-product records state it on their own pages.</p></li>
-      <li><span>03</span><p><b>${esc(hub[1])} is the most named integration hub.</b> It appears in ${n(hub[2])} researched products’ integration lists—a vendor-claim count, not observed use.</p></li>
-    </ol>`;
-}
+/* a category count: a {found, of} record, or a bare count out of the products read */
+const cnt = (v, c) => (v && typeof v === 'object' ? v : { found: v, of: c.researched });
 
 function drawMap() {
   const cv = $('#aimap'),
@@ -167,17 +159,9 @@ function kpiView() {
     <p class="meta mt12">Grouped by the department each category serves. Each share counts the products whose own pages say so, out of those AirStack has read; “—” where none are read. The middle price is that named product’s quoted list price, shown only when five or more products publish a per-user monthly price.</p>`;
 }
 
-function hubView() {
-  const H = I.hubs.slice(0, 15),
-    mx = Math.max(...H.map(h => h[2]));
-  return `<ol class="hubs mt16">${H.map(h => `<li><span class="hn">${h[0] ? `<a href="#app=${esc(h[0])}">${esc(h[1])}</a>` : esc(h[1])}</span><span class="hb" style="--v:${h[2] / mx}"></span><span class="num">${n(h[2])}</span></li>`).join('')}</ol>
-    <p class="meta mt12">How many researched products name each one in their own integration lists: a vendor’s claim, counted.</p>`;
-}
-
 function render() {
-  $('#insBody').innerHTML = `${summaryView()}<section class="ins-chapter"><p class="lab">01 · Positioning</p><h3 class="h3">Where does AI appear in vendors’ own words?</h3>${mapView()}</section>
-    <section class="ins-chapter"><p class="lab">02 · Disclosure</p><h3 class="h3">What do categories consistently disclose?</h3>${kpiView()}</section>
-    <section class="ins-chapter"><p class="lab">03 · Connectivity</p><h3 class="h3">Which products do others name as integrations?</h3>${hubView()}</section>`;
+  $('#insBody').innerHTML = `<section class="ins-chapter"><p class="lab">01 · Positioning</p><h3 class="h3">Where does AI appear in vendors’ own words?</h3>${mapView()}</section>
+    <section class="ins-chapter"><p class="lab">02 · Disclosure</p><h3 class="h3">What do categories consistently disclose?</h3>${kpiView()}</section>`;
   $('#insSub').textContent =
     `Computed from the stored facts: ${I.source.facts_from}; ${I.source.documentation_from}; ${I.source.prices_from}.`;
   requestAnimationFrame(drawMap);
@@ -202,8 +186,9 @@ function near(cv, e) {
 export function mount() {
   const sec = $('#insights');
   if (!sec) return;
-  const load = () =>
-    json('insights.json')
+  const load = () => {
+    if (!$('#insFindings').dataset.panel) mountScoped($('#insFindings'), findings);
+    return json('insights.json')
       .then(d => {
         I = d;
         $('#insBody').setAttribute('aria-busy', 'false');
@@ -216,6 +201,7 @@ export function mount() {
         $('#insBody').innerHTML =
           '<p class="load-error mt16" role="status">Check the connection and reload. No measurement is shown until its source file loads.</p>';
       });
+  };
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
       es => {

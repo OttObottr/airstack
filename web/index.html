@@ -68,12 +68,10 @@
         <div class="dash" id="browse">
           <section class="pnl" aria-labelledby="mvH"><header><h2 class="h2" id="mvH">What moved</h2><a href="#/markets">All movers</a></header>
             <div id="trend" aria-busy="true"><div class="skeleton skeleton-list" role="status" aria-label="Loading market signals"></div></div></section>
-          <section class="pnl" aria-labelledby="upH"><header><h2 class="h2" id="upH">Coming up</h2><a href="#/calendar">Calendar</a></header>
-            <ol class="up" id="upList" aria-busy="true"><li class="skeleton skeleton-list" role="status" aria-label="Loading upcoming dates"></li></ol><p class="meta" id="upSrc"></p></section>
-          <section class="pnl" aria-labelledby="ciH"><header><h2 class="h2" id="ciH">Category insights</h2><a href="#/insights">All insights</a></header>
-            <div id="insNow" aria-busy="true"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></div></section>
+          <section class="pnl" id="upHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div></section>
+          <section class="pnl" id="insHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section>
         </div>
-        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="ghost" id="starBtn" type="button" aria-pressed="false" hidden>☆ Track this tool</button><button class="ghost" id="cmpThis" type="button" data-compare="">Compare with others</button><button class="ghost" id="change" type="button">Change tool</button></div>
+        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="ghost" id="starBtn" type="button" aria-pressed="false" hidden>+ Add to your stack</button><button class="ghost" id="cmpThis" type="button" data-compare="">Compare with others</button><button class="ghost" id="change" type="button">Change tool</button></div>
       </div>
       <article id="toolcard" hidden aria-label="About this tool"></article>
     </div>
@@ -89,23 +87,25 @@
     </div>
   </section>
 
+  <section class="work" id="pulse" data-views="overview calendar"><div class="wrap wide"><section id="pulsePanel"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the pulse"></div></section></div></section>
   <section class="work" id="mystack" data-views="overview" aria-labelledby="stackHead">
     <div class="wrap wide">
       <p class="lab">Private workspace</p>
       <h2 class="h2" id="stackHead">Build a software stack</h2>
-      <p class="meta" id="stackIntro">Keep the tools you use together. See research coverage, price evidence, public momentum and upcoming dates in one private workspace.</p>
-      <p class="meta mt12" id="stackSum" aria-live="polite">Start with software you already use.</p>
+      <p class="meta" id="stackIntro">Keep the tools you use together: what changed on their own pages, research coverage and price evidence, in one place.</p>
+      <p class="meta mt-1" id="stackSum" aria-live="polite">Start with software you already use.</p>
       <ol class="stack mt16" id="stackList" hidden></ol>
-      <div class="stack-intel mt16" id="stackIntel" aria-label="Stack intelligence" hidden></div>
+      <div class="stack-intel mt16 grid-cols-2 max-[699px]:grid-cols-1" id="stackIntel" aria-label="Stack intelligence" hidden></div>
+      <div class="mt-4" id="stackChangesW" hidden><section id="stackChanges"></section></div>
       <div class="sacts mt16" id="stackActs"><button class="cta" id="stackAdd" type="button">Add software</button></div>
-      <p class="meta mt12" id="stackNote">Saved only in this browser. Nothing is uploaded or synced.</p>
+      <p class="meta mt12" id="stackNote">Saved in this browser only. No account.</p>
     </div>
   </section>
   <section class="work" id="news" data-views="overview" aria-labelledby="newsT" data-loading>
     <div class="wrap wide">
       <h2 class="h2" id="newsT">What changed</h2>
       <p class="meta" id="newsSub" aria-live="polite">Loading sourced updates…</p>
-      <div class="chips mt16" id="newsKinds" role="group" aria-label="Which feeds"><span class="skeleton skeleton-pills" aria-hidden="true"></span></div>
+      <div class="mt-4 flex flex-col gap-3"><div class="flex flex-wrap items-center gap-2" id="newsScope"></div><div class="chips" id="newsKinds" role="group" aria-label="Which feeds"><span class="skeleton skeleton-pills" aria-hidden="true"></span></div></div>
       <ol class="news mt16" id="newsList" aria-busy="true"><li class="skeleton skeleton-news" role="status" aria-label="Loading sourced updates"></li></ol>
       <button class="ghost mt16" id="newsMore" type="button" disabled>Show more</button>
     </div>
@@ -133,22 +133,11 @@
       <p class="lab">Evidence-led analysis</p>
       <h2 class="h2" id="insT">Market insights</h2>
       <p class="msub" id="insSub">Computed from the stored facts.</p>
+      <div class="mt-6"><section id="insFindings"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section></div>
       <div id="insBody" aria-busy="true"><div class="skeleton skeleton-report mt16" role="status" aria-label="Loading market analysis"></div></div>
     </div>
   </section>
-  <section class="work" id="calendar" data-views="calendar" aria-labelledby="calT">
-    <div class="wrap wide">
-      <h2 class="h2" id="calT">The software calendar</h2>
-      <p class="msub">Recorded releases and announcements behind today. Published support dates ahead. Every mark opens its source.</p>
-      <div class="chips mt16" id="calKinds" role="group" aria-label="Which events"><span class="skeleton skeleton-pills" aria-hidden="true"></span></div>
-      <div class="cgridw mt16"><div class="cgrid" id="calGrid" role="img" data-aria="Activity by day: {view.calendarPastWeeks} weeks behind, {view.calendarAheadWeeks} weeks ahead. The same events are listed below." aria-busy="true"><span class="skeleton skeleton-heatmap" role="status" aria-label="Loading the calendar"></span></div></div>
-      <p class="clegend meta"><i class="p o2"></i> observed record <i class="p u"></i> occurrence unconfirmed <i class="f s"></i> published support date <i class="t"></i> today</p>
-      <p class="mt12" id="calSum"><span class="skeleton skeleton-line" role="status" aria-label="Loading calendar summary"></span></p>
-      <div class="cday mt16" id="calDay" hidden></div>
-      <h3 class="h3 mt24">The next <span data-p="view.calendarAgendaDays"></span> days</h3>
-      <ol class="clist mt12" id="calAhead" aria-busy="true"><li class="skeleton skeleton-table" role="status" aria-label="Loading upcoming dates"></li></ol>
-    </div>
-  </section>
+  <section class="work" id="calendar" data-views="calendar"><div class="wrap wide"><section id="agendaPanel"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div></section></div></section>
   <section class="work" id="agents" data-views="agents" aria-labelledby="agentsT">
     <div class="wrap wide">
       <p class="lab">Agent access</p>

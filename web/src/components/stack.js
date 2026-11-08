@@ -7,8 +7,14 @@ import { MK } from '../lib/market.js';
 import { PRICES } from '../lib/profiles.js';
 import { fromLink, replace, shareLink, stack, toggle, tracked } from '../lib/stack.js';
 import { S } from '../lib/state.js';
+import { mount as mountPanel } from '../ui/panel.js';
+import { ui } from '../ui/recipes.js';
+import { stackPanel } from './changes.js';
 
-let shared = null;
+let shared = null,
+  changes = null;
+/* each fact about a row as a badge: one height, its text centred, every badge on one centre line */
+const BADGE = { facts: ui.badge.neutral, price: ui.badge.neutral, up: ui.badge.up, dn: ui.badge.down, none: ui.badge.neutral };
 
 function dossier(x) {
   const out = [],
@@ -25,21 +31,13 @@ function dossier(x) {
 
 function intelligence(rows) {
   const researched = rows.filter(r => r.profile).length,
-    measured = rows
-      .filter(r => r.movement && r.movement.dl && r.movement.dl.vsBase != null)
-      .sort((a, b) => Math.abs(b.movement.dl.vsBase) - Math.abs(a.movement.dl.vsBase))[0],
     gap = rows.find(r => !r.profile);
-  const momentum = measured
-    ? `<p class="stack-value ${measured.movement.dl.vsBase >= 0 ? 'up' : 'dn'}">${esc(measured.x.name)} · ${pct(measured.movement.dl.vsBase)}</p>
-       <p class="meta">Downloads against its own ${PARAMS.movers.base_weeks}-week level · measured ${fd(MK.movers.generated)}. Registry activity is not product usage.</p>`
-    : `<p class="stack-value">No comparable signal</p><p class="meta">No tracked tool has a public registry trend against its own ${PARAMS.movers.base_weeks}-week level.</p>`;
   const review = gap
     ? `<p class="stack-value"><a href="#app=${esc(gap.x.id)}">${esc(gap.x.name)}</a></p>
        <p class="meta">Own-page research is not recorded yet.</p>`
     : '<p class="stack-value">Coverage complete</p><p class="meta">Every tracked tool has own-page research. Compare them before the next review.</p>';
   return `<section class="stack-insight" aria-labelledby="stackMonitor"><p class="lab" id="stackMonitor">Monitoring</p>
-      <p class="stack-value">${n(rows.length)} tracked locally</p><p class="meta">${n(researched)} researched. No account or server sync.</p></section>
-    <section class="stack-insight" aria-labelledby="stackMomentum"><p class="lab" id="stackMomentum">Public momentum</p>${momentum}</section>
+      <p class="stack-value">${n(rows.length)} in your stack</p><p class="meta">${n(researched)} researched on their own pages.</p></section>
     <section class="stack-insight" aria-labelledby="stackReview"><p class="lab" id="stackReview">Next to research</p>${review}<p class="meta stack-caveat">Review order reflects evidence coverage, not product fit.</p></section>`;
 }
 
@@ -49,17 +47,14 @@ function render() {
   const list = shared || stack();
   sec.hidden = false;
   $('#stackHead').textContent = shared ? 'A shared software stack' : list.length ? 'Your software stack' : 'Build a software stack';
-  $('#stackIntro').textContent =
-    'Keep the tools you use together. See research coverage, price evidence, public momentum and upcoming dates in one private workspace.';
   $('#stackList').hidden = !list.length;
-  $('#stackNote').textContent = shared
-    ? 'Opened from a link. Save it to this browser to make it yours; AirStack has no account or server copy.'
-    : 'Saved only in this browser. Nothing is uploaded or synced.';
+  $('#stackNote').textContent = shared ? 'Opened from a link. Save it to make it yours.' : 'Saved in this browser only. No account.';
   if (!list.length) {
     $('#stackSum').textContent = 'Start with software you already use.';
     $('#stackList').innerHTML = '';
     $('#stackIntel').hidden = true;
     $('#stackIntel').innerHTML = '';
+    $('#stackChangesW').hidden = true;
     $('#stackActs').innerHTML = '<button class="cta" id="stackAdd" type="button">Add software</button>';
     return;
   }
@@ -70,12 +65,16 @@ function render() {
   $('#stackList').innerHTML = rows
     .map(
       ({ x, facts }) => `<li><a class="who" href="#app=${esc(x.id)}">${mono(x, 's20')}<b>${esc(x.name)}</b></a>
-      <span class="sfacts">${facts.map(([k, t]) => `<span class="sf ${k}">${esc(t)}</span>`).join('')}</span>
+      <span class="flex flex-wrap items-center gap-2 max-[699px]:col-span-full">${facts.map(([k, t]) => `<span class="${BADGE[k]}">${esc(t)}</span>`).join('')}</span>
       ${shared ? '' : `<button class="lk srm" type="button" data-unstack="${esc(x.id)}" aria-label="Stop tracking ${esc(x.name)}">Remove</button>`}</li>`
     )
     .join('');
   $('#stackIntel').hidden = false;
   $('#stackIntel').innerHTML = intelligence(rows);
+  const scope = { kind: 'stack', ids: list.map(x => x.id) };
+  $('#stackChangesW').hidden = false;
+  if (!changes) changes = mountPanel($('#stackChanges'), stackPanel, scope);
+  else changes.update(scope);
   const compare =
     list.length > 1
       ? `<a class="ghost" href="#compare=${esc(list
@@ -96,7 +95,7 @@ function star() {
   if (!x) return;
   const on = tracked(x.id);
   b.setAttribute('aria-pressed', String(on));
-  b.textContent = on ? '★ Saved on this device' : '＋ Save on this device';
+  b.textContent = on ? '✓ In your stack · Remove' : '+ Add to your stack';
 }
 
 export function mount() {

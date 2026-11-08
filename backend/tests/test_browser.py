@@ -83,8 +83,8 @@ def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, widt
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
         page.wait_for_function("view => document.body.dataset.view === view", arg=view)
         assert page.evaluate(FITS), view
-    wait(page, "document.querySelectorAll('#upList li:not(.skeleton), #insNow .ins-mini').length > 1")
-    assert page.locator('#browse .pnl header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets", "#/calendar", "#/insights"]
+    wait(page, "document.querySelectorAll('#upHome [data-body] ol, #upHome [data-body] p, #insHome [data-body] ol').length > 1")
+    assert page.locator('#browse header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets", "#/calendar", "#/insights"]
     assert not errors
     context.close()
 
@@ -111,25 +111,70 @@ def test_stack_stays_local_and_starts_a_comparison(chrome, app_url):
     other.close()
 
 
-def test_signal_tiles_fit_their_container(chrome, app_url):
-    context, page, errors = open_app(chrome, app_url)
+@pytest.mark.parametrize("width", [1280, 390])
+def test_signal_tiles_fit_and_share_row_baselines(chrome, app_url, width):
+    context, page, errors = open_app(chrome, app_url, width)
     page.locator("#trend .lb button").first.click()
-    page.wait_for_selector("#toolcard .tiles")
-    assert page.locator("#toolcard .tile").evaluate_all(
+    page.wait_for_selector("#sigs [data-tile]")
+    assert page.locator("#sigs [data-tile]").evaluate_all(
         "tiles => tiles.every(tile => tile.scrollWidth <= tile.clientWidth && [...tile.children].every(child => child.getBoundingClientRect().right <= tile.getBoundingClientRect().right + 1))"
     )
+    # tiles on one line share each row's top and text baseline: label, value, chart, meta
+    rows = page.evaluate("""() => {
+      const tiles = [...document.querySelectorAll('#sigs [data-tile]')], lines = new Map();
+      for (const t of tiles) { const top = Math.round(t.getBoundingClientRect().top); (lines.get(top) || lines.set(top, []).get(top)).push(t); }
+      return [...lines.values()].filter(l => l.length > 1).map(l => [0, 1, 2, 3].map(r => l.map(t => t.children[r].getBoundingClientRect().top)));
+    }""")
+    for line in rows:
+        for tops in line:
+            assert max(tops) - min(tops) <= 1, tops
     assert page.evaluate(FITS)
     assert not errors
     context.close()
 
 
-def test_calendar_separates_records_schedules_and_unconfirmed_dates(chrome, app_url):
+def test_every_chart_is_labelled_and_never_draws_a_broken_or_invalid_path(chrome, app_url):
     context, page, errors = open_app(chrome, app_url)
+    wait(page, "document.querySelectorAll('#pulsePanel svg rect').length > 3")
+    for view in ("markets", "overview"):
+        page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
+        page.wait_for_function("view => document.body.dataset.view === view", arg=view)
+        page.wait_for_timeout(300)
+        bad = page.evaluate("""() => [...document.querySelectorAll('svg[data-chart]')].flatMap(svg => {
+          const out = [], gaps = +(svg.dataset.gaps || 0);
+          if (!(svg.getAttribute('aria-label') || svg.querySelector('title'))) out.push('unlabelled chart');
+          for (const p of svg.querySelectorAll('path')) {
+            const d = p.getAttribute('d') || '';
+            if (/NaN|undefined|Infinity/.test(d)) out.push('invalid path ' + d.slice(0, 40));
+            if (!p.dataset.gap && (d.match(/M/g) || []).length > 1) out.push('a subpath restarts without a flagged gap');
+          }
+          if (svg.querySelectorAll('path[data-gap]').length !== gaps) out.push('gaps not counted');
+          return out; })""")
+        assert not bad, (view, bad)
+    assert page.locator("svg[data-chart]").count() > 1
+    assert not errors
+    context.close()
+
+
+def test_the_pulse_opens_a_week_with_sourced_events_and_follows_the_stack_scope(chrome, app_url):
+    context, page, errors = open_app(chrome, app_url)
+    wait(page, "document.querySelectorAll('#pulsePanel svg rect').length > 3")
+    assert page.locator("#pulsePanel [data-scope]").count() == 0 and "Your stack is empty" in page.inner_text("#pulsePanel header")
+    page.evaluate("""() => { const P = document.querySelector('#pulsePanel [data-scroll]'); P.focus(); }""")
+    for _ in range(40):                                        # walk back from the latest week to one with events
+        page.keyboard.press("ArrowLeft")
+        if page.locator("#pulsePanel [data-day] [data-stack-toggle]").count():
+            break
+    links = page.locator("#pulsePanel [data-day] ol a[href^='https://']").evaluate_all("xs => xs.map(x => x.href)")
+    assert links and all(link.startswith("https://") for link in links)
+    page.locator("#pulsePanel [data-day] [data-stack-toggle]").first.click()
+    page.click("#pulsePanel [data-scope=stack]")
+    assert page.get_attribute("#pulsePanel [data-scope=stack]", "aria-pressed") == "true"
     page.evaluate("location.hash = '#/calendar'")
     page.wait_for_function("document.body.dataset.view === 'calendar'")
-    wait(page, "document.querySelectorAll('#calendar a.ext').length > 0")
-    assert "repeating-linear-gradient" in page.locator(".clegend .u").evaluate("node => getComputedStyle(node).backgroundImage")
-    assert all(link.startswith("https://") for link in page.locator("#calendar a.ext").evaluate_all("xs => xs.map(x => x.href)"))
+    wait(page, "document.querySelector('#agendaPanel [data-body] p')")
+    assert "end of" not in page.inner_text("#agendaPanel").lower()
+    assert page.evaluate(FITS)
     assert not errors
     context.close()
 
@@ -150,11 +195,11 @@ def test_compare_remains_usable_on_a_phone(chrome, app_url):
 def test_markets_panels_cover_every_sector_and_keep_rows_aligned(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
     page.evaluate("location.hash = '#/markets'")
-    wait(page, "document.querySelectorAll('[data-panel] [data-body]:not([aria-busy])').length === 5")
-    assert page.locator("[data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["sectors", "announcements", "entrants", "interest", "downloads"]
+    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 5")
+    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["sectors", "announcements", "entrants", "interest", "downloads"]
     tops = page.evaluate("fetch('markets.json').then(r => r.json()).then(d => Object.values(d.nodes).filter(n => n.parent === null).length)")
     assert page.locator('[data-panel="sectors"] tbody tr').count() == tops
-    spread = page.evaluate("""[...document.querySelectorAll('[data-panel] tbody tr')].map(tr => {
+    spread = page.evaluate("""[...document.querySelectorAll('#markets [data-panel] tbody tr')].map(tr => {
         const ys = [...tr.children].filter(td => td.offsetParent).map(td => { const r = document.createRange(); r.selectNodeContents(td); return r.getClientRects()[0]; })
           .filter(Boolean).map(b => b.top + b.height / 2);
         return ys.length > 1 ? Math.max(...ys) - Math.min(...ys) : 0; }).reduce((a, b) => Math.max(a, b), 0)""")
