@@ -129,6 +129,7 @@ test('bots, foreign origins, bursts and heavy keys are refused and counted by re
   await w.fetch(post({ t: 'view', route: 'overview' }, { ua: 'Googlebot/2.1' }), e, ctx);
   await w.fetch(post({ t: 'view', route: 'overview' }, { origin: 'https://elsewhere.example' }), e, ctx);
   await w.fetch(post('{"t":"view"}'), e, ctx);
+  await w.fetch(post(JSON.stringify({ t: 'view', route: 'overview', pad: 'x'.repeat(4000) })), e, ctx);
   for (let i = 0; i < 4; i++) await w.fetch(post({ t: 'view', route: 'overview' }), e, ctx);
   for (let m = 1; m <= 3; m++) {
     t.mock.timers.setTime(Date.parse('2026-11-08T10:00:00Z') + m * 60000);
@@ -136,7 +137,7 @@ test('bots, foreign origins, bursts and heavy keys are refused and counted by re
   }
   await w.fetch(post({ t: 'view', route: 'markets' }, { ip: '192.0.2.9' }), e, ctx);
   assert.equal(rows(e.DB, 'view').overview, 5);
-  assert.deepEqual(rows(e.DB, 'refused'), { bot: 1, origin: 1, missing: 1, burst: 1, rate_limited: 4 });
+  assert.deepEqual(rows(e.DB, 'refused'), { bot: 1, origin: 1, missing: 1, size: 1, burst: 1, rate_limited: 4 });
   assert.equal(e.DB.sql.prepare('SELECT MAX(n) AS n FROM uniq').get().n, 9);
 });
 

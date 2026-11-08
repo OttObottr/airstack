@@ -108,6 +108,7 @@ export function make(L) {
       : !ua || BOT.test(ua) ? 'bot'
       : null;
     if (reason) return refuse(reason);
+    if (+(h.get('content-length') || 0) > schema.maxBytes) return refuse('size');
     const e = check(await request.text());
     if (typeof e === 'string') return refuse(e);
 

@@ -41,13 +41,13 @@ const parse = h => {
     : null;
 };
 function go(next) {
+  if (next.ids.length > 1 && next.ids.length > st.ids.length) send('compare', { n: Math.min(next.ids.length, 5) });
   st = next;
   history.pushState(null, '', hash());
   draw();
 }
 export function openCompare(ids, opener) {
   go({ ids });
-  if (ids.length) send('compare', { n: Math.min(ids.length, 5) });
   show('compare');
   if (opener) $('#cmpT').focus({ preventScroll: true });
 }
@@ -55,7 +55,7 @@ export function sync() {
   const c = parse(location.hash);
   if (c) {
     st = c;
-    if (c.ids.length) send('compare', { n: Math.min(c.ids.length, 5) });
+    if (c.ids.length > 1) send('compare', { n: Math.min(c.ids.length, 5) });
   } else if (location.hash !== '#/compare') return;
   draw();
 }
