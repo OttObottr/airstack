@@ -12,7 +12,7 @@ e = lambda s: html.escape(str(s), quote=True)
 foot = lambda extra="": ("<footer>AirStack: every claim about software, with the page it came from. " + extra +
                          'Browse <a href="/p/">products</a>, <a href="/c/">categories</a>, <a href="/t/">software types</a>, and <a href="/o/">makers</a>. <a href="/compare/">Compare</a>. <a href="/insights/">Insights</a>. <a href="/calendar/">Calendar</a>. <a href="/method/">Method</a>. <a href="/open-data/">Open data</a>. '
                          "Original compilation metadata is CC BY 4.0 where applicable; third-party material remains its owners’ property. "
-                         '<a href="/legal/">Terms, privacy and sources</a>. <a href="https://github.com/OttObottr/airstack">Source</a></footer>')
+                         '<a href="/legal/">Terms &amp; privacy</a>. <a href="https://github.com/OttObottr/airstack">Source</a></footer>')
 
 slug = lambda s, n=60: re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:n] or "x"
 
