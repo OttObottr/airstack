@@ -6,8 +6,7 @@
   "note": "Synthetic measurements for the test fixture.",
   "params": {
    "works_with_top": 8,
-   "works_with_min": 2,
-   "hubs_top": 24
+   "works_with_min": 2
   }
  },
  "map": {
@@ -78,10 +77,6 @@
    "label": "Free plan"
   },
   {
-   "key": "list_price",
-   "label": "List price"
-  },
-  {
    "key": "open_source",
    "label": "Open source"
   },
@@ -134,21 +129,153 @@
    }
   }
  },
- "hubs": [
-  [
-   "gamma-deploy",
-   "Gamma Deploy",
-   2
-  ],
-  [
-   "",
-   "Omega Chat",
-   2
-  ],
-  [
-   "",
-   "Sigma Tracker",
-   2
-  ]
- ]
+ "findings": {
+  "rising": {
+   "items": [
+    {
+     "node": "coding-agents",
+     "name": "Coding agents",
+     "base": 6,
+     "baseline": 0.12,
+     "value": 0.18,
+     "spread": 0.06,
+     "ratio": 1.5,
+     "views": [
+      30000,
+      42000
+     ],
+     "driver": {
+      "id": "zeta-agent",
+      "name": "Zeta Agent",
+      "views": [
+       9000,
+       15000
+      ],
+      "url": "https://en.wikipedia.org/wiki/Zeta_Agent"
+     }
+    }
+   ],
+   "dropped": {
+    "fewer than 5 measured products": 3
+   },
+   "weeks": [
+    "2026-05-04",
+    "2026-05-25",
+    "2026-10-05",
+    "2026-10-26"
+   ],
+   "base": {
+    "products": 40,
+    "views": [
+     250000,
+     233000
+    ]
+   },
+   "source": "Wikimedia pageviews API (English Wikipedia)",
+   "rule": "a node's share of the views of every product measured in all 8 weeks, its last 4 weeks against the first 4"
+  },
+  "ai": {
+   "items": [
+    {
+     "node": "project-management",
+     "name": "Project management",
+     "base": 24,
+     "found": 9,
+     "value": 0.375,
+     "baseline": 0.12,
+     "spread": 0.255,
+     "z": 3.84
+    }
+   ],
+   "dropped": {
+    "fewer than 20 products read": 4
+   },
+   "base": {
+    "products": 120,
+    "found": 14
+   },
+   "rule": "products whose own one-line description states AI, of the products read with a one-liner; nodes under AI & machine learning are left out"
+  },
+  "entrants": {
+   "items": [],
+   "dropped": {
+    "fewer than 10 products with an inception year": 5
+   },
+   "since": 2024,
+   "base": {
+    "products": 30,
+    "found": 1
+   },
+   "source": "Wikidata P571 inception (CC0)",
+   "rule": "products Wikidata records as started in 2024 or later, of the node's products with an inception year"
+  },
+  "standout": {
+   "items": [
+    {
+     "node": "vector-databases",
+     "name": "Vector databases",
+     "base": 22,
+     "trait": "open_source",
+     "label": "open source",
+     "found": 15,
+     "z": 5.1,
+     "value": 0.6818,
+     "baseline": 0.23,
+     "spread": 0.4518
+    }
+   ],
+   "dropped": {
+    "fewer than 20 products read": 4
+   },
+   "baseline": {
+    "free_plan": 0.25,
+    "open_source": 0.23,
+    "security_claim": 0.2,
+    "ai_one_liner": 0.11
+   },
+   "base": {
+    "products": 120
+   },
+   "rule": "for each node, the trait whose share is the most standard errors above its share across every node"
+  },
+  "tree": {
+   "productivity": [
+    null,
+    "Productivity & collaboration"
+   ],
+   "engineering": [
+    null,
+    "Engineering & developer tools"
+   ],
+   "ai": [
+    null,
+    "AI & machine learning"
+   ],
+   "project-management": [
+    "productivity",
+    "Project management"
+   ],
+   "coding-agents": [
+    "engineering",
+    "Coding agents"
+   ],
+   "vector-databases": [
+    "ai",
+    "Vector databases"
+   ]
+  },
+  "params": {
+   "rising_window_weeks": 4,
+   "rising_min_products": 5,
+   "rising_min_views": 20000,
+   "rising_min_ratio": 1.2,
+   "rising_min_pp": 0.1,
+   "min_base": 20,
+   "min_gap_pp": 10,
+   "min_z": 2,
+   "entrants_years": 3,
+   "entrants_min_base": 10,
+   "top": 5
+  }
+ }
 }

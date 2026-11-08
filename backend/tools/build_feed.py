@@ -31,13 +31,14 @@ def changes(news, events, pages):
     start = (end - timedelta(days=news["source"]["window_days"])).isoformat()
     in_news = {i["url"] for i in news["items"]}
     rows = [(tag(i["url"]), i) for i in news["items"]]
-    rows += [(tag(e["url"]) + "#" + slug(e["title"]), {**e, "date": e["at"]}) for e in events["events"]  # one support page lists many cycles
+    rows += [(tag(e["url"]) + "#" + slug(e["title"] or ""), {**e, "date": e["at"]}) for e in events["events"]  # one support page lists many cycles
              if e["status"] == "observed" and e.get("url") and e["url"] not in in_news]
     out = {}
     for id_, i in rows:
         if id_ in out or not start < i["date"][:10] <= end.isoformat():
             continue
-        out[id_] = {"id": id_, "title": NOT_XML.sub("", i["title"]).strip(), "link": i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
+        title = i["title"] or (f"Hacker News discussion · {i.get('points') or 0} points" if i["kind"] == "hacker news" else f"{i['name']} {i.get('version') or ''}")
+        out[id_] = {"id": id_, "title": NOT_XML.sub("", title).strip(), "link": i.get("discussion") if i["kind"] == "hacker news" and not i["title"] else i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
                     "kind": i["kind"], "page": pages.get(i["id"]), "discussion": i.get("discussion")}
     return sorted(sorted(out.values(), key=lambda x: x["id"]), key=lambda x: x["updated"], reverse=True)[:paths.config("pages")["limits"]["feed_entries"]]
 

@@ -98,11 +98,11 @@ function ossView(x) {
   const discussion = r => {
     const h = r.community && r.community.hacker_news;
     if (!h || h.status !== 'observed') return '';
-    return `<span class="osd"><b>Discussed on Hacker News</b> · ${h.count} repository-linked ${h.count === 1 ? 'story' : 'stories'} · ${h.items.map(i => `<a class="ext" href="${url(i.discussion)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} <span class="meta">${i.points} points · ${i.comments} comments · ${fd(i.date)}</span>${ic('out')}</a>`).join('')}</span>`;
+    return `<span class="osd"><b>Discussed on Hacker News</b> · ${h.count} repository-linked ${h.count === 1 ? 'story' : 'stories'} · ${h.items.map(i => `<a class="ext" href="${url(i.discussion)}" target="_blank" rel="noopener noreferrer">Hacker News discussion <span class="meta">${i.points} points · ${i.comments} comments · ${fd(i.date)}</span>${ic('out')}</a>`).join('')}</span>`;
   };
   const lic = r => (r.license && r.license !== 'NOASSERTION' ? esc(r.license) : 'licence not stated');
   const row =
-    r => `<li${r.vetted ? ' class="vetted"' : ' class="unvetted"'}><a class="ext" href="${url(r.url)}" target="_blank" rel="noopener noreferrer"><b>${esc(r.repo)}</b>${ic('out')}</a><span class="meta">${esc(r.description)}</span>
+    r => `<li${r.vetted ? ' class="vetted"' : ' class="unvetted"'}><a class="ext" href="${url(r.url)}" target="_blank" rel="noopener noreferrer"><b>${esc(r.repo)}</b>${ic('out')}</a>
       <span class="osm">${r.vetted ? '<span class="pass">Passes the checks</span> · ' : ''}${lic(r)} · pushed ${fd(r.pushed)} · ★ ${cn(r.stars)} · ${r.forks == null ? 'forks not recorded' : `${cn(r.forks)} forks`} · ${r.open_issues_and_pull_requests == null ? 'issues and pull requests not recorded' : `${cn(r.open_issues_and_pull_requests)} open issues and pull requests`} · discussions ${r.discussions_enabled ? 'enabled' : 'not enabled'} <span class="meta">(repository attention and capability, not use)</span></span>
       <span class="osr">${r.scorecard ? `<a class="ext sc" href="${url(r.scorecard.url)}" target="_blank" rel="noopener noreferrer">Scorecard ${r.scorecard.score.toFixed(1)}/10${ic('out')}</a>${repGraph(r, order)}<span class="meta">${r.scorecard.commit ? `commit ${esc(r.scorecard.commit.slice(0, 7))} · ` : ''}${fd(r.scorecard.date)}</span>` : ''}</span>
       ${discussion(r)}

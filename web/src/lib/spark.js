@@ -1,26 +1,9 @@
 import { PARAMS } from './data.js';
-import { esc, fd, n } from './format.js';
+import { sparkline } from './charts.js';
 
-/* one series, one de-emphasised 1.5 px line; a missing week breaks the line, never drops to zero; the latest week is the dot */
-export function spark(values, weeks, what, { w = 104, h = 28 } = {}) {
-  const got = values.map((v, i) => [i, v]).filter(([, v]) => v != null);
-  if (got.length < 2) return '';
-  const lo = Math.min(...got.map(p => p[1])),
-    hi = Math.max(...got.map(p => p[1])),
-    X = i => 2 + (i / (values.length - 1)) * (w - 6),
-    Y = v => (hi === lo ? h / 2 : h - 3 - ((v - lo) / (hi - lo)) * (h - 6));
-  let d = '',
-    pen = false;
-  values.forEach((v, i) => {
-    if (v == null) return void (pen = false);
-    d += `${pen ? 'L' : 'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`;
-    pen = true;
-  });
-  const [li, lv] = got[got.length - 1],
-    gaps = values.length - got.length,
-    say = `${what}, ${values.length} weeks from ${fd(weeks[0])} to ${fd(weeks[weeks.length - 1])}: ${n(lo)} to ${n(hi)} a week, latest ${n(lv)}${gaps ? `; ${gaps} week${gaps > 1 ? 's' : ''} not recorded` : ''}`;
-  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(say)}"><title>${esc(say)}</title><path d="${d}"/><circle cx="${X(li).toFixed(1)}" cy="${Y(lv).toFixed(1)}" r="2.5"/></svg>`;
-}
+/* a weekly series through the one chart module; a series missing more than the published share is not drawn */
+export const spark = (values, weeks, what, o = {}) =>
+  sparkline(values, weeks, what, { maxMissing: PARAMS.movers.max_missing_share ?? 1, ...o });
 
 /* the registry series a movers row carries, as [values, weeks] */
 export const series = r => {

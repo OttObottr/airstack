@@ -10,7 +10,6 @@
 @import "./guide.css" layer(components);
 @import "./news.css" layer(components);
 @import "./stack.css" layer(components);
-@import "./calendar.css" layer(components);
 @import "./loading.css" layer(components);
 @import "./motion.css" layer(components);
 @import "./palette.css" layer(components);
