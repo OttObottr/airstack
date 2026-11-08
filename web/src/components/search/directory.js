@@ -38,7 +38,9 @@ export const loadDir = () =>
           lane: 'dir',
           laneName: T[t][1],
           k: sq(name),
-          ak: (al || []).map(sq),
+          ak: [...(al || []), ...(devs || []).map(m => D.orgs[m] && name.startsWith(D.orgs[m][0] + ' ') && name.slice(D.orgs[m][0].length + 1))]
+            .filter(Boolean)
+            .map(sq) /* "Google Chrome" also answers to "Chrome" */,
           dir: true,
           listed: true,
           desc,

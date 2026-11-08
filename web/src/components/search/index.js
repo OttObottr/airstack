@@ -65,7 +65,7 @@ export function rank(s) {
       (b.x.links || 0) - (a.x.links || 0) ||
       a.x.name.localeCompare(b.x.name);
   const offer = (x, sc) => {
-    if (x.listed && sc < (x.org ? 118 : 120))
+    if (x.listed && sc < 120)
       sc /= 10; /* a listing ranks below tracked tools unless it is the exact name */
     if (top.length === 8 && sc < top[7].sc) return;
     const r = { x, sc, dl: dl(x) };
@@ -88,8 +88,7 @@ export function rank(s) {
           .map(sq)),
       lk = x.lk || (x.lk = sq(x.laneName));
     let sc = 0;
-    if (x.k === k) sc = 120;
-    else if (x.ak.includes(k)) sc = 118;
+    if (x.k === k || x.ak.includes(k)) sc = 120; /* name or alias: the better-known one wins */
     else if (x.k.startsWith(k)) sc = 100;
     else if (x.ak.some(a => a.startsWith(k))) sc = 90;
     else if (w.some(v => v.startsWith(k))) sc = 70;

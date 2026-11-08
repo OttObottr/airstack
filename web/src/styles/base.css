@@ -18,3 +18,4 @@ button{cursor:pointer;text-align:inherit}
 .ext:hover,.foot a:hover,.foot button:hover{color:var(--color-ink);text-decoration-color:currentColor}
 .view-away{display:none!important}
 .skip{position:absolute;left:-9999px;top:8px;z-index:100;padding:10px 16px;border-radius:var(--radius-sm);background:var(--color-ink);color:var(--color-bg);font-weight:600}.skip:focus{left:16px}
+.arw{display:inline-block;flex:none;width:.5em;height:.45em;margin-right:.3em;vertical-align:.05em;background:currentColor;clip-path:polygon(50% 0,100% 100%,0 100%)}.arw.down{clip-path:polygon(0 0,100% 0,50% 100%)}

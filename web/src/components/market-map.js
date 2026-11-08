@@ -51,7 +51,7 @@ function drawMarketMap() {
       l => `<section class="mlane" aria-label="${esc(l.name)}"><h3><span>${esc(l.name)}</span>${
         l.lift == null
           ? `<span class="state-note">Insufficient ${PARAMS.movers.base_weeks}-week baseline</span>`
-          : `<span class="mlift ${tone(l.lift)}" title="Weighted by downloads across the ${l.based} of ${l.rows.length} tools with usable earlier weeks">${l.lift >= 0 ? '▲' : '▼'} ${pct(Math.abs(l.lift)).replace('+', '')}<span class="sr"> across ${l.based} of ${l.rows.length} tools</span></span>`
+          : `<span class="mlift ${tone(l.lift)}" title="Weighted by downloads across the ${l.based} of ${l.rows.length} tools with usable earlier weeks"><i class="arw${l.lift >= 0 ? '' : ' down'}" aria-hidden="true"></i>${pct(Math.abs(l.lift)).replace('+', '')}<span class="sr"> across ${l.based} of ${l.rows.length} tools</span></span>`
       }</h3>
     <div class="tm" data-lane="${esc(l.id)}"></div>${l.unmeasured ? `<p class="meta">+${l.unmeasured} without download counts</p>` : ''}</section>`
     )

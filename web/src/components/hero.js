@@ -13,7 +13,7 @@ export function drawTape(only, all) {
       ? [...rows.slice(0, VIEW.tapeEnds), ...rows.slice(-VIEW.tapeEnds)]
       : rows;
   const item = r =>
-    `<a href="#app=${esc(r.id)}"><b>${esc(r.name)}</b><span class="${r.dl.vsBase < 0 ? 'dn' : 'up'}">${r.dl.vsBase < 0 ? '▼' : '▲'} ${pct(r.dl.vsBase)}</span></a>`;
+    `<a href="#app=${esc(r.id)}"><b>${esc(r.name)}</b><span class="${r.dl.vsBase < 0 ? 'dn' : 'up'}"><i class="arw${r.dl.vsBase < 0 ? ' down' : ''}" aria-hidden="true"></i>${pct(r.dl.vsBase)}</span></a>`;
   const as = `<span class="as">${only ? 'your tools · ' : ''}${PARAMS.movers.base_weeks}-week momentum · registry downloads · ${fd(M.moversTop.fetched || M.meta.checked_at)}</span>`;
   if (rows.length) $('#tape').innerHTML = as + shown.map(item).join('') + as + shown.map(item).join('');
   else if (!only) $('#tapeW').hidden = true;

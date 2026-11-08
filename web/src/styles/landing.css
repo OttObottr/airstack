@@ -13,7 +13,7 @@ html{scroll-padding-top:104px}
   .nav a{padding:0 10px}.nav a .i{display:none}.nav a[aria-current=page]::after{left:9px;right:9px}}
 .tape{position:sticky;top:64px;z-index:49;height:32px;overflow:hidden;border-bottom:1px solid var(--color-hair);background:color-mix(in oklab,var(--color-bg) 92%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);font:500 var(--text-meta)/1 var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:.015em}
 .tape-in{display:flex;gap:32px;width:max-content;height:100%;align-items:center;padding:0 24px;animation:tape 90s linear infinite}.tape:hover .tape-in,.tape:focus-within .tape-in{animation-play-state:paused}
-.tape a{display:inline-flex;gap:8px;align-items:center;min-height:32px;color:var(--color-ink-2);white-space:nowrap}.tape a b{font-weight:600}.tape .up{color:var(--color-up)}.tape .dn{color:var(--color-dn)}.tape .as{color:var(--color-ink-2)}
+.tape a,.tape .as,.tape a>span{display:inline-flex;align-items:center;height:100%;line-height:1;white-space:nowrap}.tape a{gap:8px;color:var(--color-ink-2)}.tape a b{font-weight:600}.tape .up{color:var(--color-up)}.tape .dn{color:var(--color-dn)}.tape .as{color:var(--color-ink-2)}
 @keyframes tape{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.tape{overflow-x:auto}.tape-in{animation:none}}
 .dhead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;margin-bottom:16px}
