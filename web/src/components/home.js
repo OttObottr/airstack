@@ -42,7 +42,7 @@ function insightsPanel(I) {
             .join('')}</ol>`
         : `<p class="meta mt8">No category has ${MIN_READ} products read yet.</p>`
     }
-    <p class="meta mt12">Share of products read whose own pages say so; scale 0 to 100%. Categories with fewer than ${MIN_READ} products read are left out. Source: ${esc(I.source.facts_from)}.</p>`;
+    <p class="meta mt12">Share of products read whose own pages say so; scale 0 to 100%. Categories with fewer than ${MIN_READ} products read are left out. Sources: ${esc(I.source.facts_from)}; ${esc(I.source.documentation_from)}.</p>`;
 }
 
 function upcomingPanel(E) {
@@ -64,7 +64,7 @@ function upcomingPanel(E) {
         .join('')
     : `<li class="meta">Nothing dated in the next ${WEEKS} weeks.</li>`;
   $('#upSrc').innerHTML =
-    `${n(ahead.length)} tools with a date in the ${WEEKS} weeks from ${fd(today)}. Support dates: <a class="src" href="${url(S.url)}" target="_blank" rel="noopener noreferrer">${esc(S.name)}</a>, ${esc(S.license)}, read ${S.read ? fd(S.read) : 'not yet'}.`;
+    `${n(Math.min(SHOWN, ahead.length))} of ${n(ahead.length)} tools with a date in the ${WEEKS} weeks from ${fd(today)}. Support dates: <a class="src" href="${url(S.url)}" target="_blank" rel="noopener noreferrer">${esc(S.name)}</a>, ${esc(S.license)}, read ${S.read ? fd(S.read) : 'not yet'}.`;
 }
 
 const fill = (sel, file, draw, what) =>

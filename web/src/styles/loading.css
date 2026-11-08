@@ -3,7 +3,7 @@
 .skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.055) 48%,transparent 66%);transform:translateX(-100%)}
 .skeleton-line{width:min(100%,58rem);height:14px;background:linear-gradient(90deg,var(--sk-hi) 0 68%,transparent 68%)}
 .skeleton-pills{width:min(100%,34rem);height:44px;background:repeating-linear-gradient(90deg,var(--sk-hi) 0 112px,transparent 112px 122px)}
-.skeleton-list{height:490px;background:
+.skeleton-list{background:
   linear-gradient(var(--sk-hi) 0 0) 0 0/28% 18px no-repeat,
   repeating-linear-gradient(to bottom,transparent 0 50px,var(--sk-hi) 50px 51px,transparent 51px 62px)}
 .skeleton-news{background:
@@ -32,7 +32,7 @@
 .load-error{min-height:96px;display:grid;align-content:center;max-width:52rem;padding:16px 18px;border:1px solid var(--color-hair);border-left:2px solid var(--color-warn);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 34%,transparent);color:var(--color-ink-2)}
 .skelrow>td{padding-block:12px!important}
 #mvt .skeleton-table{height:580px}#mkList .skeleton-table{height:2388px}#mkCount{min-height:56px}
-#newsList>.skeleton{height:1188px}#insBody>.skeleton{height:4332px}#calAhead>.skeleton{height:2383px}
+#newsList>.skeleton{height:1188px}#insBody>.skeleton{height:4332px}#calAhead>.skeleton{height:1512px}
 #news[data-loading] #newsSub{min-height:37px}#insSub:has(+#insBody[aria-busy=true]){min-height:83px}
 #mmap>.skeleton{grid-column:1/-1;width:100%;height:819px}#tyMap>.skeleton{width:100%;height:100%}
 #calGrid>.skeleton{grid-column:1/span 78;grid-row:1/span 7}
@@ -40,8 +40,8 @@
 #cmpBody>.skeleton{margin-top:24px;height:147px}
 #trend>.skeleton{height:533px}#upList>.skeleton{height:534px}#insNow>.skeleton{height:493px}#upSrc{min-height:3.2em}#cmpOut>.skeleton-pills{height:79px}
 @media(prefers-reduced-motion:no-preference){.skeleton::after{animation:skeleton-pass 1.8s ease-in-out infinite}@keyframes skeleton-pass{to{transform:translateX(100%)}}}
-@media(max-width:699px){.skeleton-list{height:792px}.skeleton-table{height:280px}.skeleton-profile{height:340px}#newsKinds>.skeleton{height:96px}
-  #mvt .skeleton-table{height:1002px}#mkList .skeleton-table{height:3322px}#mkCount{min-height:37px}
-  #newsList>.skeleton{height:2132px}#insBody>.skeleton{height:5444px}#calAhead>.skeleton{height:5774px}#mmap>.skeleton{height:2583px}
-  #calSum>.skeleton{height:140px}#cmpBody>.skeleton{height:263px}#trend>.skeleton{height:649px}#cmpOut>.skeleton-pills{height:199px}
+@media(max-width:699px){.skeleton-table{height:280px}.skeleton-profile{height:340px}#newsKinds>.skeleton{height:96px}
+  #mvt .skeleton-table{height:1002px}#mkList .skeleton-table{height:3339px}#mkCount{min-height:37px}
+  #newsList>.skeleton{height:2132px}#insBody>.skeleton{height:5444px}#calAhead>.skeleton{height:3649px}#mmap>.skeleton{height:2583px}
+  #calSum>.skeleton{height:140px}#cmpBody>.skeleton{height:263px}#trend>.skeleton{height:649px}#insNow>.skeleton{height:512px}#cmpOut>.skeleton-pills{height:199px}
   #news[data-loading] #newsSub{min-height:112px}#insSub:has(+#insBody[aria-busy=true]){min-height:129px}}
