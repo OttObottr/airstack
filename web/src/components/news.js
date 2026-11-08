@@ -3,8 +3,9 @@ import { $ } from '../lib/dom.js';
 import { esc, fd, n, url } from '../lib/format.js';
 import { stack } from '../lib/stack.js';
 
+const FIRST = 12;
 let N = null,
-  shown = 40;
+  shown = FIRST;
 const KINDS = [
   ['changelog', 'Changelogs'],
   ['release', 'Releases'],
@@ -142,7 +143,7 @@ export function mount() {
   sec.addEventListener('click', e => {
     if (e.target.closest('#newsKinds .chip[data-mine]')) {
       mine = !mine;
-      shown = 40;
+      shown = FIRST;
       render();
       return;
     }
@@ -150,7 +151,7 @@ export function mount() {
     if (k) {
       const v = k.dataset.kind;
       on.has(v) ? on.delete(v) : on.add(v);
-      shown = 40;
+      shown = FIRST;
       render();
       return;
     }

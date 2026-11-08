@@ -7,3 +7,12 @@ if (!M) {
   throw new Error('site-data.js missing');
 }
 export const X = M.execution;
+/* one request per file, shared by Home and the full views; a failure can be retried */
+const got = {};
+export const json = f =>
+  (got[f] ||= fetch(f)
+    .then(r => (r.ok ? r.json() : Promise.reject(new Error(`${f}: ${r.status}`))))
+    .catch(e => {
+      delete got[f];
+      throw e;
+    }));

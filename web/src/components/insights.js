@@ -1,4 +1,6 @@
+import { json } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
+import { measures } from './home.js';
 import { esc, ic, n, url } from '../lib/format.js';
 
 let I = null,
@@ -15,13 +17,7 @@ const hash = s => {
 const pct = (k, of) => (of ? Math.round((k / of) * 100) : null);
 
 function summaryView() {
-  const bands = I.map.populations.categories,
-    placed = bands.reduce((a, b) => a + b, 0),
-    ai = bands[1] + bands[2],
-    cats = Object.values(I.categories).filter(c => c.researched),
-    researched = cats.reduce((s, c) => s + c.researched, 0),
-    totals = I.kpis.map(k => [k.label, cats.reduce((s, c) => s + c[k.key], 0)]).sort((a, b) => b[1] - a[1]),
-    hub = I.hubs[0];
+  const { bands, placed, ai, researched, totals, hub } = measures(I);
   return `<header class="ins-lede"><p class="lab">Market insights</p><h3>${pct(ai, placed)}% of placed products mention AI on their own pages.</h3>
     <p>${n(ai)} of ${n(placed)} placed products in the categories AirStack follows mention AI in their one-line description or elsewhere on their own pages. That is a statement about published positioning—not product quality, adoption or market share.</p></header>
     <ol class="ins-findings" aria-label="Three measured takeaways">
@@ -207,11 +203,7 @@ export function mount() {
   const sec = $('#insights');
   if (!sec) return;
   const load = () =>
-    fetch('insights.json')
-      .then(r => {
-        if (!r.ok) throw new Error(r.status);
-        return r.json();
-      })
+    json('insights.json')
       .then(d => {
         I = d;
         $('#insBody').setAttribute('aria-busy', 'false');

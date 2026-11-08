@@ -78,13 +78,13 @@ FITS = "document.documentElement.scrollWidth <= document.documentElement.clientW
 @pytest.mark.parametrize("width", [1280, 390])
 def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
-    for view in ("markets", "insights", "calendar", "makers", "compare", "overview"):
+    assert page.locator(".nav a").evaluate_all("xs => xs.map(x => x.dataset.view)") == ["overview", "compare", "markets", "makers"]
+    for view in ("markets", "insights", "calendar", "makers", "compare", "agents", "overview"):
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
-        page.wait_for_selector(f'.nav a[data-view="{view}"][aria-current="page"]', state="attached")
+        page.wait_for_function("view => document.body.dataset.view === view", arg=view)
         assert page.evaluate(FITS), view
-    assert not page.query_selector('.nav a[data-view="agents"]')
-    page.evaluate("location.hash = '#/agents'")
-    page.wait_for_function("document.body.dataset.view === 'agents'")
+    wait(page, "document.querySelectorAll('#upList li:not(.skeleton), #insNow .ins-mini').length > 1")
+    assert page.locator('#browse .pnl header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets", "#/calendar", "#/insights"]
     assert not errors
     context.close()
 
@@ -126,7 +126,7 @@ def test_signal_tiles_fit_their_container(chrome, app_url):
 def test_calendar_separates_records_schedules_and_unconfirmed_dates(chrome, app_url):
     context, page, errors = open_app(chrome, app_url)
     page.evaluate("location.hash = '#/calendar'")
-    page.wait_for_selector('.nav a[data-view="calendar"][aria-current="page"]')
+    page.wait_for_function("document.body.dataset.view === 'calendar'")
     wait(page, "document.querySelectorAll('#calendar a.ext').length > 0")
     assert "repeating-linear-gradient" in page.locator(".clegend .u").evaluate("node => getComputedStyle(node).backgroundImage")
     assert all(link.startswith("https://") for link in page.locator("#calendar a.ext").evaluate_all("xs => xs.map(x => x.href)"))
