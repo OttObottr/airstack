@@ -3,7 +3,6 @@ Usage: python backend/tools/build_stats.py"""
 import html
 from datetime import date
 from airstack import paths
-from airstack.files import read_json
 
 ROOT = paths.ROOT
 e = lambda s: html.escape(str(s), quote=True)
@@ -13,11 +12,10 @@ def day(s):
     d = date.fromisoformat(s[:10]); return f"{d.day} {d:%b %Y}"
 
 def main():
-    site, market = paths.read_js(paths.SITE_DATA), paths.read_js(paths.MARKET_DATA)
-    prices = read_json(paths.PRICING)
-    tiles = [(len(site["index"]) + site["dir"]["products"], "software products"), (site["dir"]["orgs"], "organizations"),
-             (sum(1 for v in market["profiles"].values() if v.get("facts")), "read from their own pages"),
-             (sum(len(v["plans"]) for v in prices.values()), "list prices, quoted")]
+    site = paths.read_js(paths.SITE_DATA)
+    c = site["meta"]["counts"]
+    tiles = [(c["products"], "software products"), (c["organizations"], "organizations"),
+             (c["researched_products"], "read from their own pages"), (c["list_prices"], "list prices, quoted")]
     mt = site["moversTop"]; w = mt["window"]["last7"]
     rows = sorted((r for r in mt["rows"] if r["dl"].get("vsBase") is not None), key=lambda r: -r["dl"]["vsBase"])
     def item(r, x):

@@ -69,7 +69,9 @@ def main():
     counts = directory_counts()
     checked = checked_at(counts, movers)
     d = counts or {}
-    headline = {"products": len(search_index) + d.get("products", 0), "organizations": d.get("orgs", 0), "researched_products": d.get("researched", 0)}  # the one set of headline counts every view shows
+    headline = {"products": len(search_index) + d.get("products", 0), "organizations": d.get("orgs", 0), "researched_products": d.get("researched", 0),
+                "facts": read_json(paths.CHAIN_DATA)["summary"]["facts"] if paths.CHAIN_DATA.exists() else None,
+                "list_prices": sum(len(v["plans"]) for v in read_json(paths.PRICING).values()) if paths.PRICING.exists() else None}
     data = {"index": search_index, "cats": categories, "dir": counts,
             "lanes": lanes, "moversTop": movers, "meta": {"checked_at": checked, "counts": headline}, "labels": paths.config("pages")["labels"],
             "tools": [{"key": key, "name": name, "cat": cat, "aliases": aliases} for key, name, cat, aliases in search_index],
