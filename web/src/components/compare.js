@@ -186,7 +186,7 @@ async function draw() {
     if (D.entities[id]) groups.set(lane, [...(groups.get(lane) || []), id]);
   const eg = [...groups.values()].filter(group => group.length >= 3).slice(0, 3).map(group => group.slice(0, 3));
   out.innerHTML = !ready
-    ? `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="cta" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
+    ? ids.length ? '' /* one picked: the suggestions above are the next step */ : `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="cta" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
     : `<div class="cmp-bar"><button class="chip" type="button" id="cmpDiff" aria-pressed="${onlyDiff}"${nd ? '' : ' disabled'}>Only what differs</button></div>
   ${ids.length > 2 ? '<p class="cmp-swipe meta">Swipe the table to see every product <span aria-hidden="true">→</span></p>' : ''}
   <div class="scroll"><table class="t${ids.length === 2 ? ' two' : ''}" id="cmpTbl"><thead><tr><th scope="col"><span class="sr">Field</span></th>${ids
