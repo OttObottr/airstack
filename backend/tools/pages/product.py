@@ -3,7 +3,7 @@ import collections
 import re
 from airstack import paths
 from .layout import BASE, breadcrumbs, e, foot, head
-from .data import CATS, CURRENCY, DIRECTORY, LABELS, NODES, ORGS, PAIRS, TAXON, amount, app_addr, plan_ok, proof, value
+from .data import CATS, DIRECTORY, LABELS, NODES, ORGS, PAIRS, TAXON, app_addr, plan_ok, proof, value
 from .taxonomy import crumbs_for
 
 def by_line(p):
@@ -17,15 +17,13 @@ def page(p, all_, prices, oss):
     P, Q = p["profile"] or {}, prices.get(p["id"])
     what = P.get("what_it_does", {}).get("value") if P.get("what_it_does") else p.get("description")
     peers = [] if p["lane"] == "directory" else sorted((x for x in all_.values() if x["lane"] == p["lane"] and x["id"] != p["id"] and x["profile"]), key=lambda x: -x["profile"]["facts"])[:10]
-    paid = sorted((q for q in (Q or {}).get("plans", []) if plan_ok(q)), key=lambda q: amount(q["price"]))      # directory listings share one lane: no invented alternatives
+    paid = sorted((q for q in (Q or {}).get("plans", []) if plan_ok(q)), key=lambda q: q["amount"])      # directory listings share one lane: no invented alternatives
     title = f"{p['name']}: {'pricing, plans and ' if Q else ''}{'alternatives' if peers else 'what it does'} · AirStack"
     desc = f"{p['name']}: " + (f"{what} " if what else "") + (f"List prices from {paid[0]['price']}{' per user' if paid[0]['unit'] == 'user' else ''} / {paid[0]['period']}, quoted from its pricing page. " if paid else "") \
         + (f"Compare {p['name']} with {len(peers)} alternatives in {p['category']}, every fact quoted from each product's own pages." if peers else "Every fact quoted from its own pages, with the source.")
     url = f"{BASE}/p/{p['slug']}/"
-    offers = []
-    for q in (Q or {}).get("plans", []):
-        m = re.search(r"([$€£¥])\s?(\d[\d,]*(?:\.\d+)?)", q["price"])
-        if m: offers.append({"@type": "Offer", "name": q["plan"], "price": m.group(2).replace(",", ""), "priceCurrency": CURRENCY[m.group(1)], "url": Q["url"]})
+    offers = [{"@type": "Offer", "name": q["plan"], "price": str(q["amount"]), "priceCurrency": q["currency"], "url": Q["url"]}
+              for q in (Q or {}).get("plans", []) if q.get("amount") is not None and q.get("currency")]
     ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": p["name"], "applicationCategory": p["category"], "url": url,
           **({"description": what} if what else {}), **({"sameAs": [p["homepage"]] + ([f"https://www.wikidata.org/wiki/{p['wikidata']}"] if p.get("wikidata") else [])} if p["homepage"] else {}),
           **({"offers": offers} if offers else {}), **({"publisher": {"@type": "Organization", "name": p["vendor"]}} if p["vendor"] else {})}

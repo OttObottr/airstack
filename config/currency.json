@@ -1,0 +1,11 @@
+{
+  "symbols": {"$": "USD", "€": "EUR", "£": "GBP", "¥": "JPY", "₹": "INR", "₩": "KRW", "₽": "RUB", "₺": "TRY", "₪": "ILS", "₫": "VND",
+              "₱": "PHP", "₦": "NGN", "฿": "THB", "₴": "UAH", "₸": "KZT", "₡": "CRC", "₲": "PYG", "₵": "GHS"},
+  "prefixed": {"r$": "BRL", "ca$": "CAD", "c$": "CAD", "a$": "AUD", "au$": "AUD", "us$": "USD", "nz$": "NZD", "hk$": "HKD", "s$": "SGD",
+               "sg$": "SGD", "mx$": "MXN", "nt$": "TWD", "cn¥": "CNY", "rmb¥": "CNY", "jp¥": "JPY"},
+  "codes": ["USD", "EUR", "GBP", "JPY", "CNY", "INR", "CAD", "AUD", "NZD", "CHF", "SEK", "NOK", "DKK", "PLN", "CZK", "HUF", "RON", "BGN",
+            "TRY", "ILS", "AED", "SAR", "QAR", "ZAR", "NGN", "KES", "EGP", "BRL", "MXN", "ARS", "CLP", "COP", "PEN", "SGD", "HKD", "TWD",
+            "KRW", "THB", "MYR", "IDR", "VND", "PKR", "BDT", "RUB", "UAH", "KZT", "ISK"],
+  "decimal_comma_languages": ["af", "bg", "ca", "cs", "da", "de", "el", "es", "et", "eu", "fi", "fr", "gl", "hr", "hu", "id", "is", "it", "lt",
+                              "lv", "nb", "nl", "nn", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "tr", "uk", "vi"]
+}

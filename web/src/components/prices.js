@@ -3,10 +3,7 @@ import { PRICES } from '../lib/profiles.js';
 
 export const per = p =>
   `${p.unit === 'user' ? ' per user' : p.unit === 'usage' ? ' per unit' : ''}${p.period === 'month' ? ' / month' : p.period === 'year' ? ' / year' : p.period === 'one-time' ? ' once' : ''}`;
-export const amt = p => {
-  const m = /\d[\d,]*(?:\.\d+)?/.exec(p.price);
-  return m ? parseFloat(m[0].replace(/,/g, '')) : Infinity;
-};
+export const amt = p => (typeof p.amount === 'number' ? p.amount : Infinity);
 const priceLink = (Q, p) =>
   `<a class="ext" href="${url(Q.url)}" target="_blank" rel="noopener noreferrer" title="“${esc(p.quote)}”">${esc(p.price)}${ic('out')}</a><span class="meta">${per(p)}</span>`;
 export function priceView(x) {

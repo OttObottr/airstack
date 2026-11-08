@@ -16,7 +16,6 @@ ADDON = re.compile(PRICING["addon_pattern"], re.I)
 
 LABELS = PAGES["labels"]
 
-CURRENCY = PAGES["currency"]
 
 def site(u):
     h = re.sub(r"^www\.", "", (re.match(r"https?://([^/:]+)", u or "") or [None, ""])[1].lower()); parts = h.split(".")
@@ -24,7 +23,7 @@ def site(u):
 
 def plan_ok(q):
     """A plan that can stand for what a product costs: a stated unit and period, not an add-on, credit or usage line."""
-    return q["unit"] in ("user", "flat") and q["period"] in ("month", "year") and not ADDON.search(q["plan"] + " " + q.get("quote", "")) and re.search(r"[1-9]", q["price"])
+    return q["unit"] in ("user", "flat") and q["period"] in ("month", "year") and not ADDON.search(q["plan"] + " " + q.get("quote", "")) and (q.get("amount") or 0) > 0
 
 def products():
     """Every product the app can show with something to say: tracked tools, catalog products, and researched directory listings."""
@@ -100,14 +99,11 @@ def value(c):
     v = c["value"]
     return "Yes" if v is True else ", ".join(map(str, v)) if isinstance(v, list) else str(v)
 
-def amount(price):
-    m = re.search(r"\d[\d,]*(?:\.\d+)?", price or ""); return float(m.group(0).replace(",", "")) if m else None
-
 def starting(q):
     """The cheapest paid plan as written on the pricing page, and whether a free plan is listed: only sourced list prices."""
     plans = (q or {}).get("plans", [])
-    paid = sorted((pl for pl in plans if plan_ok(pl) and re.search(r"[$€£¥]", pl["price"])), key=lambda pl: amount(pl["price"]))
-    return (paid[0] if paid else None), any(amount(pl["price"]) == 0 for pl in plans)
+    paid = sorted((pl for pl in plans if plan_ok(pl) and pl.get("currency")), key=lambda pl: pl["amount"])
+    return (paid[0] if paid else None), any(pl.get("amount") == 0 for pl in plans)
 
 DIRECTORY = {}
 

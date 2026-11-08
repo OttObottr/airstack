@@ -11,7 +11,8 @@ from datetime import datetime
 from conftest import ROOT
 from airstack import paths
 from airstack.mcp_server import DESCRIPTIONS
-from airstack.quotes import check, norm, page_text
+from decimal import Decimal
+from airstack.quotes import check, found, has_money, norm, offers, page_text, parse_price
 
 
 PAGE = "<html><body><h1>Acme</h1><p>Acme integrates with Alpha Call and Beta Call.</p>" \
@@ -37,10 +38,10 @@ def test_a_ratings_count_is_not_accepted_as_a_user_count():
 def test_a_wrong_shape_is_repaired_in_code_but_the_page_still_decides():
     text = norm(page_text("<p>SOC 2 Type II and HIPAA compliant.</p><p>Trusted by 11M + developers.</p><p>MIT license</p><p>Runs locally and self-hosted.</p>" + "<p>pad</p>" * 60))
     ok = lambda m, v, q: check({"metric": m, "value_json": v, "quote": q, "source_ts": ""}, text)
-    assert ok("x.compliance", '"SOC 2 Type II"', "SOC 2 Type II")[2] == ["SOC 2 Type II"]            # a bare string becomes a one-item list
+    assert ok("x.compliance", '"HIPAA"', "SOC 2 Type II and HIPAA compliant.")[2] == ["HIPAA"]       # a bare string becomes a one-item list
     assert ok("x.compliance", "SOC 2 Type II, HIPAA", "SOC 2 Type II and HIPAA compliant.")[2] == ["HIPAA", "SOC 2 Type II"]   # an unquoted "A, B": split, each checked
-    assert ok("x.compliance", '"ISO 27001"', "SOC 2 Type II")[0] is False                           # a name that is not on the page is dropped
-    assert ok("x.compliance", "true", "SOC 2 Type II")[0] is False                                    # no names to check: still rejected
+    assert ok("x.compliance", '"ISO 27001"', "SOC 2 Type II and HIPAA compliant.")[0] is False       # a name that is not in the quote is dropped
+    assert ok("x.compliance", "true", "SOC 2 Type II and HIPAA compliant.")[0] is False               # no names to check: still rejected
     assert ok("x.customers_claimed", "11000000", "Trusted by 11M + developers.")[2] == "Trusted by 11M + developers."   # the value is the page's own words
     assert ok("x.license", "MIT", "MIT license")[2] == "MIT license"
     assert ok("x.deployment", "self-hosted", "Runs locally and self-hosted.")[2] == ["self-hosted"]
@@ -76,9 +77,49 @@ def test_a_ratings_count_is_not_a_user_count_and_a_code_fragment_is_not_a_descri
 @pytest.mark.parametrize("quote, held", [("SOC 2 Type II certified.", True), ("Acme is a PCI DSS Level 1 Service Provider.", True),
     ("SOC 2 Type II is in progress.", False), ("We are working towards ISO 27001.", False), ("Acme aims to achieve SOC 2.", False),
     ("ISO 27001 certification is planned.", False), ("HIPAA-ready.", False), ("Acme supports the requirements of GDPR.", False),
-    ("We store your data in ISO 27001 compliant data centers.", False), ("A PCI-DSS Level 1 compliant payment processor.", False)])
+    ("We store your data in ISO 27001 compliant data centers.", False), ("A PCI-DSS Level 1 compliant payment processor.", False),
+    ("Not SOC 2 compliant yet.", False), ("Meet requirements like GDPR, HIPAA and SOC 2.", False), ("SOC 2 Type II", False), ("GDPR\nHIPAA", False),
+    ("Acme isn't HIPAA compliant.", False), ("Stay compliant with GDPR.", False), ("Acme is ISO 27001 certified.", True), ("HIPAA\nCOMPLIANT", True)])
 def test_a_certification_counts_only_when_the_quote_says_it_is_held(quote, held):
     assert admitted("x.compliance", ["SOC 2 Type II", "ISO 27001", "PCI DSS", "PCI-DSS", "HIPAA", "GDPR", "SOC 2"], quote) is held
+
+@pytest.mark.parametrize("metric, value, quote, ok", [
+    ("x.founded_year", 1200, "Trusted by 120,000 teams", False), ("x.integrations_count", 10, "Connect 100+ apps", False),
+    ("x.integrations_count", 100, "Connect 100+ apps", True), ("x.store_users", 120000, "120,000 users", True), ("x.store_users", 120, "120,000 users", False),
+    ("x.founded_year", 2012, "Founded in 2012.", True), ("x.sdk_languages", ["Go", "R", "C"], "Sign in with Google", False),
+    ("x.sdk_languages", ["C"], "SDKs for C++ and C#", False), ("x.sdk_languages", ["Go", "C++"], "SDKs for Go, C++ and Rust", True),
+    ("x.store_rating", 4.5, "Rated 4.5 out of 5", True), ("x.store_rating", 5, "Rated 4.5 out of 5", True), ("x.store_rating", 4.8, "Rated 4.85", False)])
+def test_numbers_are_whole_tokens_and_names_are_whole_words_inside_the_quote(metric, value, quote, ok):
+    assert admitted(metric, value, quote) is ok
+
+def test_a_short_quote_matches_whole_tokens_only():
+    text = norm("Products\nProfessional plan\nSlackware")
+    for q in ("Pro", "Slack", "Free"):
+        assert check({"metric": "x.plan_names", "value_json": json.dumps([q]), "quote": q}, text)[1] == "quote not found on the page"
+    assert found(norm("Professional plan"), text) and not found(norm("Pro"), text)
+
+def test_page_text_reads_only_visible_text_and_joins_inline_elements():
+    t = page_text('<head><title>Acme</title></head><p>Pro <b>$</b>9<sup>.99</sup> / month</p><!-- SOC 2 certified --><div hidden>HIPAA<p>secret</div>'
+                  '<span aria-hidden="true">x</span><template>t</template><img alt="SOC 2"><ul><li>A</li><li>B</li></ul><table><tr><td>a</td><td>b</td></tr></table>')
+    assert t.splitlines() == ["Acme", "Pro $9.99 / month", "A", "B", "a b"]
+
+def test_norm_folds_compatibility_forms_format_characters_dashes_and_quotes():
+    assert norm("Ｐｒｏ\u00adfessional\u200b “Plan” — it’s ＳＯＣ２") == norm('professional "plan" - it\'s soc 2')
+    assert found(norm("セキュリティセット"), norm("セキュリティセットに申し込む")) and found(norm("Acme"), norm("we use Acme.Then"))   # words without spaces
+
+@pytest.mark.parametrize("text, lang, amount, currency, ambiguous", [
+    ("USD 9", None, "9", "USD", False), ("9 €", None, "9", "EUR", False), ("₹499", None, "499", "INR", False), ("CHF 32", None, "32", "CHF", False),
+    ("R$ 49,90", None, "49.90", "BRL", False), ("CA$12", None, "12", "CAD", False), ("$1,200.50 / year", None, "1200.50", "USD", False),
+    ("1.200,50 €", None, "1200.50", "EUR", False), ("$0.015 per minute", None, "0.015", "USD", False), ("$1,200", None, None, "USD", True),
+    ("$1,200", "en-US", "1200", "USD", False), ("1.200 €", "de", "1200", "EUR", False), ("12,000,000 ₩", None, "12000000", "KRW", False)])
+def test_one_price_parser_reads_symbols_codes_and_separators_or_says_ambiguous(text, lang, amount, currency, ambiguous):
+    p = parse_price(text, lang)
+    assert (p["amount"], p["currency"], p["ambiguous"]) == (amount and Decimal(amount), currency, ambiguous)
+
+def test_prices_come_from_json_ld_and_money_is_found_in_any_currency():
+    ld = '<script type="application/ld+json">{"@type": "Product", "name": "Pro", "offers": {"@type": "Offer", "price": "9.99", "priceCurrency": "eur"}}</script>'
+    assert offers(ld) == [{"name": "Pro", "amount": Decimal("9.99"), "currency": "EUR"}] and page_text(ld) == ""
+    assert has_money("Raised €5M") and has_money("from 49 CHF") and has_money("₹499") and not has_money("Version 2.0, 3 seats") and not has_money("Try 30 days") and not has_money("PHP2Shell, PHP 8.4") and parse_price("Free") is None
 
 def test_an_integration_counts_only_from_an_integrations_page_or_a_quote_that_presents_one():
     integration = lambda quote, kind=None: check({"metric": "x.integrations", "value_json": '["Beta"]', "quote": quote}, norm(quote), kind)[0]

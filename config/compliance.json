@@ -1,0 +1,19 @@
+{
+  "standards": ["soc", "soc1", "soc2", "soc3", "iso", "iec", "gdpr", "dsgvo", "rgpd", "hipaa", "hitech", "hitrust", "ccpa", "cpra", "pci",
+               "fedramp", "govramp", "stateramp", "csa star", "fips", "nis2", "nis 2", "dora", "lgpd", "ferpa", "coppa", "finra", "sox", "glba",
+               "aicpa", "casa", "tisax", "bsi", "c5", "itar", "fisma", "cmmc", "irap", "ismap", "hds", "pipeda", "popia", "pdpa", "appi",
+               "cyber essentials", "data privacy framework", "nist", "eidas", "esign", "21 cfr", "cjis", "aiuc", "ens", "k - isms", "trustarc",
+               "truste"],
+  "assert": ["certified", "compliant", "attested", "audited", "accredited", "authorized", "authorised", "validated", "holds", "hold", "held",
+            "achieved", "maintains", "maintain", "comply", "complies", "conforms", "licensed", "approved", "registered", "received",
+            "obtained", "completed", "passed", "certificate", "possess", "possesses", "conformity"],
+  "assert_phrases": ["service provider", "in compliance with", "is iso", "are iso"],
+  "not_held": ["not", "no", "never", "without", "yet", "pending", "planned", "planning", "plan", "plans", "roadmap", "soon", "aim", "aims",
+              "aiming", "pursuing", "pursue", "towards", "toward", "expect", "expects", "expected", "underway", "ready", "readiness", "help",
+              "helps", "helping", "isn", "aren", "doesn", "processor", "processors", "subprocessor", "subprocessors", "infrastructure",
+              "partner", "partners", "vendors", "stay", "become", "becoming", "committed", "commitment", "supports", "support", "hosting",
+              "host"],
+  "not_held_phrases": ["in progress", "in the process", "on track", "working on", "data center", "data centers", "data centre", "data centres",
+                      "cloud provider", "cloud providers", "hosting provider", "hosting providers", "hosted on", "hosted by", "hosted with",
+                      "third - party", "third party", "requirements of", "to comply", "we use", "we rely on", "our server host", "server host"]
+}
