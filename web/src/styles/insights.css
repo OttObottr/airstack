@@ -1,8 +1,5 @@
 .h3{margin-top:6px;font-size:var(--text-h3);font-weight:650;line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
 #insSub{max-width:80ch;margin-top:8px;font-size:var(--text-body);line-height:1.55;color:var(--color-ink-2)}
-.ins-lede{max-width:880px;margin-top:34px}.ins-lede h3{max-width:20ch;margin-top:12px;font-size:var(--text-display);font-weight:650;line-height:1.02;letter-spacing:-.045em;text-wrap:balance}.ins-lede>p:last-child{max-width:68ch;margin-top:20px;font-size:var(--text-lead);line-height:1.5;color:var(--color-ink-2)}
-.ins-findings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:36px;list-style:none;border-block:1px solid var(--color-hair)}
-.ins-findings li{display:grid;grid-template-columns:30px 1fr;gap:8px;padding:20px 22px 22px 0;border-right:1px solid var(--color-hair)}.ins-findings li+li{padding-left:22px}.ins-findings li:last-child{border-right:0}.ins-findings>li>span{font:500 var(--text-meta)/1.5 var(--font-mono);color:var(--color-info)}.ins-findings p{line-height:1.55;color:var(--color-ink-2)}.ins-findings b{display:block;margin-bottom:4px;color:var(--color-ink);font-weight:600}
 .ins-chapter{margin-top:72px;padding-top:28px;border-top:1px solid var(--color-hair)}
 .ai2{display:grid;grid-template-columns:168px minmax(0,1fr);gap:16px;margin-top:16px;padding:16px;border:1px solid var(--color-hair);border-radius:var(--radius-md);background:linear-gradient(145deg,color-mix(in oklab,var(--color-s3) 62%,transparent),color-mix(in oklab,var(--color-bg) 52%,transparent));box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
 .aiy{display:grid;grid-template-rows:repeat(3,1fr);padding:6px 12px 48px 0;border-right:1px solid var(--color-hair)}
@@ -18,11 +15,7 @@
 .t.kpi th[scope=row]{font-family:var(--font-sans);font-weight:600;text-transform:none;letter-spacing:-.005em;font-size:var(--text-body);color:var(--color-ink)}
 .kb{display:inline-block;min-width:64px;padding:2px 6px;border-radius:3px;font-variant-numeric:tabular-nums;
   background:linear-gradient(to right,color-mix(in oklab,var(--color-info) 28%,transparent) calc(var(--v)*100%),transparent 0)}
-.hubs{list-style:none;display:grid;max-width:760px;border:1px solid var(--color-hair);border-radius:var(--radius-md);background:color-mix(in oklab,var(--color-bg) 38%,transparent);overflow:hidden}
-.hubs li{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) 48px;align-items:center;gap:12px;min-height:44px;padding:0 14px;border-bottom:1px solid var(--color-hair)}.hubs li:last-child{border-bottom:0}
-.hb{height:6px;border-radius:1px;background:linear-gradient(to right,var(--color-info) calc(var(--v)*100%),var(--color-hair) 0);box-shadow:0 0 12px color-mix(in oklab,var(--color-info) 10%,transparent)}
-.hubs .num{text-align:right}
-@media(max-width:699px){.ins-findings{grid-template-columns:1fr}.ins-findings li,.ins-findings li+li{padding:16px 0;border-right:0;border-bottom:1px solid var(--color-hair)}.ins-findings li:last-child{border-bottom:0}.ins-chapter{margin-top:52px}.ai2{grid-template-columns:1fr;padding:12px}.aiy{grid-template-rows:none;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px;padding:0;border-right:0;order:2}.hubs li{grid-template-columns:minmax(0,120px) minmax(0,1fr) 40px;padding-inline:10px}}
+@media(max-width:699px){.ins-chapter{margin-top:52px}.ai2{grid-template-columns:1fr;padding:12px}.aiy{grid-template-rows:none;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px;padding:0;border-right:0;order:2}}
 .aipop{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .aipop .chip[aria-pressed=true]{border-color:var(--color-info);background:color-mix(in oklab,var(--color-info) 11%,transparent);box-shadow:inset 0 1px 0 color-mix(in oklab,var(--color-info) 18%,transparent);color:var(--color-ink)}
 .t.kpi .dept th{padding:10px 16px;text-align:left;font:600 var(--text-meta)/1.4 var(--font-mono);letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--color-info);background:color-mix(in oklab,var(--color-info) 5.5%,transparent);border-block:1px solid var(--color-hair)}
@@ -35,15 +28,10 @@ body[data-view=insights]{background-image:radial-gradient(55% 44% at 82% 8%,colo
 #insights>.wrap::before{inset:0 auto 0 -1px;width:1px;height:auto;background:linear-gradient(var(--color-info),transparent 72%)}
 #insights #insT{max-width:12ch;font-size:var(--text-title);line-height:.98;letter-spacing:-.05em}
 #insights #insSub{padding-top:12px;border-top:1px solid var(--color-hair);font-family:var(--font-mono);color:var(--color-ink-3)}
-#insights .ins-lede{margin-top:56px}
-#insights .ins-lede h3{font-weight:620;line-height:.94;letter-spacing:-.06em}
-#insights .ins-findings>li>span{font-size:var(--text-lead);line-height:1;color:var(--color-info)}
-#insights .ins-findings li:nth-child(2)>span{color:var(--color-warn)}
-#insights .ins-findings li:nth-child(3)>span{color:var(--color-accent)}
 #insights .ins-chapter{position:relative;margin-top:96px;padding-top:40px}
 #insights .ins-chapter>.lab{position:absolute;right:0;top:12px;color:var(--color-info)}
 #insights .ins-chapter>.h3{max-width:19ch}
 #insights .ai2{border-radius:2px;background:linear-gradient(100deg,color-mix(in oklab,var(--color-info) 6.5%,transparent),color-mix(in oklab,var(--color-bg) 30%,transparent) 38%,color-mix(in oklab,var(--color-bg) 62%,transparent))}
 #insights .t.kpi{border-collapse:collapse}
 #insights .t.kpi tbody tr{background:transparent}
-@media(max-width:699px){#insights{padding-top:20px}#insights>.wrap{padding:36px 20px 52px}#insights .ins-lede{margin-top:40px}#insights .ins-chapter{margin-top:64px;padding-top:32px}}
+@media(max-width:699px){#insights{padding-top:20px}#insights>.wrap{padding:36px 20px 52px}#insights .ins-chapter{margin-top:64px;padding-top:32px}}

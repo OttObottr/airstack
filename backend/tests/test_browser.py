@@ -83,8 +83,8 @@ def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, widt
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
         page.wait_for_function("view => document.body.dataset.view === view", arg=view)
         assert page.evaluate(FITS), view
-    wait(page, "document.querySelectorAll('#upList li:not(.skeleton), #insNow .ins-mini').length > 1")
-    assert page.locator('#browse .pnl header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets", "#/calendar", "#/insights"]
+    wait(page, "document.querySelectorAll('#upHome [data-body] ol, #upHome [data-body] p, #insHome [data-body] ol').length > 1")
+    assert page.locator('#browse header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets", "#/calendar", "#/insights"]
     assert not errors
     context.close()
 
@@ -123,13 +123,25 @@ def test_signal_tiles_fit_their_container(chrome, app_url):
     context.close()
 
 
-def test_calendar_separates_records_schedules_and_unconfirmed_dates(chrome, app_url):
+def test_the_pulse_opens_a_week_with_sourced_events_and_follows_the_stack_scope(chrome, app_url):
     context, page, errors = open_app(chrome, app_url)
+    wait(page, "document.querySelectorAll('#pulsePanel svg rect').length > 3")
+    assert page.locator("#pulsePanel [data-scope]").count() == 0 and "Your stack is empty" in page.inner_text("#pulsePanel header")
+    page.evaluate("""() => { const P = document.querySelector('#pulsePanel [data-scroll]'); P.focus(); }""")
+    for _ in range(40):                                        # walk back from the latest week to one with events
+        page.keyboard.press("ArrowLeft")
+        if page.locator("#pulsePanel [data-day] [data-stack-toggle]").count():
+            break
+    links = page.locator("#pulsePanel [data-day] ol a[href^='https://']").evaluate_all("xs => xs.map(x => x.href)")
+    assert links and all(link.startswith("https://") for link in links)
+    page.locator("#pulsePanel [data-day] [data-stack-toggle]").first.click()
+    page.click("#pulsePanel [data-scope=stack]")
+    assert page.get_attribute("#pulsePanel [data-scope=stack]", "aria-pressed") == "true"
     page.evaluate("location.hash = '#/calendar'")
     page.wait_for_function("document.body.dataset.view === 'calendar'")
-    wait(page, "document.querySelectorAll('#calendar a.ext').length > 0")
-    assert "repeating-linear-gradient" in page.locator(".clegend .u").evaluate("node => getComputedStyle(node).backgroundImage")
-    assert all(link.startswith("https://") for link in page.locator("#calendar a.ext").evaluate_all("xs => xs.map(x => x.href)"))
+    wait(page, "document.querySelector('#agendaPanel [data-body] p')")
+    assert "end of" not in page.inner_text("#agendaPanel").lower()
+    assert page.evaluate(FITS)
     assert not errors
     context.close()
 

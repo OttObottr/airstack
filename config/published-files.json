@@ -18,12 +18,13 @@
     "oss.json",
     "pricing.json",
     "profiles.json",
+    "pulse.json",
     "site-data.js",
     "sitemap.xml",
     "stats.svg",
     "suggestions.json",
-    "taxonomy-index.json",
     "taxonomy-crosswalk.json",
+    "taxonomy-index.json",
     "universe.json"
   ],
   "patterns": [

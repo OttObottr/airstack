@@ -1,7 +1,8 @@
 import { mono } from './avatar.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, n, url } from '../lib/format.js';
-import { stack } from '../lib/stack.js';
+import { scopeControl, stackScope, stackToggle } from '../lib/scope.js';
+import { ALL } from '../ui/panel.js';
 
 const FIRST = 12;
 let N = null,
@@ -13,13 +14,13 @@ const KINDS = [
   ['blog', 'Blogs'],
 ];
 const on = new Set(['changelog', 'release', 'hacker news']);
-let mine = false; /* only the tools saved in this browser */
+let scope = ALL; /* all products, or your stack */
 const HN_MIN = 5; /* a story with fewer points is noise, not news */
 const day = iso => iso.slice(0, 10);
 
 function rows() {
   const read = N.source.read;
-  const ids = mine ? new Set(stack().map(x => x.id)) : null;
+  const ids = scope.ids ? new Set(scope.ids) : null;
   return N.items.filter(
     i =>
       on.has(i.kind) &&
@@ -72,10 +73,8 @@ function render() {
     KINDS.map(
       ([k, label]) =>
         `<button class="chip" type="button" aria-pressed="${on.has(k)}" data-kind="${esc(k)}">${label}</button>`
-    ).join('') +
-    (stack().length
-      ? `<button class="chip mine" type="button" aria-pressed="${mine}" data-mine="1">This device · ${stack().length}</button>`
-      : '');
+    ).join('');
+  $('#newsScope').innerHTML = scopeControl(scope, 'changes');
   $('#newsList').innerHTML = groups.length
     ? groups
         .map(
@@ -83,7 +82,7 @@ function render() {
             `<li class="nday"><h3 class="lab">${fd(d)}</h3><ol>${items
               .map(
                 i => `<li class="nrow">
-      <a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>
+      <span class="flex flex-wrap items-center gap-2 min-w-0 max-[699px]:col-span-full"><a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>${stackToggle(i.id, i.name)}</span>
       <span class="nt"><a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>${version(i)}${i.more.length ? `<details class="nmore"><summary class="meta">and ${i.more.length} more · ${esc(tally(i.more))}</summary><ul>${i.more.map(m => `<li><span class="meta">${fd(day(m.date))}</span> <a class="ext" href="${url(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}</a>${version(m)} <span class="meta">${esc(KIND(m.kind))}</span></li>`).join('')}</ul></details>` : ''}</span>
       <span class="nk">${esc(KIND(i.kind))}</span>
       ${i.kind === 'hacker news' && i.discussion ? `<a class="ext meta" href="${url(i.discussion)}" target="_blank" rel="noopener noreferrer">${n(i.points)} points · discussion</a>` : ''}</li>`
@@ -91,7 +90,7 @@ function render() {
               .join('')}</ol></li>`
         )
         .join('')
-    : `<li class="meta">${mine ? 'Nothing from the tools saved on this device in these feeds yet.' : 'Nothing in the selected feeds yet.'}</li>`;
+    : `<li class="meta">${scope.ids ? 'Nothing from your stack in these feeds yet.' : 'Nothing in the selected feeds yet.'}</li>`;
   $('#newsMore').hidden = R.length <= shown;
   $('#newsMore').disabled = false;
   $('#newsSub').textContent =
@@ -102,6 +101,7 @@ export function mount() {
   const sec = $('#news');
   if (!sec) return;
   addEventListener('airstack:stack', () => {
+    if (scope.ids) scope = stackScope();
     if (N) render();
   });
   let loading = null;
@@ -141,8 +141,9 @@ export function mount() {
   } else load();
   for (const type of ['pointerdown', 'keydown', 'focusin', 'scroll']) addEventListener(type, load, { once: true, passive: true });
   sec.addEventListener('click', e => {
-    if (e.target.closest('#newsKinds .chip[data-mine]')) {
-      mine = !mine;
+    const sc = e.target.closest('#newsScope [data-scope]');
+    if (sc) {
+      scope = sc.dataset.scope === 'stack' ? stackScope() : ALL;
       shown = FIRST;
       render();
       return;
