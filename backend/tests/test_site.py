@@ -255,3 +255,11 @@ def test_the_site_builds_the_same_bytes_under_any_hash_seed(tmp_path):
         subprocess.run([str(ROOT / "tools" / "assemble.sh"), str(tmp_path / seed)], cwd=ROOT, env=env, check=True, capture_output=True)
     differ = [p.relative_to(tmp_path / "1") for p in (tmp_path / "1").rglob("*") if p.is_file() and p.read_bytes() != (tmp_path / "2" / p.relative_to(tmp_path / "1")).read_bytes()]
     assert not differ, differ[:5]
+
+
+def test_published_records_carry_only_their_allowlisted_fields():
+    import sys
+    sys.path.insert(0, str(ROOT / "tools"))
+    from validate_published_data import project
+    rows = [{"id": "a", "hn_query": "q", "checked": {"date": "d", "final_url": "u", "title_matches": True}}]
+    assert project(rows, ["id", "checked.date", "checked.title_matches"]) == [{"id": "a", "checked": {"date": "d", "title_matches": True}}]

@@ -189,3 +189,22 @@ def test_compare_remains_usable_on_a_phone(chrome, app_url):
     assert page.locator("#cmpTbl").is_visible()
     assert not errors
     context.close()
+
+
+@pytest.mark.parametrize("width", [1280, 390])
+def test_markets_panels_cover_every_sector_and_keep_rows_aligned(chrome, app_url, width):
+    context, page, errors = open_app(chrome, app_url, width)
+    page.evaluate("location.hash = '#/markets'")
+    wait(page, "document.querySelectorAll('[data-panel] [data-body]:not([aria-busy])').length === 5")
+    assert page.locator("[data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["sectors", "announcements", "entrants", "interest", "downloads"]
+    tops = page.evaluate("fetch('markets.json').then(r => r.json()).then(d => Object.values(d.nodes).filter(n => n.parent === null).length)")
+    assert page.locator('[data-panel="sectors"] tbody tr').count() == tops
+    spread = page.evaluate("""[...document.querySelectorAll('[data-panel] tbody tr')].map(tr => {
+        const ys = [...tr.children].filter(td => td.offsetParent).map(td => { const r = document.createRange(); r.selectNodeContents(td); return r.getClientRects()[0]; })
+          .filter(Boolean).map(b => b.top + b.height / 2);
+        return ys.length > 1 ? Math.max(...ys) - Math.min(...ys) : 0; }).reduce((a, b) => Math.max(a, b), 0)""")
+    assert spread <= 1 and page.evaluate(FITS)
+    page.locator('[data-panel="sectors"] button[data-node]').first.click()
+    wait(page, "document.querySelector('#mkScope').value.startsWith('node:')")
+    assert not errors
+    context.close()

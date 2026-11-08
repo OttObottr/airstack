@@ -11,7 +11,7 @@
 #pall li.none{cursor:default;color:var(--color-ink-2)}
 .palbar{list-style:none;display:flex;flex-wrap:wrap;gap:4px 16px;padding:8px 12px 4px;border-top:1px solid var(--color-hair);font-size:var(--text-meta);color:var(--color-ink-2)}
 .palbar li{display:flex;gap:8px}
-#trend [data-pick]:focus,#mvt tr :focus,#mkList :focus,#newsList :focus,#calAhead :focus,#stackList :focus{scroll-margin-top:112px}
+#trend [data-pick]:focus,#mkList :focus,#newsList :focus,#calAhead :focus,#stackList :focus{scroll-margin-top:112px}
 
 .agents{gap:12px}
 .ag{position:relative;padding:18px;background:linear-gradient(145deg,color-mix(in oklab,var(--color-s3) 72%,transparent),color-mix(in oklab,var(--color-bg) 48%,transparent));border-color:rgba(255,255,255,.13);border-radius:var(--radius-md);box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 10px 28px rgba(0,0,0,.14);overflow:hidden}

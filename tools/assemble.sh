@@ -64,9 +64,14 @@ cp -R c compare p o t insights calendar method "$out"/
 import hashlib, json, pathlib, re, shutil, sys
 out, web, site = pathlib.Path(sys.argv[1]), pathlib.Path("web"), pathlib.Path(sys.argv[2])
 shipped = pathlib.Path(sys.argv[3]).read_text().split()
+from validate_published_data import project
+fields = json.loads(pathlib.Path("config/published-files.json").read_text()).get("fields", {})
 for name in shipped:
     (out / name).parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(site / name, out / name)
+    if name in fields:
+        (out / name).write_text(json.dumps(project(json.loads((site / name).read_text()), fields[name]), ensure_ascii=False, separators=(",", ":")) + "\n")
+    else:
+        shutil.copyfile(site / name, out / name)
 page = (web / "index.html").read_text()
 index = (web / "src" / "styles" / "index.css").read_text()
 plain = lambda css: "\n".join(l.strip() for l in re.sub(r"/\*[\s\S]*?\*/", "", css).splitlines() if l.strip())

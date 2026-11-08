@@ -12,6 +12,7 @@
     "insights.json",
     "makers.json",
     "market-data.js",
+    "markets.json",
     "news.json",
     "open-data/README.md",
     "open-data/index.html",
@@ -29,5 +30,33 @@
   ],
   "patterns": [
     "open-data/airstack-YYYY-MM.jsonl.gz"
-  ]
+  ],
+  "fields": {
+    "catalog.json": [
+      "id",
+      "name",
+      "category",
+      "homepage",
+      "pricing",
+      "pages",
+      "aliases",
+      "vendor",
+      "domain",
+      "checked.date",
+      "checked.status",
+      "checked.reachable",
+      "checked.title_matches"
+    ],
+    "universe.json": [
+      "id",
+      "name",
+      "lane",
+      "npm",
+      "pypi",
+      "github",
+      "homepage",
+      "pages",
+      "siblings"
+    ]
+  }
 }

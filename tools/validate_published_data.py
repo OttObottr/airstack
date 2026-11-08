@@ -46,6 +46,22 @@ def no_dangerous_keys(value, where="$"):
             no_dangerous_keys(child, f"{where}[{index}]")
 
 
+
+def project(value, fields):
+    """Each record (a list item, or a value keyed by id) with only the allowed fields; "a.b" keeps b inside a."""
+    top = {f.split(".", 1)[0] for f in fields}
+    sub = {}
+    for f in fields:
+        if "." in f:
+            k, rest = f.split(".", 1)
+            sub.setdefault(k, []).append(rest)
+    def one(r):
+        if not isinstance(r, dict):
+            return r
+        return {k: {s_: v[s_] for s_ in sub[k] if s_ in v} if k in sub and isinstance(v, dict) else v for k, v in r.items() if k in top}
+    return [one(r) for r in value] if isinstance(value, list) else one(value)
+
+
 def parse_data(path):
     raw = path.read_bytes()
     if len(raw) > MAX_FILE_BYTES:
@@ -99,6 +115,9 @@ def validate(root):
             raise ValueError(f"missing dataset: {name}")
         raw = parse_data(path)
         total += len(raw)
+        fields = POLICY.get("fields", {}).get(name)
+        if fields and project(json.loads(raw), fields) != json.loads(raw):
+            raise ValueError(f"{name}: carries fields outside its published allowlist")
         if hashlib.sha256(raw).hexdigest() != wanted:
             raise ValueError(f"checksum mismatch: {name}")
     if total > MAX_TOTAL_BYTES:
