@@ -75,6 +75,6 @@ export const findings = (D, ids, peer, say, days) =>
       .map(m => {
         const [a, b] = RATE[m],
           up = o[a] / o[b] > peer[a] / peer[b];
-        return `<li class="flex items-start gap-2 text-sm leading-snug"><span class="${up ? ui.badge.up : ui.badge.down}">${up ? 'Higher' : 'Lower'}</span><span><b class="font-medium text-foreground">${esc(o.name)}:</b> <span class="text-muted-foreground">${say[m](o, peer, days)}</span></span></li>`;
+        return `<li class="flex items-start gap-2 text-sm leading-snug"><span class="${ui.badge.neutral}">${up ? 'Higher' : 'Lower'}</span><span><b class="font-medium text-foreground">${esc(o.name)}:</b> <span class="text-muted-foreground">${say[m](o, peer, days)}</span></span></li>`;
       });
   });

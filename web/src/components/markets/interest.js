@@ -9,7 +9,8 @@ import { latest, load, loading, nameOf, rows } from './scope.js';
    its change against its own prior window. Lagging, and only for products with an article. */
 const LENSES = ['Top', 'Rising', 'Falling'];
 let lens = 'Top',
-  pick = null;
+  pick = null,
+  shownNode = null;
 
 function ids(A, D, scope, R) {
   if (R.products) {
@@ -20,6 +21,7 @@ function ids(A, D, scope, R) {
   let node = scope.kind === 'node' ? scope.id : pick && A.nodes[pick] ? pick : R.nodes.filter(id => A.nodes[id]).sort((a, b) => A.nodes[b].products - A.nodes[a].products)[0];
   while (node && !A.nodes[node]) node = D.nodes[node] && D.nodes[node].parent;
   pick = scope.kind === 'all' ? node : pick;
+  shownNode = node;
   return node ? A.nodes[node][lens.toLowerCase()].filter(id => A.products[id]) : [];
 }
 
@@ -73,7 +75,8 @@ export const panel = {
             .map(id => `<option value="${esc(id)}"${id === pick ? ' selected' : ''}>${esc(D.nodes[id].name)}</option>`)
             .join('')}</select>`
         : '';
-    el.innerHTML = `${picker}
+    const moved = scope.kind === 'node' && shownNode && shownNode !== scope.id && D.nodes[scope.id];
+    el.innerHTML = `${picker}${moved ? `<p class="${ui.panelNote}">Showing ${esc(D.nodes[shownNode].name)}: no product filed under ${esc(D.nodes[scope.id].name)} has a matched article.</p>` : ''}
       ${
         list.length
           ? `<div class="overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th} whitespace-nowrap text-right hidden sm:table-cell">#</th><th class="${ui.th} whitespace-nowrap">Product</th><th class="${ui.th} whitespace-nowrap text-right">Views<span class="hidden sm:inline">, ${P.window_weeks} weeks</span></th><th class="${ui.th} whitespace-nowrap hidden sm:table-cell">${P.weeks} weeks</th><th class="${ui.th} whitespace-nowrap text-right">vs prior<span class="hidden sm:inline"> ${P.window_weeks}</span></th><th class="${ui.th} whitespace-nowrap hidden md:table-cell">Article</th></tr></thead>
