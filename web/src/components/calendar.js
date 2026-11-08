@@ -33,7 +33,7 @@ const draw = (days, shown) => (scope, el) => {
           )
           .join('')}</ol>`
       : `<p class="text-sm text-muted-foreground">Nothing dated in the next ${days} days${scope.kind === 'stack' ? ' for your stack' : ''}.</p>`
-  }<p class="${ui.panelNote}">${n(xs.length)} of ${n(ahead.length)} products with a launch or release a source dates from ${fd(today)}.</p></div>`;
+  }${xs.length ? `<p class="${ui.panelNote}">${n(xs.length)} of ${n(ahead.length)} products with a launch or release a source dates from ${fd(today)}.</p>` : ''}</div>`;
 };
 const render = (days, shown) => (scope, el) => {
   const go = () => draw(days, shown)(scope, el);
