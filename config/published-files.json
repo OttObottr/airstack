@@ -1,5 +1,6 @@
 {
   "files": [
+    "attention.json",
     "catalog.json",
     "category-guides.json",
     "chain-data.json",
