@@ -1,0 +1,14 @@
+{
+  "maxBytes": 512,
+  "query": "^[\\p{L}\\p{N} .+#&'-]{2,40}$",
+  "events": {
+    "view": { "route": ["overview", "compare", "markets", "insights", "calendar", "makers", "agents"], "ref?": "host", "size?": [0, 100] },
+    "product": { "id": "id" },
+    "compare": { "n": [1, 5] },
+    "stack": { "op": ["add", "remove"], "id": "id", "size": [0, 100] },
+    "search": { "q": "query", "found": [0, 1] },
+    "export": { "what": ["stack_link", "open_data"] },
+    "mcp": { "act": ["copy_command", "copy_config", "open_guide"] },
+    "vitals": { "lcp?": [0, 60000], "inp?": [0, 60000], "cls?": [0, 10000] }
+  }
+}

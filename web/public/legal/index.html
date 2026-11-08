@@ -6,8 +6,27 @@
 a{color:var(--color-ink);text-decoration-color:rgba(255,255,255,.3);text-underline-offset:3px}h1{font-size:32px;letter-spacing:-.02em;margin:16px 0 4px}h2{font-size:18px;margin:32px 0 8px}
 p,li{color:color-mix(in oklab,var(--color-ink) 82%,transparent)}ul{padding-left:20px}small{color:color-mix(in oklab,var(--color-ink) 66%,transparent)}nav a{font-size:14px;color:color-mix(in oklab,var(--color-ink) 66%,transparent)}</style></head>
 <body><main><nav><a href="/">AirStack</a></nav>
-<h1>Terms and privacy</h1><small>Last updated 7 November 2026</small>
+<h1>Terms and privacy</h1><small>Last updated 8 November 2026</small>
 <p>AirStack is provided “as is”, without warranty, and is not advice. Data may be incomplete or outdated. To the extent permitted by law, AirStack is not liable for losses arising from its use. Third-party names, marks, quotes and data remain their owners’ property.</p>
-<p>No account is required. Hosting providers process requests and standard security logs. Your saved stack stays in your browser.</p>
-<p>Contact, corrections and removal requests: <a href="https://github.com/OttObottr/airstack/issues">open an issue</a>. <a href="https://github.com/OttObottr/airstack/blob/main/NOTICE.md">Sources and licences</a>.</p>
+<h2>Privacy</h2>
+<p>No account, no cookies. Your saved stack stays in your browser. We count use of the site, and each count holds only:</p>
+<ul id="collected">
+<li data-event="view" data-fields="route ref size">the view opened, the referring site’s domain, and your stack’s size</li>
+<li data-event="product" data-fields="id">the product opened</li>
+<li data-event="compare" data-fields="n">how many products you compare</li>
+<li data-event="stack" data-fields="op id size">a product added to or removed from your stack, and its new size</li>
+<li data-event="search" data-fields="q found">a short plain-text search, and whether it found anything</li>
+<li data-event="export" data-fields="what">a share link copied or open data opened</li>
+<li data-event="mcp" data-fields="act">the local MCP setup copied or its guide opened</li>
+<li data-event="vitals" data-fields="lcp inp cls">page speed</li>
+<li>your country, browser, operating system and device type, as families</li>
+<li>a daily count key: a one-way hash of your connection with a random value deleted each day</li>
+<li>counts of requests to our pages and data files</li>
+</ul>
+<p>We never store your IP address, browser string or any identifier that lasts longer than a day. Global Privacy Control and Do Not Track stop your browser sending counts.</p>
+<p>Purpose: understanding use and keeping the service working and safe (legitimate interests, GDPR Art. 6(1)(f)).</p>
+<p>Retention: count keys, <span data-retention="keys">until the day ends</span>; searches fewer than <span data-retention="k">5</span> people made, <span data-retention="rare">30</span> days; other counts, <span data-retention="months">13</span> months.</p>
+<p>Host: Cloudflare processes requests and standard security logs. We do not sell or share this data.</p>
+<p>You may ask for access, erasure or objection, and complain to your data-protection authority.</p>
+<p>Contact, privacy, corrections and removal requests: <a href="https://github.com/OttObottr/airstack/issues">open an issue</a><!-- privacy contact: owner to add an email address -->. <a href="https://github.com/OttObottr/airstack/blob/main/NOTICE.md">Sources and licences</a>.</p>
 </main></body></html>

@@ -6,10 +6,12 @@ import { renderToolCard } from './cards/tool.js';
 import { byName, hideTA, q } from './search/index.js';
 import { addr } from './search/directory.js';
 import { $, reduce } from '../lib/dom.js';
+import { send } from '../lib/beacon.js';
 
 export function selectTool(x, o = {}) {
   show('overview', { scroll: false });
   S.tool = x;
+  send('product', { id: x.id });
   q.value = '';
   hideTA();
   $('#nf').hidden = true;

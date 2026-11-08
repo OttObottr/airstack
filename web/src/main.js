@@ -9,6 +9,8 @@ import { mount as mountBrowse } from './components/browse.js';
 import { mount as mountHome } from './components/home.js';
 import { mount as mountAgents } from './components/agents.js';
 import { mount as mountKeys } from './components/keys.js';
+import { mount as mountBeacon } from './lib/beacon.js';
+import { stack } from './lib/stack.js';
 import { fillParams } from './lib/data.js';
 
 fillParams(); /* static copy quotes the windows the data was built with */
@@ -40,7 +42,7 @@ const lazy = () =>
 const GROUPS = [
   [mountHero, mountMarket, mountChain],
   [mountNews, mountStack],
-  [mountSearch, mountBrowse, mountHome, mountAgents, mountKeys, lazy, mountRouter],
+  [mountSearch, mountBrowse, mountHome, mountAgents, mountKeys, lazy, () => mountBeacon(() => stack().length), mountRouter],
 ];
 const run = i => {
   GROUPS[i].forEach(start);

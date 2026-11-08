@@ -7,6 +7,7 @@ import { COUNTS, M } from '../../lib/data.js';
 import { $ } from '../../lib/dom.js';
 import { esc, known, n, sq } from '../../lib/format.js';
 import { MK } from '../../lib/market.js';
+import { send } from '../../lib/beacon.js';
 
 const CATS = M.cats || [];
 const LANEN = id => (M.lanes.find(l => l.id === id) || CATS.find(c => c.id === id) || {}).name || id;
@@ -213,6 +214,7 @@ export function mount() {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const v = q.value.trim();
+      if (v) send('search', { q: v, found: hits.length ? 1 : 0 });
       if (hits.length) selectTool(hits[act]);
       else if (v) notFound(v);
     } else if (e.key === 'Escape') {
@@ -222,7 +224,10 @@ export function mount() {
   ta.addEventListener('mousedown', e => {
     e.preventDefault();
     const l = e.target.closest('li[data-i]');
-    if (l) selectTool(hits[+l.dataset.i]);
+    if (l) {
+      if (q.value.trim()) send('search', { q: q.value.trim(), found: 1 });
+      selectTool(hits[+l.dataset.i]);
+    }
   });
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-pick]');
