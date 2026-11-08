@@ -3,6 +3,7 @@ import { clearTool } from './app.js';
 import { mono } from './avatar.js';
 import { DIR, KIDS, loadDir, orgName, researchedFacts } from './search/directory.js';
 import { BR, IDX, moverRows } from './search/index.js';
+import { M } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
 import { LISTED, cn, esc, fd, n, pct } from '../lib/format.js';
 import { MK } from '../lib/market.js';
@@ -86,6 +87,7 @@ function typeView() {
 }
 export function drawBrowse() {
   $('#trend').setAttribute('aria-busy', 'false');
+  $('#mvH').textContent = BR.type != null ? 'Browse by type' : 'What moved';
   if (BR.type != null) return typeView();
   const R = rowMap(),
     list = IDX.filter(x => {
@@ -94,8 +96,9 @@ export function drawBrowse() {
     })
       .sort(byGrowth(R))
       .slice(0, 5);
+  const w = ((MK && MK.movers) || M.moversTop || {}).window;
   $('#trend').innerHTML =
-    `<h3 class="trh">Trending this week</h3>${lb(list)}<p class="meta mt12">Weekly registry downloads against each tool’s own 4-week level. Bars share one scale, the largest change shown. Only tools also above their own 4-week level are listed, and tools under 5,000 downloads a week are left out.</p>`;
+    `${lb(list, { lane: false })}<p class="meta mt12">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own 4-week level. Bars share one scale, set by the largest change shown. Only tools above their own 4-week level and over 5,000 downloads a week are listed.</p>`;
 }
 
 export function mount() {

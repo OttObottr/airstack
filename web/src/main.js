@@ -7,6 +7,7 @@ import { mount as mountNews } from './components/news.js';
 import { mount as mountStack } from './components/stack.js';
 import { mount as mountSearch } from './components/search/index.js';
 import { mount as mountBrowse } from './components/browse.js';
+import { mount as mountHome } from './components/home.js';
 import { mount as mountAgents } from './components/agents.js';
 import { mount as mountKeys } from './components/keys.js';
 
@@ -38,7 +39,7 @@ const GROUPS = [
   [mountHero, mountMarket, mountChain],
   [mountMovers],
   [mountNews, mountStack],
-  [mountSearch, mountBrowse, mountAgents, mountKeys, lazy, mountRouter],
+  [mountSearch, mountBrowse, mountHome, mountAgents, mountKeys, lazy, mountRouter],
 ];
 const run = i => {
   GROUPS[i].forEach(start);

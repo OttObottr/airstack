@@ -1,4 +1,5 @@
 import { mono } from './avatar.js';
+import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, n, url } from '../lib/format.js';
 import { stack } from '../lib/stack.js';
@@ -139,11 +140,7 @@ export function mount() {
   let loading = null;
   const load = () =>
     loading ||
-    (loading = fetch('events.json')
-      .then(r => {
-        if (!r.ok) throw new Error(r.status);
-        return r.json();
-      })
+    (loading = json('events.json')
       .then(d => {
         E = d;
         render();
