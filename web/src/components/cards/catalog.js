@@ -2,7 +2,7 @@ import { strip } from '../signals.js';
 import { guideView, modelsView } from './guide.js';
 import { renderAll } from '../app.js';
 import { mono } from '../avatar.js';
-import { priceView, startAt } from '../prices.js';
+import { priceView } from '../prices.js';
 import { IDX, onMarket } from '../search/index.js';
 import { DIR, loadDir } from '../search/directory.js';
 import { $ } from '../../lib/dom.js';
@@ -74,12 +74,12 @@ function altView(x) {
       ? esc(c.value.slice(0, m).join(', ')) +
         (c.value.length > m ? ` <span class="meta">+${c.value.length - m}</span>` : '')
       : nobs;
-  return `<h3 class="h2 mt48">${esc(category)} alternatives</h3><p class="meta">Products classified for the same job. Researched rows use quotes found on each product’s own pages; listings remain clearly separate.</p>
-    ${peers.length ? `<div class="scroll mt16"><table class="t alt"><thead><tr><th scope="col">Product</th><th scope="col">What it says it does</th><th scope="col">Free plan</th><th scope="col">Starting at</th><th scope="col">Plans</th><th scope="col">Compliance</th><th scope="col">Integrations</th></tr></thead><tbody>
+  return `<h3 class="h2 mt48">${esc(category)} alternatives</h3><p class="meta">Products classified for the same job. Researched rows are what each product’s own pages say; listings remain clearly separate.</p>
+    ${peers.length ? `<div class="scroll mt16"><table class="t alt"><thead><tr><th scope="col">Product</th><th scope="col">What it says it does</th><th scope="col">Free plan</th><th scope="col">Plans</th><th scope="col">Integrations</th></tr></thead><tbody>
     ${peers
       .map(
         p => `<tr${p.id === x.id ? ' class="cur"' : ''}><td><span class="who">${mono(p, 's20')}<button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button></span></td><td>${v(p, 'what_it_does') ? esc(String(v(p, 'what_it_does').value).slice(0, 90)) : nobs}</td>
-      <td>${v(p, 'free_plan') ? 'Yes' : nobs}</td><td>${startAt(p.id)}</td><td>${list(v(p, 'plan_names'), 3)}</td><td>${list(v(p, 'compliance'), 3)}</td><td>${v(p, 'integrations') ? `${v(p, 'integrations').value.length} listed` : nobs}</td></tr>`
+      <td>${v(p, 'free_plan') ? 'Yes' : nobs}</td><td>${list(v(p, 'plan_names'), 3)}</td><td>${v(p, 'integrations') ? `${v(p, 'integrations').value.length} listed` : nobs}</td></tr>`
       )
       .join('')}</tbody></table></div>` : ''}
     ${listed.length ? `<p class="lab mt24">Also mapped to ${esc(category)}</p><ul class="related-list mt12">${listed.map(p => `<li><button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button><span class="meta">Listed · own-page research pending</span></li>`).join('')}</ul>` : ''}`;

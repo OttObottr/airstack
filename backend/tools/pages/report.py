@@ -16,9 +16,9 @@ def write(name, title, lead, body, ld):
 
 def report_pages():
     insights = read_json(paths.INSIGHTS); categories = sorted(insights["categories"].items(), key=lambda x: (-x[1]["researched"], x[1]["name"]))
-    rows = "".join(f'<tr><td><a href="/c/{e(cid)}/">{e(c["name"])}</a></td><td>{c["researched"]:,} / {c["listed"]:,}</td><td>{found(c["free_plan"], c["researched"])}</td><td>{c["security_claim"]:,}</td><td>{found(c["open_source"], c["researched"])}</td></tr>' for cid, c in categories)
+    rows = "".join(f'<tr><td><a href="/c/{e(cid)}/">{e(c["name"])}</a></td><td>{c["researched"]:,} / {c["listed"]:,}</td><td>{found(c["free_plan"], c["researched"])}</td><td>{found(c["open_source"], c["researched"])}</td></tr>' for cid, c in categories)
     lead = f"Evidence coverage across {len(categories):,} software categories, from product pages, published prices and Wikidata records."
-    body = f'<h2>Category coverage</h2><table><tr><th>Category</th><th>Read / listed</th><th>Free plan stated</th><th>SOC 2 or ISO 27001 stated</th><th>Open source stated</th></tr>{rows}</table><p><small>{e(insights["source"]["note"])}</small></p>'
+    body = f'<h2>Category coverage</h2><table><tr><th>Category</th><th>Read / listed</th><th>Free plan stated</th><th>Open source stated</th></tr>{rows}</table><p><small>{e(insights["source"]["note"])}</small></p>'
     urls = [write("insights", "Software market insights", lead, body, {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software market insights", "description": lead})]
 
     events = read_json(paths.EVENTS); start = events["source"]["built_for"]
@@ -29,8 +29,10 @@ def report_pages():
     urls.append(write("calendar", "Software change calendar", lead, body, {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software change calendar", "description": lead}))
 
     lead = "Every fact on AirStack is a short quote from the product's own page, with the page and the day it was read."
-    body = ('<h2>Quoted, dated, linked</h2><p>Each fact links to the page it was read on and shows the day AirStack read it. '
-            'When a page no longer says it, the fact is withdrawn.</p>'
+    body = ('<h2>Quoted, dated, linked</h2><p>Each fact is the vendor’s own words, linked to where they appear on its page and, where one exists, an archived copy, '
+            'with the days AirStack read and re-checked it. When a page no longer says it, the fact is withdrawn.</p>'
+            '<h2>What we leave out</h2><p>AirStack does not republish security, compliance or customer claims, which only the vendor can stand behind, '
+            'and shows a list price only with the date it was listed.</p>'
             '<h2>Unknown stays unknown</h2><p>Where a page does not say, AirStack shows “Not observed”, never a guess or a zero.</p>'
             '<h2>Signals compare a product with its own past</h2><p>Movement is a product against its own earlier weeks, never a score against others. '
             'A missing week stays missing.</p>'

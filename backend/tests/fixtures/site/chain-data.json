@@ -6,8 +6,39 @@
   "independent": "An independent source",
   "other": "Another page, neither the vendor's nor an independent party's"
  },
+ "policy": {
+  "tiers": {
+   "high": [
+    "compliance",
+    "customers_claimed",
+    "store_users",
+    "store_rating"
+   ],
+   "medium": [
+    "list_price",
+    "plan_names",
+    "free_plan",
+    "pricing_basis"
+   ],
+   "low": [
+    "what_it_does",
+    "open_source",
+    "license",
+    "deployment",
+    "platforms",
+    "sdk_languages",
+    "models_supported",
+    "integrations",
+    "integrations_count",
+    "founded_year",
+    "devices",
+    "languages_count"
+   ]
+  },
+  "price_max_age_days": 30
+ },
  "summary": {
-  "facts": 29,
+  "facts": 27,
   "registry_second_record": 0,
   "registry_disputed": 0,
   "labels": {
@@ -35,7 +66,14 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": {
+      "url": "https://web.archive.org/web/20261104100000/https://gamma-deploy.example/",
+      "at": "2026-11-04"
+     }
     },
     {
      "metric": "platforms",
@@ -56,7 +94,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "deployment",
@@ -76,7 +118,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "open_source",
@@ -93,7 +139,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "license",
@@ -110,7 +160,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "integrations",
@@ -130,7 +184,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "free_plan",
@@ -147,7 +205,34 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
+    },
+    {
+     "metric": "integrations",
+     "value": [
+      "Kappa Notes"
+     ],
+     "url": "https://gamma-deploy.example/integrations",
+     "host": "gamma-deploy.example",
+     "class": "vendor",
+     "quote": "Sync notes with Kappa Notes.",
+     "retrieved": "2026-11-03",
+     "status": 200,
+     "hash": "f2ac3f6f10b2",
+     "extracted": "2026-11-04T10:05:00Z",
+     "verified": "2026-11-04",
+     "recheck": null,
+     "agree": [],
+     "agree_independent": [],
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": "2026-11-05",
+     "archived": null
     }
    ]
   },
@@ -169,7 +254,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "deployment",
@@ -189,7 +278,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "open_source",
@@ -206,7 +299,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "license",
@@ -223,7 +320,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "free_plan",
@@ -240,7 +341,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     }
    ]
   },
@@ -262,7 +367,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "platforms",
@@ -282,7 +391,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "integrations",
@@ -302,26 +415,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
-    },
-    {
-     "metric": "compliance",
-     "value": [
-      "SOC 2"
-     ],
-     "url": "https://acme-notes.example/security",
-     "host": "acme-notes.example",
-     "class": "vendor",
-     "quote": "Acme Notes holds a SOC 2 report.",
-     "retrieved": "2026-11-03",
-     "status": 200,
-     "hash": "a496167e335e",
-     "extracted": "2026-11-04T10:03:00Z",
-     "verified": "2026-11-04",
-     "recheck": null,
-     "agree": [],
-     "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "free_plan",
@@ -342,7 +440,11 @@
      },
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "plan_names",
@@ -363,7 +465,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "pricing_basis",
@@ -380,7 +486,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     }
    ]
   },
@@ -402,7 +512,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "platforms",
@@ -422,7 +536,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "integrations",
@@ -443,27 +561,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
-    },
-    {
-     "metric": "compliance",
-     "value": [
-      "SOC 2",
-      "ISO 27001"
-     ],
-     "url": "https://beta-board.example/security",
-     "host": "beta-board.example",
-     "class": "vendor",
-     "quote": "We maintain SOC 2 and ISO 27001.",
-     "retrieved": "2026-11-03",
-     "status": 200,
-     "hash": "62618f445098",
-     "extracted": "2026-11-04T10:03:00Z",
-     "verified": "2026-11-04",
-     "recheck": null,
-     "agree": [],
-     "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "free_plan",
@@ -480,7 +582,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "plan_names",
@@ -500,24 +606,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
-    },
-    {
-     "metric": "customers_claimed",
-     "value": "Used by teams in schools, shops and studios.",
-     "url": "https://beta-board.example/customers",
-     "host": "beta-board.example",
-     "class": "vendor",
-     "quote": "Used by teams in schools, shops and studios.",
-     "retrieved": "2026-11-04",
-     "status": 200,
-     "hash": "4c2718f351f4",
-     "extracted": "2026-11-04T10:06:00Z",
-     "verified": "2026-11-04",
-     "recheck": null,
-     "agree": [],
-     "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     }
    ]
   },
@@ -539,7 +632,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "platforms",
@@ -559,7 +656,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-03",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     },
     {
      "metric": "free_plan",
@@ -576,7 +677,11 @@
      "recheck": null,
      "agree": [],
      "agree_independent": [],
-     "registry": []
+     "registry": [],
+     "first_read": "2026-11-04",
+     "checked": "2026-11-04",
+     "gone": null,
+     "archived": null
     }
    ]
   }

@@ -1,6 +1,6 @@
-import { METRIC, STR, chainData, showVal } from './chain.js';
+import { METRIC, STR, chainData, checks, says, showVal } from './chain.js';
 import { kindOf, mono } from './avatar.js';
-import { amt, per } from './prices.js';
+import { listed, per } from './prices.js';
 import { loadDir, researchedFacts } from './search/directory.js';
 import { byId, rank } from './search/index.js';
 import { M, json } from '../lib/data.js';
@@ -57,7 +57,7 @@ export function sync() {
 }
 
 const nobs = '<span class="nobs">Not observed</span>';
-const LABEL = { leader: 'Leader', trending: 'Trending', established: 'Established' };
+const LABEL = { leader: 'Most viewed', trending: 'Rising views', established: 'Earliest' }; /* what each suggestion measured, never a rank */
 let SUG = null;
 const norm = v =>
   Array.isArray(v)
@@ -70,39 +70,32 @@ const items = list =>
   list.length > SHOWN
     ? `${esc(list.slice(0, SHOWN).join(', '))}<details class="more"><summary>+${list.length - SHOWN} more</summary>${esc(list.slice(SHOWN).join(', '))}</details>`
     : esc(list.join(', '));
-const src = (f, more) =>
-  `<a class="ext" href="${url(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.host)}${ic('out')}</a> <span class="meta">found ${fd(f.verified)}</span>${more ? ` <span class="meta">· ${more} more page${more > 1 ? 's' : ''}</span>` : ''}`;
-function cellOf(F) {
+function cellOf(F, name, label) {
   if (!F.length) return { html: nobs };
   const f = F[0],
     lists = Array.isArray(f.value),
     value = lists ? [...new Set(F.filter(x => Array.isArray(x.value)).flatMap(x => x.value))] : f.value,
     own = typeof f.value === 'string' && f.value === f.quote;
-  const quotes = F.slice(0, 4)
-    .map(
-      x =>
-        `<li><q>${esc(x.quote)}</q> <a class="ext" href="${url(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.host)}${ic('out')}</a> <span class="meta">${fd(x.verified)}</span></li>`
-    )
+  const quotes = F.filter((x, i) => F.findIndex(y => y.quote === x.quote) === i) /* one line per distinct quote */
+    .slice(0, 4)
+    .map(x => `<li>${says(name, x)}<div class="mt-1">${checks(name, label, x)}</div></li>`)
     .join('');
   return {
     key: norm(value),
     date: f.verified,
-    html: `<div class="cv">${own ? `<q>${esc(f.quote)}</q>` : `<b>${lists ? items(value) : esc(showVal(value))}</b>`}</div>
-      <div class="cs">${src(f, F.length - 1)}</div>
-      ${own ? '' : `<details class="qt"><summary title="${esc(f.quote)}">${F.length > 1 ? 'Quotes' : 'Quote'}</summary><ul>${quotes}</ul>${F.length > 4 ? `<p class="meta">and ${F.length - 4} more on the evidence chain</p>` : ''}</details>`}`,
+    html: `<div class="cv">${own ? says(name, f) : `<b>${lists ? items(value) : esc(showVal(value))}</b>`}</div>
+      ${own ? `<div class="mt-1">${checks(name, label, f)}</div>` : ''}
+      ${own ? '' : `<details class="qt"><summary title="${esc(f.quote)}">${F.length > 1 ? 'What the pages say' : 'What the page says'}</summary><ul>${quotes}</ul>${F.length > 4 ? `<p class="meta">and ${F.length - 4} more on the evidence chain</p>` : ''}</details>`}`,
   };
 }
 function priceOf(id) {
-  const Q = PRICES[id];
-  if (!Q || !Q.plans || !Q.plans.length) return { html: nobs };
-  const paid = Q.plans.filter(p => amt(p) > 0).sort((a, b) => amt(a) - amt(b)),
-    p = paid[0] || Q.plans[0],
-    free = Q.plans.some(x => amt(x) === 0);
+  const Q = listed(id);
+  if (!Q) return { html: nobs };
   return {
     date: Q.checked,
-    html: `<div class="cv"><b>${free ? 'Free plan listed' : ''}${free && paid.length ? ' · ' : ''}${paid.length ? `from ${esc(p.price)}${esc(per(p))}` : ''}</b></div>
-      <div class="cs"><a class="ext" href="${url(Q.url)}" target="_blank" rel="noopener noreferrer">${esc(Q.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0])}${ic('out')}</a> <span class="meta">found ${fd(Q.checked)}</span></div>
-      <details class="qt"><summary title="${esc(p.quote)}">Quote</summary><ul><li><q>${esc(p.quote)}</q></li></ul></details>`,
+    html: `<div class="cv"><b>${esc(Q.plans.map(p => p.plan).join(', '))}</b></div>
+      <div class="cs"><a class="ext" href="${url(Q.url)}" target="_blank" rel="noopener noreferrer">${esc(host(Q.url))}${ic('out')}</a> <span class="meta">Listed on ${fd(Q.checked)}</span></div>
+      <details class="qt"><summary>What the pricing page says</summary><ul>${Q.plans.map(p => `<li>${esc(p.plan)}: ${esc(p.price)}${esc(per(p))} <span class="meta">“${esc(p.quote)}”</span></li>`).join('')}</ul></details>`,
   };
 }
 
@@ -127,7 +120,7 @@ async function draw() {
     full = ids.length >= 5,
     facts = (id, m) =>
       (D.entities[id] ? D.entities[id].facts : [])
-        .filter(f => f.verified && f.metric === m)
+        .filter(f => f.verified && !f.gone && f.metric === m)
         .sort((a, b) => (b.class === 'vendor') - (a.class === 'vendor')); /* its own site before a store listing */
   $('#cmpChips').innerHTML = ids
     .map(
@@ -151,18 +144,18 @@ async function draw() {
         .join('')}</ul>`
     : '';
   const rows = [
-    { l: 'List price', cells: ids.map(priceOf) },
+    { l: 'Plans and list prices', cells: ids.map(priceOf) },
     ...Object.keys(METRIC).map(m => ({
       l: METRIC[m],
       one: STR.has(m),
-      cells: ids.map(id => cellOf(facts(id, m))),
+      cells: ids.map(id => cellOf(facts(id, m), nameOf(id, D), METRIC[m])),
     })),
   ].filter(r => r.cells.some(c => c.date));
   for (const r of rows) {
     const seen = new Set(r.cells.filter(c => c.key != null).map(c => c.key));
     r.diff =
       !r.one &&
-      r.l !== 'List price' &&
+      r.l !== 'Plans and list prices' &&
       seen.size > 1; /* Not observed against a value is not a difference */
   }
   const dates = rows.flatMap(r => r.cells.map(c => c.date).filter(Boolean)).sort(),
@@ -177,7 +170,7 @@ async function draw() {
     possible = rows.length * ids.length,
     blank = ids.filter(id => !D.entities[id]);
   sub.textContent = ready
-    ? `Scope: ${ids.length} products × ${rows.length} fields · Coverage: ${observed} of ${possible} cells sourced${nd ? ` · ${nd} fields differ` : ''}${oldest ? ` · Oldest source check ${fd(oldest)}` : ''}. Open Quote for the page’s exact words.`
+    ? `Scope: ${ids.length} products × ${rows.length} fields · Coverage: ${observed} of ${possible} cells sourced${nd ? ` · ${nd} fields differ` : ''}${oldest ? ` · Oldest source check ${fd(oldest)}` : ''}. Open a cell for the vendor’s exact words.`
     : ids.length
       ? 'Add at least one more product: a comparison is 2 to 5.'
       : 'Add 2 to 5 products. Every cell is what that product’s own page says, with the page and the day it was found there.';

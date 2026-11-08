@@ -71,7 +71,7 @@ export const loadPrices = () =>
       if (!Object.keys(PRICES).length) PRICES = Q;
     }));
 export const pview = (r, id, redo) => {
-  if (PROF) return PROF[id] ? profileView(r, PROF[id]) : '';
+  if (PROF) return PROF[id] ? profileView(r, PROF[id], redo) : '';
   if (PROFERR) return '<p class="meta">These facts could not be loaded. Check your connection and reload.</p>';
   loadProfiles().then(redo, redo);
   return '<p class="meta">Loading what its own pages say…</p>';

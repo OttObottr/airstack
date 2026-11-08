@@ -190,19 +190,6 @@
    ],
    "checked": "2026-11-04"
   },
-  "compliance": {
-   "value": [
-    "SOC 2"
-   ],
-   "sources": [
-    {
-     "url": "https://acme-notes.example/security",
-     "host": "acme-notes.example",
-     "checked": "2026-11-03"
-    }
-   ],
-   "checked": "2026-11-03"
-  },
   "free_plan": {
    "value": true,
    "sources": [
@@ -283,20 +270,6 @@
    ],
    "checked": "2026-11-04"
   },
-  "compliance": {
-   "value": [
-    "SOC 2",
-    "ISO 27001"
-   ],
-   "sources": [
-    {
-     "url": "https://beta-board.example/security",
-     "host": "beta-board.example",
-     "checked": "2026-11-03"
-    }
-   ],
-   "checked": "2026-11-03"
-  },
   "free_plan": {
    "value": true,
    "sources": [
@@ -321,17 +294,6 @@
     }
    ],
    "checked": "2026-11-03"
-  },
-  "customers_claimed": {
-   "value": "Used by teams in schools, shops and studios.",
-   "sources": [
-    {
-     "url": "https://beta-board.example/customers",
-     "host": "beta-board.example",
-     "checked": "2026-11-04"
-    }
-   ],
-   "checked": "2026-11-04"
   },
   "facts": 7
  },

@@ -16,12 +16,6 @@
     ["customers_claimed", "Customers (their claim)"],
     ["founded_year", "Founded"]
   ],
-  "currency": {
-    "$": "USD",
-    "€": "EUR",
-    "£": "GBP",
-    "¥": "JPY"
-  },
   "links": {
     "linkedin": ["LinkedIn", "https://www.linkedin.com/company/{}/"],
     "x": ["X", "https://x.com/{}"],

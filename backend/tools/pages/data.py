@@ -3,40 +3,36 @@ import collections
 import re
 from airstack import paths
 from .layout import WIKIMEDIA, e, slug
+from airstack.evidence import report_url, shown, text_fragment
 from airstack.quotes import norm
 from airstack.files import read_json
 
 PAGES, PRICING = paths.config("pages"), paths.config("pricing")
 
-CHAIN = read_json(paths.CHAIN_DATA)["entities"] if paths.CHAIN_DATA.exists() else {}
+_CHAIN = read_json(paths.CHAIN_DATA) if paths.CHAIN_DATA.exists() else {}
+CHAIN, POLICY = _CHAIN.get("entities", {}), _CHAIN.get("policy", {"tiers": {"high": [], "medium": [], "low": []}})
 
 HOSTS = set(PRICING["shared_hosts"])                                                   # many products' pages, nobody's prices
 
-ADDON = re.compile(PRICING["addon_pattern"], re.I)
-
-LABELS = PAGES["labels"]
-
-CURRENCY = PAGES["currency"]
+LABELS = [(k, label) for k, label in PAGES["labels"] if shown(POLICY, k)]   # the published policy decides what is shown
 
 def site(u):
     h = re.sub(r"^www\.", "", (re.match(r"https?://([^/:]+)", u or "") or [None, ""])[1].lower()); parts = h.split(".")
     return h if h in HOSTS else ".".join(parts[-3:] if len(parts) > 2 and parts[-2] in ("co", "com", "org", "net", "ac") else parts[-2:])
-
-def plan_ok(q):
-    """A plan that can stand for what a product costs: a stated unit and period, not an add-on, credit or usage line."""
-    return q["unit"] in ("user", "flat") and q["period"] in ("month", "year") and not ADDON.search(q["plan"] + " " + q.get("quote", "")) and re.search(r"[1-9]", q["price"])
 
 def products():
     """Every product the app can show with something to say: tracked tools, catalog products, and researched directory listings."""
     site = paths.read_js(paths.SITE_DATA); profiles = read_json(paths.PROFILES)
     cats = {c["id"]: c["name"] for c in site.get("cats", [])} | {ln["id"]: ln["name"] for ln in site["lanes"]}
     catalog = {e_["id"]: e_ for e_ in read_json(paths.CATALOG)}
+    trust = {e_["id"]: (e_.get("pages") or {}).get("security") for e_ in [*read_json(paths.UNIVERSE), *catalog.values()]}
     out = {}
     for row in site["index"]:
         pid, name, lane = row[0], row[1], row[2]
         c = catalog.get(pid, {})
         out[pid] = {"id": pid, "name": name, "slug": slug(pid), "lane": lane, "category": cats.get(lane, lane), "homepage": c.get("homepage"),
-                    "vendor": c.get("vendor"), "profile": profiles.get(pid), "catalog": pid in catalog}
+                    "vendor": c.get("vendor"), "profile": profiles.get(pid), "catalog": pid in catalog,
+                    "trust": trust.get(pid)}
     d = read_json(paths.DIRECTORY); T = d["types"]
     used = {v["slug"] for v in out.values()}
     for pid, name, desc, site_url, t, makers, links, _ in d["products"]:
@@ -67,7 +63,7 @@ def built(all_, prices):
 def evidence(pid, metric, claim):
     """The source quotes behind one normalized profile field, matched by metric and source URL: one per listed value."""
     urls = {s["url"] for s in claim.get("sources", [])}
-    facts = [f for f in CHAIN.get(pid, {}).get("facts", []) if f["metric"] == metric and f["url"] in urls and f.get("quote")]
+    facts = [f for f in CHAIN.get(pid, {}).get("facts", []) if f["metric"] == metric and f["url"] in urls and f.get("quote") and not f.get("gone")]
     items = lambda v: list(dict.fromkeys(norm(str(x)) for x in (v if isinstance(v, list) else [v])))
     out = []
     for v in items(claim["value"]):
@@ -76,16 +72,29 @@ def evidence(pid, metric, claim):
             out.append(f)
     return out or facts[:1]
 
-def proof(pid, metric, claim):
-    """Each supporting quote with its page and read date; the quote is left out where it is the value itself."""
-    shown = norm(value(claim))
-    def one(f):
-        q = "" if norm(f["quote"]) == shown else f"<q>{e(f['quote'])}</q> — "
-        licence = ' · quote <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>' if WIKIMEDIA.search(f["host"]) else ""
-        return f'{q}<cite><a href="{e(f["url"])}" rel="nofollow noopener">{e(f["host"])}</a>, read <time datetime="{e(f["retrieved"][:10])}">{e(f["retrieved"][:10])}</time>{licence}</cite>'
-    facts = evidence(pid, metric, claim)
-    src = "<br>".join(map(one, facts)) if facts else " ".join(f'<a href="{e(s["url"])}" rel="nofollow noopener">{e(s["host"])}</a>' for s in claim.get("sources", [])[:2])
-    return f"<br><small>{src}</small>"
+day = lambda d: f'<time datetime="{e(d)}">{e(d)}</time>'
+
+def says(p, f):
+    """Whose words a quote is: the vendor's own page, or the store or platform page it came from."""
+    return f"{e(p['name'])}’s page" if f.get("class") == "vendor" else e(f["host"])
+
+def checks(p, label, f):
+    """How to check one fact: the quote highlighted on its page, an archived copy, its dates and a prefilled problem report."""
+    when = (f"Not on the page since {day(f['gone'])}" if f.get("gone") else
+            " · ".join(x for x in (f"first read {day(f['first_read'])}" if f.get("first_read") else "", f"re-checked {day(f['checked'])}" if f.get("checked") else "") if x))
+    archived = f' · <a href="{e(f["archived"]["url"])}" rel="nofollow noopener">Archived copy</a>' if f.get("archived") else ""
+    licence = ' · quote <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>' if WIKIMEDIA.search(f["host"]) else ""
+    return (f'<a href="{e(text_fragment(f["url"], f["quote"]))}" rel="nofollow noopener">See it on {e(f["host"])}</a>{archived} · {when}{licence}'
+            f' · <a href="{e(report_url(p["name"], label, f["url"], f["quote"]))}" rel="nofollow noopener">Report a problem</a>')
+
+def fact_cell(p, metric, label, claim, most=None):
+    """The value, then each supporting quote attributed to the page it came from, with the links and dates to check it.
+    Where the value is the quote itself, only the attributed quote is shown."""
+    facts = evidence(p["id"], metric, claim)[:most]
+    if not facts:
+        return e(value(claim)) + " ".join(f'<br><small><a href="{e(s["url"])}" rel="nofollow noopener">{e(s["host"])}</a></small>' for s in claim.get("sources", [])[:2])
+    own = len(facts) == 1 and norm(facts[0]["quote"]) == norm(value(claim))
+    return ("" if own else e(value(claim)) + "<br>") + "<br>".join(f'<small>{says(p, f)} says: <q>{e(f["quote"])}</q><br>{checks(p, label, f)}</small>' for f in facts)
 
 def app_addr(pid, name):
     """How the app links a listing: its name where unique among listings and makers, else its id."""
@@ -100,14 +109,10 @@ def value(c):
     v = c["value"]
     return "Yes" if v is True else ", ".join(map(str, v)) if isinstance(v, list) else str(v)
 
-def amount(price):
-    m = re.search(r"\d[\d,]*(?:\.\d+)?", price or ""); return float(m.group(0).replace(",", "")) if m else None
-
-def starting(q):
-    """The cheapest paid plan as written on the pricing page, and whether a free plan is listed: only sourced list prices."""
-    plans = (q or {}).get("plans", [])
-    paid = sorted((pl for pl in plans if plan_ok(pl) and re.search(r"[$€£¥]", pl["price"])), key=lambda pl: amount(pl["price"]))
-    return (paid[0] if paid else None), any(amount(pl["price"]) == 0 for pl in plans)
+def listed(q):
+    """A pricing page's plans as it lists them, with the day they were read: never a total, a cheapest or a comparison."""
+    return (f'<a href="{e(q["url"])}" rel="nofollow noopener">{e(re.sub(r"^https?://(www[.])?", "", q["url"]).split("/")[0])}</a> lists '
+            f'{len(q["plans"])} plan{"s" if len(q["plans"]) != 1 else ""}. Listed on {day(q["checked"])}') if q and q.get("plans") else ""
 
 DIRECTORY = {}
 

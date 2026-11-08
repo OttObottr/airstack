@@ -82,10 +82,6 @@
    "label": "List price"
   },
   {
-   "key": "security_claim",
-   "label": "SOC 2 or ISO 27001"
-  },
-  {
    "key": "open_source",
    "label": "Open source"
   },
@@ -108,14 +104,12 @@
     "found": 2,
     "of": 2
    },
-   "security_claim": 2,
    "open_source": {
     "found": 0,
     "of": 2
    },
    "ai_one_liner": 0,
    "list_price": 2,
-   "median_seat": null,
    "works_with": [
     [
      "gamma-deploy",

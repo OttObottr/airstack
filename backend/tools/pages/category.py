@@ -2,25 +2,23 @@
 import shutil
 from airstack import paths
 from .layout import BASE, breadcrumbs, e, foot, head, trim
-from .data import CATS, PAGES, found, starting
+from .data import CATS, PAGES, found, listed
 from airstack.files import read_json
 
 def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
     url = f"{BASE}/c/{cid}/"; G = guide or {}; idx = ins or {}
     rows = []
     for x in items:
-        q = prices.get(x["id"]); paid, free = starting(q)
+        q = prices.get(x["id"])
         what = (x["profile"] or {}).get("what_it_does", {}).get("value") if x["profile"] and x["profile"].get("what_it_does") else x.get("description")
-        price = (f'<a href="{e(q["url"])}" rel="nofollow noopener" title="{e(paid["quote"])}">{e(paid["price"])}</a> <small>{e(paid["plan"])}{" · per user" if paid["unit"] == "user" else ""}{" / month" if paid["period"] == "month" else " / year" if paid["period"] == "year" else ""}</small>'
-                 if paid else "") + (" <small>free plan</small>" if free else "")
+        price = f"<small>{listed(q)}</small>" if q else ""
         rows.append(f'<tr><td><a href="/p/{e(x["slug"])}/">{e(x["name"])}</a></td><td>{e(trim(what)) if what else "<small>Not observed</small>"}</td><td>{price or "<small>Not observed</small>"}</td></tr>')
     kp = "".join(f'<tr><th>{e(k["label"])}</th><td>{found(idx.get(k["key"], 0), idx["researched"])} researched</td></tr>' for k in kpis) if idx.get("researched") else ""
-    med = idx.get("median_seat")
     vetted = [r for r in (oss.get("categories", {}).get(cid) or []) if r.get("vetted")][:6]
     TASKS = PAGES["category_models"]
     models = [m for t in TASKS.get(cid, []) for m in (hf.get("tasks", {}).get(t, {}).get("models") or [])[:3]]
     desc = (f"{G.get('what', '')} " + f"{len(items)} products compared on AirStack" + (f"; {found(idx['free_plan'], idx['researched'])} researched state a free plan" if idx.get("researched") else "")
-            + (f"; the median list price is {med['price']} per user a month ({med['name']})" if med else "") + ".").strip()
+            + ".").strip()
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": name, "url": url, "description": desc[:300],
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{BASE}/p/{x['slug']}/", "name": x["name"]} for i, x in enumerate(items)]}}
     title = f"{name}: products and prices{' with open-source alternatives' if vetted else ''} · AirStack"
@@ -38,9 +36,9 @@ def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
 <h1>{e(name)}</h1>{f'<p class="lead">{e(G["what"])}</p>' if G.get("what") else ''}
 <a class="cta" href="/">Search AirStack</a>
 {f'<h2>Why teams use it</h2><ul>{li(G.get("why", []))}</ul><p><small>Who uses it: {e(", ".join(G.get("who", [])))}. Watch for: {e(G.get("watch_for", ""))} {e(guide_source.get("note", "AirStack’s guide to the category."))} Written <time datetime="{e(guide_source.get("written", ""))}">{e(guide_source.get("written", ""))}</time>.</small></p>' if G else ''}
-{f'<h2>{e(name)} in numbers</h2><table>{kp}</table>' + (f'<p><small>Median list price per user a month: <a href="{e(med["url"])}" rel="nofollow noopener">{e(med["price"])}</a> ({e(med["name"])} {e(med["plan"])}), across {med["of"]} products with a published per-user price. Shares count what each product’s own pages state.</small></p>' if med else '') if kp else ''}
-<h2>{len(items)} products</h2><table><tr><th>Product</th><th>What it says it does</th><th>Starting at</th></tr>{"".join(rows)}</table>
-<p><small>Prices are list prices as written on each pricing page; hover one for its quote. “Not observed” means AirStack has not found it on that product’s pages.</small></p>
+{f'<h2>{e(name)} in numbers</h2><table>{kp}</table><p><small>Shares count what each product’s own pages state.</small></p>' if kp else ''}
+<h2>{len(items)} products</h2><table><tr><th>Product</th><th>What it says it does</th><th>List prices</th></tr>{"".join(rows)}</table>
+<p><small>Vendor statements, quoted and dated; not verified by AirStack. “Not observed” means AirStack has not found it on that product’s pages.</small></p>
 {'<h2>Open-source candidates</h2><ul>' + "".join(candidate(r) for r in vetted) + '</ul><p><small>Repository activity is not use or trust. Projects shown pass OpenSSF Scorecard’s automated checks. Automated checks, not an audit.</small></p>' if vetted else ''}
 {'<h2>Open models for the job</h2><ul>' + "".join(f'<li><a href="{e(m["url"])}" rel="nofollow noopener">{e(m["id"])}</a> <small>{m["downloads"]:,} downloads in 30 days · {e(m["license"] or "licence not stated")}</small></li>' for m in models) + '</ul>' if models else ''}
 {foot()}

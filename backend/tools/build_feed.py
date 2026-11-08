@@ -8,6 +8,7 @@ import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta, timezone
 from airstack import paths
+from airstack.evidence import shown
 from airstack.files import read_json
 
 from pages.layout import WIKIMEDIA, breadcrumbs, e, foot, head, slug as page_slug
@@ -72,7 +73,7 @@ def open_lines(chain):
     """One JSON line per published fact: the quote, never the page."""
     rows = {json.dumps({"id": pid, "name": e["name"], "metric": f["metric"], "value": f["value"], "quote": f["quote"], "url": f["url"], "read": f["retrieved"],
                         "licence": LICENCE_WIKIMEDIA if WIKIMEDIA.search(f["host"]) else LICENCE}, ensure_ascii=False, sort_keys=True)
-            for pid, e in chain["entities"].items() for f in e["facts"]}
+            for pid, e in chain["entities"].items() for f in e["facts"] if shown(chain["policy"], f["metric"]) and not f.get("gone")}
     return sorted(rows)
 
 def pack(lines):
@@ -112,7 +113,7 @@ Each fact is a short quote with its source link and the day the page was read, s
 |---|---|
 | `id` | AirStack's product id |
 | `name` | The product's name |
-| `metric` | What the fact is about, such as `what_it_does`, `platforms`, `integrations`, `compliance` or `free_plan` |
+| `metric` | What the fact is about, such as `what_it_does`, `platforms`, `integrations` or `free_plan` |
 | `value` | The value read from the quote: text, a list, true or false, or a number |
 | `quote` | The page's own words, at most 25 words |
 | `url` | The page the quote is on |
@@ -160,8 +161,9 @@ def build():
     pages = {k: p["slug"] for k, p in build_pages.built(all_, build_pages.own_prices(all_, read_json(paths.PRICING) if paths.PRICING.exists() else {})).items()}
     news, events = read_json(paths.NEWS), read_json(paths.EVENTS)
     out = {"changes.atom": atom(changes(news, events, pages), news["source"].get("read") or events["source"]["built_for"], news["source"]["window_days"])}
-    lines = open_lines(read_json(paths.CHAIN_DATA))
-    releases = {f.name: unpack(f.read_bytes()) for f in sorted(paths.OPEN_DATA.glob("airstack-*.jsonl.gz"))}
+    chain = read_json(paths.CHAIN_DATA)
+    lines = open_lines(chain)
+    releases = {f.name: [ln for ln in unpack(f.read_bytes()) if shown(chain["policy"], json.loads(ln)["metric"])] for f in sorted(paths.OPEN_DATA.glob("airstack-*.jsonl.gz"))}
     releases[f"airstack-{max(json.loads(ln)['read'] for ln in lines)[:7]}.jsonl.gz"] = lines
     out |= {f"open-data/{name}": pack(ls) for name, ls in releases.items()}
     out["open-data/README.md"] = readme(releases).encode()

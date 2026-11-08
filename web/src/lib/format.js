@@ -50,3 +50,15 @@ export const pct = x => (x === null || x === undefined ? null : `${x > 0 ? '+' :
 export const sgn = x => (x === null || x === undefined ? null : `${x > 0 ? '+' : ''}${x}`);
 export const cn = v =>
   (CF ||= new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 })).format(v);
+/* Links that let a reader check one fact; backend/airstack/evidence.py builds the same ones for the static pages. */
+const term = s => encodeURIComponent(s).replace(/[!'()*-]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+export const textFragment = (u, quote) => {
+  const lines = String(quote).split(/\r\n|\r|\n/).map(l => l.split(/\s+/).filter(Boolean)).filter(w => w.length);
+  if (!lines.length) return u;
+  const first = lines[0],
+    last = lines[lines.length - 1],
+    d = lines.length === 1 && first.length <= 8 ? term(first.join(' ')) : `${term(first.slice(0, 4).join(' '))},${term(last.slice(-4).join(' '))}`;
+  return `${u}${u.includes('#') ? '' : '#'}:~:text=${d}`;
+};
+export const reportUrl = (product, field, u, quote) =>
+  `https://github.com/OttObottr/airstack/issues/new?title=${term(`Problem with a fact: ${product}, ${field}`)}&body=${term(`Product: ${product}\nFact: ${field}\nPage: ${u}\nQuote: “${quote}”\n\nWhat is wrong:\n`)}`;
