@@ -1,9 +1,7 @@
 import { renderAll } from '../components/app.js';
 import { openChain } from '../components/chain.js';
-import { renderMovers } from '../components/movers.js';
 import { PENDING } from '../components/search/index.js';
 import { PARAMS } from './data.js';
-import { $ } from './dom.js';
 import { fillBase } from './spark.js';
 
 export let MK = null,
@@ -25,13 +23,11 @@ export function mount() {
       }
       renderAll();
       PENDING.splice(0).forEach(f => f());
-      renderMovers();
       const m = /[#&]chain=([\w.-]+)/.exec(location.hash);
       if (m) openChain(m[1]);
     };
     el.onerror = () => {
       MKERR = true;
-      $('#movers').hidden = true;
       renderAll();
     };
     document.body.append(el);

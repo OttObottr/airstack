@@ -2,7 +2,6 @@ import { mount as mountRouter } from './lib/router.js';
 import { mount as mountHero } from './components/hero.js';
 import { mount as mountMarket } from './lib/market.js';
 import { mount as mountChain } from './components/chain.js';
-import { mount as mountMovers } from './components/movers.js';
 import { mount as mountNews } from './components/news.js';
 import { mount as mountStack } from './components/stack.js';
 import { mount as mountSearch } from './components/search/index.js';
@@ -26,7 +25,7 @@ const start = mount => {
 };
 
 const LAZY = {
-  markets: () => import('./components/market-map.js'),
+  markets: () => import('./components/markets/index.js'),
   insights: () => import('./components/insights.js'),
   calendar: () => import('./components/calendar.js'),
   makers: () => import('./components/makers.js'),
@@ -42,7 +41,6 @@ const lazy = () =>
 /* a few components per task keeps taps responsive; the router starts last so a deep link opens ready */
 const GROUPS = [
   [mountHero, mountMarket, mountChain],
-  [mountMovers],
   [mountNews, mountStack],
   [mountSearch, mountBrowse, mountHome, mountAgents, mountKeys, lazy, mountRouter],
 ];

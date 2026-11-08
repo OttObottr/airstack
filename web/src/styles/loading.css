@@ -31,17 +31,16 @@
   repeating-linear-gradient(to bottom,transparent 0 62px,var(--sk-hi) 62px 63px,transparent 63px 78px)}
 .load-error{min-height:96px;display:grid;align-content:center;max-width:52rem;padding:16px 18px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 34%,transparent);color:var(--color-ink-2)}
 .skelrow>td{padding-block:12px!important}
-#mvt .skeleton-table{height:580px}#mkList .skeleton-table{height:2388px}#mkCount{min-height:56px}
+#mkList .skeleton-table{height:2388px}#mkCount{min-height:56px}
 #newsList>.skeleton{height:1188px}#insBody>.skeleton{height:4332px}#calAhead>.skeleton{height:1512px}
 #news[data-loading] #newsSub{min-height:37px}#insSub:has(+#insBody[aria-busy=true]){min-height:83px}
-#mmap>.skeleton{grid-column:1/-1;width:100%;height:819px}
 #calGrid>.skeleton{grid-column:1/span 78;grid-row:1/span 7}
 #calSum>.skeleton{height:46px;background:repeating-linear-gradient(to bottom,var(--sk-hi) 0 14px,transparent 14px 23px)}
 #cmpBody>.skeleton{margin-top:24px;height:147px}
 #trend>.skeleton{height:533px}#upList>.skeleton{height:534px}#insNow>.skeleton{height:493px}#upSrc{min-height:3.2em}#cmpOut>.skeleton-pills{height:79px}
 @media(prefers-reduced-motion:no-preference){.skeleton::after{animation:skeleton-pass 1.8s ease-in-out infinite}@keyframes skeleton-pass{to{transform:translateX(100%)}}}
 @media(max-width:699px){.skeleton-table{height:280px}.skeleton-profile{height:340px}#newsKinds>.skeleton{height:96px}
-  #mvt .skeleton-table{height:1002px}#mkList .skeleton-table{height:3339px}#mkCount{min-height:37px}
-  #newsList>.skeleton{height:2132px}#insBody>.skeleton{height:5444px}#calAhead>.skeleton{height:3649px}#mmap>.skeleton{height:2583px}
+  #mkList .skeleton-table{height:3339px}#mkCount{min-height:37px}
+  #newsList>.skeleton{height:2132px}#insBody>.skeleton{height:5444px}#calAhead>.skeleton{height:3649px}
   #calSum>.skeleton{height:140px}#cmpBody>.skeleton{height:263px}#trend>.skeleton{height:649px}#insNow>.skeleton{height:512px}#cmpOut>.skeleton-pills{height:199px}
   #news[data-loading] #newsSub{min-height:112px}#insSub:has(+#insBody[aria-busy=true]){min-height:129px}}

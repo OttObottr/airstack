@@ -79,35 +79,13 @@
     </div>
   </section>
 
-  <section class="work" id="movers" data-views="markets" aria-labelledby="moversT">
-    <div class="wrap wide">
-      <h2 class="h2" id="moversT">Moving this week</h2>
-      <p class="meta" id="moversSub"></p>
-      <div class="mmap" id="mmap" aria-busy="true"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the market map"></div></div>
-      <div class="mkey"><p class="meta" id="mmapInfo" aria-live="polite">Each tile is a tool. Point at one for its numbers; open it for its page.</p>
-        <p class="lg" data-aria="Colour key: change against the tool's own {movers.base_weeks}-week level"><span class="meta">▼ 50%+</span><i class="dn4"></i><i class="dn3"></i><i class="dn2"></i><i class="dn1"></i><i class="flat"></i><i class="up1"></i><i class="up2"></i><i class="up3"></i><i class="up4"></i><span class="meta">▲ 50%+</span>
-          <i class="none"></i><span class="meta">insufficient <span data-p="movers.base_weeks"></span>-week baseline</span></p></div>
-      <p class="meta" id="mmapNote"></p>
-      <div class="chips mt24" role="radiogroup" aria-label="Lane" id="lanes"></div>
-      <div class="scroll"><table class="t stack" id="mvt"><thead><tr><th scope="col">Tool</th><th scope="col" class="r">Downloads, 7 days</th><th scope="col"><span data-p="movers.series_weeks"></span> weeks</th>
-        <th scope="col" class="r"><button type="button" class="sort" data-s="dl" aria-pressed="true">Change</button></th>
-        <th scope="col" class="r"><button type="button" class="sort" data-s="base" aria-pressed="false">vs own <span data-p="movers.base_weeks"></span> weeks</button></th>
-        <th scope="col" class="r"><button type="button" class="sort" data-s="hn" aria-pressed="false">HN stories, 7 days</button></th>
-        <th scope="col" class="r"><button type="button" class="sort" data-s="stars" aria-pressed="false">GitHub stars</button></th>
-        <th scope="col">Last release</th><th scope="col">AirStack</th></tr></thead><tbody aria-busy="true"><tr class="skelrow"><td colspan="9"><div class="skeleton skeleton-table" role="status" aria-label="Loading market rows"></div></td></tr></tbody></table></div>
-      <button class="mt16 ghost" id="mvMore" type="button">Show all</button>
-      <p class="mt12 meta">Downloads: each registry’s own daily counts (npm, PyPI) · <span data-p="movers.series_weeks"></span> weeks: weekly downloads, a gap is a week not recorded · vs own <span data-p="movers.base_weeks"></span> weeks: the latest week against the average of the <span data-p="movers.base_weeks"></span> before · HN stories: attention, not users · Stars: today’s count, no history</p>
-    </div>
-  </section>
-
-  <section class="work" id="types" data-views="markets" aria-labelledby="typesT">
-    <div class="wrap wide">
-      <h2 class="h2" id="typesT">What people read about, by category</h2>
-      <p class="meta">English Wikipedia views of each product’s article, ranked within the category you pick. <b>Attention, not adoption:</b> how often people read about a product, not how many use it. Every kind of software has an article; few have registry downloads.</p>
-      <div class="mkbar"><select id="tyPick" class="sel" aria-label="Category"></select><div class="chips" id="atLens" role="radiogroup" aria-label="Which products"></div><a id="tyPage" class="chip" href="/t/">Open this category</a></div>
-      <div class="scroll"><table class="t stack" id="att"><thead><tr><th scope="col" class="r">#</th><th scope="col">Product</th><th scope="col" class="r">Views, last <span data-p="attention.window_weeks"></span> weeks</th><th scope="col"><span data-p="attention.weeks"></span> weeks</th><th scope="col" class="r">vs its prior <span data-p="attention.window_weeks"></span> weeks</th><th scope="col">Article</th></tr></thead>
-        <tbody aria-busy="true"><tr class="skelrow"><td colspan="6"><div class="skeleton skeleton-table" role="status" aria-label="Loading attention"></div></td></tr></tbody></table></div>
-      <p class="meta mt12" id="tyNote"></p>
+  <section class="work" id="markets" data-views="markets" aria-labelledby="marketsT">
+    <div class="mx-auto w-full max-w-[1200px] flex flex-col gap-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h2 class="text-2xl font-semibold leading-none text-foreground" id="marketsT">Markets</h2>
+        <select id="mkScope" class="h-9 rounded-md border border-border bg-background px-3 text-sm text-foreground" aria-label="Scope"><option value="all">All sectors</option></select>
+      </div>
+      <div id="mkGrid" class="grid gap-4 grid-cols-1 lg:grid-cols-2"><div class="h-96 rounded-lg bg-muted animate-pulse lg:col-span-2" role="status" aria-label="Loading markets"></div></div>
     </div>
   </section>
 
