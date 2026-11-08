@@ -8,10 +8,11 @@ import { $, copy } from '../lib/dom.js';
 import { esc, fd, host, ic, known, url } from '../lib/format.js';
 import { PRICES, loadPrices } from '../lib/profiles.js';
 import { show } from '../lib/router.js';
+import { VIEW } from '../lib/view.js';
 
 const KEY = 'airstack.compare.v1',
-  DAYS = 14,
-  SHOWN = 8;
+  DAYS = VIEW.compareRecheckDays,
+  SHOWN = VIEW.compareShown;
 let st = { ids: [] },
   onlyDiff = false,
   act = 0,

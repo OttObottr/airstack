@@ -4,6 +4,7 @@ import { byGrowth, lb, rowMap } from '../browse.js';
 import { catalogCard } from './catalog.js';
 import { dirCard, orgCard } from './directory.js';
 import { IDX, hideTA, onMarket } from '../search/index.js';
+import { PARAMS } from '../../lib/data.js';
 import { $ } from '../../lib/dom.js';
 import { esc } from '../../lib/format.js';
 import { strip } from '../signals.js';
@@ -22,7 +23,7 @@ export function renderToolCard(x) {
   const tiles = strip(x) || `<p class="meta mt24">No public signals observed for ${esc(x.name)} yet.</p>`;
   const chart =
     peers.length > 1
-      ? `<h3 class="h2 mt48">Where ${esc(x.name)} sits in ${esc(x.laneName)}</h3><p class="meta">Weekly registry downloads against each tool’s own 4-week level. Bars share one scale, the largest change shown.</p>${lb(peers, { cur: x.id, lane: false })}`
+      ? `<h3 class="h2 mt48">Where ${esc(x.name)} sits in ${esc(x.laneName)}</h3><p class="meta">Weekly registry downloads against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, the largest change shown.</p>${lb(peers, { cur: x.id, lane: false })}`
       : '';
   const facts = P
     ? pview({ id: x.id, name: x.name }, x.id, () => renderAll())

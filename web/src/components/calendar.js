@@ -3,6 +3,7 @@ import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, n, url } from '../lib/format.js';
 import { stack } from '../lib/stack.js';
+import { VIEW } from '../lib/view.js';
 
 let E = null,
   mine = false,
@@ -38,8 +39,8 @@ function pick() {
 
 function grid(list, today) {
   const t0 = Date.parse(today),
-    start = t0 - (364 + new Date(t0).getUTCDay()) * DAY,
-    weeks = 52 + 1 + 26;
+    start = t0 - (7 * VIEW.calendarPastWeeks + new Date(t0).getUTCDay()) * DAY,
+    weeks = VIEW.calendarPastWeeks + 1 + VIEW.calendarAheadWeeks;
   const by = new Map();
   for (const e of list) {
     const span =
@@ -112,15 +113,15 @@ function render() {
   $('#calGrid').innerHTML = G.html;
   $('#calGrid').setAttribute('aria-busy', 'false');
   const ahead = list
-    .filter(e => e.status === 'scheduled' && (e.until || e.at) >= today && e.at <= iso(Date.parse(today) + 90 * DAY))
+    .filter(e => e.status === 'scheduled' && (e.until || e.at) >= today && e.at <= iso(Date.parse(today) + VIEW.calendarAgendaDays * DAY))
     .sort((a, b) => (a.at < b.at ? -1 : 1));
   const passed = list.filter(e => e.status === 'unconfirmed' && e.at < today).sort((a, b) => (a.at < b.at ? 1 : -1));
   const schedules = E.source.support_schedules;
   const unconfirmed = list.filter(e => e.status === 'unconfirmed').length;
   $('#calSum').innerHTML =
-    `${n(G.past)} observed events in the last 52 weeks · ${n(ahead.length)} published dates in the next 90 days${mine ? ' for your stack' : ''} · ${n(unconfirmed)} past support dates: date passed; not yet confirmed · built ${fd(today)}. Support dates: <a class="ext" href="${url(schedules.url)}" target="_blank" rel="noopener noreferrer">${esc(schedules.name)}</a>, ${esc(schedules.license)}, read ${schedules.read ? fd(schedules.read) : 'not yet'}. <b>Every mark links to its external record or published schedule.</b>`;
+    `${n(G.past)} observed events in the last ${VIEW.calendarPastWeeks} weeks · ${n(ahead.length)} published dates in the next ${VIEW.calendarAgendaDays} days${mine ? ' for your stack' : ''} · ${n(unconfirmed)} past support dates: date passed; not yet confirmed · built ${fd(today)}. Support dates: <a class="ext" href="${url(schedules.url)}" target="_blank" rel="noopener noreferrer">${esc(schedules.name)}</a>, ${esc(schedules.license)}, read ${schedules.read ? fd(schedules.read) : 'not yet'}. <b>Every mark links to its external record or published schedule.</b>`;
   $('#calAhead').innerHTML =
-    (ahead.length ? agenda(ahead) : `<li class="meta">Nothing dated in the next 90 days${mine ? ' for your stack' : ''}.</li>`) + later(passed);
+    (ahead.length ? agenda(ahead) : `<li class="meta">Nothing dated in the next ${VIEW.calendarAgendaDays} days${mine ? ' for your stack' : ''}.</li>`) + later(passed);
   $('#calAhead').setAttribute('aria-busy', 'false');
   day(picked && G.by.has(picked) ? picked : null, G.by);
 }

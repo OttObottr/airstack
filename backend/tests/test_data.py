@@ -93,7 +93,7 @@ RFC3339 = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
 OK = "https://vendor.test/changelog/v2"
 
 def news(*items, read="2026-11-05"):
-    return {"source": {"read": read}, "items": [{"id": "acme", "name": "Acme", "kind": "changelog", **i} for i in items]}
+    return {"source": {"read": read, "window_days": 30}, "items": [{"id": "acme", "name": "Acme", "kind": "changelog", **i} for i in items]}
 
 def events(*evs):
     return {"source": {"built_for": "2026-11-05"}, "events": [{"id": "acme", "name": "Acme", "precision": "day", **e} for e in evs]}
@@ -136,14 +136,14 @@ def test_only_observed_changes_in_the_window_appear_newest_first_without_duplica
     got = bfeed.changes(n, ev, {"acme": "acme"})
     assert [x["title"] for x in got] == ["Release <2> & notes", "Acme 1: end of life", "Acme 2: end of life"]
     assert got[0]["id"] == "tag:airstack.bot,2026:" + OK and len({x["id"] for x in got}) == 3   # one support page, two cycles, two ids
-    feed = ET.fromstring(bfeed.atom(got, "2026-11-05"))                      # escaped, and the control character is gone
+    feed = ET.fromstring(bfeed.atom(got, "2026-11-05", 30))                      # escaped, and the control character is gone
     assert feed.findtext(f"{A}entry/{A}title") == "Release <2> & notes" and feed.findtext(A + "updated") == "2026-11-04T10:00:00Z"
     assert feed.find(f"{A}entry/{A}link[@rel='related']").get("href") == "https://airstack.bot/p/acme/"
     assert bfeed.changes(n, ev, {})[0]["page"] is None  # no page, no related link
-    assert bfeed.atom(got, "2026-11-05") == bfeed.atom(bfeed.changes(n, ev, {"acme": "acme"}), "2026-11-05")
+    assert bfeed.atom(got, "2026-11-05", 30) == bfeed.atom(bfeed.changes(n, ev, {"acme": "acme"}), "2026-11-05", 30)
     many = news(*({"title": f"r{i}", "url": f"https://vendor.test/r{i}", "date": f"2026-11-0{1 + i % 4}T{i % 24:02d}:00:00Z"} for i in range(250)))
     capped = bfeed.changes(many, events(), {})
-    assert len(capped) == 200 and [x["updated"] for x in capped] == sorted((x["updated"] for x in capped), reverse=True)
+    assert len(capped) == paths.config("pages")["limits"]["feed_entries"] and [x["updated"] for x in capped] == sorted((x["updated"] for x in capped), reverse=True)
 
 def test_the_release_holds_only_published_facts_and_no_stored_page_text():
     chain = json.loads(paths.CHAIN_DATA.read_text())

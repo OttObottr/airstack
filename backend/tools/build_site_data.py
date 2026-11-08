@@ -26,16 +26,16 @@ def discovery_data():
     movers = paths.read_js(paths.MARKET_DATA).get("movers")
     if movers:
         def substantial(row):
-            return row["dl"]["value"] >= 5000 and not (row["dl"].get("vsBase") is not None and row["dl"]["vsBase"] < 0)
+            return row["dl"]["value"] >= movers["params"]["solid_min_downloads"] and not (row["dl"].get("vsBase") is not None and row["dl"]["vsBase"] < 0)
 
         top = sorted([row for row in movers["rows"] if row["dl"]["delta"] is not None],
-                     key=lambda row: (not substantial(row), -row["dl"]["delta"]))[:12]
+                     key=lambda row: (not substantial(row), -row["dl"]["delta"]))[:paths.config("pages")["limits"]["movers_top"]]
         def compact(row):
             return {"id": row["id"], "name": row["name"], "lane": row["lane"], "laneName": row["laneName"],
                     "dl": {key: row["dl"].get(key) for key in ("value", "delta", "vsBase", "baseWeeks", "registry", "url")},
                     "hn": {key: row["hn"][key] for key in ("value", "delta", "query")},
                     "gh": {key: row["gh"][key] for key in ("stars", "release", "released", "url")}}
-        movers = {"window": movers["window"], "generated": movers["generated"], "lanes": movers["lanes"],
+        movers = {"window": movers["window"], "generated": movers["generated"], "lanes": movers["lanes"], "params": movers["params"],
                   "rows": [compact(row) for row in top], "partial": True, "total": len(movers["rows"])}
     universe = read_json(paths.UNIVERSE)
     names = lanes_named()

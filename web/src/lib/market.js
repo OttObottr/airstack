@@ -2,6 +2,7 @@ import { renderAll } from '../components/app.js';
 import { openChain } from '../components/chain.js';
 import { renderMovers } from '../components/movers.js';
 import { PENDING } from '../components/search/index.js';
+import { PARAMS } from './data.js';
 import { $ } from './dom.js';
 import { fillBase } from './spark.js';
 
@@ -18,7 +19,10 @@ export function mount() {
     el.src = 'market-data.js';
     el.onload = () => {
       MK = window.AIRSTACK_MARKET || null;
-      if (MK && MK.movers) fillBase(MK.movers.rows);
+      if (MK && MK.movers) {
+        Object.assign(PARAMS.movers, MK.movers.params);
+        fillBase(MK.movers.rows);
+      }
       renderAll();
       PENDING.splice(0).forEach(f => f());
       renderMovers();

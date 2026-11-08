@@ -3,7 +3,12 @@
   "facts_from": "facts quoted from each product's own pages",
   "documentation_from": "synthetic page counts",
   "prices_from": "list prices quoted from pricing pages",
-  "note": "Synthetic measurements for the test fixture."
+  "note": "Synthetic measurements for the test fixture.",
+  "params": {
+   "works_with_top": 8,
+   "works_with_min": 2,
+   "hubs_top": 24
+  }
  },
  "map": {
   "axes": {

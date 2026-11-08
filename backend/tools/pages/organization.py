@@ -55,7 +55,7 @@ def org_page(qid, row, made, all_, community, duplicate=False):
 <p><small>{(f'<a href="{e(site)}" rel="nofollow noopener">' + e(re.sub(r"^https?://(www\.)?", "", site).split('/')[0]) + '</a> · ') if site and re.match(r"https?://", site) else ''}<a href="https://www.wikidata.org/wiki/{e(qid)}" rel="nofollow noopener">Wikidata</a></small></p>
 <a class="cta" href="/#app={e(app_addr(qid, name))}">Open {e(name)} in AirStack</a>
 {f'<h2>About {e(name)}</h2><table>{rows}</table>' if rows else ''}
-{f'<h2>Products by {e(name)}</h2><ul>' + "".join(f"<li>{plink(pid, nm)}</li>" for pid, nm in prods[:200]) + '</ul>' if prods else ''}
+{f'<h2>Products by {e(name)}</h2><ul>' + "".join(f"<li>{plink(pid, nm)}</li>" for pid, nm in prods[:PAGES["limits"]["org_products"]]) + '</ul>' if prods else ''}
 {f'<h2>Where to find {e(name)}</h2><ul>' + "".join(f'<li><a href="{e(u)}" rel="nofollow noopener">{e(ln)}</a></li>' for ln, u in linked) + '</ul>' if linked else ''}
 {f'<h2>Audience</h2><ul>{fol}</ul>' if fol else ''}
 {f'<h2>People</h2><ul>{people}</ul><p><small>As Wikidata records them; a role may have ended.</small></p>' if people else ''}

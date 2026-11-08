@@ -2,6 +2,7 @@ import { mono } from './avatar.js';
 import { onMarket } from './search/index.js';
 import { $, copy } from '../lib/dom.js';
 import { LISTED, esc, fd, n, pct } from '../lib/format.js';
+import { PARAMS } from '../lib/data.js';
 import { MK } from '../lib/market.js';
 import { PRICES } from '../lib/profiles.js';
 import { fromLink, replace, shareLink, stack, toggle, tracked } from '../lib/stack.js';
@@ -17,7 +18,7 @@ function dossier(x) {
   if (profile) out.push(['facts', `${n(profile.facts)} facts from its own pages`]);
   if (pricing && pricing.plans.length) out.push(['price', `List prices on its pricing page, read ${fd(pricing.checked)}`]);
   if (movement && movement.dl && movement.dl.vsBase != null)
-    out.push([movement.dl.vsBase >= 0 ? 'up' : 'dn', `${pct(movement.dl.vsBase)} downloads against its own 4-week level`]);
+    out.push([movement.dl.vsBase >= 0 ? 'up' : 'dn', `${pct(movement.dl.vsBase)} downloads against its own ${PARAMS.movers.base_weeks}-week level`]);
   if (!out.length) out.push(['none', LISTED]);
   return { x, facts: out, profile, movement };
 }
@@ -30,8 +31,8 @@ function intelligence(rows) {
     gap = rows.find(r => !r.profile);
   const momentum = measured
     ? `<p class="stack-value ${measured.movement.dl.vsBase >= 0 ? 'up' : 'dn'}">${esc(measured.x.name)} · ${pct(measured.movement.dl.vsBase)}</p>
-       <p class="meta">Downloads against its own 4-week level · measured ${fd(MK.movers.generated)}. Registry activity is not product usage.</p>`
-    : '<p class="stack-value">No comparable signal</p><p class="meta">No tracked tool has a public registry trend against its own 4-week level.</p>';
+       <p class="meta">Downloads against its own ${PARAMS.movers.base_weeks}-week level · measured ${fd(MK.movers.generated)}. Registry activity is not product usage.</p>`
+    : `<p class="stack-value">No comparable signal</p><p class="meta">No tracked tool has a public registry trend against its own ${PARAMS.movers.base_weeks}-week level.</p>`;
   const review = gap
     ? `<p class="stack-value"><a href="#app=${esc(gap.x.id)}">${esc(gap.x.name)}</a></p>
        <p class="meta">Own-page research is not recorded yet.</p>`

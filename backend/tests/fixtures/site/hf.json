@@ -3,7 +3,10 @@
   "name": "Hugging Face Hub",
   "url": "https://huggingface.co/models",
   "fetched_at": "2026-11-03T06:00:00+00:00",
-  "note": "Synthetic model records for the test fixture: a lead, not an endorsement."
+  "note": "Synthetic model records for the test fixture: a lead, not an endorsement.",
+  "params": {
+   "top": 15
+  }
  },
  "categories": {
   "coding-agents": [

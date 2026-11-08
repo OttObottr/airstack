@@ -3,7 +3,7 @@ import { clearTool } from './app.js';
 import { mono } from './avatar.js';
 import { DIR, KIDS, loadDir, orgName, researchedFacts } from './search/directory.js';
 import { BR, IDX, moverRows } from './search/index.js';
-import { M } from '../lib/data.js';
+import { M, PARAMS } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
 import { LISTED, cn, esc, fd, n, pct } from '../lib/format.js';
 import { MK } from '../lib/market.js';
@@ -92,13 +92,13 @@ export function drawBrowse() {
   const R = rowMap(),
     list = IDX.filter(x => {
       const r = R[x.id];
-      return r && r.dl.delta != null && r.dl.value >= 5000 && !(r.dl.vsBase != null && r.dl.vsBase < 0);
+      return r && r.dl.delta != null && r.dl.value >= PARAMS.movers.solid_min_downloads && !(r.dl.vsBase != null && r.dl.vsBase < 0);
     })
       .sort(byGrowth(R))
       .slice(0, 5);
   const w = ((MK && MK.movers) || M.moversTop || {}).window;
   $('#trend').innerHTML =
-    `${lb(list, { lane: false })}<p class="meta mt12">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own 4-week level. Bars share one scale, set by the largest change shown. Only tools above their own 4-week level and over 5,000 downloads a week are listed.</p>`;
+    `${lb(list, { lane: false })}<p class="meta mt12">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.</p>`;
 }
 
 export function mount() {

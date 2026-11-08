@@ -19,7 +19,7 @@
   linear-gradient(155deg,transparent 0 46%,var(--sk-hi) 46% 47%,transparent 47% 62%,var(--sk-hi) 62% 63%,transparent 63%),
   repeating-linear-gradient(90deg,transparent 0 72px,var(--sk) 72px 73px),
   repeating-linear-gradient(0deg,transparent 0 44px,var(--sk) 44px 45px)}
-.skeleton-heatmap{width:calc(78*14px - 3px);height:calc(7*14px - 3px);background:repeating-linear-gradient(90deg,var(--sk-hi) 0 11px,transparent 11px 14px)}   /* 78 weeks by 7 days of 11 px marks, 3 px apart */
+.skeleton-heatmap{width:calc(var(--cal-weeks)*14px - 3px);height:calc(7*14px - 3px);background:repeating-linear-gradient(90deg,var(--sk-hi) 0 11px,transparent 11px 14px)}   /* lib/view.js calendar weeks by 7 days of 11 px marks, 3 px apart */
 .skeleton-table{height:332px;background:repeating-linear-gradient(to bottom,var(--sk) 0 51px,var(--sk-hi) 51px 52px)}
 .skeleton-card{height:250px;background:
   linear-gradient(var(--sk-hi) 0 0) 0 0/26% 16px no-repeat,

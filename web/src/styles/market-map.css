@@ -47,11 +47,11 @@ body[data-view=markets] .mkey{border-radius:2px;background:color-mix(in oklab,va
 body[data-view=markets] #lanes{padding-bottom:12px;border-bottom:1px solid color-mix(in oklab,var(--color-up) 18%,transparent)}
 
 .spark{display:block;overflow:visible}.spark path{fill:none;stroke:var(--color-ink-2);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}.spark circle{fill:var(--color-ink)}
-td[data-l="26 weeks"]{width:112px}
+td[data-c=series]{width:112px}
 @media(max-width:699px){
-  #mvt td[data-l="26 weeks"]{grid-column:2;grid-row:2;margin-top:-10px;width:auto}
-  #mvt td[data-l="vs own 4 weeks"]{display:none}
-  #mvt tr.open td[data-l="vs own 4 weeks"]{display:block;grid-column:1/-1;padding-top:10px}
+  #mvt td[data-c=series]{grid-column:2;grid-row:2;margin-top:-10px;width:auto}
+  #mvt td[data-c=base]{display:none}
+  #mvt tr.open td[data-c=base]{display:block;grid-column:1/-1;padding-top:10px}
   #mvt thead{display:block}
   #mvt thead tr{display:flex;flex-wrap:wrap;gap:0 16px;padding:0;border:0}
   #mvt thead th{display:none;padding:0;border:0}
@@ -59,13 +59,13 @@ td[data-l="26 weeks"]{width:112px}
   #mvt tbody tr:not(.prow){display:grid;grid-template-columns:1fr auto;gap:0 16px;align-items:baseline;padding:6px 0}
   #mvt tbody td{display:block;padding:0}
   #mvt tbody td::before{display:none}
-  #mvt td[data-l="Tool"]{grid-column:1;grid-row:1;min-width:0}
-  #mvt td[data-l="Change"]{grid-column:2;grid-row:1;text-align:right;white-space:nowrap}
-  #mvt td[data-l="Change"] .bar{display:none}
-  #mvt td[data-l="Downloads, 7 days"]{grid-column:1;grid-row:2;margin-top:-10px;padding-bottom:4px;font-size:var(--text-meta);color:var(--color-ink-2)}
-  #mvt td[data-l="HN stories, 7 days"],#mvt td[data-l="GitHub stars"],#mvt td[data-l="Last release"],#mvt td[data-l="AirStack"]{display:none;grid-column:1/-1}
-  #mvt tr.open td[data-l="HN stories, 7 days"],#mvt tr.open td[data-l="GitHub stars"],#mvt tr.open td[data-l="Last release"],#mvt tr.open td[data-l="AirStack"]{display:block;padding-top:10px}   /* block, not grid: a grid would split the number from its change and link */
-  #mvt tr.open td[data-l="HN stories, 7 days"]::before,#mvt tr.open td[data-l="GitHub stars"]::before,#mvt tr.open td[data-l="Last release"]::before{display:block}
+  #mvt td[data-c=tool]{grid-column:1;grid-row:1;min-width:0}
+  #mvt td[data-c=change]{grid-column:2;grid-row:1;text-align:right;white-space:nowrap}
+  #mvt td[data-c=change] .bar{display:none}
+  #mvt td[data-c=dl7]{grid-column:1;grid-row:2;margin-top:-10px;padding-bottom:4px;font-size:var(--text-meta);color:var(--color-ink-2)}
+  #mvt td[data-c=hn],#mvt td[data-c=stars],#mvt td[data-c=release],#mvt td[data-c=airstack]{display:none;grid-column:1/-1}
+  #mvt tr.open td[data-c=hn],#mvt tr.open td[data-c=stars],#mvt tr.open td[data-c=release],#mvt tr.open td[data-c=airstack]{display:block;padding-top:10px}   /* block, not grid: a grid would split the number from its change and link */
+  #mvt tr.open td[data-c=hn]::before,#mvt tr.open td[data-c=stars]::before,#mvt tr.open td[data-c=release]::before{display:block}
   .rowtog{all:unset;box-sizing:border-box;display:block;width:100%;min-height:44px;padding:4px 0;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
   .rowtog:focus-visible{outline:2px solid var(--color-ink);outline-offset:2px}
 }

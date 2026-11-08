@@ -4,7 +4,15 @@
   "url": "https://wikimedia.org/api/rest_v1/",
   "license": "CC0-1.0",
   "read": "2026-11-08",
-  "note": "Attention, not adoption: how often people read about a product, not how many use it. A product without an article is absent, not zero. A week missing any day of data is null. change compares the last four weeks with the four before; rising and falling need at least 2000 views in the four weeks before."
+  "note": "Attention, not adoption: how often people read about a product, not how many use it. A product without an article is absent, not zero. A week missing any day of data is null. change compares the last four weeks with the four before; rising and falling need at least 2000 views in the four weeks before.",
+  "params": {
+   "weeks": 26,
+   "window_weeks": 4,
+   "min_baseline": 2000,
+   "top": 24,
+   "movers": 8,
+   "ready_lag_days": 2
+  }
  },
  "weeks": [
   "2026-05-04",

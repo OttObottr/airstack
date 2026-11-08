@@ -1,12 +1,13 @@
 import { radios } from './chips.js';
-import { M, json } from '../lib/data.js';
+import { M, PARAMS, fillParams, json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, ic, n, pct, url } from '../lib/format.js';
 import { spark } from '../lib/spark.js';
+import { VIEW } from '../lib/view.js';
 
-/* a ranked list per category: Wikipedia views of each product's article, its own trend, and its change against its own prior 4 weeks */
+/* a ranked list per category: Wikipedia views of each product's article, its own trend, and its change against its own prior window (attention.json params) */
 const LENSES = ['Top', 'Rising', 'Falling'],
-  SHOWN = 25;
+  SHOWN = VIEW.attentionShown;
 let A = null,
   T = {},
   now = null,
@@ -27,12 +28,13 @@ function options() {
 
 function row(id, i) {
   const p = A.products[id],
-    nm = nameOf(id);
+    nm = nameOf(id),
+    P = A.source.params;
   return `<tr><td data-l="#" class="r num">${i + 1}</td>
     <td data-l="Product"><a href="#app=${encodeURIComponent(id)}"><b>${esc(nm)}</b></a></td>
-    <td data-l="Views, last 4 weeks" class="r num">${p.last_4w != null ? n(p.last_4w) : '<span class="nobs">Not observed</span>'}</td>
-    <td data-l="26 weeks">${spark(p.views, A.weeks, `${nm}, English Wikipedia views`) || '<span class="nobs">Not observed</span>'}</td>
-    <td data-l="vs its prior 4 weeks" class="r num">${p.change != null ? pct(p.change * 100) : `<span class="nobs" title="${esc(A.source.note || '')}">Not observed</span>`}</td>
+    <td data-l="Views, last ${P.window_weeks} weeks" class="r num">${p.last_4w != null ? n(p.last_4w) : '<span class="nobs">Not observed</span>'}</td>
+    <td data-c="series" data-l="${P.weeks} weeks">${spark(p.views, A.weeks, `${nm}, English Wikipedia views`) || '<span class="nobs">Not observed</span>'}</td>
+    <td data-l="vs its prior ${P.window_weeks} weeks" class="r num">${p.change != null ? pct(p.change * 100) : `<span class="nobs" title="${esc(A.source.note || '')}">Not observed</span>`}</td>
     <td data-l="Article"><a class="ext" href="${url(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.article)}${ic('out')}</a> <span class="meta">read ${fd(p.fetched)}</span></td></tr>`;
 }
 
@@ -62,6 +64,8 @@ export function mount() {
   Promise.all([json('attention.json'), json('t/map.json').catch(() => ({ nodes: {} }))])
     .then(([a, t]) => {
       A = a;
+      PARAMS.attention = a.source.params;
+      fillParams($('#types'));
       T = t.nodes || {};
       options();
       draw();

@@ -1,11 +1,12 @@
 import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, host, n, url } from '../lib/format.js';
+import { VIEW } from '../lib/view.js';
 
 const DAY = 864e5,
-  WEEKS = 8,
-  SHOWN = 6,
-  MIN_READ = 5; /* a share over fewer products read is not shown */
+  WEEKS = VIEW.homeAheadWeeks,
+  SHOWN = VIEW.homeShown,
+  MIN_READ = VIEW.homeMinRead;
 const pct = (k, of) => (of ? Math.round((k / of) * 100) : null);
 const STATUS = { scheduled: 'published date', unconfirmed: 'date passed, not confirmed' };
 

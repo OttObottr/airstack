@@ -1,3 +1,4 @@
+import { PARAMS } from './data.js';
 import { esc, fd, n } from './format.js';
 
 /* one series, one de-emphasised 1.5 px line; a missing week breaks the line, never drops to zero; the latest week is the dot */
@@ -27,21 +28,21 @@ export const series = r => {
   return s && s.length ? [s.map(p => p[1]), s.map(p => p[0])] : null;
 };
 
-/* momentum: the latest week against the average of the four before it, only when all five are recorded */
-export function vsOwnBase(values) {
+/* momentum: the latest week against the average of the `weeks` before it, only when all of them are recorded */
+export function vsOwnBase(values, weeks = PARAMS.movers.base_weeks) {
   const last = values[values.length - 1],
-    prior = values.slice(-5, -1);
-  if (last == null || prior.length < 4 || prior.some(v => v == null)) return null;
-  const base = prior.reduce((s, v) => s + v, 0) / 4;
+    prior = values.slice(-weeks - 1, -1);
+  if (!weeks || last == null || prior.length < weeks || prior.some(v => v == null)) return null;
+  const base = prior.reduce((s, v) => s + v, 0) / weeks;
   return base > 0 ? Math.round((last / base - 1) * 1000) / 10 : null;
 }
 
-/* rows without a published 4-week level get one from their own weekly series, and say so */
+/* rows without a published base_weeks level get one from their own weekly series, and say so */
 export function fillBase(rows) {
   for (const r of rows || []) {
     if (!r.dl || r.dl.vsBase != null) continue;
     const s = series(r),
       v = s && vsOwnBase(s[0]);
-    if (v != null) Object.assign(r.dl, { vsBase: v, baseWeeks: 4, from: 'weekly series' });
+    if (v != null) Object.assign(r.dl, { vsBase: v, baseWeeks: PARAMS.movers.base_weeks, from: 'weekly series' });
   }
 }

@@ -50,7 +50,7 @@
 <header class="topbar"><a class="brand" href="#/"><span class="dot" aria-hidden="true"></span>AirStack</a>
   <nav class="nav" aria-label="Views"><a href="#/" data-view="overview"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg>Home</a><a href="#/compare" data-view="compare"><svg class="i" aria-hidden="true"><use href="#i-compare"/></svg>Compare</a><a href="#/markets" data-view="markets"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Markets</a><a href="#/makers" data-view="makers"><svg class="i" aria-hidden="true"><use href="#i-bld"/></svg>Makers</a></nav>
 </header>
-<div class="tape" id="tapeW" role="region" aria-label="Momentum: weekly downloads against each tool's own 4-week level"><div class="tape-in" id="tape"></div></div>
+<div class="tape" id="tapeW" role="region" data-aria="Momentum: weekly downloads against each tool's own {movers.base_weeks}-week level"><div class="tape-in" id="tape"></div></div>
 <main id="main">
   <section class="work" id="check" data-views="overview" aria-labelledby="checkT">
     <div class="wrap wide">
@@ -85,18 +85,18 @@
       <p class="meta" id="moversSub"></p>
       <div class="mmap" id="mmap" aria-busy="true"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the market map"></div></div>
       <div class="mkey"><p class="meta" id="mmapInfo" aria-live="polite">Each tile is a tool. Point at one for its numbers; open it for its page.</p>
-        <p class="lg" aria-label="Colour key: change against the tool's own 4-week level"><span class="meta">▼ 50%+</span><i class="dn4"></i><i class="dn3"></i><i class="dn2"></i><i class="dn1"></i><i class="flat"></i><i class="up1"></i><i class="up2"></i><i class="up3"></i><i class="up4"></i><span class="meta">▲ 50%+</span>
-          <i class="none"></i><span class="meta">insufficient 4-week baseline</span></p></div>
+        <p class="lg" data-aria="Colour key: change against the tool's own {movers.base_weeks}-week level"><span class="meta">▼ 50%+</span><i class="dn4"></i><i class="dn3"></i><i class="dn2"></i><i class="dn1"></i><i class="flat"></i><i class="up1"></i><i class="up2"></i><i class="up3"></i><i class="up4"></i><span class="meta">▲ 50%+</span>
+          <i class="none"></i><span class="meta">insufficient <span data-p="movers.base_weeks"></span>-week baseline</span></p></div>
       <p class="meta" id="mmapNote"></p>
       <div class="chips mt24" role="radiogroup" aria-label="Lane" id="lanes"></div>
-      <div class="scroll"><table class="t stack" id="mvt"><thead><tr><th scope="col">Tool</th><th scope="col" class="r">Downloads, 7 days</th><th scope="col">26 weeks</th>
+      <div class="scroll"><table class="t stack" id="mvt"><thead><tr><th scope="col">Tool</th><th scope="col" class="r">Downloads, 7 days</th><th scope="col"><span data-p="movers.series_weeks"></span> weeks</th>
         <th scope="col" class="r"><button type="button" class="sort" data-s="dl" aria-pressed="true">Change</button></th>
-        <th scope="col" class="r"><button type="button" class="sort" data-s="base" aria-pressed="false">vs own 4 weeks</button></th>
+        <th scope="col" class="r"><button type="button" class="sort" data-s="base" aria-pressed="false">vs own <span data-p="movers.base_weeks"></span> weeks</button></th>
         <th scope="col" class="r"><button type="button" class="sort" data-s="hn" aria-pressed="false">HN stories, 7 days</button></th>
         <th scope="col" class="r"><button type="button" class="sort" data-s="stars" aria-pressed="false">GitHub stars</button></th>
         <th scope="col">Last release</th><th scope="col">AirStack</th></tr></thead><tbody aria-busy="true"><tr class="skelrow"><td colspan="9"><div class="skeleton skeleton-table" role="status" aria-label="Loading market rows"></div></td></tr></tbody></table></div>
       <button class="mt16 ghost" id="mvMore" type="button">Show all</button>
-      <p class="mt12 meta">Downloads: each registry’s own daily counts (npm, PyPI) · 26 weeks: weekly downloads, a gap is a week not recorded · vs own 4 weeks: the latest week against the average of the four before · HN stories: attention, not users · Stars: today’s count, no history</p>
+      <p class="mt12 meta">Downloads: each registry’s own daily counts (npm, PyPI) · <span data-p="movers.series_weeks"></span> weeks: weekly downloads, a gap is a week not recorded · vs own <span data-p="movers.base_weeks"></span> weeks: the latest week against the average of the <span data-p="movers.base_weeks"></span> before · HN stories: attention, not users · Stars: today’s count, no history</p>
     </div>
   </section>
 
@@ -105,7 +105,7 @@
       <h2 class="h2" id="typesT">What people read about, by category</h2>
       <p class="meta">English Wikipedia views of each product’s article, ranked within the category you pick. <b>Attention, not adoption:</b> how often people read about a product, not how many use it. Every kind of software has an article; few have registry downloads.</p>
       <div class="mkbar"><select id="tyPick" class="sel" aria-label="Category"></select><div class="chips" id="atLens" role="radiogroup" aria-label="Which products"></div><a id="tyPage" class="chip" href="/t/">Open this category</a></div>
-      <div class="scroll"><table class="t stack" id="att"><thead><tr><th scope="col" class="r">#</th><th scope="col">Product</th><th scope="col" class="r">Views, last 4 weeks</th><th scope="col">26 weeks</th><th scope="col" class="r">vs its prior 4 weeks</th><th scope="col">Article</th></tr></thead>
+      <div class="scroll"><table class="t stack" id="att"><thead><tr><th scope="col" class="r">#</th><th scope="col">Product</th><th scope="col" class="r">Views, last <span data-p="attention.window_weeks"></span> weeks</th><th scope="col"><span data-p="attention.weeks"></span> weeks</th><th scope="col" class="r">vs its prior <span data-p="attention.window_weeks"></span> weeks</th><th scope="col">Article</th></tr></thead>
         <tbody aria-busy="true"><tr class="skelrow"><td colspan="6"><div class="skeleton skeleton-table" role="status" aria-label="Loading attention"></div></td></tr></tbody></table></div>
       <p class="meta mt12" id="tyNote"></p>
     </div>
@@ -163,11 +163,11 @@
       <h2 class="h2" id="calT">The software calendar</h2>
       <p class="msub">Recorded releases and announcements behind today. Published support dates ahead. Every mark opens its source.</p>
       <div class="chips mt16" id="calKinds" role="group" aria-label="Which events"><span class="skeleton skeleton-pills" aria-hidden="true"></span></div>
-      <div class="cgridw mt16"><div class="cgrid" id="calGrid" role="img" aria-label="Activity by day: 52 weeks behind, 26 weeks ahead. The same events are listed below." aria-busy="true"><span class="skeleton skeleton-heatmap" role="status" aria-label="Loading the calendar"></span></div></div>
+      <div class="cgridw mt16"><div class="cgrid" id="calGrid" role="img" data-aria="Activity by day: {view.calendarPastWeeks} weeks behind, {view.calendarAheadWeeks} weeks ahead. The same events are listed below." aria-busy="true"><span class="skeleton skeleton-heatmap" role="status" aria-label="Loading the calendar"></span></div></div>
       <p class="clegend meta"><i class="p o2"></i> observed record <i class="p u"></i> occurrence unconfirmed <i class="f s"></i> published support date <i class="t"></i> today</p>
       <p class="mt12" id="calSum"><span class="skeleton skeleton-line" role="status" aria-label="Loading calendar summary"></span></p>
       <div class="cday mt16" id="calDay" hidden></div>
-      <h3 class="h3 mt24">The next 90 days</h3>
+      <h3 class="h3 mt24">The next <span data-p="view.calendarAgendaDays"></span> days</h3>
       <ol class="clist mt12" id="calAhead" aria-busy="true"><li class="skeleton skeleton-table" role="status" aria-label="Loading upcoming dates"></li></ol>
     </div>
   </section>

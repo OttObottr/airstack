@@ -28,7 +28,18 @@
    ],
    "passes": "A project passes with a score of five or more and no blocking finding."
   },
-  "note": "Synthetic repositories for the test fixture. Stars and forks are attention, not use."
+  "note": "Synthetic repositories for the test fixture. Stars and forks are attention, not use.",
+  "params": {
+   "stale_days": 180,
+   "pass_score": 5,
+   "low_score": 4,
+   "binary_min_score": 8,
+   "vulnerabilities_min_score": 7,
+   "young_months": 12,
+   "social_days": 30,
+   "hn_items": 3,
+   "keep": 40
+  }
  },
  "categories": {
   "project-management": [

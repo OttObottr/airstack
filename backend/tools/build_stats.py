@@ -30,7 +30,7 @@ def main():
                    for i, (v, ln) in enumerate(tiles))
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-labelledby="t d">
 <title id="t">AirStack: {n(tiles[0][0])} software products, {n(tiles[2][0])} read from their own pages</title>
-<desc id="d">AirStack's counts as deployed, and weekly registry downloads against each tool's own 4-week level, {day(w[0])} to {day(w[1])}. https://airstack.bot</desc>
+<desc id="d">AirStack's counts as deployed, and weekly registry downloads against each tool's own {mt["params"]["base_weeks"]}-week level, {day(w[0])} to {day(w[1])}. https://airstack.bot</desc>
 <style>
 :root{{--bg:#0A0A0B;--s1:#141416;--ink:#F5F5F7;--ink2:rgba(245,245,247,.62);--hair:rgba(255,255,255,.1);--up:#3DDC97;--dn:#FF6B5E;--acc:#FF4F00}}
 @media (prefers-color-scheme:light){{:root{{--bg:#FFFFFF;--s1:#F5F5F7;--ink:#0A0A0B;--ink2:rgba(10,10,11,.6);--hair:rgba(0,0,0,.1);--up:#0A8F5A;--dn:#D33A2C}}}}
@@ -50,7 +50,7 @@ text{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Ar
 <text class="foot" x="1152" y="55" text-anchor="end">updated {day(mt["generated"])} · airstack.bot</text>
 {cols}
 <rect x="24" y="214" width="1152" height="62" rx="12" fill="var(--s1)"/>
-<text class="foot" x="48" y="238">7-day downloads vs each tool's 4-week level · {day(w[0])} – {day(w[1])}</text>
+<text class="foot" x="48" y="238">7-day downloads vs each tool's {mt["params"]["base_weeks"]}-week level · {day(w[0])} – {day(w[1])}</text>
 <clipPath id="c"><rect x="40" y="244" width="1120" height="28"/></clipPath>
 <g clip-path="url(#c)"><g transform="translate(48,262)"><g class="run">{strip}<g transform="translate({span},0)">{strip}</g></g></g></g>
 </svg>

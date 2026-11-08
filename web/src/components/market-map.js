@@ -1,5 +1,5 @@
 import { selectByName } from './app.js';
-import { M } from '../lib/data.js';
+import { M, PARAMS } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
 import { esc, fd, n, pct } from '../lib/format.js';
 import { MK } from '../lib/market.js';
@@ -24,7 +24,7 @@ const say = r =>
   `${r.name}: ${n(r.dl.value)} ${r.dl.registry} downloads in 7 days, ` +
   (r.dl.vsBase == null
     ? `no change shown (${r.dl.why || 'no usable earlier weeks'})`
-    : `${pct(r.dl.vsBase)} against its own 4-week level${r.dl.from ? ` (from its ${r.dl.from})` : ''}`);
+    : `${pct(r.dl.vsBase)} against its own ${PARAMS.movers.base_weeks}-week level${r.dl.from ? ` (from its ${r.dl.from})` : ''}`);
 
 function drawMarketMap() {
   const D = (MK && MK.movers) || M.moversTop,
@@ -50,7 +50,7 @@ function drawMarketMap() {
     .map(
       l => `<section class="mlane" aria-label="${esc(l.name)}"><h3><span>${esc(l.name)}</span>${
         l.lift == null
-          ? '<span class="state-note">Insufficient 4-week baseline</span>'
+          ? `<span class="state-note">Insufficient ${PARAMS.movers.base_weeks}-week baseline</span>`
           : `<span class="mlift ${tone(l.lift)}" title="Weighted by downloads across the ${l.based} of ${l.rows.length} tools with usable earlier weeks">${l.lift >= 0 ? '▲' : '▼'} ${pct(Math.abs(l.lift)).replace('+', '')}<span class="sr"> across ${l.based} of ${l.rows.length} tools</span></span>`
       }</h3>
     <div class="tm" data-lane="${esc(l.id)}"></div>${l.unmeasured ? `<p class="meta">+${l.unmeasured} without download counts</p>` : ''}</section>`

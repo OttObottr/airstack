@@ -2,7 +2,16 @@
  "rule": {
   "rising": "A maker whose product's weekly downloads or Wikipedia views rose at least 20% against its own earlier 4 weeks.",
   "leader": "A maker whose product is among the top 3 in its category by weekly downloads or Wikipedia views.",
-  "incumbent": "A maker founded before 2010 whose product is among the top 10 in its category."
+  "incumbent": "A maker founded before 2010 whose product is among the top 10 in its category.",
+  "params": {
+   "window_weeks": 4,
+   "rise": 0.25,
+   "flat": 0.05,
+   "leader_share": 0.25,
+   "min_node": 4,
+   "min_baseline": 2000,
+   "min_downloads": 4000
+  }
  },
  "makers": {
   "Q2004": {

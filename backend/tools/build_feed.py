@@ -1,4 +1,4 @@
-"""changes.atom (the last 30 days of observed changes) and the monthly open-data release, from the published files.
+"""changes.atom (observed changes over news.json's window_days) and the monthly open-data release, from the published files.
 Usage: python backend/tools/build_feed.py"""
 import gzip
 import json
@@ -13,7 +13,6 @@ from airstack.files import read_json
 from pages.layout import WIKIMEDIA, breadcrumbs, e, foot, head, slug as page_slug
 
 BASE, ATOM, TAG = "https://airstack.bot", "http://www.w3.org/2005/Atom", "tag:airstack.bot,2026:"
-DAYS, MAX_ENTRIES = 30, 200
 SCHEDULE = "From {}’s support schedule on endoflife.date."
 SAYS = {"changelog": "From {}’s own changelog.", "blog": "From {}’s own blog or news feed.", "release": "A GitHub release of {}.",
         "hacker news": "A Hacker News story linking to {}’s own site.", "end of life": SCHEDULE, "end of active support": SCHEDULE, "end of extended support": SCHEDULE}
@@ -28,7 +27,7 @@ def rfc3339(d):
 def changes(news, events, pages):
     """The feed's entries, newest first. `pages` maps a product id to its page slug (only products that have a page)."""
     end = date.fromisoformat(news["source"].get("read") or events["source"]["built_for"])
-    start = (end - timedelta(days=DAYS)).isoformat()
+    start = (end - timedelta(days=news["source"]["window_days"])).isoformat()
     in_news = {i["url"] for i in news["items"]}
     rows = [(tag(i["url"]), i) for i in news["items"]]
     rows += [(tag(e["url"]) + "#" + slug(e["title"]), {**e, "date": e["at"]}) for e in events["events"]  # one support page lists many cycles
@@ -39,9 +38,9 @@ def changes(news, events, pages):
             continue
         out[id_] = {"id": id_, "title": NOT_XML.sub("", i["title"]).strip(), "link": i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
                     "kind": i["kind"], "page": pages.get(i["id"]), "discussion": i.get("discussion")}
-    return sorted(sorted(out.values(), key=lambda x: x["id"]), key=lambda x: x["updated"], reverse=True)[:MAX_ENTRIES]
+    return sorted(sorted(out.values(), key=lambda x: x["id"]), key=lambda x: x["updated"], reverse=True)[:paths.config("pages")["limits"]["feed_entries"]]
 
-def atom(entries, end):
+def atom(entries, end, days):
     q = lambda t: f"{{{ATOM}}}{t}"
     def sub(parent, name, text=None, **attrs):
         el = ET.SubElement(parent, q(name), attrs)
@@ -50,7 +49,7 @@ def atom(entries, end):
     ET.register_namespace("", ATOM)
     feed = ET.Element(q("feed"))
     sub(feed, "id", TAG + "changes"); sub(feed, "title", "AirStack: what changed")
-    sub(feed, "subtitle", "Changelogs, releases and announcements from the products AirStack tracks, in the last 30 days, each linked to its source.")
+    sub(feed, "subtitle", f"Changelogs, releases and announcements from the products AirStack tracks, in the last {days} days, each linked to its source.")
     sub(feed, "link", rel="self", type="application/atom+xml", href=f"{BASE}/changes.atom"); sub(feed, "link", rel="alternate", type="text/html", href=f"{BASE}/")
     sub(feed, "updated", entries[0]["updated"] if entries else f"{end}T00:00:00Z")
     a = sub(feed, "author"); sub(a, "name", "AirStack"); sub(a, "uri", f"{BASE}/")
@@ -160,7 +159,7 @@ def build():
     all_ = build_pages.products()
     pages = {k: p["slug"] for k, p in build_pages.built(all_, build_pages.own_prices(all_, read_json(paths.PRICING) if paths.PRICING.exists() else {})).items()}
     news, events = read_json(paths.NEWS), read_json(paths.EVENTS)
-    out = {"changes.atom": atom(changes(news, events, pages), news["source"].get("read") or events["source"]["built_for"])}
+    out = {"changes.atom": atom(changes(news, events, pages), news["source"].get("read") or events["source"]["built_for"], news["source"]["window_days"])}
     lines = open_lines(read_json(paths.CHAIN_DATA))
     releases = {f.name: unpack(f.read_bytes()) for f in sorted(paths.OPEN_DATA.glob("airstack-*.jsonl.gz"))}
     releases[f"airstack-{max(json.loads(ln)['read'] for ln in lines)[:7]}.jsonl.gz"] = lines

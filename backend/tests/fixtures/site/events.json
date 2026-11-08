@@ -15,6 +15,11 @@
    "observed": "A dated record of a change.",
    "scheduled": "A date its publisher has set ahead.",
    "unconfirmed": "A published date that has passed without a record that it happened."
+  },
+  "params": {
+   "past_days": 365,
+   "ahead_days": 181,
+   "cycles_max": 12
   }
  },
  "events": [

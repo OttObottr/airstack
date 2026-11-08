@@ -2,7 +2,10 @@
  "source": {
   "read": "2026-11-05",
   "window_days": 30,
-  "note": "Synthetic updates: changelogs, releases, blog posts and stories linking to each product's own site."
+  "note": "Synthetic updates: changelogs, releases, blog posts and stories linking to each product's own site.",
+  "params": {
+   "per_kind": 3
+  }
  },
  "items": [
   {

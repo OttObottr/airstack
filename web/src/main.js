@@ -10,6 +10,11 @@ import { mount as mountBrowse } from './components/browse.js';
 import { mount as mountHome } from './components/home.js';
 import { mount as mountAgents } from './components/agents.js';
 import { mount as mountKeys } from './components/keys.js';
+import { fillParams } from './lib/data.js';
+import { VIEW } from './lib/view.js';
+
+fillParams(); /* static copy quotes the windows the data was built with */
+document.documentElement.style.setProperty('--cal-weeks', VIEW.calendarPastWeeks + 1 + VIEW.calendarAheadWeeks); /* the calendar loader's width */
 
 /* one view's bad data does not stop the rest */
 const start = mount => {
