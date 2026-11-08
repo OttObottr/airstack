@@ -1,0 +1,40 @@
+/* Design tokens and the utilities the markup uses; compiled by tools/tailwind.sh into the page. Tokens follow shadcn's names. */
+@layer theme, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../";
+@source "../../../backend/tools/pages";
+
+@theme {
+  --color-*: initial;
+  --color-background: #07090B;
+  --color-card: #0C0F13;
+  --color-popover: #11161C;
+  --color-muted: #182029;
+  --color-foreground: #F4F6F8;
+  --color-muted-foreground: #F4F6F8B3;
+  --color-subtle-foreground: #F4F6F882;
+  --color-border: #FFFFFF1C;
+  --color-input: #FFFFFF26;
+  --color-ring: #8DBBFF;
+  --color-primary: #FF5A1F;
+  --color-primary-foreground: #07090B;
+  --color-up: #38E2A0;
+  --color-down: #FF7163;
+  --color-info: #8DBBFF;
+  --color-warn: #E9B949;
+  --color-maker: #B9A7FF;
+  --color-sector-1: #8DBBFF;
+  --color-sector-2: #FF9A3D;
+  --color-sector-3: #38E2A0;
+  --color-sector-4: #B9A7FF;
+  --color-sector-5: #E9B949;
+  --color-sector-6: #FF7AB6;
+  --color-sector-7: #5ED6E8;
+  --color-sector-other: #5B6573;
+  --font-sans: "Inter", ui-sans-serif, -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}

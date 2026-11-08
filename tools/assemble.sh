@@ -31,7 +31,8 @@ PY
 )
 site="${AIRSTACK_DATA:-data}/site"
 [ -f "$site/site-data.js" ] || { echo "no datasets in $site: run tools/data_pull.sh" >&2; exit 1; }
-list=$(mktemp); trap 'rm -f "$list"' EXIT
+list=$(mktemp) tw=$(mktemp); trap 'rm -f "$list" "$tw"' EXIT
+tools/tailwind.sh "$tw" 2>/dev/null
 "$py" - "$site" > "$list" <<'PY'
 import json, pathlib, re, sys
 from validate_published_data import MAX_FILES, MAX_TOTAL_BYTES, parse_data
@@ -59,7 +60,7 @@ PY
 rm -rf "$out" && mkdir -p "$out"
 cp -R web/public/. "$out"/
 cp -R c compare p o t insights calendar method "$out"/
-"$py" - "$out" "$site" "$list" <<'PY'
+"$py" - "$out" "$site" "$list" "$tw" <<'PY'
 import hashlib, json, pathlib, re, shutil, sys
 out, web, site = pathlib.Path(sys.argv[1]), pathlib.Path("web"), pathlib.Path(sys.argv[2])
 shipped = pathlib.Path(sys.argv[3]).read_text().split()
@@ -73,6 +74,7 @@ css = [plain(s) for s in re.findall(r"(?m)^@layer [\w, -]+;", index)]
 for name, layer in re.findall(r'(?m)^@import "\./([\w.-]+\.css)"(?: layer\(([\w-]+)\))?;', index):
     body = plain((web / "src" / "styles" / name).read_text())
     css.append(f"@layer {layer}{{\n{body}\n}}" if layer else body)
+css.append(pathlib.Path(sys.argv[4]).read_text())
 link = '<link rel="stylesheet" href="src/styles/index.css">'
 assert page.count(link) == 1 and "<script>" not in page, "the shell links index.css once and carries no inline script"
 for m in sorted(p.relative_to(web).as_posix() for p in (web / "src").rglob("*.js")):
