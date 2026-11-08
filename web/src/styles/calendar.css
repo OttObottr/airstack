@@ -39,3 +39,4 @@ body[data-view=calendar]{background-image:radial-gradient(62% 42% at 50% 0,color
 #calendar .cday{border-radius:2px;border-color:color-mix(in oklab,var(--color-warn) 34%,transparent);background:linear-gradient(110deg,color-mix(in oklab,var(--color-warn) 10%,transparent),var(--color-s2) 44%)}
 #calendar>.wrap>.h3{margin-top:44px;padding-top:18px;border-top:1px solid color-mix(in oklab,var(--color-warn) 20%,transparent);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--color-warn)}
 @media(max-width:699px){#calendar{padding-top:20px}#calendar>.wrap{padding:28px 16px 40px}#calendar #calKinds{width:100%;overflow-x:auto;flex-wrap:nowrap}#calendar #calKinds .chip{flex:none}}
+.cgroup{padding:10px 12px;list-style:none}.cgroup summary{cursor:pointer;min-height:24px}.cgroup .clist{margin-top:8px}

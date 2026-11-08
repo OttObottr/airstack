@@ -2,7 +2,7 @@
 import shutil
 from airstack import paths
 from .layout import BASE, breadcrumbs, e, foot, head, trim
-from .data import CATS, PAGES, starting
+from .data import CATS, PAGES, found, starting
 from airstack.files import read_json
 
 def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
@@ -14,12 +14,12 @@ def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
         price = (f'<a href="{e(q["url"])}" rel="nofollow noopener" title="{e(paid["quote"])}">{e(paid["price"])}</a> <small>{e(paid["plan"])}{" · per user" if paid["unit"] == "user" else ""}{" / month" if paid["period"] == "month" else " / year" if paid["period"] == "year" else ""}</small>'
                  if paid else "") + (" <small>free plan</small>" if free else "")
         rows.append(f'<tr><td><a href="/p/{e(x["slug"])}/">{e(x["name"])}</a></td><td>{e(trim(what)) if what else "<small>Not observed</small>"}</td><td>{price or "<small>Not observed</small>"}</td></tr>')
-    kp = "".join(f'<tr><th>{e(k["label"])}</th><td>{idx.get(k["key"], 0)} of {idx.get("researched", 0)} researched</td></tr>' for k in kpis) if idx.get("researched") else ""
+    kp = "".join(f'<tr><th>{e(k["label"])}</th><td>{found(idx.get(k["key"], 0), idx["researched"])} researched</td></tr>' for k in kpis) if idx.get("researched") else ""
     med = idx.get("median_seat")
     vetted = [r for r in (oss.get("categories", {}).get(cid) or []) if r.get("vetted")][:6]
     TASKS = PAGES["category_models"]
     models = [m for t in TASKS.get(cid, []) for m in (hf.get("tasks", {}).get(t, {}).get("models") or [])[:3]]
-    desc = (f"{G.get('what', '')} " + f"{len(items)} products compared on AirStack" + (f"; {idx['free_plan']} of {idx['researched']} researched state a free plan" if idx.get("researched") else "")
+    desc = (f"{G.get('what', '')} " + f"{len(items)} products compared on AirStack" + (f"; {found(idx['free_plan'], idx['researched'])} researched state a free plan" if idx.get("researched") else "")
             + (f"; the median list price is {med['price']} per user a month ({med['name']})" if med else "") + ".").strip()
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": name, "url": url, "description": desc[:300],
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{BASE}/p/{x['slug']}/", "name": x["name"]} for i, x in enumerate(items)]}}

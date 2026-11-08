@@ -3,7 +3,7 @@ import { kindOf, mono } from '../avatar.js';
 import { rowMap } from '../browse.js';
 import { notFound } from '../cards/tool.js';
 import { SLUGS, addr, loadDir, researchedFacts } from './directory.js';
-import { M } from '../../lib/data.js';
+import { COUNTS, M } from '../../lib/data.js';
 import { $ } from '../../lib/dom.js';
 import { esc, known, n, sq } from '../../lib/format.js';
 import { MK } from '../../lib/market.js';
@@ -188,7 +188,7 @@ const openApp = (id, first) => {
 };
 
 export function mount() {
-  q.placeholder = `Search ${n(M.index.length + (M.dir ? M.dir.products : 0))} products + ${n((M.dir || {}).orgs || 0)} makers`;
+  q.placeholder = `Search ${n(COUNTS.products)} products + ${n(COUNTS.organizations)} makers`;
   /* cancel a pending blur hide, so suggestions typed right after it stay open */
   q.addEventListener('input', () => {
     clearTimeout(blurT);

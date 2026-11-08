@@ -12,7 +12,7 @@ def maker_table(rows, made, bad, rank=True):
     nr = "<small>Not recorded</small>"
     size = lambda q, r: "<small>Out of line with its documentation, not shown</small>" if q in bad else f'{r[6]:,} <small>({e(r[7])})</small>' if r[6] and r[7] else nr
     country = lambda r: (f'<a href="/o/in/{slug(r[2])}/">{e(r[2])}</a>' if r[2] in COUNTRY_PAGES else e(r[2])) if r[2] else nr
-    return ("<table><tr><th>#</th><th>Maker</th><th>Country</th><th>Founded</th><th>Employees, as Wikidata records it</th><th>Products listed</th></tr>"
+    return ("<table><tr><th>#</th><th>Maker</th><th>Country</th><th>Founded</th><th>Employees</th><th>Products listed</th></tr>"
             + "".join(f'<tr><td>{i if rank else ""}</td><td><a href="/o/{ORGS[q]}/">{e(r[0])}</a></td><td>{country(r)}</td><td>{e(r[3]) if r[3] else nr}</td><td>{size(q, r)}</td><td>{len(made[q])}</td></tr>'
                       for i, (q, r) in enumerate(rows, 1)) + "</table>")
 
@@ -59,7 +59,7 @@ def maker_lists(keep, made):
     rows = sorted(keep.items(), key=lambda kv: (order.get(kv[0], 10**6), kv[1][0].lower()))
     write_json(out / "makers.json", {"countries": {c: len(v) for c, v in countries.items()}, "ranked": len(order), "rows": [
         [ORGS[q], r[0], r[2] or "", str(r[3] or "")[:4], r[6] if q not in bad and r[7] else None, r[7] if q not in bad and r[7] else None,
-         len(made[q]), 1 if q in order else 0, "business" if r[5] == "business" else "organization", 1 if len(countries.get(r[2], [])) >= MIN_COUNTRY else 0] for q, r in rows]})
+         len(made[q]), 1 if q in order else 0, "business" if r[5] == "business" else "organization", 1 if len(countries.get(r[2], [])) >= MIN_COUNTRY else 0, q] for q, r in rows]})
     for c, v in countries.items():
         if len(v) < MIN_COUNTRY:
             continue                                                         # two makers are not a list worth a page; the hub names them without a link

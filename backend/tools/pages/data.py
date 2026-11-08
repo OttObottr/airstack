@@ -51,6 +51,11 @@ def products():
                         "description": desc}
     return out
 
+def found(v, of):
+    """A category count as "N found of M": a {found, of} record, or a bare count out of the products read."""
+    k, m = (v["found"], v["of"]) if isinstance(v, dict) else (v, of)
+    return f"{k:,} found of {m:,}"
+
 def own_prices(all_, prices):
     return {pid: q for pid, q in prices.items() if pid in all_}
 

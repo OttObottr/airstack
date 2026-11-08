@@ -22,7 +22,6 @@
 .mlift.up1,.mlift.up2,.mlift.up3,.mlift.up4,.mlift.dn1,.mlift.dn2,.mlift.dn3,.mlift.dn4,.mlift.flat{background:none}
 .mkey{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;margin-top:12px;padding:10px 12px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 34%,transparent)}
 .lg{display:flex;flex-wrap:wrap;align-items:center;gap:3px}.lg i{width:18px;height:10px;border-radius:2px}.lg .meta{margin:0 6px}
-.mlane.tywide{grid-column:1/-1}.mlane.tywide .tm{height:min(56vw,420px);min-height:240px}
 .prow td{padding:0 0 24px;border-bottom:1px solid var(--color-hair)}
 .prow .kv{margin-top:0}
 .pbtn{white-space:nowrap}
@@ -47,7 +46,12 @@ body[data-view=markets] .tile{border-radius:1px}
 body[data-view=markets] .mkey{border-radius:2px;background:color-mix(in oklab,var(--color-bg) 72%,transparent);font-family:var(--font-mono)}
 body[data-view=markets] #lanes{padding-bottom:12px;border-bottom:1px solid color-mix(in oklab,var(--color-up) 18%,transparent)}
 
+.spark{display:block;overflow:visible}.spark path{fill:none;stroke:var(--color-ink-2);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}.spark circle{fill:var(--color-ink)}
+td[data-l="26 weeks"]{width:112px}
 @media(max-width:699px){
+  #mvt td[data-l="26 weeks"]{grid-column:2;grid-row:2;margin-top:-10px;width:auto}
+  #mvt td[data-l="vs own 4 weeks"]{display:none}
+  #mvt tr.open td[data-l="vs own 4 weeks"]{display:block;grid-column:1/-1;padding-top:10px}
   #mvt thead{display:block}
   #mvt thead tr{display:flex;flex-wrap:wrap;gap:0 16px;padding:0;border:0}
   #mvt thead th{display:none;padding:0;border:0}
@@ -58,7 +62,7 @@ body[data-view=markets] #lanes{padding-bottom:12px;border-bottom:1px solid color
   #mvt td[data-l="Tool"]{grid-column:1;grid-row:1;min-width:0}
   #mvt td[data-l="Change"]{grid-column:2;grid-row:1;text-align:right;white-space:nowrap}
   #mvt td[data-l="Change"] .bar{display:none}
-  #mvt td[data-l="Downloads, 7 days"]{grid-column:1/-1;grid-row:2;margin-top:-10px;padding-bottom:4px;font-size:var(--text-meta);color:var(--color-ink-2)}
+  #mvt td[data-l="Downloads, 7 days"]{grid-column:1;grid-row:2;margin-top:-10px;padding-bottom:4px;font-size:var(--text-meta);color:var(--color-ink-2)}
   #mvt td[data-l="HN stories, 7 days"],#mvt td[data-l="GitHub stars"],#mvt td[data-l="Last release"],#mvt td[data-l="AirStack"]{display:none;grid-column:1/-1}
   #mvt tr.open td[data-l="HN stories, 7 days"],#mvt tr.open td[data-l="GitHub stars"],#mvt tr.open td[data-l="Last release"],#mvt tr.open td[data-l="AirStack"]{display:block;padding-top:10px}   /* block, not grid: a grid would split the number from its change and link */
   #mvt tr.open td[data-l="HN stories, 7 days"]::before,#mvt tr.open td[data-l="GitHub stars"]::before,#mvt tr.open td[data-l="Last release"]::before{display:block}

@@ -89,24 +89,25 @@
           <i class="none"></i><span class="meta">insufficient 4-week baseline</span></p></div>
       <p class="meta" id="mmapNote"></p>
       <div class="chips mt24" role="radiogroup" aria-label="Lane" id="lanes"></div>
-      <div class="scroll"><table class="t stack" id="mvt"><thead><tr><th scope="col">Tool</th><th scope="col" class="r">Downloads, 7 days</th>
+      <div class="scroll"><table class="t stack" id="mvt"><thead><tr><th scope="col">Tool</th><th scope="col" class="r">Downloads, 7 days</th><th scope="col">26 weeks</th>
         <th scope="col" class="r"><button type="button" class="sort" data-s="dl" aria-pressed="true">Change</button></th>
+        <th scope="col" class="r"><button type="button" class="sort" data-s="base" aria-pressed="false">vs own 4 weeks</button></th>
         <th scope="col" class="r"><button type="button" class="sort" data-s="hn" aria-pressed="false">HN stories, 7 days</button></th>
         <th scope="col" class="r"><button type="button" class="sort" data-s="stars" aria-pressed="false">GitHub stars</button></th>
-        <th scope="col">Last release</th><th scope="col">AirStack</th></tr></thead><tbody aria-busy="true"><tr class="skelrow"><td colspan="7"><div class="skeleton skeleton-table" role="status" aria-label="Loading market rows"></div></td></tr></tbody></table></div>
+        <th scope="col">Last release</th><th scope="col">AirStack</th></tr></thead><tbody aria-busy="true"><tr class="skelrow"><td colspan="9"><div class="skeleton skeleton-table" role="status" aria-label="Loading market rows"></div></td></tr></tbody></table></div>
       <button class="mt16 ghost" id="mvMore" type="button">Show all</button>
-      <p class="mt12 meta">Downloads: each registry’s own daily counts (npm, PyPI) · HN stories: attention, not users · Stars: today’s count, no history</p>
+      <p class="mt12 meta">Downloads: each registry’s own daily counts (npm, PyPI) · 26 weeks: weekly downloads, a gap is a week not recorded · vs own 4 weeks: the latest week against the average of the four before · HN stories: attention, not users · Stars: today’s count, no history</p>
     </div>
   </section>
 
   <section class="work" id="types" data-views="markets" aria-labelledby="typesT">
     <div class="wrap wide">
-      <h2 class="h2" id="typesT">Every kind of software</h2>
-      <p class="meta">Pick a kind of software to see its products, sized by how widely each is documented. Registry downloads only exist for developer tools, so this is the measure every kind of software has.</p>
-      <div class="mkbar"><select id="tyPick" class="sel" aria-label="Kind of software"></select><a id="tyPage" class="chip" href="/t/">Open this category</a></div>
-      <div class="mmap"><div class="mlane tywide"><div class="tm" id="tyMap" role="group" aria-label="Products in the chosen kind of software" aria-busy="true"><div class="skeleton skeleton-chart" role="status" aria-label="Loading category products"></div></div></div></div>
-      <p class="meta" id="tyInfo" aria-live="polite">Each tile is a product. Point at one for its numbers; open it for its page.</p>
-      <p class="meta" id="tyNote"></p>
+      <h2 class="h2" id="typesT">What people read about, by category</h2>
+      <p class="meta">English Wikipedia views of each product’s article, ranked within the category you pick. <b>Attention, not adoption:</b> how often people read about a product, not how many use it. Every kind of software has an article; few have registry downloads.</p>
+      <div class="mkbar"><select id="tyPick" class="sel" aria-label="Category"></select><div class="chips" id="atLens" role="radiogroup" aria-label="Which products"></div><a id="tyPage" class="chip" href="/t/">Open this category</a></div>
+      <div class="scroll"><table class="t stack" id="att"><thead><tr><th scope="col" class="r">#</th><th scope="col">Product</th><th scope="col" class="r">Views, last 4 weeks</th><th scope="col">26 weeks</th><th scope="col" class="r">vs its prior 4 weeks</th><th scope="col">Article</th></tr></thead>
+        <tbody aria-busy="true"><tr class="skelrow"><td colspan="6"><div class="skeleton skeleton-table" role="status" aria-label="Loading attention"></div></td></tr></tbody></table></div>
+      <p class="meta mt12" id="tyNote"></p>
     </div>
   </section>
 
@@ -134,16 +135,18 @@
   <section class="work" id="leaders" data-views="makers" aria-labelledby="leadersT">
     <div class="wrap wide">
       <h2 class="h2" id="leadersT">Software makers</h2>
-      <p class="meta">The organizations that make the listed software, as Wikidata records them. Search, filter and sort; the address keeps your view, so you can share it.</p>
+      <p class="meta">The organizations that make the listed software. Each lens names the public signal that puts a maker on it, with its number and source; the address keeps your view, so you can share it.</p>
+      <div class="chips mt16" id="mkLens" role="radiogroup" aria-label="Lens"></div>
+      <p class="meta mt8" id="mkRule"></p>
       <div class="mkbar" role="search">
         <input id="mkQ" class="mkq" type="search" placeholder="Find a maker" aria-label="Find a maker" autocomplete="off" spellcheck="false">
-        <select id="mkCountry" class="sel" aria-label="Country"></select>
-        <select id="mkKind" class="sel" aria-label="Kind"><option value="">Businesses and organizations</option><option value="business">Businesses</option><option value="organization">Organizations</option></select>
-        <select id="mkSort" class="sel" aria-label="Sort"></select>
+        <select id="mkCat" class="sel" aria-label="Category"><option value="">All categories</option></select>
+        <select id="mkAfter" class="sel" aria-label="Founded after"><option value="">Founded any year</option><option value="2020">Founded after 2020</option><option value="2015">Founded after 2015</option><option value="2010">Founded after 2010</option><option value="2000">Founded after 2000</option><option value="1990">Founded after 1990</option></select>
         <button id="mkReset" class="chip" type="button">Reset</button><button id="mkShare" class="chip" type="button">Copy link</button>
       </div>
       <p class="meta" id="mkCount" aria-live="polite"><span class="skeleton skeleton-line" aria-hidden="true"></span></p>
-      <div class="scroll"><table class="t mkr"><thead><tr><th scope="col" class="r">#</th><th scope="col">Maker</th><th scope="col">Country</th><th scope="col" class="r">Founded</th><th scope="col" class="r">Employees, as Wikidata records it</th><th scope="col" class="r">Products listed</th></tr></thead><tbody id="mkList" aria-busy="true"><tr class="skelrow"><td colspan="6"><div class="skeleton skeleton-table" role="status" aria-label="Loading makers"></div></td></tr></tbody></table></div>
+      <div class="scroll"><table class="t mkr"><thead><tr><th scope="col" class="r">#</th><th scope="col">Maker</th><th scope="col">Why it is here</th><th scope="col">Category</th><th scope="col" class="r">Founded</th><th scope="col" class="r">Employees</th><th scope="col" class="r">Products listed</th></tr></thead><tbody id="mkList" aria-busy="true"><tr class="skelrow"><td colspan="7"><div class="skeleton skeleton-table" role="status" aria-label="Loading makers"></div></td></tr></tbody></table></div>
+      <p class="meta mt8">Employees: as Wikidata records it, with its year; shown for context, never the order.</p>
       <p><button id="mkMore" class="chip" type="button" disabled>Show more</button></p>
     </div>
   </section>
@@ -208,7 +211,7 @@
 
 <footer class="foot">
   <div class="foot-brand"><b>AirStack</b><p>Source-linked software market intelligence.</p><span id="built">Facts extracted with Muse Spark</span></div>
-  <nav aria-label="Explore"><p class="lab">Explore</p><a href="/p/">Products</a><a href="/c/">Categories</a><a href="/t/">Software types</a><a href="/o/">Makers</a></nav>
+  <nav aria-label="Explore"><p class="lab">Explore</p><a href="/p/">Products</a><a href="/compare/">Comparisons</a><a href="/c/">Categories</a><a href="/t/">Software types</a><a href="/o/">Makers</a></nav>
   <nav aria-label="Intelligence"><p class="lab">Intelligence</p><a href="/insights/">Insights</a><a href="/calendar/">Calendar</a><a href="/changes.atom">Change feed</a></nav>
   <nav aria-label="About"><p class="lab">About</p><a href="/method/">Method</a><a href="#/agents">Local MCP</a><a href="/open-data/">Open data</a><a href="https://github.com/OttObottr/airstack" target="_blank" rel="noopener noreferrer">GitHub</a><a href="/legal/">Terms and privacy</a></nav>
 </footer>

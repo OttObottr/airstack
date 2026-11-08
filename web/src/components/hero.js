@@ -1,4 +1,4 @@
-import { M } from '../lib/data.js';
+import { COUNTS, M } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, n, pct } from '../lib/format.js';
 
@@ -23,5 +23,5 @@ export function mount() {
   drawTape();
   /* the same text tools/assemble.sh writes into the page, so nothing moves */
   $('#honest').textContent =
-    `Scope: ${n((M.dir || {}).researched || 0)} researched products · every fact quoted from its own page\nAs of ${fd(M.meta.checked_at)}`;
+    `Scope: ${n(COUNTS.researched_products)} researched products · every fact quoted from its own page\nAs of ${fd(M.meta.checked_at)}`;
 }

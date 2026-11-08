@@ -9,12 +9,14 @@ const DAY = 864e5,
 const pct = (k, of) => (of ? Math.round((k / of) * 100) : null);
 const STATUS = { scheduled: 'published date', unconfirmed: 'date passed, not confirmed' };
 
+/* a category count: a {found, of} record, or a bare count out of the products read */
+export const cnt = (v, c) => (v && typeof v === 'object' ? v : { found: v, of: c.researched });
 /* the headline measures, shared with the full insights view */
 export function measures(I) {
   const bands = I.map.populations.categories,
     cats = Object.entries(I.categories).filter(([, c]) => c.researched),
     researched = cats.reduce((s, [, c]) => s + c.researched, 0),
-    totals = I.kpis.map(k => [k.label, cats.reduce((s, [, c]) => s + c[k.key], 0), k.key]).sort((a, b) => b[1] - a[1]);
+    totals = I.kpis.map(k => [k.label, cats.reduce((s, [, c]) => s + cnt(c[k.key], c).found, 0), k.key]).sort((a, b) => b[1] - a[1]);
   return { bands, placed: bands.reduce((a, b) => a + b, 0), ai: bands[1] + bands[2], cats, researched, totals, hub: I.hubs[0] };
 }
 
@@ -23,7 +25,7 @@ function insightsPanel(I) {
     [label, count, key] = m.totals[0],
     top = m.cats
       .filter(([, c]) => c.researched >= MIN_READ)
-      .map(([id, c]) => [id, c, pct(c[key], c.researched)])
+      .map(([id, c]) => [id, c, pct(cnt(c[key], c).found, cnt(c[key], c).of)])
       .sort((a, b) => b[2] - a[2] || b[1].researched - a[1].researched)
       .slice(0, 5);
   $('#insNow').innerHTML = `<ol class="ins-mini">
@@ -37,7 +39,7 @@ function insightsPanel(I) {
         ? `<ol class="cbars">${top
             .map(
               ([id, c, v]) =>
-                `<li><a href="/c/${esc(id)}/">${esc(c.name)}</a><span class="num r">${v}% <span class="meta">${n(c[key])} of ${n(c.researched)}</span></span><span class="hb" style="--v:${v / 100}" aria-hidden="true"></span></li>`
+                `<li><a href="/c/${esc(id)}/">${esc(c.name)}</a><span class="num r">${v}% <span class="meta">${n(cnt(c[key], c).found)} found of ${n(cnt(c[key], c).of)}</span></span><span class="hb" style="--v:${v / 100}" aria-hidden="true"></span></li>`
             )
             .join('')}</ol>`
         : `<p class="meta mt8">No category has ${MIN_READ} products read yet.</p>`

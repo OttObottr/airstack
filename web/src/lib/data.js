@@ -7,6 +7,13 @@ if (!M) {
   throw new Error('site-data.js missing');
 }
 export const X = M.execution;
+/* the one set of headline counts every view quotes */
+const D0 = M.dir || {};
+export const COUNTS = (M.meta && M.meta.counts) || {
+  products: M.index.length + (D0.products || 0),
+  organizations: D0.orgs || 0,
+  researched_products: D0.researched || 0,
+};
 /* one request per file, shared by Home and the full views; a failure can be retried */
 const got = {};
 export const json = f =>

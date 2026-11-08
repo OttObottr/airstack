@@ -99,9 +99,15 @@
    "department": "Operations",
    "listed": 2,
    "researched": 2,
-   "free_plan": 2,
+   "free_plan": {
+    "found": 2,
+    "of": 2
+   },
    "security_claim": 2,
-   "open_source": 0,
+   "open_source": {
+    "found": 0,
+    "of": 2
+   },
    "ai_one_liner": 0,
    "list_price": 2,
    "median_seat": null,

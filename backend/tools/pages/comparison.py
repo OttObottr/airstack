@@ -61,7 +61,7 @@ def compare_pages(all_, prices):
     """Pairs in one category and one software type whose own pages state at least SHARED of the same facts."""
     ins = read_json(paths.INSIGHTS) if paths.INSIGHTS.exists() else {"map": {"points": []}}
     docs = {pt[0]: pt[3] for pt in ins["map"]["points"]}
-    out = paths.PAGE_DIRS["compare"]; shutil.rmtree(out, ignore_errors=True); urls = []
+    out = paths.PAGE_DIRS["compare"]; shutil.rmtree(out, ignore_errors=True); urls, named = [], []
     site = paths.read_js(paths.SITE_DATA); cats = {c["id"]: c["name"] for c in site.get("cats", [])}
     for cid, cname in cats.items():
         top = sorted((x for x in all_.values() if x["lane"] == cid and x.get("page") and x["profile"] and (x["profile"].get("facts") or 0) >= 5),
@@ -73,5 +73,17 @@ def compare_pages(all_, prices):
                 slugv, h = compare_page(a, b, prices, cname)
                 d = out / slugv; d.mkdir(parents=True, exist_ok=True); d.joinpath("index.html").write_text(h)
                 for x, y in ((a, b), (b, a)): PAIRS.setdefault(x["id"], []).append((y, slugv))
-                urls.append(f"{BASE}/compare/{slugv}/")
-    return urls
+                urls.append(f"{BASE}/compare/{slugv}/"); named.append((slugv, f"{a['name']} vs {b['name']}"))
+    return [compare_hub(out, named)] + urls
+
+def compare_hub(out, named):
+    """/compare/ with no pair opens the app's comparison; the static list stays for readers without it."""
+    url, lead = f"{BASE}/compare/", "Pick 2 to 5 products and see what each one’s own pages state, side by side, with the page and the day each fact was found."
+    nav, crumb = breadcrumbs((("AirStack", "/"), ("Compare software", None)))
+    pairs = "".join(f'<li><a href="/compare/{e(s)}/">{e(label)}</a></li>' for s, label in sorted(named, key=lambda x: x[1].lower()))
+    page = head("Compare software · AirStack", lead, url, ({"@context": "https://schema.org", "@type": "WebPage", "name": "Compare software", "url": url, "description": lead}, crumb))
+    page = page.replace("</head>", '<meta http-equiv="refresh" content="0; url=/#/compare"></head>', 1)
+    out.mkdir(parents=True, exist_ok=True)
+    out.joinpath("index.html").write_text(page + f'<body><main>{nav}<h1>Compare software</h1><p class="lead">{e(lead)}</p><a class="cta" href="/#/compare">Open the comparison</a>'
+                                          + (f"<h2>Ready-made comparisons</h2><ul>{pairs}</ul>" if pairs else "") + f"{foot()}</main></body></html>\n")
+    return url

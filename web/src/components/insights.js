@@ -1,6 +1,6 @@
 import { json } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
-import { measures } from './home.js';
+import { cnt, measures } from './home.js';
 import { esc, ic, n, url } from '../lib/format.js';
 
 let I = null,
@@ -148,11 +148,11 @@ function kpiView() {
     .sort(
       (a, b) => order.indexOf(a[1].department) - order.indexOf(b[1].department) || b[1].researched - a[1].researched
     );
-  const cell = (k, of) => {
-    const v = pct(k, of);
+  const cell = ({ found, of }) => {
+    const v = pct(found, of);
     return v == null
       ? '<td class="r"><span class="nobs">—</span></td>'
-      : `<td class="r"><span class="kb" style="--v:${v / 100}">${v}%</span> <span class="meta d">${n(k)} of ${n(of)}</span></td>`;
+      : `<td class="r"><span class="kb" style="--v:${v / 100}">${v}%</span> <span class="meta d">${n(found)} found of ${n(of)}</span></td>`;
   };
   const seat = m =>
     m
@@ -161,7 +161,7 @@ function kpiView() {
   let last = null;
   const rows = C.map(
     ([, c]) =>
-      `${c.department !== last ? `<tr class="dept"><th scope="colgroup" colspan="${K.length + 3}">${esc((last = c.department || 'Other'))}</th></tr>` : ''}<tr><th scope="row">${esc(c.name)}</th><td class="r num">${n(c.researched)} <span class="meta">of ${n(c.listed)}</span></td>${K.map(k => cell(c[k.key], c.researched)).join('')}<td>${seat(c.median_seat)}</td></tr>`
+      `${c.department !== last ? `<tr class="dept"><th scope="colgroup" colspan="${K.length + 3}">${esc((last = c.department || 'Other'))}</th></tr>` : ''}<tr><th scope="row">${esc(c.name)}</th><td class="r num">${n(c.researched)} <span class="meta">of ${n(c.listed)}</span></td>${K.map(k => cell(cnt(c[k.key], c))).join('')}<td>${seat(c.median_seat)}</td></tr>`
   ).join('');
   return `<div class="scroll mt16"><table class="t kpi"><thead><tr><th scope="col">Category</th><th scope="col" class="r">Products read</th>${K.map(k => `<th scope="col" class="r">${esc(k.label)}</th>`).join('')}<th scope="col">Middle price per user a month</th></tr></thead><tbody>${rows}</tbody></table></div>
     <p class="meta mt12">Grouped by the department each category serves. Each share counts the products whose own pages say so, out of those AirStack has read; “—” where none are read. The middle price is that named product’s quoted list price, shown only when five or more products publish a per-user monthly price.</p>`;

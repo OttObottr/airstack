@@ -12,4 +12,4 @@
 .t.mkr th[scope=row]{font:500 var(--text-body)/1.4 var(--font-sans);text-transform:none;letter-spacing:0;color:var(--color-ink)}
 .t.mkr a{color:inherit}
 .t.mkr th:first-child,.t.mkr td:first-child{width:4ch;color:var(--color-ink-3);font-family:var(--font-mono)}
-@media(max-width:699px){.mkq,.mkbar .sel{flex-basis:100%}.mkbar .chip{flex:1;justify-content:center}.t.mkr th,.t.mkr td{padding:8px 6px}.t.mkr :is(th,td):nth-child(4){display:none}}
+@media(max-width:699px){.mkq,.mkbar .sel{flex-basis:100%}.mkbar .chip{flex:1;justify-content:center}.t.mkr th,.t.mkr td{padding:8px 6px}.t.mkr :is(th,td):is(:nth-child(4),:nth-child(5),:nth-child(6)){display:none}}

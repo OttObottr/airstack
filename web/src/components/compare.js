@@ -3,9 +3,9 @@ import { kindOf, mono } from './avatar.js';
 import { amt, per } from './prices.js';
 import { loadDir, researchedFacts } from './search/directory.js';
 import { byId, rank } from './search/index.js';
-import { M } from '../lib/data.js';
+import { M, json } from '../lib/data.js';
 import { $, copy } from '../lib/dom.js';
-import { esc, fd, ic, known, url } from '../lib/format.js';
+import { esc, fd, host, ic, known, url } from '../lib/format.js';
 import { PRICES, loadPrices } from '../lib/profiles.js';
 import { show } from '../lib/router.js';
 
@@ -56,6 +56,8 @@ export function sync() {
 }
 
 const nobs = '<span class="nobs">Not observed</span>';
+const LABEL = { leader: 'Leader', trending: 'Trending', established: 'Established' };
+let SUG = null;
 const norm = v =>
   Array.isArray(v)
     ? [...v]
@@ -112,7 +114,7 @@ async function draw() {
   out.innerHTML = `<div class="skeleton ${st.ids.length ? 'skeleton-table' : 'skeleton-pills'}" role="status" aria-label="Loading comparison evidence"></div>`;
   let D;
   try {
-    [D] = await Promise.all([chainData(), loadPrices()]);
+    [D, SUG] = await Promise.all([chainData(), json('suggestions.json').catch(() => null), loadPrices()]);
   } catch {
     sub.textContent = 'The comparison needs a connection: the evidence is loaded on demand.';
     out.setAttribute('aria-busy', 'false');
@@ -136,6 +138,17 @@ async function draw() {
   add.disabled = full;
   add.placeholder = full ? 'Five is the most' : ids.length ? 'Add another product' : 'Add a product';
   $('#cmpFull').hidden = !full;
+  /* up to three others for the product added last, each with its label, reason and source */
+  const last = ids[ids.length - 1],
+    sug = full || !SUG ? [] : (SUG[last] || []).filter(s => !ids.includes(s.id) && LABEL[s.label]).slice(0, 3);
+  $('#cmpSug').innerHTML = sug.length
+    ? `<p class="lab">Others to compare with ${esc(nameOf(last, D))}</p><ul class="cmp-sug">${sug
+        .map(s => {
+          const src = s.source && typeof s.source === 'object' ? s.source : { url: s.source };
+          return `<li><button class="chip" type="button" data-add="${esc(s.id)}">Add ${esc(nameOf(s.id, D))}</button><span class="dtag">${LABEL[s.label]}</span><span class="meta">${esc(s.why)}${src.url ? ` · <a class="ext" href="${url(src.url)}" target="_blank" rel="noopener noreferrer">${esc(src.name && src.name !== 'source' ? src.name : host(src.url))}${ic('out')}</a>` : ''}${src.read ? ` · read ${fd(src.read)}` : ''}</span></li>`;
+        })
+        .join('')}</ul>`
+    : '';
   const rows = [
     { l: 'List price', cells: ids.map(priceOf) },
     ...Object.keys(METRIC).map(m => ({
@@ -227,7 +240,7 @@ function mount() {
   $('#cmpBody').innerHTML =
     `<div class="cmp-top"><div class="chips" id="cmpChips" aria-label="Products being compared"></div>
     <div class="find big"><svg class="i si" aria-hidden="true"><use href="#i-search"/></svg><input id="cmpQ" role="combobox" aria-label="Add a product to compare" aria-expanded="false" aria-controls="cmpTa" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="Add a product"><ul class="ta" id="cmpTa" role="listbox" aria-label="Matching products" hidden></ul></div>
-    <p class="meta" id="cmpFull" hidden>Five is the most.</p></div><div id="cmpOut" aria-live="polite"></div>`;
+    <p class="meta" id="cmpFull" hidden>Five is the most.</p><div id="cmpSug"></div></div><div id="cmpOut" aria-live="polite"></div>`;
   $('#cmpBody').setAttribute('aria-busy', 'false');
   const q = $('#cmpQ');
   q.addEventListener('focus', () => loadDir().then(suggest, () => {}));
@@ -257,7 +270,10 @@ function mount() {
   $('#cmpSec').addEventListener('click', e => {
     const t = e.target.closest('button');
     if (!t) return;
-    if (t.dataset.rm) {
+    if (t.dataset.add) {
+      keep = '#cmpQ';
+      if (!st.ids.includes(t.dataset.add) && st.ids.length < 5) go({ ids: [...st.ids, t.dataset.add] });
+    } else if (t.dataset.rm) {
       keep = '#cmpQ';
       go({ ids: st.ids.filter(x => x !== t.dataset.rm) });
     } else if (t.id === 'cmpDiff') {

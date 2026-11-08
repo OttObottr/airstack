@@ -5,7 +5,8 @@ import { catalogCard } from './catalog.js';
 import { dirCard, orgCard } from './directory.js';
 import { IDX, hideTA, onMarket } from '../search/index.js';
 import { $ } from '../../lib/dom.js';
-import { MON, cn, esc, ic, n, pct, sgn, url } from '../../lib/format.js';
+import { esc } from '../../lib/format.js';
+import { strip } from '../signals.js';
 import { MK, MKERR } from '../../lib/market.js';
 import { PROF, pview } from '../../lib/profiles.js';
 import { guideView, modelsView } from './guide.js';
@@ -18,21 +19,7 @@ export function renderToolCard(x) {
     row = R[x.id],
     P = MK && MK.profiles && MK.profiles[x.id],
     peers = IDX.filter(p => p.lane === x.lane).sort(byGrowth(R));
-  const src = (u, l) =>
-    u
-      ? `<a class="src" href="${url(u)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(l)}">${ic('out')}</a>`
-      : '';
-  const tile = (lab, big, sub, link = '') =>
-    `<div class="tile"><p class="lab">${lab}</p><p class="big">${big}</p><p class="meta">${sub}${link}</p></div>`;
-  const NO = '<span class="nobs">Not observed</span>',
-    rel = row && row.gh.released ? `${+row.gh.released.slice(8, 10)} ${MON[+row.gh.released.slice(5, 7) - 1]}` : null;
-  const tiles = row
-    ? `<div class="tiles">
-    ${tile('Downloads · 7 days', row.dl.value !== null ? cn(row.dl.value) : '—', row.dl.value !== null ? `${esc(row.dl.registry)} · ${pct(row.dl.delta) !== null ? pct(row.dl.delta) + ' on the week before' : 'no prior week'}${row.dl.vsBase != null ? ` · ${pct(row.dl.vsBase)} vs its 4-week level` : ''}` : NO, row.dl.value !== null ? src(row.dl.url, `${row.dl.registry} page for ${row.name}`) : '')}
-    ${tile('Hacker News · 7 days', row.hn.value !== null ? n(row.hn.value) : '—', row.hn.value !== null ? `stories · ${sgn(row.hn.delta)} on the week before` : NO, row.hn.value !== null ? src(`https://hn.algolia.com/?q=${encodeURIComponent((row.hn.query || '').replace(/"/g, ''))}`, `Hacker News search for ${row.name}`) : '')}
-    ${tile('GitHub stars', row.gh.stars != null ? cn(row.gh.stars) : '—', row.gh.stars != null ? `${esc((row.gh.url || '').replace(/^https:\/\/github\.com\//, ''))} · today’s count` : NO, row.gh.stars != null ? src(row.gh.url, `GitHub repository for ${row.name}`) : '')}
-    ${tile('Last release', rel || '—', rel ? `${esc(row.gh.release)} · ${row.gh.released.slice(0, 4)}` : NO)}</div>`
-    : `<p class="meta mt24">No public signals observed for ${esc(x.name)} yet.</p>`;
+  const tiles = strip(x) || `<p class="meta mt24">No public signals observed for ${esc(x.name)} yet.</p>`;
   const chart =
     peers.length > 1
       ? `<h3 class="h2 mt48">Where ${esc(x.name)} sits in ${esc(x.laneName)}</h3><p class="meta">Weekly registry downloads against each tool’s own 4-week level. Bars share one scale, the largest change shown.</p>${lb(peers, { cur: x.id, lane: false })}`

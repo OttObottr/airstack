@@ -3,6 +3,7 @@ import { openChain } from '../components/chain.js';
 import { renderMovers } from '../components/movers.js';
 import { PENDING } from '../components/search/index.js';
 import { $ } from './dom.js';
+import { fillBase } from './spark.js';
 
 export let MK = null,
   MKERR = false;
@@ -17,6 +18,7 @@ export function mount() {
     el.src = 'market-data.js';
     el.onload = () => {
       MK = window.AIRSTACK_MARKET || null;
+      if (MK && MK.movers) fillBase(MK.movers.rows);
       renderAll();
       PENDING.splice(0).forEach(f => f());
       renderMovers();
