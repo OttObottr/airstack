@@ -34,7 +34,8 @@
    ],
    "last_4w": 3160,
    "prior_4w": 2120,
-   "change": 0.4906
+   "change": 0.4906,
+   "node": "project-management"
   },
   "beta-board": {
    "article": "Beta Board",
@@ -53,7 +54,8 @@
    ],
    "last_4w": 3040,
    "prior_4w": 3490,
-   "change": -0.1289
+   "change": -0.1289,
+   "node": "project-management"
   }
  },
  "nodes": {

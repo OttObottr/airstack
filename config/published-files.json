@@ -10,6 +10,7 @@
     "events.json",
     "hf.json",
     "insights.json",
+    "makers.json",
     "market-data.js",
     "news.json",
     "open-data/README.md",
@@ -20,6 +21,7 @@
     "site-data.js",
     "sitemap.xml",
     "stats.svg",
+    "suggestions.json",
     "taxonomy-index.json",
     "taxonomy-crosswalk.json",
     "universe.json"

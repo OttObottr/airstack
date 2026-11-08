@@ -1,0 +1,18 @@
+{
+ "acme-notes": [
+  {
+   "id": "beta-board",
+   "label": "leader",
+   "why": "Most Wikipedia views in Project management in the last 4 weeks: 3,040.",
+   "source": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Example/daily/20260907/20261101"
+  }
+ ],
+ "beta-board": [
+  {
+   "id": "acme-notes",
+   "label": "leader",
+   "why": "Most Wikipedia views in Project management in the last 4 weeks: 3,160.",
+   "source": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Example/daily/20260907/20261101"
+  }
+ ]
+}

@@ -1,0 +1,41 @@
+{
+ "source": {
+  "attention": "attention.json (Wikimedia pageviews, CC0)",
+  "makers": "directory.json and community.json (Wikidata, CC0)",
+  "note": "Synthetic makers in the published shape. Signals are what each source counts, not adoption."
+ },
+ "rule": {
+  "rising": "at least one of the maker's products is up 25% or more on its own prior 4 weeks, in Wikipedia views (at least 2,000 views in the prior 4 weeks) or registry downloads (at least 4,000 in the prior 4 weeks)",
+  "leader": "not rising, and a product in the top quarter of its taxonomy node by Wikipedia views in the last 4 weeks (nodes with at least 4 measured products) whose views grew more than 5% on the prior 4 weeks",
+  "incumbent": "not rising or leading, and a product in the top quarter of its node by the same measure whose views changed 5% or less (flat or falling)",
+  "null": "no product meets a rule, or the signals a rule needs are not observed",
+  "merge": "two Wikidata items are one maker only when one is the other's parent organization (P749) and both carry the same name"
+ },
+ "suggestion_rule": {
+  "leader": "the most Wikipedia views in the product's taxonomy node in the last 4 weeks",
+  "trending": "the biggest rise in the node on its own prior 4 weeks, at least 25% (views or downloads, with the minimum baselines above)",
+  "established": "the earliest inception year Wikidata records in the node",
+  "scope": "other products filed under the same taxonomy node only, at most one per label, three in all"
+ },
+ "makers": {
+  "Q2004": {
+   "name": "Acme Example Inc.",
+   "products": [
+    "acme-notes"
+   ],
+   "founded": 2015,
+   "signals": [
+    {
+     "kind": "attention",
+     "product": "acme-notes",
+     "value": 3160,
+     "change": 0.4906,
+     "window": "last 4 weeks vs prior 4",
+     "source": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Example/daily/20260907/20261101"
+    }
+   ],
+   "lens": "rising",
+   "why": "Acme Notes: Wikipedia views +49% in the last 4 weeks (3,160) against the 4 before (2,120)."
+  }
+ }
+}
