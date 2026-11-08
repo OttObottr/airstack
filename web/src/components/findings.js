@@ -12,11 +12,6 @@ const LINK = 'underline underline-offset-4 decoration-border hover:text-foregrou
 const cat = i => `<a class="text-sm font-medium text-foreground ${LINK}" href="/t/${esc(i.node)}/">${esc(i.name)}</a>`;
 const ext = (href, text) => `<a class="${LINK}" href="${url(href)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
 const bar = (i, max) => versus(i.value, i.baseline, max, `${i.name}: ${p1(i.value)} against a baseline of ${p1(i.baseline)}`);
-const dropped = d => {
-  const xs = Object.entries(d || {});
-  return xs.length ? ` Not shown: ${xs.map(([why, c]) => `${n(c)} with ${esc(why)}`).join('; ')}.` : '';
-};
-
 const SECTIONS = [
   {
     key: 'rising',
@@ -66,7 +61,7 @@ const pick = (scope, F, s) =>
   F[s.key].items.filter(i =>
     scope.ids ? ofNode && scope.ids.some(id => inScope({ kind: 'node', id: i.node }, { node: ofNode(id) }, F.tree)) : inScope(scope, { node: i.node }, F.tree)
   );
-const none = (scope, F) => `<p class="${ui.panelNote}">No category${scope.kind === 'all' ? '' : ` in ${esc(scopeName(scope, F.tree))}`} passes the thresholds.</p>`;
+const none = (scope, F) => `<p class="${ui.panelNote}">No category${scope.kind === 'all' ? '' : ` in ${esc(scopeName(scope, F.tree))}`} stands out.</p>`;
 
 function full(scope, el) {
   const F = I.findings;
@@ -75,16 +70,16 @@ function full(scope, el) {
       m = Math.max(1e-9, ...xs.flatMap(i => [i.value, i.baseline]));
     return `<section class="flex flex-col gap-2"><p class="${ui.panelTitle}">${esc(s.title)}</p><p class="${ui.panelNote}">${esc(s.ask)}</p>
       ${xs.length ? `<ol class="flex flex-col">${xs.map(i => `<li class="grid gap-1.5 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,14rem)_minmax(0,9rem)_minmax(0,1fr)] md:items-center md:gap-x-4">${cat(i)}${bar(i, m)}<span class="flex flex-col gap-1 text-xs text-muted-foreground"><span>${s.value(i)}</span><span>${s.more(i)}</span></span></li>`).join('')}</ol>` : none(scope, F)}
-      <p class="${ui.panelNote}">${s.base(F[s.key])}${dropped(F[s.key].dropped)}</p></section>`;
+      <p class="${ui.panelNote}">${s.base(F[s.key])}</p></section>`;
   }).join('')}
-    <p class="${ui.panelNote}">Bar: the category; tick: its baseline. Thresholds: at least ${n(F.params.min_base)} products read, ${F.params.min_gap_pp} points and ${F.params.min_z} standard errors above the average; rising needs ${n(F.params.rising_min_products)} products measured, ${k(F.params.rising_min_views)} views in the earlier weeks and ×${F.params.rising_min_ratio}.</p></div>`;
+    <p class="${ui.panelNote}">Bar: the category; tick: its baseline.</p></div>`;
 }
 
 function brief(scope, el) {
   const F = I.findings;
   el.innerHTML = `<ol class="flex flex-col">${SECTIONS.map(s => {
     const xs = pick(scope, F, s);
-    return `<li class="flex flex-col gap-1 py-2 border-b border-border last:border-b-0"><p class="${ui.meta}">${esc(s.title)}</p><p class="text-sm text-muted-foreground leading-snug">${xs.length ? s.one(xs[0], F[s.key]) : 'No category passes the thresholds.'}</p></li>`;
+    return `<li class="flex flex-col gap-1 py-2 border-b border-border last:border-b-0"><p class="${ui.meta}">${esc(s.title)}</p><p class="text-sm text-muted-foreground leading-snug">${xs.length ? s.one(xs[0], F[s.key]) : 'No category stands out.'}</p></li>`;
   }).join('')}</ol>`;
 }
 
@@ -99,7 +94,7 @@ const render = draw => (scope, el) => {
       el.innerHTML = `<p class="${ui.panelNote}" role="status">Category insights could not be loaded. Check the connection and reload.</p>`;
     });
 };
-const NOTE = 'Each compares a category with the average or its own earlier weeks and states its base; what fails the published thresholds is not shown.';
+const NOTE = 'Each compares a category with the average or its own earlier weeks, with its base.';
 export const panel = { id: 'findings', title: 'Category insights', note: NOTE, controls: scope => scopeControl(scope, 'categories'), render: render(full) };
 export const briefPanel = {
   id: 'findings-brief',

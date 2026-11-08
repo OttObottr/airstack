@@ -54,7 +54,8 @@ function draw(scope, el) {
       ? `<ol class="flex flex-col">${xs
           .slice(0, 12)
           .map(
-            c => `<li class="flex flex-col gap-1 py-2 border-b border-border last:border-b-0"><span class="flex flex-wrap items-center gap-2 text-sm"><a class="font-medium text-foreground ${LINK}" href="#app=${esc(c.id)}">${esc(nm.get(c.id) || c.id)}</a><span class="${ui.badge.neutral}">${esc(c.metric || c.type)}</span><span class="text-muted-foreground">${esc(val(c.before?.value))} → <span class="text-foreground">${esc(val(c.after?.value))}</span></span></span>
+            c => `<li class="flex flex-col gap-1 py-2 border-b border-border last:border-b-0"><span class="flex flex-wrap items-center gap-2 text-sm"><a class="font-medium text-foreground ${LINK}" href="#app=${esc(c.id)}">${esc(nm.get(c.id) || c.id)}</a><span class="${ui.badge.neutral}">${esc(c.type || c.metric)}</span>${c.before?.value != null || c.after?.value != null ? `<span class="text-muted-foreground">${esc(val(c.before?.value))} → <span class="text-foreground">${esc(val(c.after?.value))}</span></span>` : c.value != null ? `<span class="text-foreground">${esc(val(c.value))}</span>` : ''}</span>
+          ${c.statement && !c.after?.url ? `<span class="text-xs text-muted-foreground">${esc(c.statement)}</span>` : ''}
           <span class="flex flex-col gap-0.5 text-xs text-muted-foreground">${side(c.after, 'Now')}${side(c.before, 'Before')}</span></li>`
           )
           .join('')}</ol>`
