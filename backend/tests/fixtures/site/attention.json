@@ -1,0 +1,74 @@
+{
+ "source": {
+  "name": "Wikimedia pageviews API (English Wikipedia)",
+  "url": "https://wikimedia.org/api/rest_v1/",
+  "license": "CC0-1.0",
+  "read": "2026-11-08",
+  "note": "Attention, not adoption. A product without an article is absent, not zero."
+ },
+ "weeks": [
+  "2026-09-07",
+  "2026-09-14",
+  "2026-09-21",
+  "2026-09-28",
+  "2026-10-05",
+  "2026-10-12",
+  "2026-10-19",
+  "2026-10-26"
+ ],
+ "products": {
+  "acme-notes": {
+   "article": "Acme Notes",
+   "url": "https://en.wikipedia.org/wiki/Acme_Notes",
+   "api": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Example/daily/20260907/20261101",
+   "fetched": "2026-11-08",
+   "views": [
+    500,
+    520,
+    540,
+    560,
+    700,
+    760,
+    800,
+    900
+   ],
+   "last_4w": 3160,
+   "prior_4w": 2120,
+   "change": 0.4906
+  },
+  "beta-board": {
+   "article": "Beta Board",
+   "url": "https://en.wikipedia.org/wiki/Beta_Board",
+   "api": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Example/daily/20260907/20261101",
+   "fetched": "2026-11-08",
+   "views": [
+    900,
+    880,
+    860,
+    850,
+    800,
+    780,
+    760,
+    700
+   ],
+   "last_4w": 3040,
+   "prior_4w": 3490,
+   "change": -0.1289
+  }
+ },
+ "nodes": {
+  "notes": {
+   "products": 2,
+   "top": [
+    "beta-board",
+    "acme-notes"
+   ],
+   "rising": [
+    "acme-notes"
+   ],
+   "falling": [
+    "beta-board"
+   ]
+  }
+ }
+}
