@@ -7,6 +7,7 @@ import { M, json } from '../lib/data.js';
 import { $, copy } from '../lib/dom.js';
 import { esc, fd, host, ic, known, url } from '../lib/format.js';
 import { PRICES, loadPrices } from '../lib/profiles.js';
+import { send } from '../lib/beacon.js';
 import { show } from '../lib/router.js';
 import { VIEW } from '../lib/view.js';
 
@@ -40,6 +41,7 @@ const parse = h => {
     : null;
 };
 function go(next) {
+  if (next.ids.length > 1 && next.ids.length > st.ids.length) send('compare', { n: Math.min(next.ids.length, 5) });
   st = next;
   history.pushState(null, '', hash());
   draw();
@@ -51,8 +53,10 @@ export function openCompare(ids, opener) {
 }
 export function sync() {
   const c = parse(location.hash);
-  if (c) st = c;
-  else if (location.hash !== '#/compare') return;
+  if (c) {
+    st = c;
+    if (c.ids.length > 1) send('compare', { n: Math.min(c.ids.length, 5) });
+  } else if (location.hash !== '#/compare') return;
   draw();
 }
 

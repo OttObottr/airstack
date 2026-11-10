@@ -49,7 +49,10 @@ def run(script, env, *args):
     return subprocess.run(["bash", str(ROOT / "tools" / script), *args], cwd=ROOT, env={**os.environ, **env}, capture_output=True, text=True)
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
+    agents = set()
     def log_message(self, *a): pass
+    def do_GET(self):
+        Quiet.agents.add(self.headers.get("User-Agent")); super().do_GET()
 
 def serve(directory):
     server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), lambda *a, **k: Quiet(*a, directory=str(directory), **k))
@@ -62,11 +65,12 @@ def test_data_pull_fetches_the_datasets_and_refuses_a_file_that_does_not_match_i
     for name, body in files.items(): (prod / name).write_bytes(body)
     (prod / "data-manifest.json").write_text(json.dumps({n: hashlib.sha256(b).hexdigest() for n, b in files.items()}))
     manifest_hash = hashlib.sha256((prod / "data-manifest.json").read_bytes()).hexdigest()
-    server = serve(prod); base = f"http://127.0.0.1:{server.server_address[1]}"
+    server = serve(prod); base = f"http://127.0.0.1:{server.server_address[1]}"; Quiet.agents.clear()
     try:
         ok = run("data_pull.sh", {"AIRSTACK_DATA": str(tmp_path / "pulled"), "AIRSTACK_MANIFEST_SHA256": manifest_hash}, base)
         assert ok.returncode == 0, ok.stderr
         assert all((tmp_path / "pulled" / "site" / n).read_bytes() == b for n, b in files.items())
+        assert Quiet.agents == {"airstack-data/1"}
         (prod / "profiles.json").write_bytes(b'{"a": 2}')
         bad = run("data_pull.sh", {"AIRSTACK_DATA": str(tmp_path / "again"), "AIRSTACK_MANIFEST_SHA256": manifest_hash}, base)
     finally:

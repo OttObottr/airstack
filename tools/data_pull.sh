@@ -5,9 +5,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 base="${1:-https://airstack.bot}"; data_root="${AIRSTACK_DATA:-data}"; site="$data_root/site"
 mkdir -p "$data_root"
+ua="airstack-data/1"
 stage=$(mktemp -d "$data_root/.site-pull.XXXXXX")
 trap 'rm -rf "$stage"' EXIT
-curl -fsS --compressed --max-time 60 --max-filesize 131072 "$base/data-manifest.json" -o "$stage/data-manifest.json"
+curl -fsS -A "$ua" --compressed --max-time 60 --max-filesize 131072 "$base/data-manifest.json" -o "$stage/data-manifest.json"
 expected="${AIRSTACK_MANIFEST_SHA256:-$(tr -d '[:space:]' < config/published-data.sha256)}"
 if command -v sha256sum >/dev/null 2>&1; then
   actual=$(sha256sum "$stage/data-manifest.json" | cut -d' ' -f1)
@@ -31,7 +32,7 @@ PY
 total=0
 while IFS= read -r name; do
   mkdir -p "$(dirname "$stage/$name")"
-  curl -fsSL --max-redirs 2 --proto-redir =https --compressed --max-time 120 --max-filesize 20000000 "$base/$name" -o "$stage/$name"
+  curl -fsSL -A "$ua" --max-redirs 2 --proto-redir =https --compressed --max-time 120 --max-filesize 20000000 "$base/$name" -o "$stage/$name"
   size=$(wc -c < "$stage/$name" | tr -d ' ')
   [ "$size" -le 20000000 ] || { echo "refused published data: $name exceeds 20000000 bytes" >&2; exit 1; }
   total=$((total + size))

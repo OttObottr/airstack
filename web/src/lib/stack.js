@@ -1,4 +1,5 @@
 import { M } from './data.js';
+import { send } from './beacon.js';
 const KEY = 'airstack.stack.v1';
 const read = () => {
   try {
@@ -19,10 +20,12 @@ let mem = read();
 export const stack = () => mem.slice();
 export const tracked = id => mem.some(x => x.id === id);
 export function toggle(x) {
-  mem = tracked(x.id)
+  const op = tracked(x.id) ? 'remove' : 'add';
+  mem = op === 'remove'
     ? mem.filter(y => y.id !== x.id)
     : mem.concat([{ id: x.id, name: x.name, added: new Date().toISOString().slice(0, 10) }]);
   write(mem);
+  send('stack', { op, id: x.id, size: Math.min(mem.length, 100) });
   dispatchEvent(new CustomEvent('airstack:stack'));
 }
 export function replace(list) {
