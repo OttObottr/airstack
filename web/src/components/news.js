@@ -84,8 +84,7 @@ function render() {
                 i => `<li class="nrow">
       <span class="flex flex-wrap items-center gap-2 min-w-0 max-[699px]:col-span-full"><a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>${stackToggle(i.id, i.name)}</span>
       <span class="nt"><a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>${version(i)}${i.more.length ? `<details class="nmore"><summary class="meta">and ${i.more.length} more · ${esc(tally(i.more))}</summary><ul>${i.more.map(m => `<li><span class="meta">${stamp(day(m.date), N.source.read)}</span> <a class="ext" href="${url(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}</a>${version(m)} <span class="meta">${esc(KIND(m.kind))}</span></li>`).join('')}</ul></details>` : ''}</span>
-      <span class="nk">${esc(KIND(i.kind))}</span>
-      ${i.kind === 'hacker news' && i.discussion ? `<a class="ext meta" href="${url(i.discussion)}" target="_blank" rel="noopener noreferrer">${n(i.points)} points · discussion</a>` : ''}</li>`
+      <span class="nk">${esc(KIND(i.kind))}</span></li>`
               )
               .join('')}</ol></li>`
         )
@@ -94,7 +93,7 @@ function render() {
   $('#newsMore').hidden = R.length <= shown;
   $('#newsMore').disabled = false;
   $('#newsSub').textContent =
-    `Each product once, at its latest update, from each vendor’s own feed, substantive GitHub release notes, and Hacker News stories (${HN_MIN}+ points) that link to the product’s own site · ${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days · read ${fd(N.source.read)}. Vendor headlines are the vendors’ own; Hacker News titles are the submitters’.`;
+    `Each product once, at its latest update, from each vendor’s own feed, substantive GitHub release notes, and Hacker News threads (${HN_MIN}+ points) whose story links to the product’s own site · ${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days · read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`;
 }
 
 export function mount() {

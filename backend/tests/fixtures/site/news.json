@@ -37,11 +37,10 @@
    "id": "delta-vector",
    "name": "Delta Vector",
    "kind": "hacker news",
-   "title": "Show HN: Delta Vector, a small vector index",
-   "url": "https://delta-vector.example/",
+   "title": "Discussed on Hacker News (42 points)",
+   "url": "https://news.ycombinator.com/item?id=900000001",
    "date": "2026-11-02T15:30:00+00:00",
-   "points": 42,
-   "discussion": "https://news.ycombinator.com/item?id=900000001"
+   "points": 42
   }
  ]
 }

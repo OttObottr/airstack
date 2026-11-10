@@ -98,7 +98,7 @@ function ossView(x) {
   const discussion = r => {
     const h = r.community && r.community.hacker_news;
     if (!h || h.status !== 'observed') return '';
-    return `<span class="osd"><b>Discussed on Hacker News</b> · ${h.count} repository-linked ${h.count === 1 ? 'story' : 'stories'} · ${h.items.map(i => `<a class="ext" href="${url(i.discussion)}" target="_blank" rel="noopener noreferrer">Hacker News discussion <span class="meta">${i.points} points · ${i.comments} comments · ${fd(i.date)}</span>${ic('out')}</a>`).join('')}</span>`;
+    return `<span class="osd"><b>Discussed on Hacker News</b> · ${h.count} repository-linked ${h.count === 1 ? 'story' : 'stories'} · ${h.items.map(i => `<a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">Hacker News discussion <span class="meta">${i.points} points · ${fd(i.date)}</span>${ic('out')}</a>`).join('')}</span>`;
   };
   const lic = r => (r.license && r.license !== 'NOASSERTION' ? esc(r.license) : 'licence not stated');
   const row =

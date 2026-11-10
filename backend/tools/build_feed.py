@@ -37,9 +37,9 @@ def changes(news, events, pages):
     for id_, i in rows:
         if id_ in out or not start < i["date"][:10] <= end.isoformat():
             continue
-        title = i["title"] or (f"Hacker News discussion · {i.get('points') or 0} points" if i["kind"] == "hacker news" else f"{i['name']} {i.get('version') or ''}")
-        out[id_] = {"id": id_, "title": NOT_XML.sub("", title).strip(), "link": i.get("discussion") if i["kind"] == "hacker news" and not i["title"] else i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
-                    "kind": i["kind"], "page": pages.get(i["id"]), "discussion": i.get("discussion")}
+        title = i["title"] or f"{i['name']} {i.get('version') or ''}"
+        out[id_] = {"id": id_, "title": NOT_XML.sub("", title).strip(), "link": i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
+                    "kind": i["kind"], "page": pages.get(i["id"])}
     return sorted(sorted(out.values(), key=lambda x: x["id"]), key=lambda x: x["updated"], reverse=True)[:paths.config("pages")["limits"]["feed_entries"]]
 
 def atom(entries, end, days):
@@ -60,7 +60,6 @@ def atom(entries, end, days):
         e = sub(feed, "entry")
         sub(e, "id", x["id"]); sub(e, "title", x["title"], type="text"); sub(e, "updated", x["updated"])
         sub(e, "link", rel="alternate", type="text/html", href=x["link"])
-        if x["discussion"]: sub(e, "link", rel="replies", type="text/html", href=x["discussion"], title="Discussion on Hacker News")
         if x["page"]: sub(e, "link", rel="related", type="text/html", href=f"{BASE}/p/{x['page']}/", title=f"{x['name']} on AirStack")
         sub(e, "category", term=x["kind"]); sub(e, "summary", SAYS[x["kind"]].format(x["name"]) if x["kind"] in SAYS else f"{x['name']}: {x['kind']}.", type="text")
     ET.indent(feed)

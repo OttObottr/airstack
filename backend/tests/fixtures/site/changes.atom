@@ -12,11 +12,10 @@
   </author>
   <rights>Titles remain their publishers' property. Original compilation metadata is CC BY 4.0 where applicable.</rights>
   <entry>
-    <id>tag:airstack.bot,2026:https://delta-vector.example/</id>
-    <title type="text">Show HN: Delta Vector, a small vector index</title>
+    <id>tag:airstack.bot,2026:https://news.ycombinator.com/item?id=900000001</id>
+    <title type="text">Discussed on Hacker News (42 points)</title>
     <updated>2026-11-02T15:30:00Z</updated>
-    <link rel="alternate" type="text/html" href="https://delta-vector.example/" />
-    <link rel="replies" type="text/html" href="https://news.ycombinator.com/item?id=900000001" title="Discussion on Hacker News" />
+    <link rel="alternate" type="text/html" href="https://news.ycombinator.com/item?id=900000001" />
     <link rel="related" type="text/html" href="https://airstack.bot/p/delta-vector/" title="Delta Vector on AirStack" />
     <category term="hacker news" />
     <summary type="text">A Hacker News story linking to Delta Vector’s own site.</summary>

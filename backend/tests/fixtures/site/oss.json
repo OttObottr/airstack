@@ -65,12 +65,9 @@
       "count": 1,
       "items": [
        {
-        "title": "Show HN: open-board",
-        "url": "https://github.com/open-board-example/open-board",
-        "discussion": "https://news.ycombinator.com/item?id=900000002",
-        "points": 31,
-        "comments": 12,
-        "date": "2026-10-10"
+        "url": "https://news.ycombinator.com/item?id=900000002",
+        "date": "2026-10-10",
+        "points": 31
        }
       ],
       "truncated": false
