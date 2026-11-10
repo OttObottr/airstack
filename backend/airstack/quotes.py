@@ -58,31 +58,6 @@ def page_text(raw):
     return "\n".join(ln for ln in (" ".join(x.split()) for x in lines) if ln)
 
 
-def offers(raw):
-    """[{name, amount, currency}] from the page's schema.org Offer and PriceSpecification JSON-LD."""
-    out = []
-    def walk(x, name=None):
-        if isinstance(x, list):
-            for y in x:
-                walk(y, name)
-        elif isinstance(x, dict):
-            name = x.get("name") if isinstance(x.get("name"), str) else name
-            price, cur = x.get("price", x.get("lowPrice")), x.get("priceCurrency")
-            if str(x.get("@type")).endswith(("Offer", "PriceSpecification")) and isinstance(price, (int, float, str)) and isinstance(cur, str):
-                try:
-                    out.append({"name": name, "amount": Decimal(str(price).replace(",", "")), "currency": cur.upper()})
-                except ArithmeticError:
-                    pass
-            for v in x.values():
-                walk(v, name)
-    for block in _parse(raw).ld:
-        try:
-            walk(json.loads(block))
-        except ValueError:
-            pass
-    return out
-
-
 class _Fold(dict):
     """Per character: format characters dropped, every dash to '-', every quote mark to ' or \", and each Chinese or Japanese character
     standing alone (those scripts write words without spaces)."""

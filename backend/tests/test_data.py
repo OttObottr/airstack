@@ -13,7 +13,7 @@ from conftest import ROOT
 from airstack import paths
 from airstack.mcp_server import DESCRIPTIONS
 from decimal import Decimal
-from airstack.quotes import check, found, has_money, norm, offers, page_text, parse_price
+from airstack.quotes import check, found, has_money, norm, page_text, parse_price
 
 
 PAGE = "<html><body><h1>Acme</h1><p>Acme integrates with Alpha Call and Beta Call.</p>" \
@@ -117,9 +117,9 @@ def test_one_price_parser_reads_symbols_codes_and_separators_or_says_ambiguous(t
     p = parse_price(text, lang)
     assert (p["amount"], p["currency"], p["ambiguous"]) == (amount and Decimal(amount), currency, ambiguous)
 
-def test_prices_come_from_json_ld_and_money_is_found_in_any_currency():
+def test_json_ld_is_not_page_text_and_money_is_found_in_any_currency():
     ld = '<script type="application/ld+json">{"@type": "Product", "name": "Pro", "offers": {"@type": "Offer", "price": "9.99", "priceCurrency": "eur"}}</script>'
-    assert offers(ld) == [{"name": "Pro", "amount": Decimal("9.99"), "currency": "EUR"}] and page_text(ld) == ""
+    assert page_text(ld) == ""
     assert has_money("Raised €5M") and has_money("from 49 CHF") and has_money("₹499") and not has_money("Version 2.0, 3 seats") and not has_money("Try 30 days") and not has_money("PHP2Shell, PHP 8.4") and parse_price("Free") is None
 
 def test_an_integration_counts_only_from_an_integrations_page_or_a_quote_that_presents_one():

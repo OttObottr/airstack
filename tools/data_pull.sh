@@ -39,7 +39,7 @@ while IFS= read -r name; do
   [ "$total" -le 64000000 ] || { echo "refused published data: snapshot exceeds 64000000 bytes" >&2; exit 1; }
 done < "$stage/files.txt"
 rm "$stage/files.txt"
-python3 tools/validate_published_data.py "$stage"
+PYTHONPATH=backend python3 tools/validate_published_data.py "$stage"
 old="$data_root/.site-previous"
 rm -rf "$old"
 if [ -d "$site" ]; then mv "$site" "$old"; fi
