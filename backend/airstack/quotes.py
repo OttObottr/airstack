@@ -130,10 +130,9 @@ def _glued(a, b):
     return a.end() == b.start() or b.end() == a.start()
 
 
-def prices(text, lang=None, mark=None):
+def prices(text, mark=None):
     """Each price in `text`: {amount: Decimal or None, currency: ISO 4217, raw, ambiguous}. The symbol or code may stand before or after
-    the number. `lang` (the page language) or `mark` (its decimal mark) settles "1,200"; without either it is ambiguous."""
-    mark = mark or (lang and ("," if lang.split("-")[0].lower() in CURRENCY["decimal_comma_languages"] else "."))
+    the number. `mark` (the page's decimal mark) settles "1,200"; without it the amount is ambiguous."""
     s = _fold(text)
     ms = list(TOKEN.finditer(s))
     def at(j, i):                                                    # (currency, first token) of a symbol or code at j, beside number i
@@ -154,9 +153,9 @@ def prices(text, lang=None, mark=None):
                 yield {"amount": r[0] if len(r) == 1 else None, "currency": cur, "raw": s[ms[a].start():ms[b].end()], "ambiguous": len(r) != 1}
 
 
-def parse_price(text, lang=None, mark=None):
+def parse_price(text, mark=None):
     """The first price in `text` (see prices), or None."""
-    return next(prices(text, lang, mark), None)
+    return next(prices(text, mark), None)
 
 
 QUOTE_WORDS = 25

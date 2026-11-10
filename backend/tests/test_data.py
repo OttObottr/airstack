@@ -108,13 +108,13 @@ def test_norm_folds_compatibility_forms_format_characters_dashes_and_quotes():
     assert norm("Ｐｒｏ\u00adfessional\u200b “Plan” — it’s ＳＯＣ２") == norm('professional "plan" - it\'s soc 2')
     assert found(norm("セキュリティセット"), norm("セキュリティセットに申し込む")) and found(norm("Acme"), norm("we use Acme.Then"))   # words without spaces
 
-@pytest.mark.parametrize("text, lang, amount, currency, ambiguous", [
+@pytest.mark.parametrize("text, mark, amount, currency, ambiguous", [
     ("USD 9", None, "9", "USD", False), ("9 €", None, "9", "EUR", False), ("₹499", None, "499", "INR", False), ("CHF 32", None, "32", "CHF", False),
     ("R$ 49,90", None, "49.90", "BRL", False), ("CA$12", None, "12", "CAD", False), ("$1,200.50 / year", None, "1200.50", "USD", False),
     ("1.200,50 €", None, "1200.50", "EUR", False), ("$0.015 per minute", None, "0.015", "USD", False), ("$1,200", None, None, "USD", True),
-    ("$1,200", "en-US", "1200", "USD", False), ("1.200 €", "de", "1200", "EUR", False), ("12,000,000 ₩", None, "12000000", "KRW", False)])
-def test_one_price_parser_reads_symbols_codes_and_separators_or_says_ambiguous(text, lang, amount, currency, ambiguous):
-    p = parse_price(text, lang)
+    ("$1,200", ".", "1200", "USD", False), ("1.200 €", ",", "1200", "EUR", False), ("12,000,000 ₩", None, "12000000", "KRW", False)])
+def test_one_price_parser_reads_symbols_codes_and_separators_or_says_ambiguous(text, mark, amount, currency, ambiguous):
+    p = parse_price(text, mark)
     assert (p["amount"], p["currency"], p["ambiguous"]) == (amount and Decimal(amount), currency, ambiguous)
 
 def test_json_ld_is_not_page_text_and_money_is_found_in_any_currency():

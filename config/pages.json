@@ -9,11 +9,9 @@
     ["models_supported", "Models supported"],
     ["integrations", "Integrations"],
     ["integrations_count", "Integrations stated"],
-    ["compliance", "Compliance"],
     ["free_plan", "Free plan"],
     ["plan_names", "Plans"],
     ["pricing_basis", "Pricing basis"],
-    ["customers_claimed", "Customers (their claim)"],
     ["founded_year", "Founded"]
   ],
   "links": {

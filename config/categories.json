@@ -1,5 +1,4 @@
 {
-  "_read_by": "backend/airstack/catalog.py: category ids and their names",
   "categories": {
     "creative-ai": "Creative AI (image, video, audio)",
     "email-calendar": "Email and calendar",

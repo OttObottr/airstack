@@ -4,7 +4,6 @@ import html
 from datetime import date
 from airstack import paths
 
-ROOT = paths.ROOT
 e = lambda s: html.escape(str(s), quote=True)
 n = lambda v: f"{v:,}"
 
