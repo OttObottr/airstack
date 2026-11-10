@@ -3,7 +3,7 @@ import { S } from '../lib/state.js';
 import { mono } from './avatar.js';
 import { drawBrowse } from './browse.js';
 import { renderToolCard } from './cards/tool.js';
-import { byName, hideTA, q } from './search/index.js';
+import { hideTA, q } from './search/index.js';
 import { addr } from './search/directory.js';
 import { $, reduce } from '../lib/dom.js';
 import { send } from '../lib/beacon.js';
@@ -20,10 +20,6 @@ export function selectTool(x, o = {}) {
   renderAll();
   $('#picked').scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
 }
-export const selectByName = nm => {
-  const x = byName(nm);
-  if (x) selectTool(x);
-};
 export function clearTool() {
   S.tool = null;
   document.title = TITLE;

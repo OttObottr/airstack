@@ -7,7 +7,7 @@
   --color-accent: #FF5A1F; --color-maker: #B9A7FF; --color-agent: #72E5AC;
   --font-sans: "Inter", ui-sans-serif, -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --text-display: clamp(40px,7vw,72px); --text-title: clamp(32px,4.6vw,52px); --text-h3: clamp(26px,3.4vw,40px);
+  --text-title: clamp(32px,4.6vw,52px); --text-h3: clamp(26px,3.4vw,40px);
   --text-lead: 20px; --text-body: 15px; --text-meta: 12px;
   --font-weight-medium: 500;
   --tracking-caps: .07em;

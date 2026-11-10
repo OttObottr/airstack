@@ -20,8 +20,7 @@ export const IDX = M.index.map(([id, name, lane, aliases]) => ({
   ak: (aliases || []).map(sq),
   cat: CATS.some(c => c.id === lane),
 }));
-export const byId = id => IDX.find(x => x.id === id),
-  byName = nm => IDX.find(x => x.k === sq(nm));
+export const byId = id => IDX.find(x => x.id === id);
 export const q = $('#q'),
   ta = $('#ta'),
   BR = { type: null };

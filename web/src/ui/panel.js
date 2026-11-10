@@ -30,5 +30,5 @@ export function mount(host, p, scope = ALL) {
     }
   };
   update(scope);
-  return { update, unmount: () => host.replaceChildren() };
+  return { update };
 }

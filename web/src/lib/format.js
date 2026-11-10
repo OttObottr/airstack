@@ -47,7 +47,6 @@ export const known = (x, facts) =>
         ? LISTED
         : 'tracked';
 export const pct = x => (x === null || x === undefined ? null : `${x > 0 ? '+' : ''}${x.toFixed(1)}%`);
-export const sgn = x => (x === null || x === undefined ? null : `${x > 0 ? '+' : ''}${x}`);
 export const cn = v =>
   (CF ||= new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 })).format(v);
 /* how long before `now` (a published built_for or read date, so a page reads the same whenever it is opened): "today", "5d ago",

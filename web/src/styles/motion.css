@@ -12,7 +12,6 @@ details[open]>summary{color:var(--color-ink)}
 @media(hover:hover){
   .lb button:hover{background:color-mix(in oklab,var(--color-info) 4.5%,transparent);transform:translateX(2px)}
   .chip:hover,.ghost:hover{opacity:1;color:var(--color-ink);border-color:rgba(255,255,255,.28);background-color:rgba(255,255,255,.055);transform:translateY(-1px)}
-  .mlane:hover{border-color:rgba(255,255,255,.18);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 18px 40px rgba(0,0,0,.24)}
   .t tbody tr{transition:background-color .15s}
   .t tbody tr:hover{background:color-mix(in oklab,var(--color-info) 3.5%,transparent)}
   .t.kpi tbody tr:hover .kb,.lb button:hover .bar i{filter:brightness(1.25);box-shadow:0 0 14px color-mix(in oklab,var(--color-info) 12%,transparent)}
@@ -29,7 +28,7 @@ details[open]>summary{color:var(--color-ink)}
   .lb .bar i{transform-origin:left;animation:grow .7s var(--ease-out) both;animation-delay:calc(var(--i,0)*30ms + 100ms)}   /* the small category charts only: the Movers table is too long to animate */
   .lb li{animation:rise .4s var(--ease-out) both;animation-delay:calc(var(--i,0)*30ms)}
   .ta{animation:rise .15s var(--ease-out) both}
-  .view-enter,.prow>td,details[open]>:not(summary){animation:surface-in .18s var(--ease-out) both}
+  .view-enter,details[open]>:not(summary){animation:surface-in .18s var(--ease-out) both}
 }
 .cover{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;list-style:none;padding:0}.cv2{font-size:var(--text-body);padding:4px 12px;border:1px solid var(--color-hair);border-radius:999px;color:var(--color-ink-3)}.cv2.on{color:var(--color-ink);border-color:var(--color-ink-3)}
 .nobsd summary{cursor:pointer;list-style:none}.nobsd summary::after{content:" · show"}.nobsd[open] summary::after{content:" · hide"}.nobsd[open] summary{margin-bottom:4px}
@@ -46,7 +45,6 @@ details[open]>summary{color:var(--color-ink)}
 .community-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px 20px;list-style:none}
 .community-links li{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}.community-links .chip{min-height:36px}.community-links .meta{overflow-wrap:anywhere}
 .related-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px;list-style:none;padding:0}.related-list li{display:grid;gap:3px;padding:11px 13px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:linear-gradient(145deg,rgba(255,255,255,.035),transparent)}.related-list .lk{text-align:left;justify-self:start}
-.source-note{max-width:72ch;padding:12px 14px;background:color-mix(in oklab,var(--color-info) 6%,transparent);color:var(--color-ink-2)}.source-note b{color:var(--color-ink);font-weight:600}
 .t.alt td{vertical-align:top}.t.prices{max-width:640px}.t.prices td:last-child{white-space:nowrap}.t.prices .meta{margin-left:6px}.t.alt tr.cur td{background:rgba(255,255,255,.04)}
 .tl{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.tl button{font:inherit;min-height:32px;padding:4px 12px;border:1px solid var(--color-hair);border-radius:999px;background:none;color:inherit;cursor:pointer}.tl button:hover{border-color:currentColor}
 .crumb button,button.lk{font:inherit;min-height:24px;background:none;border:0;padding:0;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
@@ -56,7 +54,6 @@ details[open]>summary{color:var(--color-ink)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 @media(hover:hover){
-  body[data-view=markets] .mlane:hover{border-color:color-mix(in oklab,var(--color-up) 32%,transparent);box-shadow:inset 0 1px 0 color-mix(in oklab,var(--color-up) 8%,transparent),0 18px 40px rgba(0,0,0,.3)}
   body[data-view=makers] .t.mkr tbody tr:hover{background:rgba(255,255,255,.03)}
   body[data-view=agents] .ag:hover{border-color:color-mix(in oklab,var(--color-agent) 34%,transparent);box-shadow:inset 0 1px 0 color-mix(in oklab,var(--color-agent) 10%,transparent),0 16px 36px rgba(0,0,0,.24)}
 }

@@ -2,8 +2,8 @@ const typing = () => {
   const a = document.activeElement;
   return !!a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable);
 };
-const ROWS = '#trend [data-pick], #mkList tr, #newsList li, #calAhead li, #stackList li';
-const LISTS = '#trend, #mkList, #newsList, #calAhead, #stackList';
+const ROWS = '#trend [data-pick], #mkList tr, #newsList li, #stackList li';
+const LISTS = '#trend, #mkList, #newsList, #stackList';
 const visible = el => el.offsetParent !== null; /* a hidden view's rows have no box */
 
 export function step(dir) {
