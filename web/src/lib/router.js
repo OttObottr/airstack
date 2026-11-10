@@ -7,7 +7,7 @@ export const VIEWS = {
   makers: 'Makers',
   agents: 'Agents',
 };
-const TITLE = 'AirStack · See the software market move';
+export const TITLE = 'AirStack · See the software market move';
 let view = null;
 
 function viewOf(hash) {

@@ -52,10 +52,9 @@ const SECTIONS = [
 ];
 
 let I = null,
-  loading = null,
   ofNode = null;
 const load = scope =>
-  Promise.all([(loading ||= json('insights.json').then(d => (I = d))), scope.kind === 'stack' || scope.kind === 'maker' ? nodeOf().then(f => (ofNode = f)) : null]);
+  Promise.all([json('insights.json').then(d => (I = d)), scope.kind === 'stack' || scope.kind === 'maker' ? nodeOf().then(f => (ofNode = f)) : null]);
 /* an item is in scope when its category is the scope's node or under it, or holds one of the scope's products */
 const pick = (scope, F, s) =>
   F[s.key].items.filter(i =>

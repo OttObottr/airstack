@@ -13,9 +13,21 @@ export function mount(host, p, scope = ALL) {
   host.innerHTML = `<header class="${ui.panelHead}"><div class="flex flex-col gap-1"><h2 class="${ui.panelTitle}">${esc(p.title)}</h2>${p.note ? `<p class="${ui.panelNote}">${esc(p.note)}</p>` : ''}</div><div class="flex items-center gap-2" data-controls></div></header><div data-body></div>`;
   const body = host.querySelector('[data-body]'),
     controls = host.querySelector('[data-controls]');
+  /* a panel whose data cannot be fetched says so instead of leaving its loader running */
+  const fail = e => {
+    console.error(`${p.id}:`, e);
+    body.removeAttribute('aria-busy');
+    body.innerHTML = `<p class="${ui.panelNote}" role="status">This could not be loaded. Check the connection and reload.</p>`;
+  };
   const update = s => {
     if (p.controls) controls.innerHTML = p.controls(s);
-    return p.render(s, body);
+    try {
+      const done = p.render(s, body);
+      if (done && done.catch) done.catch(fail);
+      return done;
+    } catch (e) {
+      fail(e);
+    }
   };
   update(scope);
   return { update, unmount: () => host.replaceChildren() };

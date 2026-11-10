@@ -11,8 +11,7 @@ const DAY = 864e5,
   LINK = 'underline underline-offset-4 decoration-border hover:text-foreground';
 const launch = e => e.status === 'scheduled' && (e.kind === 'release' || e.kind === 'changelog'); /* not blog dates, support or end-of-life schedules */
 let E = null,
-  ofNode = null,
-  loading = null;
+  ofNode = null;
 
 const draw = (days, shown) => (scope, el) => {
   const today = E.source.built_for,
@@ -39,7 +38,7 @@ const render = (days, shown) => (scope, el) => {
   const go = () => draw(days, shown)(scope, el);
   if (E && (scope.kind !== 'node' || ofNode)) return go();
   if (!el.firstChild) el.innerHTML = '<div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div>';
-  return Promise.all([(loading ||= json('events.json').then(d => (E = d))), scope.kind === 'node' ? nodeOf().then(f => (ofNode = f)) : null])
+  return Promise.all([json('events.json').then(d => (E = d)), scope.kind === 'node' ? nodeOf().then(f => (ofNode = f)) : null])
     .then(go)
     .catch(e => {
       console.error('agenda:', e);

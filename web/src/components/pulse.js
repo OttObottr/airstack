@@ -18,9 +18,8 @@ const week = iso => `Week of ${fd(iso)}`;
 const when = e =>
   e.precision === 'day' ? fd(e.at) : e.precision === 'month' ? `${MON[+e.at.slice(5, 7) - 1]} ${e.at.slice(0, 4)}, month-level date` : `${e.at}, year-level date`;
 
-let P = null,
-  loading = null;
-const load = () => (loading ||= json('pulse.json').then(d => (P = d)));
+let P = null;
+const load = () => json('pulse.json').then(d => (P = d));
 const state = new WeakMap();
 
 /* the published headline rule, applied to whatever is in scope: the most-read exactly named product, else the strongest source,

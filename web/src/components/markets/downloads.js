@@ -27,6 +27,7 @@ export const panel = {
     if (!fresh()) return;
     el.removeAttribute('aria-busy');
     const host = el.closest('[data-panel]');
+    host._scope = scope; /* the handler below is wired once: it reads the scope of the latest render */
     if (!host._wired) {
       host._wired = true;
       host.addEventListener('click', e => {
@@ -35,7 +36,7 @@ export const panel = {
         if (b.dataset.sort) sort = b.dataset.sort;
         else all = !all;
         host.querySelectorAll('[data-sort]').forEach(x => x.setAttribute('aria-pressed', x.dataset.sort === sort));
-        panel.render(scope, el);
+        panel.render(host._scope, el);
       });
     }
     const Mv = (MK && MK.movers) || M.moversTop,

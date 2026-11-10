@@ -1,4 +1,4 @@
-import { show } from '../lib/router.js';
+import { TITLE, show } from '../lib/router.js';
 import { S } from '../lib/state.js';
 import { mono } from './avatar.js';
 import { drawBrowse } from './browse.js';
@@ -16,7 +16,7 @@ export function selectTool(x, o = {}) {
   hideTA();
   $('#nf').hidden = true;
   if (o.push !== false) history.replaceState(null, '', `#app=${addr(x)}`);
-  document.title = `${x.name} · AirStack · See the software market move`;
+  document.title = `${x.name} · ${TITLE}`;
   renderAll();
   $('#picked').scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
 }
@@ -26,6 +26,7 @@ export const selectByName = nm => {
 };
 export function clearTool() {
   S.tool = null;
+  document.title = TITLE;
   if (/#app=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
   renderAll();
   q.focus();

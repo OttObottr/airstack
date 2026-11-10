@@ -38,11 +38,11 @@ const lazy = () =>
     LAZY[v]().then(m => start(m.mount)).catch(e => console.error(`AirStack: ${v} failed to load`, e));
   });
 
-/* a few components per task keeps taps responsive; the router starts last so a deep link opens ready */
+/* a few components per task keeps taps responsive; search opens a deep-linked product, so it starts after every view listener, then the router */
 const GROUPS = [
   [mountHero, mountMarket, mountChain],
   [mountNews, mountStack],
-  [mountSearch, mountBrowse, mountHome, mountAgents, mountKeys, lazy, () => mountBeacon(() => stack().length), mountRouter],
+  [mountBrowse, mountHome, mountAgents, mountKeys, lazy, () => mountBeacon(() => stack().length), mountSearch, mountRouter],
 ];
 const run = i => {
   GROUPS[i].forEach(start);

@@ -51,6 +51,7 @@ export const panel = {
     if (!fresh()) return;
     el.removeAttribute('aria-busy');
     const head = el.closest('[data-panel]');
+    head._scope = scope; /* the handlers below are wired once: they read the scope of the latest render */
     if (!head._wired) {
       head._wired = true;
       head.addEventListener('click', e => {
@@ -58,10 +59,10 @@ export const panel = {
         if (!b) return;
         lens = b.dataset.lens;
         head.querySelectorAll('[data-lens]').forEach(x => x.setAttribute('aria-pressed', x === b));
-        panel.render(scope, el);
+        panel.render(head._scope, el);
       });
       head.addEventListener('change', e => {
-        if (e.target.matches('[data-pick]')) (pick = e.target.value), panel.render(scope, el);
+        if (e.target.matches('[data-pick]')) (pick = e.target.value), panel.render(head._scope, el);
       });
     }
     const list = ids(A, D, scope, R),
