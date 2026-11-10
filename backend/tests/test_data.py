@@ -4,6 +4,7 @@ import gzip
 import json
 import pytest
 import re
+import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -227,3 +228,68 @@ def test_the_stats_card_is_what_the_data_builds():
     assert f'>{len(site["index"]) + site["dir"]["products"]:,}</text>' in svg and f'>{site["dir"]["orgs"]:,}</text>' in svg
     assert "$" not in svg and "<script" not in svg
     assert "prefers-reduced-motion:reduce" in svg
+
+
+TRICKY = ["Fast, simple & secure", "Real-time sync — no setup", "Prix: 10 € / mois, TVA incluse", "日本語のドキュメント",
+          "Use it from the CLI, the Web dashboard or the API, on macOS, Windows and Linux, wherever you work.",
+          "Team\n$20 per user", "a+b = c? 100% (beta)! it's *new*", "  spaced\tout   words  ", "Ünïcödé, “curly” quotes – dash"]
+
+def directive(link):
+    return link.split("#:~:text=", 1)[1]
+
+@pytest.mark.parametrize("quote", TRICKY)
+def test_a_text_fragment_encodes_every_syntax_character_and_decodes_back_to_the_quote(quote):
+    from urllib.parse import unquote
+    from airstack.evidence import text_fragment
+    d = directive(text_fragment("https://acme.example/page", quote))
+    terms = d.split(",")
+    assert 1 <= len(terms) <= 2 and all(re.fullmatch(r"(?:[A-Za-z0-9_.~]|%[0-9A-F]{2})+", t) for t in terms)   # '-', ',', '&' and spaces never raw
+    words = " ".join(quote.split())
+    if len(terms) == 1:
+        assert unquote(terms[0]) == words
+    else:
+        assert words.startswith(unquote(terms[0])) and words.endswith(unquote(terms[1]))
+
+def test_a_text_fragment_joins_an_existing_fragment_and_skips_an_empty_quote():
+    from airstack.evidence import text_fragment
+    assert text_fragment("https://acme.example/docs#plans", "Free plan") == "https://acme.example/docs#plans:~:text=Free%20plan"
+    assert text_fragment("https://acme.example/", " \n ") == "https://acme.example/"
+    assert directive(text_fragment("https://acme.example/", "Team\n$20")) == "Team,%2420"
+
+def test_the_browser_builds_the_same_links_as_the_static_pages():
+    from airstack.evidence import report_url, text_fragment
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node is not installed")
+    src = (ROOT / "web" / "src" / "lib" / "format.js").as_uri()
+    script = (f"import {{ textFragment, reportUrl }} from '{src}'; const q = JSON.parse(process.argv[1]);"
+              "console.log(JSON.stringify(q.map(x => [textFragment('https://acme.example/p', x), reportUrl('Acme (beta)', 'Plans', 'https://acme.example/p', x)])));")
+    out = json.loads(subprocess.run([node, "--input-type=module", "-e", script, json.dumps(TRICKY)], check=True, capture_output=True, text=True).stdout)
+    assert out == [[text_fragment("https://acme.example/p", q), report_url("Acme (beta)", "Plans", "https://acme.example/p", q)] for q in TRICKY]
+
+def test_no_high_tier_claim_reaches_a_published_file_or_page():
+    from airstack.evidence import shown
+    policy = json.loads(paths.CHAIN_DATA.read_text())["policy"]
+    high = policy["tiers"]["high"]
+    assert high and not any(shown(policy, m) for m in high)
+    assert not {k for p in json.loads(paths.PROFILES.read_text()).values() for k in p} & set(high)
+    assert not {f["metric"] for e in json.loads(paths.CHAIN_DATA.read_text())["entities"].values() for f in e["facts"]} & set(high)
+    for f in paths.OPEN_DATA.glob("*.jsonl.gz"):
+        assert not {json.loads(line)["metric"] for line in gzip.decompress(f.read_bytes()).decode().splitlines()} & set(high)
+    labels = dict(paths.config("pages")["labels"])
+    site = paths.read_js(paths.SITE_DATA)
+    assert not {k for k, _ in site["labels"]} & set(high) and site["policy"] == policy
+    for page in [*(ROOT / "p").glob("*/index.html"), *(ROOT / "compare").glob("*/index.html"), *(ROOT / "c").glob("*/index.html"), ROOT / "insights" / "index.html"]:
+        h = page.read_text()
+        text = re.sub(r"<[^>]+>", " ", re.sub(r"<q>.*?</q>|<a [^>]*>", " ", h, flags=re.S))     # AirStack's own words, not the vendors' quotes
+        assert not any(f"<th>{labels[m]}</th>" in h for m in high if m in labels), page
+        assert not re.search(r"\b(SOC 2|ISO 27001|HIPAA)\b|\bStarting at\b|\bcheapest\b|\b(BUILD|BUY|KEEP|RETIRE)\b", text), page
+
+def test_every_quoted_fact_on_a_product_page_carries_its_checks():
+    if not (ROOT / "p" / "gamma-deploy" / "index.html").exists():
+        pytest.skip("the synthetic fixture's product")
+    page = (ROOT / "p" / "gamma-deploy" / "index.html").read_text()
+    facts = page.split("<table>")[-1].split("</table>")[0]
+    assert facts.count(" says: <q>") == facts.count(":~:text=") == facts.count("Report a problem") > 0
+    assert "Archived copy" in facts and "first read" in facts
+    assert "github.com/OttObottr/airstack/issues/new?title=" in facts

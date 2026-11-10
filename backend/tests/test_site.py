@@ -157,7 +157,7 @@ def test_a_comparison_page_exists_only_where_both_products_state_enough_of_the_s
         both = [r for r in re.findall(r"<tr><th>[^<]*</th><td>(.*?)</td><td>(.*?)</td></tr>", h, re.S) if "Not observed" not in r[0] + r[1]]
         assert len(both) >= SHARED, f.parent.name
         assert f'href="/compare/{f.parent.name}/"' in (ROOT / "p" / a / "index.html").read_text()
-        differences = h.split(" differ?</h2>", 1)[-1].split("<p><small>Prices are", 1)[0]
+        differences = h.split(" differ?</h2>", 1)[1].split("</ul>", 1)[0] if " differ?</h2>" in h else ""
         assert not re.search(r"\b(winner|better|best|recommend(ed)?)\b", re.sub(r"<[^>]+>", " ", differences), re.I)
 
 def test_the_generated_pages_stay_under_the_hosts_file_limit():

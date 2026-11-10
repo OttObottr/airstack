@@ -3,7 +3,8 @@ import { here } from '../lib/router.js';
 import { addr } from './search/directory.js';
 import { S } from '../lib/state.js';
 import { $, reduce } from '../lib/dom.js';
-import { esc, fd, ic, n, url } from '../lib/format.js';
+import { esc, fd, ic, n, reportUrl, textFragment, url } from '../lib/format.js';
+import { ui } from '../ui/recipes.js';
 
 let CH = null,
   chainOpener = null,
@@ -11,7 +12,16 @@ let CH = null,
 const withCompare = f => (cmp ? Promise.resolve(cmp) : import('./compare.js').then(m => (cmp = m))).then(f);
 const CMP = /[#&]compare=|^#\/compare/;
 export const METRIC = Object.fromEntries(M.labels);
-export const STR = new Set(['what_it_does', 'license', 'pricing_basis', 'customers_claimed']);
+export const STR = new Set(['what_it_does', 'license', 'pricing_basis']);
+/* One fact as the vendor's words, with the links and dates to check it: the quote highlighted on its page, an archived copy, a report. */
+export const says = (name, f) => `${f.class === 'vendor' ? `${esc(name)}’s page` : esc(f.host)} says: “${esc(f.quote)}”`;
+export const checks = (name, label, f) =>
+  `<span class="${ui.meta} inline-flex flex-wrap gap-x-2 gap-y-1"><a class="ext" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer">See it on ${esc(f.host)}${ic('out')}</a>${
+    f.archived ? `<a class="ext" href="${url(f.archived.url)}" target="_blank" rel="noopener noreferrer">Archived copy${ic('out')}</a>` : ''
+  }${f.first_read ? `<span>First read ${fd(f.first_read)}</span>` : ''}${f.checked ? `<span>Re-checked ${fd(f.checked)}</span>` : ''}<a href="${url(reportUrl(name, label, f.url, f.quote))}" target="_blank" rel="noopener noreferrer">Report a problem</a></span>`;
+export const chainNow = () => CH;
+/* the fields chain-data.json's published policy lets a page show */
+export const shown = (D, m) => !D.policy || D.policy.tiers.low.includes(m) || D.policy.tiers.medium.includes(m);
 export const showVal = v =>
   Array.isArray(v)
     ? v.join(', ')
@@ -56,7 +66,7 @@ export async function openChain(id, opener) {
     $('#chainSub').textContent = 'No verified facts are recorded for this tool yet.';
     return;
   }
-  const F = E.facts,
+  const F = E.facts.filter(f => shown(D, f.metric)),
     n = F.length,
     ver = F.filter(f => f.verified).length,
     rc = F.filter(f => f.recheck),
@@ -74,12 +84,12 @@ export async function openChain(id, opener) {
     .sort((a, b) => (a.metric > b.metric) - (a.metric < b.metric) || (a.host > b.host) - (a.host < b.host))
     .map(
       f => `<tr>
-    <td data-l="Fact"><b>${esc(METRIC[f.metric] || f.metric.replace(/_/g, ' '))}</b>${STR.has(f.metric) ? '' : ' ' + esc(showVal(f.value))}<div class="meta">“${esc(f.quote)}”</div></td>
+    <td data-l="Fact"><b>${esc(METRIC[f.metric] || f.metric.replace(/_/g, ' '))}</b>${STR.has(f.metric) ? '' : ' ' + esc(showVal(f.value))}<div class="meta">${says(E.name, f)}</div><div class="mt-1">${checks(E.name, METRIC[f.metric] || f.metric, f)}</div></td>
     <td data-l="Source"><a class="ext" href="${url(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.host)}${ic('out')}</a><div class="meta">${esc(cls(f.class))}</div></td>
     <td data-l="Retrieved" class="num">${fd(f.retrieved)}<div class="meta">HTTP ${f.status || '?'} · <span class="mono">${esc(f.hash.slice(0, 8))}</span></div></td>
     <td data-l="Extracted" class="num">${fd(f.extracted)}</td>
     <td data-l="Verified">${f.verified ? `${ic('check')} quote found on the page<div class="meta num">${fd(f.verified)}</div>` : '<span class="nobs">Not verified</span>'}</td>
-    <td data-l="Re-checked">${f.recheck ? `${fd(f.recheck.at)}<div class="meta">${esc(f.recheck.note)}</div>` : '<span class="nobs">Not re-checked yet</span>'}</td>
+    <td data-l="Re-checked">${f.recheck ? `${fd(f.recheck.at)}<div class="meta">${esc(f.recheck.note)}</div>` : f.checked ? fd(f.checked) : '<span class="nobs">Not re-checked yet</span>'}</td>
     <td data-l="Also on">${f.agree.length ? `${f.agree.length} other page${f.agree.length > 1 ? 's' : ''}: ${esc(f.agree.join(', '))}` : '<span class="nobs">Only this page</span>'}${f.agree_independent.length ? `<div class="meta">Independent: ${esc(f.agree_independent.join(', '))}</div>` : ''}</td></tr>`
     )
     .join('');

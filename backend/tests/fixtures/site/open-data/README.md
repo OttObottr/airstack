@@ -19,7 +19,7 @@ Each fact is a short quote with its source link and the day the page was read, s
 |---|---|
 | `id` | AirStack's product id |
 | `name` | The product's name |
-| `metric` | What the fact is about, such as `what_it_does`, `platforms`, `integrations`, `compliance` or `free_plan` |
+| `metric` | What the fact is about, such as `what_it_does`, `platforms`, `integrations` or `free_plan` |
 | `value` | The value read from the quote: text, a list, true or false, or a number |
 | `quote` | The page's own words, at most 25 words |
 | `url` | The page the quote is on |
@@ -38,4 +38,4 @@ It makes no model call and no network request, and the same input gives the same
 
 | Release | Facts | Products | New since the previous release | Gone since the previous release |
 |---|---|---|---|---|
-| `airstack-2026-11.jsonl.gz` | 29 | 5 | 29 | 0 |
+| `airstack-2026-11.jsonl.gz` | 26 | 5 | 26 | 0 |

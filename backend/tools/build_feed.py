@@ -8,6 +8,7 @@ import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta, timezone
 from airstack import paths
+from airstack.evidence import shown
 from airstack.files import read_json
 
 from pages.layout import WIKIMEDIA, breadcrumbs, e, foot, head, slug as page_slug
@@ -30,13 +31,14 @@ def changes(news, events, pages):
     start = (end - timedelta(days=news["source"]["window_days"])).isoformat()
     in_news = {i["url"] for i in news["items"]}
     rows = [(tag(i["url"]), i) for i in news["items"]]
-    rows += [(tag(e["url"]) + "#" + slug(e["title"]), {**e, "date": e["at"]}) for e in events["events"]  # one support page lists many cycles
+    rows += [(tag(e["url"]) + "#" + slug(e["title"] or ""), {**e, "date": e["at"]}) for e in events["events"]  # one support page lists many cycles
              if e["status"] == "observed" and e.get("url") and e["url"] not in in_news]
     out = {}
     for id_, i in rows:
         if id_ in out or not start < i["date"][:10] <= end.isoformat():
             continue
-        out[id_] = {"id": id_, "title": NOT_XML.sub("", i["title"]).strip(), "link": i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
+        title = i["title"] or (f"Hacker News discussion · {i.get('points') or 0} points" if i["kind"] == "hacker news" else f"{i['name']} {i.get('version') or ''}")
+        out[id_] = {"id": id_, "title": NOT_XML.sub("", title).strip(), "link": i.get("discussion") if i["kind"] == "hacker news" and not i["title"] else i["url"], "updated": rfc3339(i["date"]), "name": i["name"],
                     "kind": i["kind"], "page": pages.get(i["id"]), "discussion": i.get("discussion")}
     return sorted(sorted(out.values(), key=lambda x: x["id"]), key=lambda x: x["updated"], reverse=True)[:paths.config("pages")["limits"]["feed_entries"]]
 
@@ -72,7 +74,7 @@ def open_lines(chain):
     """One JSON line per published fact: the quote, never the page."""
     rows = {json.dumps({"id": pid, "name": e["name"], "metric": f["metric"], "value": f["value"], "quote": f["quote"], "url": f["url"], "read": f["retrieved"],
                         "licence": LICENCE_WIKIMEDIA if WIKIMEDIA.search(f["host"]) else LICENCE}, ensure_ascii=False, sort_keys=True)
-            for pid, e in chain["entities"].items() for f in e["facts"]}
+            for pid, e in chain["entities"].items() for f in e["facts"] if shown(chain["policy"], f["metric"])}
     return sorted(rows)
 
 def pack(lines):
@@ -112,7 +114,7 @@ Each fact is a short quote with its source link and the day the page was read, s
 |---|---|
 | `id` | AirStack's product id |
 | `name` | The product's name |
-| `metric` | What the fact is about, such as `what_it_does`, `platforms`, `integrations`, `compliance` or `free_plan` |
+| `metric` | What the fact is about, such as `what_it_does`, `platforms`, `integrations` or `free_plan` |
 | `value` | The value read from the quote: text, a list, true or false, or a number |
 | `quote` | The page's own words, at most 25 words |
 | `url` | The page the quote is on |
@@ -160,8 +162,9 @@ def build():
     pages = {k: p["slug"] for k, p in build_pages.built(all_, build_pages.own_prices(all_, read_json(paths.PRICING) if paths.PRICING.exists() else {})).items()}
     news, events = read_json(paths.NEWS), read_json(paths.EVENTS)
     out = {"changes.atom": atom(changes(news, events, pages), news["source"].get("read") or events["source"]["built_for"], news["source"]["window_days"])}
-    lines = open_lines(read_json(paths.CHAIN_DATA))
-    releases = {f.name: unpack(f.read_bytes()) for f in sorted(paths.OPEN_DATA.glob("airstack-*.jsonl.gz"))}
+    chain = read_json(paths.CHAIN_DATA)
+    lines = open_lines(chain)
+    releases = {f.name: [ln for ln in unpack(f.read_bytes()) if shown(chain["policy"], json.loads(ln)["metric"])] for f in sorted(paths.OPEN_DATA.glob("airstack-*.jsonl.gz"))}
     releases[f"airstack-{max(json.loads(ln)['read'] for ln in lines)[:7]}.jsonl.gz"] = lines
     out |= {f"open-data/{name}": pack(ls) for name, ls in releases.items()}
     out["open-data/README.md"] = readme(releases).encode()
