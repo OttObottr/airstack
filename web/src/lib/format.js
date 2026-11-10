@@ -20,8 +20,8 @@ export const slug = s =>
     .replace(/^-+|-+$/g, '')
     .slice(0, 60) || 'x';
 export const fd = iso => {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
-  return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : '';
+  const m = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?/.exec(iso || ''); // a date says no more than its source: a year or a month stays one
+  return m ? [m[3] && +m[3], m[2] && MON[+m[2] - 1], m[1]].filter(Boolean).join(' ') : '';
 };
 let CF; // built on first use: an Intl formatter is costly to make
 export const n = x => {
