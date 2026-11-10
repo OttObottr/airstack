@@ -61,7 +61,7 @@ export function sync() {
 }
 
 const nobs = '<span class="nobs">Not observed</span>';
-const LABEL = { similar: 'Similar', leader: 'Most viewed', trending: 'Rising views', established: 'Earliest' }; /* what each suggestion measured, never a rank */
+const LABEL = { similar: 'Similar', rising: 'Rising' }; /* what each suggestion measured, never a rank */
 let SUG = null;
 const norm = v =>
   Array.isArray(v)

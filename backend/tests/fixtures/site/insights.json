@@ -67,8 +67,7 @@
   },
   "elsewhere": {
    "models": 0,
-   "providers": 1,
-   "plans": 0
+   "providers": 1
   }
  },
  "kpis": [

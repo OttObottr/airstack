@@ -2,7 +2,7 @@
  "gamma-deploy": [
   {
    "id": "zeta-agent",
-   "label": "established",
+   "label": "similar",
    "why": "Same category; GitHub releases since 2024",
    "source": {
     "name": "source",
@@ -12,7 +12,7 @@
   },
   {
    "id": "epsilon-router",
-   "label": "trending",
+   "label": "rising",
    "why": "npm downloads up 12% against its own 4-week level",
    "source": {
     "name": "source",
@@ -24,7 +24,7 @@
  "zeta-agent": [
   {
    "id": "gamma-deploy",
-   "label": "leader",
+   "label": "similar",
    "why": "Most weekly npm downloads in Coding agents",
    "source": {
     "name": "source",
@@ -36,7 +36,7 @@
  "acme-notes": [
   {
    "id": "beta-board",
-   "label": "leader",
+   "label": "similar",
    "why": "Most Wikipedia views in Project management",
    "source": {
     "name": "source",
