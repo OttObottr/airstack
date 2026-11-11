@@ -44,6 +44,7 @@ const label = e => (bare(e) && e.name && e.url ? `${e.name} ${decodeURIComponent
 /* one dated event: what happened (linked to its source), how it is dated and where it was read, and the product it belongs to */
 const row = e => `<li class="grid gap-1 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-4">
       <span class="flex flex-col gap-1 min-w-0"><span class="text-sm text-foreground">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(label(e))}</a>` : esc(label(e))}</span>
+      ${e.gist ? `<span class="text-sm leading-snug text-muted-foreground">${esc(e.gist)}</span>` : ''}
       <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${stamp(e.read, P.source.built_for)}` : esc(host(e.url || ''))}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
       ${e.id ? `<span class="flex items-center gap-2"><a class="text-xs text-muted-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name || e.id)}</a>${stackToggle(e.id, e.name)}</span>` : '<span></span>'}</li>`;
 
@@ -232,7 +233,7 @@ export const panel = {
 const RECENT = 4,
   LISTED = 8;
 let picked = null; /* { j: sector, k: week } the reader chose; until then, the loudest sector's latest active week */
-function grid(el) {
+function grid(el, peek) {
   const cols = weeksIn(),
     last = cols.slice(-RECENT),
     all = last.reduce((a, c) => a + c.v, 0) || 1;
@@ -241,12 +242,12 @@ function grid(el) {
     .filter(r => r.sec.id !== 'unplaced' && cols.some(c => c.s[r.j]))
     .sort((a, b) => b.loud - a.loud);
   if (!rows.length) return void (el.innerHTML = `<p class="${ui.panelNote}">No dated activity in the last year.</p>`);
-  const sel = picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
+  const sel = peek || picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
     c = cols[sel.k],
     events = c.e
       .map(([i]) => P.events[i])
       .filter(e => e.sector === sel.j)
-      .sort((a, b) => bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w); /* what was announced before version bumps */
+      .sort((a, b) => (b.weight || 0) - (a.weight || 0) || !!b.gist - !!a.gist || bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w); /* what matters most, then what we can describe, then version bumps */
   el.innerHTML = `<div class="flex flex-col gap-4"><div class="flex flex-col gap-1 overflow-x-auto">${rows
     .map(
       r => `<div class="grid min-w-[40rem] grid-cols-[minmax(0,13rem)_minmax(0,1fr)_3rem] items-center gap-x-3">
@@ -271,11 +272,19 @@ export const sectorPanel = {
   render(_, el) {
     if (!el.dataset.wired) {
       el.dataset.wired = '1';
+      const at = e => (b => b && !b.disabled && { j: +b.dataset.j, k: +b.dataset.k })(e.target.closest('button[data-k]'));
+      let shown = null;
       el.addEventListener('click', e => {
-        const b = e.target.closest('button[data-k]');
-        if (!b) return;
-        picked = { j: +b.dataset.j, k: +b.dataset.k };
-        grid(el);
+        const s = at(e);
+        if (s) grid(el, (shown = picked = s));
+      });
+      /* pointing at a square previews its week below; leaving the grid returns to the pinned one */
+      el.addEventListener('pointerover', e => {
+        const s = at(e);
+        if (s && (!shown || s.j !== shown.j || s.k !== shown.k)) grid(el, (shown = s));
+      });
+      el.addEventListener('pointerleave', () => {
+        if (shown) grid(el, (shown = null));
       });
     }
     return P ? grid(el) : load().then(() => grid(el));

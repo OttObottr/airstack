@@ -171,10 +171,6 @@ def test_the_pulse_opens_a_week_with_sourced_events_and_follows_the_stack_scope(
     page.locator("#pulsePanel [data-day] [data-stack-toggle]").first.click()
     page.click("#pulsePanel [data-scope=stack]")
     assert page.get_attribute("#pulsePanel [data-scope=stack]", "aria-pressed") == "true"
-    page.evaluate("location.hash = '#/calendar'")
-    page.wait_for_function("document.body.dataset.view === 'calendar'")
-    wait(page, "document.querySelector('#agendaPanel [data-body] time')")
-    assert page.locator("#agendaPanel [data-body] li a[href^='https://']").count() == page.locator("#agendaPanel [data-body] li").count()
     assert page.evaluate(FITS)
     assert not errors
     context.close()

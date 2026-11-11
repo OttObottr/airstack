@@ -28,7 +28,6 @@ const start = mount => {
 const LAZY = {
   markets: () => import('./components/markets/index.js'),
   insights: () => import('./components/insights.js'),
-  calendar: () => import('./components/calendar.js'),
   makers: () => import('./components/makers.js'),
 };
 const opened = new Set();
