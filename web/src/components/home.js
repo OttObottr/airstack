@@ -2,7 +2,7 @@
 import { $ } from '../lib/dom.js';
 import { mountScoped, wire } from '../lib/scope.js';
 import { mount as mountPanel } from '../ui/panel.js';
-import { panel as pulse } from './pulse.js';
+import { panel as pulse, sectorPanel } from './pulse.js';
 import { briefPanel as agenda } from './calendar.js';
 import { briefPanel as findings } from './findings.js';
 import { mount as mountFront } from './front.js';
@@ -14,6 +14,7 @@ export function mount() {
     if (done || e.detail !== 'overview') return;
     done = true;
     mountScoped($('#pulsePanel'), pulse);
+    mountPanel($('#sectorsHome'), sectorPanel);
     mountFront($('#front'));
     mountPanel($('#upHome'), agenda);
     mountPanel($('#insHome'), findings);

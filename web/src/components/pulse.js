@@ -217,3 +217,38 @@ export const panel = {
       });
   },
 };
+
+/* Sector activity: one row per sector, one square per week of the same year. A square's strength is that week against the sector's
+   own busiest week, so a quiet sector still shows its rhythm; the figures beside it are its share of everything in the last four
+   weeks, and the headline of those weeks. */
+const RECENT = 4;
+function grid(el) {
+  const cols = weeksIn(),
+    last = cols.slice(-RECENT),
+    all = last.reduce((a, c) => a + c.v, 0) || 1;
+  const rows = P.sectors
+    .map((sec, j) => {
+      const peak = Math.max(...cols.map(c => c.s[j])) || 1,
+        loud = last.reduce((a, c) => a + c.s[j], 0) / all,
+        h = headline(last.flatMap(c => c.e).filter(([i]) => P.events[i].sector === j)),
+        e = h != null ? P.events[h] : null;
+      return { sec, j, peak, loud, e };
+    })
+    .filter(r => r.sec.id !== 'unplaced' && r.loud + r.peak > 1e-9)
+    .sort((a, b) => b.loud - a.loud);
+  el.innerHTML = `<div class="flex flex-col gap-1.5 overflow-x-auto">${rows
+    .map(
+      r => `<div class="grid min-w-[48rem] grid-cols-[14rem_auto_3rem_minmax(0,1fr)] items-center gap-x-4">
+        <span class="truncate text-sm text-foreground">${esc(r.sec.name)}</span>
+        <span class="flex gap-0.5" role="img" aria-label="${esc(`${r.sec.name}: weekly activity over ${cols.length} weeks`)}">${cols.map(c => `<i class="size-2.5 rounded-[2px] ${c.s[r.j] ? SW[r.j] : 'bg-muted'}" style="opacity:${c.s[r.j] ? (0.25 + 0.75 * (c.s[r.j] / r.peak)).toFixed(2) : 1}" title="${esc(`${week(c.w)}: ${n(Math.round(c.s[r.j] * 10) / 10)}`)}"></i>`).join('')}</span>
+        <span class="${ui.num} text-right text-sm text-foreground">${Math.round(r.loud * 100)}%</span>
+        <span class="truncate text-xs text-muted-foreground">${r.e ? (r.e.url ? `<a class="hover:text-foreground ${LINK}" href="${url(r.e.url)}" target="_blank" rel="noopener noreferrer">${esc(r.e.title)}</a>` : esc(r.e.title)) : ''}</span></div>`
+    )
+    .join('')}</div>`;
+}
+export const sectorPanel = {
+  id: 'sector-activity',
+  title: 'Sector activity',
+  note: `A square per week over the last year. The share is each sector’s part of all activity in the last ${RECENT} weeks, beside its biggest launch.`,
+  render: (_, el) => (P ? grid(el) : load().then(() => grid(el))),
+};
