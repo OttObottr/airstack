@@ -8,25 +8,22 @@ html{scrollbar-color:rgba(255,255,255,.24) transparent;scrollbar-width:thin}
 details>summary{border-radius:var(--radius-sm);transition:color .15s,filter .15s,transform .15s var(--ease-out)}
 details[open]>summary{color:var(--color-ink)}
 .ag:focus-within,.oss li:focus-within,.tiles>.tile:focus-within{box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px color-mix(in oklab,var(--color-info) 30%,transparent),0 16px 36px rgba(0,0,0,.2)}
-.kb,.bar i{transition:filter .15s,box-shadow .15s}
+.kb{transition:filter .15s,box-shadow .15s}
 @media(hover:hover){
-  .lb button:hover{background:color-mix(in oklab,var(--color-info) 4.5%,transparent);transform:translateX(2px)}
   .chip:hover,.ghost:hover{opacity:1;color:var(--color-ink);border-color:rgba(255,255,255,.28);background-color:rgba(255,255,255,.055);transform:translateY(-1px)}
   .t tbody tr{transition:background-color .15s}
   .t tbody tr:hover{background:color-mix(in oklab,var(--color-info) 3.5%,transparent)}
-  .t.kpi tbody tr:hover .kb,.lb button:hover .bar i{filter:brightness(1.25);box-shadow:0 0 14px color-mix(in oklab,var(--color-info) 12%,transparent)}
+  .t.kpi tbody tr:hover .kb{filter:brightness(1.25);box-shadow:0 0 14px color-mix(in oklab,var(--color-info) 12%,transparent)}
   .tiles>.tile,.ag,.oss li{transition:transform .18s var(--ease-out),box-shadow .18s var(--ease-out),background-color .18s,border-color .18s}
   .tiles>.tile:hover,.ag:hover,.oss li:hover{transform:translateY(-2px);background-image:linear-gradient(145deg,rgba(255,255,255,.045),transparent 52%);box-shadow:inset 0 1px 0 rgba(255,255,255,.075),0 18px 38px rgba(0,0,0,.22)}
   details>summary:hover{color:var(--color-ink);filter:brightness(1.16)}
 }
 @media(prefers-reduced-motion:no-preference){
   .chip,.ghost{transition:opacity .15s,background-color .2s var(--ease-out),color .2s var(--ease-out),border-color .2s var(--ease-out),transform .15s var(--ease-out)}
-  .chip:active,.ghost:active,.lb button:active,.nav a:active,.cta:active,details>summary:active{transform:translateY(1px) scale(.985)}
+  .chip:active,.ghost:active,.nav a:active,.cta:active,details>summary:active{transform:translateY(1px) scale(.985)}
   @keyframes grow{from{transform:scaleX(0)}}
   @keyframes rise{from{opacity:0;transform:translateY(6px)}}
   @keyframes surface-in{from{opacity:0;transform:translateY(4px)}}
-  .lb .bar i{transform-origin:left;animation:grow .7s var(--ease-out) both;animation-delay:calc(var(--i,0)*30ms + 100ms)}   /* the small category charts only: the Movers table is too long to animate */
-  .lb li{animation:rise .4s var(--ease-out) both;animation-delay:calc(var(--i,0)*30ms)}
   .ta{animation:rise .15s var(--ease-out) both}
   .view-enter,details[open]>:not(summary){animation:surface-in .18s var(--ease-out) both}
 }

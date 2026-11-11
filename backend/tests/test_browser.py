@@ -64,7 +64,7 @@ def open_app(chrome, app_url, width=1280):
     page, errors = context.new_page(), []
     page.on("pageerror", lambda error: errors.append(str(error)))
     page.goto(app_url)
-    page.wait_for_selector("#trend .lb button", state="attached")
+    page.wait_for_selector("#trend [data-pick]", state="attached")
     return context, page, errors
 
 
@@ -114,7 +114,7 @@ def test_stack_stays_local_and_starts_a_comparison(chrome, app_url):
 @pytest.mark.parametrize("width", [1280, 390])
 def test_signal_tiles_fit_and_share_row_baselines(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
-    page.locator("#trend .lb button").first.click()
+    page.locator("#trend [data-pick]").first.click()
     page.wait_for_selector("#sigs [data-tile]")
     assert page.locator("#sigs [data-tile]").evaluate_all(
         "tiles => tiles.every(tile => tile.scrollWidth <= tile.clientWidth && [...tile.children].every(child => child.getBoundingClientRect().right <= tile.getBoundingClientRect().right + 1))"

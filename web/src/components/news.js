@@ -2,6 +2,8 @@ import { mono } from './avatar.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, n, stamp, url } from '../lib/format.js';
 import { scopeControl, stackScope, stackToggle } from '../lib/scope.js';
+import { FeedDay, FeedEmpty, FeedRow } from '../ui/feed.js';
+import { html, raw } from '../ui/html.js';
 import { ALL } from '../ui/panel.js';
 
 const FIRST = 12;
@@ -75,21 +77,28 @@ function render() {
         `<button class="chip" type="button" aria-pressed="${on.has(k)}" data-kind="${esc(k)}">${label}</button>`
     ).join('');
   $('#newsScope').innerHTML = scopeControl(scope, 'changes');
-  $('#newsList').innerHTML = groups.length
-    ? groups
-        .map(
-          ([d, items]) =>
-            `<li class="nday"><h3 class="lab">${stamp(d, N.source.read)} · ${fd(d)}</h3><ol>${items
-              .map(
-                i => `<li class="nrow">
-      <span class="flex items-center justify-between gap-2 min-w-0 max-[699px]:col-span-full"><a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>${stackToggle(i.id, i.name)}</span>
-      <span class="nt"><a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>${version(i)}${i.more.length ? `<details class="nmore"><summary class="meta">and ${i.more.length} more · ${esc(tally(i.more))}</summary><ul>${i.more.map(m => `<li><span class="meta">${stamp(day(m.date), N.source.read)}</span> <a class="ext" href="${url(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}</a>${version(m)} <span class="meta">${esc(KIND(m.kind))}</span></li>`).join('')}</ul></details>` : ''}</span>
-      <span class="nk">${esc(KIND(i.kind))}</span></li>`
-              )
-              .join('')}</ol></li>`
-        )
-        .join('')
-    : `<li class="meta">${scope.ids ? 'Nothing from your stack in these feeds yet.' : 'Nothing in the selected feeds yet.'}</li>`;
+  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.title}</a>${raw(version(i))}`;
+  $('#newsList').innerHTML = String(
+    groups.length
+      ? html`${groups.map(([d, items]) =>
+          FeedDay({
+            heading: html`${raw(stamp(d, N.source.read))} · ${fd(d)}`,
+            rows: items.map(i =>
+              FeedRow({
+                who: html`<a data-who class="flex min-h-11 min-w-0 flex-1 items-center gap-2.5" href="#app=${i.id}">${raw(mono({ name: i.name }))}<b class="truncate font-semibold">${i.name}</b></a>`,
+                action: raw(stackToggle(i.id, i.name)),
+                title: link(i),
+                more: i.more.length && {
+                  summary: `and ${i.more.length} more · ${tally(i.more)}`,
+                  items: i.more.map(m => html`<span class="text-xs text-muted-foreground">${raw(stamp(day(m.date), N.source.read))}</span> ${link(m)} <span class="text-xs text-muted-foreground">${KIND(m.kind)}</span>`),
+                },
+                kind: KIND(i.kind),
+              })
+            ),
+          })
+        )}`
+      : FeedEmpty(scope.ids ? 'Nothing from your stack in these feeds yet.' : 'Nothing in the selected feeds yet.')
+  );
   $('#newsMore').hidden = R.length <= shown;
   $('#newsMore').disabled = false;
   $('#newsSub').textContent =

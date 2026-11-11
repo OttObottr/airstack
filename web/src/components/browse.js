@@ -7,26 +7,27 @@ import { M, PARAMS } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
 import { LISTED, cn, esc, fd, n, pct } from '../lib/format.js';
 import { MK } from '../lib/market.js';
+import { RankList } from '../ui/rank.js';
 
 export const rowMap = () => Object.fromEntries(moverRows().map(r => [r.id, r]));
 /* Momentum compares the latest week with the tool's own four-week level. */
 const mom = r => (r && r.dl.vsBase != null ? r.dl.vsBase : null);
 export const byGrowth = R => (a, b) => (mom(R[b.id]) ?? -1e9) - (mom(R[a.id]) ?? -1e9) || a.name.localeCompare(b.name);
-export function lb(items, { cur = null, lane = true } = {}) {
-  const R = rowMap(),
-    ds = items.map(x => mom(R[x.id]));
-  const mx = Math.max(1, ...ds.filter(v => v !== null).map(Math.abs));
-  return `<ol class="lb${cur ? ' has-cur' : ''}">${items
-    .map((x, i) => {
+export function lb(items, { cur = null, lane = true, dense = false } = {}) {
+  const R = rowMap();
+  return RankList({
+    dense,
+    missing: `no ${PARAMS.movers.base_weeks}-week level yet`,
+    rows: items.map(x => {
       const r = R[x.id],
-        d = ds[i];
-      const vol =
-        r && r.dl.value != null
-          ? `${cn(r.dl.value)} ${esc(r.dl.registry)} a week${r.dl.delta != null ? ` · ${pct(r.dl.delta)} on the week before` : ''}`
-          : 'downloads not observed';
-      return `<li style="--i:${i}"><button type="button" data-pick="${esc(x.id)}"${x.id === cur ? ' aria-current="true"' : ''}><span class="who">${mono(x)}<span><b>${esc(x.name)}</b><span class="meta">${lane ? esc(x.laneName) + ' · ' : ''}${vol}</span></span></span><span class="bar${d === null ? ' invisible' : ''}" aria-hidden="true">${d !== null ? `<i class="${d < 0 ? 'neg' : ''}" style="--w:${Math.max(2, (Math.abs(d) / mx) * 100).toFixed(1)}%"></i>` : ''}</span><span class="d">${d !== null ? pct(d) : '<span class="nobs" title="No ${PARAMS.movers.base_weeks}-week level yet"><span aria-hidden="true">—</span><span class="sr">no ${PARAMS.movers.base_weeks}-week level yet</span></span>'}</span></button></li>`;
-    })
-    .join('')}</ol>`;
+        d = mom(r),
+        vol =
+          r && r.dl.value != null
+            ? `${cn(r.dl.value)} ${r.dl.registry} a week${r.dl.delta != null ? ` · ${pct(r.dl.delta)} on the week before` : ''}`
+            : 'downloads not observed';
+      return { id: x.id, avatar: mono(x), name: x.name, note: `${lane ? x.laneName + ' · ' : ''}${vol}`, value: d, label: d == null ? '' : pct(d), current: x.id === cur };
+    }),
+  });
 }
 export const vendorOf = x =>
   x.dir
@@ -98,7 +99,7 @@ export function drawBrowse() {
       .slice(0, 5);
   const w = ((MK && MK.movers) || M.moversTop || {}).window;
   $('#trend').innerHTML =
-    `${lb(list, { lane: false })}<p class="meta mt12">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.</p>`;
+    `${lb(list, { lane: false, dense: true })}<p class="meta mt12">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.</p>`;
 }
 
 export function mount() {
