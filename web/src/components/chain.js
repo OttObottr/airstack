@@ -3,8 +3,7 @@ import { here } from '../lib/router.js';
 import { addr } from './search/directory.js';
 import { S } from '../lib/state.js';
 import { $, reduce } from '../lib/dom.js';
-import { esc, fd, ic, n, reportUrl, textFragment, url } from '../lib/format.js';
-import { ui } from '../ui/recipes.js';
+import { esc, fd, ic, n, textFragment, url } from '../lib/format.js';
 
 let CH = null,
   chainOpener = null,
@@ -15,10 +14,9 @@ export const METRIC = Object.fromEntries(M.labels);
 export const STR = new Set(['what_it_does', 'license', 'pricing_basis']);
 /* One fact as the vendor's words, with the links and dates to check it: the quote highlighted on its page, an archived copy, a report. */
 export const says = (name, f) => `${f.class === 'vendor' ? '' : `${esc(f.host)}: `}“${esc(f.quote)}”`; /* a vendor's own words need no label beside its name; another site's are named */
+/* a fact's footnote: the page it is on, opening at the quoted words; the quote and the dates show on hover */
 export const checks = (name, label, f) =>
-  `<span class="${ui.meta} inline-flex flex-wrap gap-x-2 gap-y-1"><a class="ext" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer">See it on ${esc(f.host)}${ic('out')}</a>${
-    f.archived ? `<a class="ext" href="${url(f.archived.url)}" target="_blank" rel="noopener noreferrer">Archived copy${ic('out')}</a>` : ''
-  }${f.first_read ? `<span>First read ${fd(f.first_read)}</span>` : ''}${f.checked ? `<span>Re-checked ${fd(f.checked)}</span>` : ''}<a href="${url(reportUrl(name, label, f.url, f.quote))}" target="_blank" rel="noopener noreferrer">Report a problem</a></span>`;
+  `<a class="ext text-xs font-normal text-subtle-foreground hover:text-foreground" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer" title="${esc(`“${f.quote}” · read ${fd(f.first_read || f.verified)}${f.checked ? `, re-checked ${fd(f.checked)}` : ''}`)}">${esc(f.host)}${ic('out')}</a>`;
 export const chainNow = () => CH;
 /* the fields chain-data.json's published policy lets a page show */
 export const shown = (D, m) => !D.policy || D.policy.tiers.low.includes(m) || D.policy.tiers.medium.includes(m);
