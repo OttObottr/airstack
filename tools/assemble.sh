@@ -59,7 +59,7 @@ PY
 "$py" backend/tools/build_pages.py >/dev/null
 rm -rf "$out" && mkdir -p "$out"
 cp -R web/public/. "$out"/
-cp -R c compare p o t insights calendar method "$out"/
+cp -R c compare p o t insights method "$out"/
 "$py" - "$out" "$site" "$list" "$tw" <<'PY'
 import hashlib, json, pathlib, re, shutil, sys
 out, web, site = pathlib.Path(sys.argv[1]), pathlib.Path("web"), pathlib.Path(sys.argv[2])

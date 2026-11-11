@@ -86,7 +86,7 @@ def test_every_page_has_a_title_a_description_a_canonical_url_and_parseable_stru
 def test_the_sitemap_names_each_crawlable_page_once():
     root = ET.parse(paths.SITEMAP).getroot(); ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     urls = [n.text for n in root.findall("s:url/s:loc", ns)]
-    pages = {"https://airstack.bot/", "https://airstack.bot/open-data/"} | {f"https://airstack.bot/{p.parent.relative_to(ROOT).as_posix()}/" for d in ("c", "calendar", "compare", "insights", "method", "o", "p", "t") for p in (ROOT / d).rglob("index.html")}
+    pages = {"https://airstack.bot/", "https://airstack.bot/open-data/"} | {f"https://airstack.bot/{p.parent.relative_to(ROOT).as_posix()}/" for d in ("c", "compare", "insights", "method", "o", "p", "t") for p in (ROOT / d).rglob("index.html")}
     assert len(urls) == len(set(urls)) and set(urls) == pages
     assert not root.findall("s:url/s:lastmod", ns)
 

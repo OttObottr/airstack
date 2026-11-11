@@ -1,4 +1,4 @@
-"""The static insights, calendar and method pages."""
+"""The static insights and method pages."""
 import shutil
 from airstack import paths
 from .layout import BASE, breadcrumbs, e, foot, head
@@ -28,12 +28,6 @@ def report_pages():
     body = (f'<h2>What stands out</h2><table><tr><th>Comparison</th><th>Category</th><th>Against its baseline, with its base</th></tr>{shown}</table>' if shown else '') + f'<h2>Category coverage</h2><table><tr><th>Category</th><th>Read / listed</th><th>Free plan stated</th><th>Open source stated</th></tr>{rows}</table><p><small>{e(insights["source"]["note"])}</small></p>'
     urls = [write("insights", "Software market insights", lead, body, {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software market insights", "description": lead})]
 
-    events = read_json(paths.EVENTS); start = events["source"]["built_for"]
-    upcoming = [x for x in events["events"] if x["at"] >= start and x["status"] == "scheduled" and not x["kind"].startswith("end of")][:250]
-    rows = "".join(f'<tr><td><time datetime="{e(x["at"])}">{e(x["at"])}</time></td><td>{e(x["name"])}</td><td><a href="{e(x["url"])}" rel="nofollow noopener">{e(x["title"])}</a></td><td>{e(x["status"])}</td></tr>' for x in upcoming)
-    lead = f"{len(upcoming):,} software launches and releases dated by their sources from {start}, kept separate from observed changes."
-    body = f'<h2>Upcoming dates</h2><table><tr><th>Date</th><th>Product</th><th>Event</th><th>Status</th></tr>{rows}</table><p><small>{e(events["source"]["statuses"]["scheduled"])} Rows link to their publishers.</small></p>'
-    urls.append(write("calendar", "Software change calendar", lead, body, {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software change calendar", "description": lead}))
 
     lead = "Facts on AirStack are short quotes from product pages, with the page and the day it was read."
     body = ('<h2>Quoted, dated, linked</h2><p>Each fact is the vendor’s own words, linked to where they appear on its page, '

@@ -23,7 +23,6 @@ const tile = (lab, big, sub, chart = '') =>
 
 function tiles(x) {
   const r = rowMap()[x.id],
-    a = ATT && ATT.products[x.id],
     now = (EV && EV.source.built_for) || (ATT && ATT.source.read) || '', /* the build's day, never the viewer's clock */
     mine = EV ? EV.events.filter(e => e.id === x.id) : [],
     out = [];
@@ -33,10 +32,6 @@ function tiles(x) {
       `${esc(r.dl.registry)}${r.dl.vsBase != null ? ` · ${pct(r.dl.vsBase)} vs its own ${PARAMS.movers.base_weeks}-week level` : ''}${r.dl.fetched ? ` · fetched ${stamp(r.dl.fetched, now)}` : ''}${src(r.dl.url, `${r.dl.registry} page for ${x.name}`)}`,
       s ? spark(s[0], s[1], `${x.name}, ${r.dl.registry} downloads`) : ''));
   }
-  if (a && a.last_4w != null)
-    out.push(tile(`Wikipedia views · ${ATT.source.params.window_weeks} weeks`, cn(a.last_4w),
-      `${a.change != null ? `${pct(a.change * 100)} vs its prior ${ATT.source.params.window_weeks} weeks · ` : ''}attention, not adoption · read ${stamp(a.fetched, ATT.source.read)}${src(a.url, `Wikipedia article for ${x.name}`)}`,
-      spark(a.views, ATT.weeks, `${x.name}, English Wikipedia views`, { maxMissing: ATT.source.params.max_missing_share ?? 1 })));
   const rel = r && r.gh.release ? { title: r.gh.release, at: r.gh.released, url: r.gh.url, from: 'GitHub' }
     : (e => e && { title: e.title, at: e.at, url: e.url, from: host(e.url || '') })(
         mine.filter(e => e.status === 'observed' && /release|changelog/.test(e.kind)).sort((p, q) => (p.at < q.at ? 1 : -1))[0]);
