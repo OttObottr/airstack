@@ -8,7 +8,7 @@ import { ui } from './recipes.js';
 export const ALL = Object.freeze({ kind: 'all' });
 
 export function mount(host, p, scope = ALL) {
-  host.className = ui.panel;
+  host.classList.add(...ui.panel.split(' ')); /* the host keeps the height it reserved in the page, so nothing moves when its data arrives */
   host.dataset.panel = p.id;
   host.innerHTML = `<header class="${ui.panelHead}"><div class="flex min-w-48 flex-1 flex-col gap-1"><h2 class="${ui.panelTitle}">${esc(p.title)}</h2>${p.note ? `<p class="${ui.panelNote}">${esc(p.note)}</p>` : ''}</div><div class="-my-1 flex max-w-full items-center gap-2 empty:hidden" data-controls></div></header><div data-body></div>`;
   const body = host.querySelector('[data-body]'),
