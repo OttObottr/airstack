@@ -26,6 +26,13 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install --require-hashes -r backend/requirements-dev.txt
-      - run: python -m playwright install --with-deps chromium
+      - name: Install the test browser (retried: the runner's package mirrors fail now and then)
+        timeout-minutes: 12
+        run: |
+          for i in 1 2 3; do
+            timeout 240 python -m playwright install --with-deps chromium && exit 0
+            echo "attempt $i failed; retrying"; sleep 20
+          done
+          exit 1
       - run: ruff check backend tools
       - run: pytest -q
