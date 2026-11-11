@@ -5,7 +5,9 @@ import { chainData, chainNow, checks } from './chain.js';
 const srcs = c => {
   const x = c.sources[0],
     more = c.sources.length - 1;
-  return `<a class="src" href="${url(x.url)}" target="_blank" rel="noopener noreferrer" aria-label="Source: ${esc(x.host)}, checked ${fd(x.checked)}">${ic('out')}</a>${
+  /* text from Wikipedia is CC BY-SA: its licence sits beside the article link */
+  const wiki = /(^|\.)wikipedia\.org$/.test(x.host || '') ? `<a class="src" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" aria-label="Text from Wikipedia contributors, CC BY-SA 4.0">CC BY-SA</a>` : '';
+  return `<a class="src" href="${url(x.url)}" target="_blank" rel="noopener noreferrer" aria-label="Source: ${esc(x.host)}, checked ${fd(x.checked)}">${ic('out')}</a>${wiki}${
     more
       ? `<span class="src">${tip(`+${more}`, `also on ${c.sources.slice(1).map(s => s.host).join(', ')}`)}</span>`
       : ''

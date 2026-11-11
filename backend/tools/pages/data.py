@@ -91,7 +91,9 @@ def fact_cell(p, metric, label, claim, most=None):
     Where the value is the quote itself, only the attributed quote is shown."""
     facts = evidence(p["id"], metric, claim)[:most]
     if not facts:
-        return e(value(claim)) + " ".join(f'<br><small><a href="{e(s["url"])}" rel="nofollow noopener">{e(s["host"])}</a></small>' for s in claim.get("sources", [])[:2])
+        return e(value(claim)) + " ".join(f'<br><small><a href="{e(s["url"])}" rel="nofollow noopener">{e(s["host"])}</a>'
+                                          + (' · text <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>' if WIKIMEDIA.search(s["host"]) else "")
+                                          + '</small>' for s in claim.get("sources", [])[:2])
     own = len(facts) == 1 and norm(facts[0]["quote"]) == norm(value(claim))
     return ("" if own else e(value(claim)) + "<br>") + "<br>".join(f'<small>{says(p, f)} says: <q>{e(f["quote"])}</q><br>{checks(p, label, f)}</small>' for f in facts)
 

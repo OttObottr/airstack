@@ -36,3 +36,23 @@ def test_a_file_that_is_not_a_png_stops_the_build(tmp_path):
     (site / "logos.json").write_text(json.dumps({"source": {}, "logos": {"Q1": "logos/0123456789abcdef.png"}, "credits": {}}))
     with pytest.raises(SystemExit):
         ship(site, out)
+
+
+def test_a_logo_granted_by_its_makers_brand_page_ships_with_its_credit_but_never_over_commons(tmp_path):
+    site, out = tmp_path / "site", tmp_path / "out"
+    (site / "logos").mkdir(parents=True)
+    out.mkdir()
+    for name in ("0123456789abcdef", "aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbb"):
+        (site / "logos" / f"{name}.png").write_bytes(PNG + b"x")
+    meta = {"source": {"name": "Wikimedia Commons"}, "logos": {"Q1": "logos/0123456789abcdef.png"}, "credits": {},
+            "granted": {"acme": {"logo": "logos/aaaaaaaaaaaaaaaa.png", "vendor": "Acme Inc.", "url": "https://acme.test/brand", "read": "2026-11-11"},
+                        "Q1": {"logo": "logos/bbbbbbbbbbbbbbbb.png", "vendor": "Q", "url": "https://q.test/brand", "read": "2026-11-11"},
+                        "bad": {"logo": "logos/bbbbbbbbbbbbbbbb.png", "vendor": "Bad", "url": "javascript:alert(1)", "read": "2026-11-11"}}}
+    (site / "logos.json").write_text(json.dumps(meta))
+    kept, credits = ship(site, out)
+    assert kept == {"Q1": "logos/0123456789abcdef.png", "acme": "logos/aaaaaaaaaaaaaaaa.png"}
+    assert credits == {"acme": {"vendor": "Acme Inc.", "url": "https://acme.test/brand"}}
+    assert "granted" not in json.loads((out / "logos.json").read_text())
+    html = page(credits, {"acme": "Acme"})
+    assert 'Logo used under <a href="https://acme.test/brand" rel="noopener">Acme Inc.’s brand guidelines</a>' in html
+    assert "or from its maker’s brand guidelines" in html and "or from its maker" not in page({}, {})
