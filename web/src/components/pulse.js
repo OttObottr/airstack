@@ -236,7 +236,7 @@ const RECENT = 4,
 const ranked = (c, j) =>
   c.e
     .map(([i]) => P.events[i])
-    .filter(e => e.sector === j)
+    .filter(e => j == null || e.sector === j)
     .sort((a, b) => (b.weight || 0) - (a.weight || 0) || !!b.gist - !!a.gist || bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w);
 let picked = null; /* { j: sector, k: week } the reader chose; until then, the loudest sector's latest active week */
 function grid(el) {
@@ -249,9 +249,11 @@ function grid(el) {
     .filter(r => r.sec.id !== 'unplaced' && cols.some(c => c.s[r.j]))
     .sort((a, b) => b.loud - a.loud);
   if (!rows.length) return void (el.innerHTML = `<p class="${ui.panelNote}">No dated activity in the last year.</p>`);
-  const sel = picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
+  /* nothing picked: every sector in the latest week that has activity; a picked square narrows it to one sector and one week */
+  const sel = picked || { j: null, k: cols.findLastIndex(c => c.v) },
     c = cols[sel.k],
-    events = ranked(c, sel.j);
+    events = ranked(c, sel.j),
+    dim = sel.j != null;
   el.innerHTML = `<div class="flex flex-col gap-4"><div class="flex flex-col gap-1 overflow-x-auto">${rows
     .map(
       r => `<div class="grid min-w-[40rem] grid-cols-[minmax(0,13rem)_minmax(0,1fr)_3rem] items-center gap-x-3">
@@ -260,26 +262,30 @@ function grid(el) {
           .map((w, k) => {
             const v = w.s[r.j],
               on = r.j === sel.j && k === sel.k;
-            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? (0.25 + 0.75 * (v / r.peak)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" aria-pressed="${on}"></button>`;
+            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? ((0.25 + 0.75 * (v / r.peak)) * (dim && r.j !== sel.j ? 0.35 : 1)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" aria-pressed="${on}"></button>`;
           })
           .join('')}</span>
         <span class="${ui.num} text-right text-sm text-foreground" title="Share of all activity in the last ${RECENT} weeks">${Math.round(r.loud * 100)}%</span></div>`
     )
     .join('')}</div>
-    <section class="flex flex-col gap-1 border-t border-border pt-3" aria-live="polite"><p class="flex items-center gap-2 ${ui.panelTitle}">${swatch(sel.j)}${esc(P.sectors[sel.j].name)} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>
+    <section class="flex flex-col gap-1 border-t border-border pt-3" aria-live="polite"><div class="flex flex-wrap items-center justify-between gap-2"><p class="flex items-center gap-2 ${ui.panelTitle}">${dim ? swatch(sel.j) : ''}${dim ? esc(P.sectors[sel.j].name) : 'All sectors'} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>${
+      dim ? `<button type="button" class="${ui.chip.base}" data-clear>Show all sectors <span aria-hidden="true">×</span></button>` : `<span class="${ui.panelNote}">Select a square to narrow to one sector and week</span>`
+    }</div>
       <ol class="flex flex-col">${events.slice(0, LISTED).map(row).join('')}</ol>${events.length > LISTED ? `<p class="${ui.panelNote}">and ${n(events.length - LISTED)} more that week.</p>` : ''}</section></div>`;
 }
 export const sectorPanel = {
   id: 'sector-activity',
   title: 'Sector activity',
-  note: `A square per week over the last year; the figure is each sector’s share of all activity in the last ${RECENT} weeks. Select a square to see what happened.`,
+  note: `A square per week over the last year; the figure is each sector’s share of all activity in the last ${RECENT} weeks. Select a square to narrow the list; select it again to show every sector.`,
   render(_, el) {
     if (!el.dataset.wired) {
       el.dataset.wired = '1';
       const at = e => (b => b && !b.disabled && { j: +b.dataset.j, k: +b.dataset.k })(e.target.closest('button[data-k]'));
+      el.addEventListener('keydown', e => e.key === 'Escape' && picked && grid(el, (picked = null)));
       el.addEventListener('click', e => {
         const s = at(e);
-        if (s) grid(el, (picked = s)); /* only a click changes what is shown: the list never moves under the pointer */
+        if (e.target.closest('[data-clear]')) return void grid(el, (picked = null));
+        if (s) grid(el, (picked = picked && picked.j === s.j && picked.k === s.k ? null : s)); /* only a click changes what is shown; the same square again clears it */
       });
       /* pointing at a square floats that week's biggest items beside it; nothing on the page moves */
       const tip = document.createElement('div');
