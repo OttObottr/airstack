@@ -38,6 +38,15 @@ function headline(list) {
   return best ? best[0] : null;
 }
 
+/* what an event is called on screen: a bare "Release" becomes the product and its version tag; any other title leads with its product */
+const bare = e => e.title === 'Release';
+const label = e => (bare(e) && e.name && e.url ? `${e.name} ${decodeURIComponent(e.url.split('/').pop())}` : e.name && !e.title.toLowerCase().includes(e.name.toLowerCase()) ? `${e.name}: ${e.title}` : e.title);
+/* one dated event: what happened (linked to its source), how it is dated and where it was read, and the product it belongs to */
+const row = e => `<li class="grid gap-1 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-4">
+      <span class="flex flex-col gap-1 min-w-0"><span class="text-sm text-foreground">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(label(e))}</a>` : esc(label(e))}</span>
+      <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${stamp(e.read, P.source.built_for)}` : esc(host(e.url || ''))}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
+      ${e.id ? `<span class="flex items-center gap-2"><a class="text-xs text-muted-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name || e.id)}</a>${stackToggle(e.id, e.name)}</span>` : '<span></span>'}</li>`;
+
 function weeksIn(scope) {
   const all = !scope || scope.kind === 'all';
   return P.weeks.slice(-WEEKS).map(o => {
@@ -116,7 +125,10 @@ function tip(st, k) {
   }${top.length ? `<p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">${top.map(([v, j]) => `<span class="inline-flex items-center gap-1.5">${swatch(j)}${esc(P.sectors[j].name)} ${n(Math.round(v * 10) / 10)}</span>`).join('')}</p>` : ''}${c.v > st.geo.max ? `<p class="${ui.panelNote}">Taller than the scale: clipped at its top.</p>` : ''}`;
   t.hidden = false;
   const x = (k + 0.5) * st.geo.colW - st.scroll.scrollLeft;
-  t.style.left = `${Math.max(0, Math.min(st.box.clientWidth - t.offsetWidth, x - t.offsetWidth / 2))}px`;
+  /* beside the hovered week, on whichever side has room: the tip never covers the column it describes */
+  const gap = st.geo.colW / 2 + 8,
+    left = x + gap + t.offsetWidth <= st.box.clientWidth ? x + gap : x - gap - t.offsetWidth;
+  t.style.left = `${Math.max(0, left)}px`;
 }
 
 function detail(st) {
@@ -130,10 +142,6 @@ function detail(st) {
     by.get(e.sector).push(e);
   }
   const yr = (P.years[c.w.slice(0, 4)] || []).map(i => P.events[i]).filter(e => inScope(st.scope, e, P.tree));
-  const row = e => `<li class="grid gap-1 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-4">
-      <span class="flex flex-col gap-1 min-w-0"><span class="text-sm text-foreground">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(e.title)}</a>` : esc(e.title)}</span>
-      <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${stamp(e.read, P.source.built_for)}` : esc(host(e.url || ''))}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
-      ${e.id ? `<span class="flex items-center gap-2"><a class="text-xs text-muted-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name || e.id)}</a>${stackToggle(e.id, e.name)}</span>` : '<span></span>'}</li>`;
   D.innerHTML = `<p class="${ui.panelTitle}">${esc(week(c.w))} · ${n(c.e.length)} event${c.e.length === 1 ? '' : 's'}${st.scope.kind !== 'all' ? ` · ${esc(scopeName(st.scope, P.tree))}` : ''}</p>${
     by.size
       ? [...by]
@@ -221,34 +229,55 @@ export const panel = {
 /* Sector activity: one row per sector, one square per week of the same year. A square's strength is that week against the sector's
    own busiest week, so a quiet sector still shows its rhythm; the figures beside it are its share of everything in the last four
    weeks, and the headline of those weeks. */
-const RECENT = 4;
+const RECENT = 4,
+  LISTED = 8;
+let picked = null; /* { j: sector, k: week } the reader chose; until then, the loudest sector's latest active week */
 function grid(el) {
   const cols = weeksIn(),
     last = cols.slice(-RECENT),
     all = last.reduce((a, c) => a + c.v, 0) || 1;
   const rows = P.sectors
-    .map((sec, j) => {
-      const peak = Math.max(...cols.map(c => c.s[j])) || 1,
-        loud = last.reduce((a, c) => a + c.s[j], 0) / all,
-        h = headline(last.flatMap(c => c.e).filter(([i]) => P.events[i].sector === j)),
-        e = h != null ? P.events[h] : null;
-      return { sec, j, peak, loud, e };
-    })
-    .filter(r => r.sec.id !== 'unplaced' && r.loud + r.peak > 1e-9)
+    .map((sec, j) => ({ sec, j, peak: Math.max(...cols.map(c => c.s[j])) || 1, loud: last.reduce((a, c) => a + c.s[j], 0) / all }))
+    .filter(r => r.sec.id !== 'unplaced' && cols.some(c => c.s[r.j]))
     .sort((a, b) => b.loud - a.loud);
-  el.innerHTML = `<div class="flex flex-col gap-1.5 overflow-x-auto">${rows
+  if (!rows.length) return void (el.innerHTML = `<p class="${ui.panelNote}">No dated activity in the last year.</p>`);
+  const sel = picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
+    c = cols[sel.k],
+    events = c.e
+      .map(([i]) => P.events[i])
+      .filter(e => e.sector === sel.j)
+      .sort((a, b) => bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w); /* what was announced before version bumps */
+  el.innerHTML = `<div class="flex flex-col gap-4"><div class="flex flex-col gap-1 overflow-x-auto">${rows
     .map(
-      r => `<div class="grid min-w-[48rem] grid-cols-[14rem_auto_3rem_minmax(0,1fr)] items-center gap-x-4">
-        <span class="truncate text-sm text-foreground">${esc(r.sec.name)}</span>
-        <span class="flex gap-0.5" role="img" aria-label="${esc(`${r.sec.name}: weekly activity over ${cols.length} weeks`)}">${cols.map(c => `<i class="size-2.5 rounded-[2px] ${c.s[r.j] ? SW[r.j] : 'bg-muted'}" style="opacity:${c.s[r.j] ? (0.25 + 0.75 * (c.s[r.j] / r.peak)).toFixed(2) : 1}" title="${esc(`${week(c.w)}: ${n(Math.round(c.s[r.j] * 10) / 10)}`)}"></i>`).join('')}</span>
-        <span class="${ui.num} text-right text-sm text-foreground">${Math.round(r.loud * 100)}%</span>
-        <span class="truncate text-xs text-muted-foreground">${r.e ? (r.e.url ? `<a class="hover:text-foreground ${LINK}" href="${url(r.e.url)}" target="_blank" rel="noopener noreferrer">${esc(r.e.title)}</a>` : esc(r.e.title)) : ''}</span></div>`
+      r => `<div class="grid min-w-[40rem] grid-cols-[minmax(0,13rem)_minmax(0,1fr)_3rem] items-center gap-x-3">
+        <span class="truncate text-sm ${r.j === sel.j ? 'font-medium text-foreground' : 'text-muted-foreground'}">${esc(r.sec.name)}</span>
+        <span class="grid grid-cols-[repeat(52,minmax(0,1fr))] gap-px">${cols
+          .map((w, k) => {
+            const v = w.s[r.j],
+              on = r.j === sel.j && k === sel.k;
+            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? (0.25 + 0.75 * (v / r.peak)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" aria-pressed="${on}"></button>`;
+          })
+          .join('')}</span>
+        <span class="${ui.num} text-right text-sm text-foreground" title="Share of all activity in the last ${RECENT} weeks">${Math.round(r.loud * 100)}%</span></div>`
     )
-    .join('')}</div>`;
+    .join('')}</div>
+    <section class="flex flex-col gap-1 border-t border-border pt-3" aria-live="polite"><p class="flex items-center gap-2 ${ui.panelTitle}">${swatch(sel.j)}${esc(P.sectors[sel.j].name)} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>
+      <ol class="flex flex-col">${events.slice(0, LISTED).map(row).join('')}</ol>${events.length > LISTED ? `<p class="${ui.panelNote}">and ${n(events.length - LISTED)} more that week.</p>` : ''}</section></div>`;
 }
 export const sectorPanel = {
   id: 'sector-activity',
   title: 'Sector activity',
-  note: `A square per week over the last year. The share is each sector’s part of all activity in the last ${RECENT} weeks, beside its biggest launch.`,
-  render: (_, el) => (P ? grid(el) : load().then(() => grid(el))),
+  note: `A square per week over the last year; the figure is each sector’s share of all activity in the last ${RECENT} weeks. Select a square to see what happened.`,
+  render(_, el) {
+    if (!el.dataset.wired) {
+      el.dataset.wired = '1';
+      el.addEventListener('click', e => {
+        const b = e.target.closest('button[data-k]');
+        if (!b) return;
+        picked = { j: +b.dataset.j, k: +b.dataset.k };
+        grid(el);
+      });
+    }
+    return P ? grid(el) : load().then(() => grid(el));
+  },
 };
