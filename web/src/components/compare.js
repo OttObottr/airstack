@@ -1,12 +1,12 @@
 import { METRIC, STR, chainData, checks, says, showVal } from './chain.js';
 import { kindOf, mono } from './avatar.js';
 import { listed, per } from './prices.js';
-import { loadDir, researchedFacts } from './search/directory.js';
-import { byId, moverRows, rank } from './search/index.js';
+import { SLUGS, addr, loadDir, researchedFacts } from './search/directory.js';
+import { IDX, byId, moverRows, rank } from './search/index.js';
 import { M, json } from '../lib/data.js';
 import { $, copy } from '../lib/dom.js';
 import { cn, esc, fd, host, ic, known, url } from '../lib/format.js';
-import { PRICES, loadPrices } from '../lib/profiles.js';
+import { PRICES, TAX, loadPrices, loadTaxonomy } from '../lib/profiles.js';
 import { send } from '../lib/beacon.js';
 import { show } from '../lib/router.js';
 import { VIEW } from '../lib/view.js';
@@ -22,7 +22,8 @@ let st = { ids: [] },
   blurT,
   keep = ''; /* what to focus again after a redraw */
 const nameOf = (id, D) => (D && D.entities[id] && D.entities[id].name) || (byId(id) || {}).name || id;
-const hash = () => `#compare=${st.ids.join(',')}`;
+const hash = () => `#compare=${st.ids.map(id => addr(byId(id) || { id })).join(',')}`; /* a readable name where it is unique, else the id */
+const idOf = a => SLUGS.get(a) || a;
 const saved = () => {
   try {
     return JSON.parse(localStorage.getItem(KEY));
@@ -113,7 +114,8 @@ async function draw() {
   out.innerHTML = `<div class="skeleton ${st.ids.length ? 'skeleton-table' : 'skeleton-pills'}" role="status" aria-label="Loading comparison evidence"></div>`;
   let D;
   try {
-    [D, SUG] = await Promise.all([chainData(), json('suggestions.json').catch(() => null), loadPrices()]);
+    [D, SUG] = await Promise.all([chainData(), json('suggestions.json').catch(() => null), loadPrices(), loadDir().catch(() => null), loadTaxonomy().catch(() => null)]);
+    st.ids = st.ids.map(idOf); /* a slug in the address becomes its product once the directory is here */
   } catch {
     sub.textContent = 'The comparison needs a connection: the evidence is loaded on demand.';
     out.setAttribute('aria-busy', 'false');
@@ -150,7 +152,14 @@ async function draw() {
           .sort((a, b) => used(b[0]) - used(a[0]) || read(b[0]) - read(a[0])) /* the most downloaded first, then the most read */
           .map(r => ({ id: r[0], label: 'lane', why: `Also in ${mate.laneName}${used(r[0]) ? ` · ${cn(used(r[0]))} downloads a week` : read(r[0]) ? ` · ${read(r[0])} facts read` : ''}` }))
       : [],
-    sug = full || !last ? [] : [...((SUG && SUG[last]) || []), ...lane].filter((s, i, a) => !ids.includes(s.id) && LABEL[s.label] && a.findIndex(y => y.id === s.id) === i).slice(0, 3);
+    node = !lane.length && TAX && TAX.products[last] && TAX.products[last][0][0],
+    peers = node
+      ? IDX.filter(x => x.dir && x.id !== last && (TAX.products[x.id] || []).some(r => r[0] === node))
+          .sort((a, b) => (b.links || 0) - (a.links || 0))
+          .slice(0, 6)
+          .map(x => ({ id: x.id, label: 'lane', why: `Also in ${(TAX.nodes[node] || {}).name || 'its category'}` }))
+      : [],
+    sug = full || !last ? [] : [...((SUG && SUG[last]) || []), ...lane, ...peers].filter((s, i, a) => !ids.includes(s.id) && LABEL[s.label] && a.findIndex(y => y.id === s.id) === i).slice(0, 3);
   $('#cmpSug').innerHTML = sug.length
     ? `<p class="eyebrow">Others to compare with ${esc(nameOf(last, D))}</p><ul class="cmp-sug">${sug
         .map(s => {
