@@ -240,6 +240,7 @@ const ranked = (c, j) =>
     .sort((a, b) => (b.weight || 0) - (a.weight || 0) || !!b.gist - !!a.gist || bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w);
 let picked = null; /* { j: sector, k: week } the reader chose; until then, the loudest sector's latest active week */
 function grid(el) {
+  el.closest('#sectorsHome')?.classList.remove('min-h-[1481px]', 'md:min-h-[985px]'); /* the height held for loading gives way to the real one */
   const cols = weeksIn(),
     last = cols.slice(-RECENT),
     all = last.reduce((a, c) => a + c.v, 0) || 1;

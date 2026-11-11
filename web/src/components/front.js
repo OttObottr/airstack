@@ -35,13 +35,15 @@ const PANELS = [
     title: 'Announcements',
     note: 'What vendors shipped or announced this week, most important first.',
     ranges: [7],
-    rows: fromNews(['blog', 'changelog', 'release'], i => (announced(i) ? lead(i) : -1), i => ({ text: says(i), value: Badge(i.signal) })),
+    rows: fromNews(['blog', 'changelog', 'release'], i => (announced(i) ? lead(i) : -1), i => ({ text: says(i), value: Badge(i.signal), signal: i.signal })),
   },
 ];
+const KINDS = ['launch', 'security', 'incident', 'pricing', 'feature', 'release', 'company'];
 const LABEL = { 1: 'Today', 7: 'This week', 30: 'This month' };
 
 function open(host, P) {
-  let days = null;
+  let days = null,
+    kind = null;
   const m = mountPanel(host, {
     id: P.id,
     title: P.title,
@@ -56,10 +58,22 @@ function open(host, P) {
         days = P.ranges[Math.max(0, all.findIndex(r => r.length >= FULL))];
         host.querySelectorAll('[data-days]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.days === days));
       }
-      el.innerHTML = String(Lines({ rows: all[P.ranges.indexOf(days)].slice(0, SHOWN), empty: `Nothing ${days === 1 ? 'yet today' : LABEL[days].toLowerCase()}.` }));
+      const rows = all[P.ranges.indexOf(days)],
+        kinds = KINDS.filter(k => rows.some(r => r.signal === k));
+      if (!kinds.includes(kind)) kind = null;
+      /* one tap narrows the list to a kind of news; the same tap again shows everything */
+      el.innerHTML =
+        (kinds.length > 1
+          ? `<div class="mb-3 flex flex-wrap gap-1.5" role="group" aria-label="${esc(P.title)}: kind">${[null, ...kinds].map(k => `<button class="${ui.chip.base} capitalize" type="button" data-kind="${k || ''}" aria-pressed="${k === kind}">${k || 'All'}</button>`).join('')}</div>`
+          : '') + String(Lines({ rows: rows.filter(r => !kind || r.signal === kind).slice(0, SHOWN), empty: `Nothing ${days === 1 ? 'yet today' : LABEL[days].toLowerCase()}.` }));
     },
   });
   host.addEventListener('click', e => {
+    const f = e.target.closest('[data-kind]');
+    if (f) {
+      kind = f.dataset.kind || null;
+      return void m.update();
+    }
     const b = e.target.closest('[data-days]');
     if (!b) return;
     days = +b.dataset.days;
