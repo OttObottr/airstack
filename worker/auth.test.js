@@ -210,3 +210,20 @@ test('Google never takes over an account by matching its email; linking needs th
   assert.match(cb2.headers.get('location'), /settings=linked/);
   assert.deepEqual((await (await go('/api/me')).json()).methods, ['email', 'google']);
 });
+
+test('a burst the edge rate limiter refuses never reaches the database', async () => {
+  const seen = new Map();
+  const { call, env } = setup();
+  env.NETWORK_BURST = { limit: async ({ key }) => ({ success: (seen.set(key, (seen.get(key) || 0) + 1), seen.get(key)) <= 2 }) };
+  const codes = [];
+  for (let i = 0; i < 5; i++) codes.push((await call('/api/stack', { op: 'add', id: 'x' }, { ip: '198.51.100.9' })).status);
+  assert.deepEqual(codes, [401, 401, 429, 429, 429]);
+  assert.deepEqual(env.USERS.sql.prepare("SELECT n FROM quota WHERE name = 'writes'").all().map(r => r.n), [2]); /* only the two let through */
+  assert.equal((await call('/api/stack', { op: 'add', id: 'x' }, { ip: '198.51.100.10' })).status, 401); /* another network is unaffected */
+});
+
+test('the deployed configuration declares the edge rate limiter the code reads', () => {
+  const cfg = JSON.parse(readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
+  const rl = (cfg.ratelimits || []).find(r => r.name === 'NETWORK_BURST');
+  assert.ok(rl && /^[1-9]\d*$/.test(rl.namespace_id) && [10, 60].includes(rl.simple.period) && rl.simple.limit > 0);
+});

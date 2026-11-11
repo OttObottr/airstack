@@ -1,8 +1,8 @@
 /* Accounts: sign in with Google, GitHub or a code sent by email; one person, any number of linked ways in; a saved stack.
-   Nothing a stranger sends can cost money past a cap: a signed-out page load reads nothing, every other request is counted
-   against its network's daily limit and then the daily ceiling, and sign-in emails stop at a monthly cap. Signing out and
-   deleting an account are never refused by the ceiling. Pending codes and counters hold a keyed hash of an address, never
-   the address. */
+   Nothing a stranger sends can cost money past a cap. A signed-out page load reads nothing; a burst from one network is
+   refused by Cloudflare's rate limiter before the database; every other request counts against its network's daily limit,
+   then the daily ceiling; sign-in emails stop at a monthly cap. Signing out and deleting an account are never refused by
+   the ceiling. Pending codes and counters hold a keyed hash of an address, never the address. */
 
 const DAY = 864e5;
 const enc = new TextEncoder();
@@ -134,6 +134,8 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
     const ways = { email: !!env.EMAIL, google: !!env.GOOGLE_CLIENT_ID, github: !!env.GITHUB_CLIENT_ID };
     if (p === '/api/me' && !cookie(req, COOKIE)) return json({ user: null, enabled: true, ways }); /* every signed-out page load: no database */
     const ip = await hmac(env.AUTH_SECRET, `${today}|${network(req.headers.get('cf-connecting-ip') || '')}`);
+    /* a burst from one network is refused at the edge before the database is touched; the daily counts below stay exact */
+    if (env.NETWORK_BURST && !(await env.NETWORK_BURST.limit({ key: ip })).success) return busy();
     const leaving = req.method === 'POST' && (p === '/api/auth/signout' || p === '/api/account/delete');
     /* past the ceiling nothing is written: only a signed-in person's sign-out or deletion goes on */
     if ((await db.prepare("SELECT n FROM quota WHERE name = 'writes' AND period = ?").bind(today).first('n')) >= L.dayWrites) {

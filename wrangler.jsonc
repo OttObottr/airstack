@@ -12,6 +12,7 @@
     { "binding": "DB", "database_name": "airstack-o11y", "database_id": "737f7b40-b166-46c2-848f-8328a2898336" },
     { "binding": "USERS", "database_name": "airstack-users", "database_id": "e7a98044-2950-47dd-bf72-4800baf8ed94" }
   ],
+  "ratelimits": [{ "name": "NETWORK_BURST", "namespace_id": "4701", "simple": { "limit": 60, "period": 60 } }],
   "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["signin@airstack.bot"] }],
   "vars": {
     "ACCOUNT_LIMITS": { "dayWrites": 20000, "requestsPerNetworkDay": 1000, "emailsPerMonth": 2800, "codesPer15Min": 3, "codesPerAddressDay": 10, "codesPerNetworkDay": 30, "codeTries": 5, "sessionDays": 30, "stackMax": 100, "from": "AirStack <signin@airstack.bot>" },
