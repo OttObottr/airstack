@@ -73,6 +73,8 @@ def comparison_pair(page):
 
 
 FITS = "document.documentElement.scrollWidth <= document.documentElement.clientWidth"
+# text a broken template leaves on the page: an object, a missing value or a failed number
+BROKEN = r"(document.querySelector('main') || document.body).innerText.match(/\[object Object\]|\bundefined\b|\bNaN\b/)"
 
 
 @pytest.mark.parametrize("width", [1280, 390])
@@ -84,7 +86,11 @@ def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, widt
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
         page.wait_for_function("view => document.body.dataset.view === view", arg=view)
         assert page.evaluate(FITS), view
+        page.wait_for_timeout(300)
+        assert not page.evaluate(BROKEN), (view, page.evaluate(BROKEN))
     wait(page, "document.querySelectorAll('#front [data-body] > *').length > 0")
+    wait(page, "document.querySelectorAll('#newsList li').length > 0")
+    assert not page.evaluate(BROKEN), page.evaluate(BROKEN)
     assert page.locator('#browse header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets"]
     assert not errors
     context.close()

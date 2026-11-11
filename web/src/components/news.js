@@ -48,7 +48,7 @@ function byDay(R) {
     xs.sort((a, b) => day(b.date).localeCompare(day(a.date)) || rank(a, b));
     const d = day(xs[0].date);
     if (!days.has(d)) days.set(d, []);
-    days.get(d).push({ ...xs[0], more: xs.slice(1) });
+    days.get(d).push({ ...xs[0], others: xs.slice(1) });   /* the product's other updates that day; `more` is a release's own change list */
   }
   return [...days].sort((a, b) => b[0].localeCompare(a[0])).map(([d, xs]) => [d, xs.sort(rank)]);
 }
@@ -86,9 +86,9 @@ function render() {
                 who: html`<a data-who class="flex min-h-11 min-w-0 flex-1 items-center gap-2.5" href="#app=${i.id}">${raw(mono({ name: i.name }))}<b class="truncate font-semibold">${i.name}</b></a>`,
                 action: raw(stackToggle(i.id, i.name)),
                 title: link(i),
-                more: i.more.length && {
-                  summary: `and ${i.more.length} more · ${tally(i.more)}`,
-                  items: i.more.map(m => html`<span class="text-xs text-muted-foreground">${raw(stamp(day(m.date), N.source.read))}</span> ${link(m)} <span class="text-xs text-muted-foreground">${KIND(m.kind)}</span>`),
+                more: i.others.length && {
+                  summary: `and ${i.others.length} more · ${tally(i.others)}`,
+                  items: i.others.map(m => html`<span class="text-xs text-muted-foreground">${raw(stamp(day(m.date), N.source.read))}</span> ${link(m)} <span class="text-xs text-muted-foreground">${KIND(m.kind)}</span>`),
                 },
                 kind: KIND(i.kind),
               })
@@ -100,7 +100,7 @@ function render() {
   $('#newsMore').hidden = R.length <= shown;
   $('#newsMore').disabled = false;
   $('#newsSub').innerHTML =
-    `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days.` +
+    `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.others.length, 0))} updates in ${N.source.window_days} days.` +
     Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
 }
 

@@ -39,6 +39,15 @@
     <summary type="text">A GitHub release of Gamma Deploy.</summary>
   </entry>
   <entry>
+    <id>tag:airstack.bot,2026:https://gamma-deploy.example/changelog/preview-comments</id>
+    <title type="text">Preview comments</title>
+    <updated>2026-10-28T08:00:00Z</updated>
+    <link rel="alternate" type="text/html" href="https://gamma-deploy.example/changelog/preview-comments" />
+    <link rel="related" type="text/html" href="https://airstack.bot/p/gamma-deploy/" title="Gamma Deploy on AirStack" />
+    <category term="changelog" />
+    <summary type="text">From Gamma Deploy’s own changelog.</summary>
+  </entry>
+  <entry>
     <id>tag:airstack.bot,2026:https://beta-board.example/blog/plan-a-quarter</id>
     <title type="text">How we plan a quarter on one board</title>
     <updated>2026-10-20T08:00:00Z</updated>

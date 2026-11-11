@@ -1,46 +1,59 @@
 {
- "source": {
-  "read": "2026-11-05",
-  "window_days": 30,
-  "note": "Synthetic updates: changelogs, releases, blog posts and stories linking to each product's own site.",
-  "params": {
-   "per_kind": 3
-  }
- },
- "items": [
-  {
-   "id": "acme-notes",
-   "name": "Acme Notes",
-   "kind": "changelog",
-   "title": "Shared boards for every workspace",
-   "url": "https://acme-notes.example/changelog/shared-boards",
-   "date": "2026-10-30T09:00:00+00:00"
+  "source": {
+    "read": "2026-11-05",
+    "window_days": 30,
+    "note": "Synthetic updates: changelogs, releases, blog posts and stories linking to each product's own site.",
+    "params": {
+      "per_kind": 3
+    }
   },
-  {
-   "id": "gamma-deploy",
-   "name": "Gamma Deploy",
-   "kind": "release",
-   "title": "Gamma Deploy v2.4.0: faster previews",
-   "url": "https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0",
-   "date": "2026-10-28T12:00:00+00:00",
-   "version": "v2.4.0"
-  },
-  {
-   "id": "beta-board",
-   "name": "Beta Board",
-   "kind": "blog",
-   "title": "How we plan a quarter on one board",
-   "url": "https://beta-board.example/blog/plan-a-quarter",
-   "date": "2026-10-20T08:00:00+00:00"
-  },
-  {
-   "id": "delta-vector",
-   "name": "Delta Vector",
-   "kind": "hacker news",
-   "title": "Discussed on Hacker News (42 points)",
-   "url": "https://news.ycombinator.com/item?id=900000001",
-   "date": "2026-11-02T15:30:00+00:00",
-   "points": 42
-  }
- ]
+  "items": [
+    {
+      "id": "acme-notes",
+      "name": "Acme Notes",
+      "kind": "changelog",
+      "title": "Shared boards for every workspace",
+      "url": "https://acme-notes.example/changelog/shared-boards",
+      "date": "2026-10-30T09:00:00+00:00"
+    },
+    {
+      "id": "gamma-deploy",
+      "name": "Gamma Deploy",
+      "kind": "release",
+      "title": "Gamma Deploy v2.4.0: faster previews",
+      "url": "https://github.com/gamma-example/gamma-deploy/releases/tag/v2.4.0",
+      "date": "2026-10-28T12:00:00+00:00",
+      "version": "v2.4.0",
+      "gist": "Previews build twice as fast",
+      "more": [
+        "Preview links expire after 30 days",
+        "Node 18 is no longer supported"
+      ]
+    },
+    {
+      "id": "beta-board",
+      "name": "Beta Board",
+      "kind": "blog",
+      "title": "How we plan a quarter on one board",
+      "url": "https://beta-board.example/blog/plan-a-quarter",
+      "date": "2026-10-20T08:00:00+00:00"
+    },
+    {
+      "id": "delta-vector",
+      "name": "Delta Vector",
+      "kind": "hacker news",
+      "title": "Discussed on Hacker News (42 points)",
+      "url": "https://news.ycombinator.com/item?id=900000001",
+      "date": "2026-11-02T15:30:00+00:00",
+      "points": 42
+    },
+    {
+      "id": "gamma-deploy",
+      "name": "Gamma Deploy",
+      "kind": "changelog",
+      "title": "Preview comments",
+      "url": "https://gamma-deploy.example/changelog/preview-comments",
+      "date": "2026-10-28T08:00:00+00:00"
+    }
+  ]
 }
