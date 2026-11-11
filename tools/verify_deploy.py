@@ -12,7 +12,7 @@ import urllib.request
 from airstack import paths
 
 ROOT = paths.ROOT
-FILES = ("index.html", "insights/index.html", "calendar/index.html", "method/index.html", "sw.js", "manifest.webmanifest", "robots.txt", "llms.txt",
+FILES = ("index.html", "insights/index.html", "method/index.html", "sw.js", "manifest.webmanifest", "robots.txt", "llms.txt",
          *paths.config("published-files")["files"])
 
 
