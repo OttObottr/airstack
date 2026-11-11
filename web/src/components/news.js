@@ -17,7 +17,7 @@ const KINDS = [
   ['hacker news', 'Hacker News'],
   ['blog', 'Blogs'],
 ];
-const on = new Set(['changelog', 'release', 'hacker news']);
+const on = new Set(['changelog', 'hacker news']); /* a bare version number says nothing: releases are one tap away, not the default */
 let scope = ALL; /* all products, or your stack */
 const HN_MIN = 5; /* a story with fewer points is noise, not news */
 const day = iso => iso.slice(0, 10);
