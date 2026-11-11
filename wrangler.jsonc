@@ -15,6 +15,7 @@
     "LIMITS": {
       "keyHex": 16,
       "perDay": 600,
+      "dayCap": 50000,
       "perMinute": 60,
       "rejectFlush": 50,
       "idsTtl": 3600,

@@ -120,6 +120,9 @@ export function make(L) {
       if (burst.size > 10000) burst.clear();
       burst.set(k, { m: minute, c: 1 });
     }
+    /* the whole site's ceiling for the day, read before anything is written: past it every event is refused, so no flood can grow the bill */
+    const today = await db.prepare("SELECT n FROM agg WHERE day = ? AND dim = 'events' AND key = 'all'").bind(d).first('n');
+    if (today >= L.dayCap) return refuse('ceiling');
     const n = await db
       .prepare('INSERT INTO uniq(day, k, n) VALUES (?, ?, 1) ON CONFLICT(day, k) DO UPDATE SET n = n + 1 RETURNING n')
       .bind(d, k)
@@ -128,7 +131,7 @@ export function make(L) {
 
     const map = e.t === 'product' || e.t === 'stack' ? await ids(env, url, now) : null,
       id = map && (map.has(e.id) ? e.id : '(other)'),
-      w = [];
+      w = [up(db, d, 'events', 'all')];
     if (n === 1) {
       const cc = (request.cf && request.cf.country) || '';
       w.push(up(db, d, 'visitors', 'all'), up(db, d, 'country', /^[A-Z][A-Z0-9]$/.test(cc) ? cc : 'XX'));

@@ -7,7 +7,7 @@ const DDL = `CREATE TABLE salt(day TEXT PRIMARY KEY, v TEXT NOT NULL);
 CREATE TABLE uniq(day TEXT, k TEXT, n INTEGER, PRIMARY KEY(day, k)) WITHOUT ROWID;
 CREATE TABLE agg(day TEXT, dim TEXT, key TEXT, n INTEGER, PRIMARY KEY(day, dim, key)) WITHOUT ROWID;
 CREATE TABLE search(day TEXT, q TEXT, found INTEGER, k TEXT, PRIMARY KEY(day, q, k)) WITHOUT ROWID;`;
-const LIMITS = { keyHex: 16, perDay: 5, perMinute: 3, rejectFlush: 1000, idsTtl: 60, sizes: [1, 2, 3, 5, 10, 20], steps: { lcp: 100, inp: 10, cls: 10 }, caps: { lcp: 10000, inp: 2000, cls: 1000 } };
+const LIMITS = { keyHex: 16, dayCap: 1e9, perDay: 5, perMinute: 3, rejectFlush: 1000, idsTtl: 60, sizes: [1, 2, 3, 5, 10, 20], steps: { lcp: 100, inp: 10, cls: 10 }, caps: { lcp: 10000, inp: 2000, cls: 1000 } };
 const CHROME = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 const SITE = 'window.AIRSTACK_DATA={"index":[["tool-a","Tool A","lane-x",[]],["tool-b","Tool B","lane-y",[]]]};';
 
@@ -146,4 +146,13 @@ test('only /e reaches the counting code; anything else is the static site', asyn
   const r = await make(LIMITS).fetch(new Request('https://airstack.bot/missing.json'), e, ctx);
   assert.equal(await r.text(), 'asset');
   assert.equal(e.DB.sql.prepare('SELECT COUNT(*) AS n FROM agg').get().n, 0);
+});
+
+test('past the whole site’s ceiling for the day, a flood from fresh addresses writes nothing more', async t => {
+  const e = env(),
+    w = make({ ...LIMITS, dayCap: 3, perMinute: 50, perDay: 50 });
+  t.mock.timers.enable({ apis: ['Date'], now: Date.parse('2026-11-08T10:00:00Z') });
+  for (let i = 0; i < 10; i++) await w.fetch(post({ t: 'view', route: 'compare' }, { ip: `198.51.100.${i}` }), e, ctx);
+  assert.deepEqual(rows(e.DB, 'events'), { all: 3 });
+  assert.equal(e.DB.sql.prepare('SELECT COUNT(*) AS c FROM uniq').get().c, 3); /* no write for a refused visitor */
 });
