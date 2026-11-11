@@ -80,7 +80,9 @@ export const loadDir = () =>
       DIRP = null;
       throw e;
     }));
-export const wdLink = id =>
-  `<a class="ext" href="https://www.wikidata.org/wiki/${esc(id)}" target="_blank" rel="noopener noreferrer">Wikidata ${esc(id)}${ic('out')}</a> <span class="meta">read ${fd(DIR.source.fetched_at)} · CC0</span>`;
+export const wdLink = (id, read = DIR.source.fetched_at) =>
+  `<a class="ext" href="https://www.wikidata.org/wiki/${esc(id)}" target="_blank" rel="noopener noreferrer">Wikidata ${esc(id)}${ic('out')}</a> <span class="meta">read ${fd(read)} · CC0</span>`;
+/* what Wikidata records a listed product runs on, or is licensed under: its labels, or none */
+export const basics = (id, k) => (DIR && DIR.basics && DIR.basics[k][id] ? DIR.basics[k][id].map(i => DIR.basics.labels[i]) : []);
 export const orgName = d => (DIR && DIR.orgs[d] ? DIR.orgs[d][0] : '');
 export const researchedFacts = x => (MK && MK.profiles && MK.profiles[x.id] ? MK.profiles[x.id].facts : 0);

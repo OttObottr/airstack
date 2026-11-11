@@ -1,7 +1,7 @@
 import { METRIC, STR, chainData, checks, says, showVal } from './chain.js';
 import { kindOf, mono } from './avatar.js';
 import { listed, per } from './prices.js';
-import { SLUGS, addr, loadDir, researchedFacts } from './search/directory.js';
+import { DIR, SLUGS, addr, basics, loadDir, researchedFacts, wdLink } from './search/directory.js';
 import { IDX, byId, moverRows, rank } from './search/index.js';
 import { M, json } from '../lib/data.js';
 import { $, copy } from '../lib/dom.js';
@@ -105,6 +105,12 @@ function priceOf(id) {
   };
 }
 
+/* a record from Wikidata, shown as recorded and linked to its item */
+function recordOf(id, k) {
+  const v = basics(id, k);
+  return v.length ? { key: norm(v), wd: true, html: `<div class="cv"><b>${esc(v.join(', '))}</b></div><div class="cs">${wdLink(id, DIR.basics.read)}</div>` } : { html: nobs };
+}
+
 async function draw() {
   const sub = $('#cmpSub'),
     out = $('#cmpOut');
@@ -175,7 +181,9 @@ async function draw() {
       one: STR.has(m),
       cells: ids.map(id => (D.entities[id] ? cellOf(facts(id, m), nameOf(id, D), METRIC[m]) : { html: '<span class="nobs">—</span>' })),
     })),
-  ].filter(r => r.cells.some(c => c.date));
+    { l: 'Runs on', cells: ids.map(id => recordOf(id, 'os')) },
+    { l: 'Licence', cells: ids.map(id => recordOf(id, 'licence')) },
+  ].filter(r => r.cells.some(c => c.date || c.wd));
   for (const r of rows) {
     const seen = new Set(r.cells.filter(c => c.key != null).map(c => c.key));
     r.diff =
@@ -191,7 +199,7 @@ async function draw() {
     same = mine && mine.ids.join() === ids.join(),
     ready = ids.length >= 2,
     nd = rows.filter(r => r.diff).length,
-    observed = rows.reduce((sum, r) => sum + r.cells.filter(c => c.date).length, 0),
+    observed = rows.reduce((sum, r) => sum + r.cells.filter(c => c.date || c.wd).length, 0),
     possible = rows.length * ids.length;
   sub.textContent = ready
     ? `Scope: ${ids.length} products × ${rows.length} fields · Coverage: ${observed} of ${possible} cells sourced${nd ? ` · ${nd} fields differ` : ''}${oldest ? ` · Oldest source check ${fd(oldest)}` : ''}. Open a cell for the vendor’s exact words.`
