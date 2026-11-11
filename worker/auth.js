@@ -13,6 +13,14 @@ const hmac = async (key, s) => {
   return hex(await crypto.subtle.sign('HMAC', k, enc.encode(s)));
 };
 const rand = n => hex(crypto.getRandomValues(new Uint8Array(n)));
+/* the network a limit counts: an IPv4 address, or an IPv6 address's /64 (one host can hold a whole /64) */
+export const network = ip => {
+  if (!ip.includes(':')) return ip;
+  const [a, b] = ip.toLowerCase().split('::'),
+    head = a ? a.split(':') : [],
+    tail = b ? b.split(':') : [];
+  return [...head, ...Array(Math.max(0, 8 - head.length - tail.length)).fill('0'), ...tail].slice(0, 4).map(x => parseInt(x || '0', 16).toString(16)).join(':') + '::/64';
+};
 const iso = t => new Date(t).toISOString();
 const json = (body, status = 200, headers = {}) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store', ...headers } });
@@ -56,15 +64,18 @@ export const PROVIDERS = {
   },
 };
 
-export function make(L, fetcher = (...a) => fetch(...a)) {
-  /* count one unit of `name` in this period; false once the cap is reached (the count is read and written in one statement) */
-  async function spend(db, name, period, cap) {
-    const n = await db
-      .prepare('INSERT INTO quota(name, period, n) VALUES (?, ?, 1) ON CONFLICT(name, period) DO UPDATE SET n = n + 1 WHERE n < ? RETURNING n')
-      .bind(name, period, cap)
-      .first('n');
-    return n != null;
-  }
+export function make(limits, fetcher = (...a) => fetch(...a)) {
+  const L = { requestsPerNetworkDay: 1000, ...limits };
+  /* count one unit of `name` in this period: the new count, or null once the cap is reached (read and written in one statement) */
+  const spend = (db, name, period, cap) =>
+    db.prepare('INSERT INTO quota(name, period, n) VALUES (?, ?, 1) ON CONFLICT(name, period) DO UPDATE SET n = n + 1 WHERE n < ? RETURNING n').bind(name, period, cap).first('n');
+  /* codes older than 15 minutes and counters from past days (or months) go */
+  const sweep = (db, now, today) =>
+    db.batch([
+      db.prepare('DELETE FROM verification WHERE createdAt < ?').bind(iso(now - 15 * 60e3)),
+      db.prepare('DELETE FROM quota WHERE length(period) = 10 AND period < ?').bind(today),
+      db.prepare('DELETE FROM quota WHERE length(period) = 7 AND period < ?').bind(today.slice(0, 7)),
+    ]);
   const busy = () => json({ error: 'busy', message: 'Sign-in is busy right now. Please try again later.' }, 429);
 
   async function session(req, db, now) {
@@ -122,10 +133,17 @@ export function make(L, fetcher = (...a) => fetch(...a)) {
     if (req.method === 'POST' && req.headers.get('origin') !== url.origin) return json({ error: 'origin' }, 403);
     const ways = { email: !!env.EMAIL, google: !!env.GOOGLE_CLIENT_ID, github: !!env.GITHUB_CLIENT_ID };
     if (p === '/api/me' && !cookie(req, COOKIE)) return json({ user: null, enabled: true, ways }); /* every signed-out page load: no database */
-    const ip = await hmac(env.AUTH_SECRET, `${today}|${req.headers.get('cf-connecting-ip') || ''}`);
+    const ip = await hmac(env.AUTH_SECRET, `${today}|${network(req.headers.get('cf-connecting-ip') || '')}`);
     const leaving = req.method === 'POST' && (p === '/api/auth/signout' || p === '/api/account/delete');
-    if (!(await spend(db, `net:${ip}`, today, L.requestsPerNetworkDay))) return busy();
-    if (!leaving && !(await spend(db, 'writes', today, L.dayWrites))) return busy();
+    /* past the ceiling nothing is written: only a signed-in person's sign-out or deletion goes on */
+    if ((await db.prepare("SELECT n FROM quota WHERE name = 'writes' AND period = ?").bind(today).first('n')) >= L.dayWrites) {
+      if (!leaving || !(await session(req, db, now))) return busy();
+    } else {
+      if (!(await spend(db, `net:${ip}`, today, L.requestsPerNetworkDay))) return busy();
+      const n = leaving ? 0 : await spend(db, 'writes', today, L.dayWrites);
+      if (n == null) return busy();
+      if (n === 1) await sweep(db, now, today); /* the day's first counted request clears what the past days left */
+    }
     const body = req.method === 'POST' ? await req.json().catch(() => ({})) : {};
     const ident = async email => `email:${await hmac(env.AUTH_SECRET, `address|${email}`)}`;
 
@@ -143,11 +161,7 @@ export function make(L, fetcher = (...a) => fetch(...a)) {
       const email = String(body.email || '').trim().toLowerCase();
       if (!EMAIL.test(email) || email.length > 254) return json({ error: 'email' }, 400);
       const id = await ident(email);
-      await db.batch([ /* past codes and past days' counters go; nothing older than 15 minutes or than this day (or month) stays */
-        db.prepare('DELETE FROM verification WHERE createdAt < ?').bind(iso(now - 15 * 60e3)),
-        db.prepare('DELETE FROM quota WHERE length(period) = 10 AND period < ?').bind(today),
-        db.prepare('DELETE FROM quota WHERE length(period) = 7 AND period < ?').bind(today.slice(0, 7)),
-      ]);
+      await sweep(db, now, today);
       const recent = await db.prepare('SELECT COUNT(*) AS n FROM verification WHERE identifier = ? AND createdAt > ?').bind(id, iso(now - 15 * 60e3)).first('n');
       if (recent >= L.codesPer15Min) return busy();
       if (!(await spend(db, `ip:${ip}`, today, L.codesPerNetworkDay)) || !(await spend(db, `code:${id}`, today, L.codesPerAddressDay))) return busy();

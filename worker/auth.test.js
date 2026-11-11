@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { make } from './auth.js';
+import { make, network } from './auth.js';
 import { d1 } from './index.test.js';
 
 const SQL = readFileSync(new URL('./users.sql', import.meta.url), 'utf8');
@@ -80,11 +80,34 @@ test('the last way in cannot be removed, and deleting the account removes everyt
 });
 
 test('past the daily write ceiling every request is refused before it writes', async () => {
-  const { call, sent } = setup({ dayWrites: 2 });
+  const { call, sent, env } = setup({ dayWrites: 2 });
   await call('/api/auth/email/start', { email: 'a@x.com' }, { ip: '192.0.2.1' });
   await call('/api/auth/email/start', { email: 'b@x.com' }, { ip: '192.0.2.2' });
-  assert.equal((await call('/api/auth/email/start', { email: 'c@x.com' }, { ip: '192.0.2.3' })).status, 429);
+  const before = env.USERS.sql.prepare('SELECT COUNT(*) AS c, SUM(n) AS s FROM quota').get();
+  for (const ip of ['192.0.2.3', '192.0.2.4', '2001:db8:9::1']) {
+    assert.equal((await call('/api/auth/email/start', { email: 'c@x.com' }, { ip })).status, 429);
+    assert.equal((await call('/api/stack', { op: 'add', id: 'x' }, { ip })).status, 429);
+    assert.equal((await call('/api/auth/signout', {}, { ip })).status, 429); /* signed out: refused too */
+  }
+  assert.deepEqual(env.USERS.sql.prepare('SELECT COUNT(*) AS c, SUM(n) AS s FROM quota').get(), before); /* nothing more written */
   assert.equal(sent.length, 2);
+});
+
+test('one IPv6 host cannot multiply its limit by rotating through its /64', async () => {
+  assert.equal(network('2001:db8:1:2:aaaa::1'), network('2001:DB8:1:2:ffff:1:2:3'));
+  assert.notEqual(network('2001:db8:1:2::1'), network('2001:db8:1:3::1'));
+  assert.equal(network('192.0.2.1'), '192.0.2.1');
+  const { call } = setup({ requestsPerNetworkDay: 3 });
+  const codes = [];
+  for (let i = 1; i <= 6; i++) codes.push((await call('/api/stack', { op: 'add', id: 'x' }, { ip: `2001:db8:1:2::${i}` })).status);
+  assert.deepEqual(codes, [401, 401, 401, 429, 429, 429]);
+});
+
+test('without the per-network setting the limit falls back to a default instead of failing', async () => {
+  const { requestsPerNetworkDay, ...rest } = L;
+  const env = { USERS: d1(SQL), AUTH_SECRET: 's', EMAIL: { send: async () => ({}) } };
+  const r = await make(rest).handle(new Request(ORIGIN + '/api/auth/email/start', { method: 'POST', body: '{"email":"a@x.com"}', headers: { origin: ORIGIN } }), env, Date.parse('2026-11-11T12:00:00Z'));
+  assert.equal(r.status, 200);
 });
 
 test('a signed-out page load touches no database and spends nothing', async () => {
@@ -136,6 +159,14 @@ test('email addresses are not stored in pending codes or counters, and old ones 
   assert.equal((await call('/api/account/delete', {})).status, 200);
   assert.equal(db.prepare('SELECT COUNT(*) AS c FROM verification').get().c, 0);
   assert.ok(!/code:/.test(stored()), stored());
+});
+
+test("the day's first request clears past days' counters even when nobody asks for a code", async () => {
+  const { call, env } = setup();
+  const db = env.USERS.sql;
+  db.prepare("INSERT INTO quota(name, period, n) VALUES ('net:aa', '2026-11-10', 9), ('ip:bb', '2026-11-09', 2), ('emails', '2026-10', 5), ('emails', '2026-11', 1)").run();
+  await call('/api/stack', { op: 'add', id: 'x' }); /* signed out: refused, but counted */
+  assert.deepEqual(db.prepare('SELECT period FROM quota ORDER BY period').all().map(r => r.period), ['2026-11', '2026-11-11', '2026-11-11']);
 });
 
 test('a failed GitHub or Google profile answer never signs anyone in', async () => {

@@ -12,7 +12,7 @@ import { $ } from '../../lib/dom.js';
 import { cn, esc, fd, host, ic, nobs, url } from '../../lib/format.js';
 import { MK, MKERR } from '../../lib/market.js';
 import { loadScale, rankOf, reach, reachCredit, since } from '../../lib/reach.js';
-import { COMMUNITY, NEWS, OSS, PROF, TAX, pview } from '../../lib/profiles.js';
+import { COMMUNITY, OSS, PROF, TAX, pview } from '../../lib/profiles.js';
 
 const CHANNELS = {
   subreddit: ['Reddit', v => `https://www.reddit.com/${v}/`],
