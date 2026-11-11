@@ -1,5 +1,5 @@
 import { M } from '../lib/data.js';
-import { esc, fd, ic, url } from '../lib/format.js';
+import { esc, fd, ic, tip, url } from '../lib/format.js';
 import { chainData, chainNow, checks } from './chain.js';
 
 const srcs = c => {
@@ -7,12 +7,7 @@ const srcs = c => {
     more = c.sources.length - 1;
   return `<a class="src" href="${url(x.url)}" target="_blank" rel="noopener noreferrer" aria-label="Source: ${esc(x.host)}, checked ${fd(x.checked)}">${ic('out')}</a>${
     more
-      ? `<span class="src" title="${esc(
-          c.sources
-            .slice(1)
-            .map(s => s.host)
-            .join(', ')
-        )}">+${more}</span>`
+      ? `<span class="src">${tip(`+${more}`, `also on ${c.sources.slice(1).map(s => s.host).join(', ')}`)}</span>`
       : ''
   }`;
 };

@@ -15,7 +15,7 @@
   --color-muted-foreground: #F4F6F8B3;
   --color-subtle-foreground: #F4F6F882;
   --color-border: #FFFFFF1C;
-  --color-input: #FFFFFF26;
+  --color-input: #FFFFFF5C;  /* 3.3:1 on the page: form edges meet WCAG 1.4.11 */
   --color-ring: #8DBBFF;
   --color-primary: #FF5A1F;
   --color-primary-foreground: #07090B;

@@ -92,7 +92,7 @@ function cellOf(F, name, label) {
     date: f.verified,
     html: `<div class="cv">${own ? says(name, f) : `<b>${lists ? items(value) : esc(showVal(value))}</b>`}</div>
       ${own ? `<div class="mt-1">${checks(name, label, f)}</div>` : ''}
-      ${own ? '' : `<details class="qt"><summary title="${esc(f.quote)}">${F.length > 1 ? 'What the pages say' : 'What the page says'}</summary><ul>${quotes}</ul>${F.length > 4 ? `<p class="meta">and ${F.length - 4} more on the evidence chain</p>` : ''}</details>`}`,
+      ${own ? '' : `<details class="qt"><summary>${F.length > 1 ? 'What the pages say' : 'What the page says'}</summary><ul>${quotes}</ul>${F.length > 4 ? `<p class="meta">and ${F.length - 4} more on the evidence chain</p>` : ''}</details>`}`,
   };
 }
 function priceOf(id) {

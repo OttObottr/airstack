@@ -9,7 +9,11 @@ button{cursor:pointer;text-align:inherit}
 .fail{padding:40px;color:var(--color-accent)}
 .i{width:1em;height:1em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.125em}
 .ext .i{margin-left:4px}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* a note shown on hover and keyboard focus (format.js tip and footnote links); its text is also in the element for screen readers */
+[data-tip]{position:relative}
+[data-tip]:is(:hover,:focus-visible)::after{content:attr(data-tip);position:absolute;left:0;top:100%;z-index:40;width:max-content;max-width:min(320px,80vw);margin-top:6px;padding:6px 8px;border-radius:var(--radius-sm);background:var(--color-ink);color:var(--color-bg);font:400 12px/1.4 var(--font-sans);white-space:normal;text-transform:none;letter-spacing:0;pointer-events:none}
+.tip{cursor:help;text-decoration:underline dotted var(--color-hair);text-underline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .num,td.r,.mono{font-variant-numeric:tabular-nums}   /* numbers and dates only: Inter's tabular set also widens hyphens */
 .kv dt{font:600 var(--text-meta)/1.4 var(--font-mono);letter-spacing:var(--tracking-caps);color:var(--color-ink-2);text-transform:uppercase}
 .ext{display:inline-flex;align-items:center;min-height:44px;max-width:100%;overflow-wrap:anywhere;font-weight:500;text-decoration:underline;text-decoration-color:var(--color-hair);text-underline-offset:4px;transition:opacity .15s}

@@ -56,6 +56,8 @@ export const ago = (iso, now) => {
   if (!(d >= 0)) return fd(iso);
   return d === 0 ? 'today' : d < 14 ? `${d}d ago` : d <= 60 ? `${Math.round(d / 7)}w ago` : `${MON[+iso.slice(5, 7) - 1]} ${iso.slice(0, 4)}`;
 };
+/* a note that shows on hover and on keyboard focus, and that a screen reader reads: `shown` stays visible, `note` is spoken and drawn as the tip */
+export const tip = (shown, note) => `<span class="tip" tabindex="0" data-tip="${esc(note)}">${shown}<span class="sr"> (${esc(note)})</span></span>`;
 export const stamp = (iso, now) => (iso ? `<time datetime="${esc(iso.slice(0, 10))}" title="${fd(iso)}">${ago(iso, now)}</time>` : '');
 /* Links that let a reader check one fact; backend/airstack/evidence.py builds the same ones for the static pages. */
 const term = s => encodeURIComponent(s).replace(/[!'()*-]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
@@ -72,5 +74,5 @@ export const reportUrl = (product, field, u, quote) =>
 /* a change against a baseline: direction as a glyph and a colour, one decimal; under half a point it is flat */
 export const delta = x =>
   x == null
-    ? '<span class="text-subtle-foreground" title="not recorded">–</span>'
+    ? '<span class="text-subtle-foreground"><span aria-hidden="true">–</span><span class="sr">not recorded</span></span>'
     : `<span class="${x > 0.5 ? 'text-up' : x < -0.5 ? 'text-down' : 'text-muted-foreground'}">${x > 0.5 ? '▲ ' : x < -0.5 ? '▼ ' : ''}${Math.abs(x).toFixed(1)}%</span>`;

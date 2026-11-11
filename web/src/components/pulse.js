@@ -265,7 +265,7 @@ function grid(el) {
             return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? ((0.25 + 0.75 * (v / r.peak)) * (dim && r.j !== sel.j ? 0.35 : 1)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" aria-pressed="${on}"></button>`;
           })
           .join('')}</span>
-        <span class="${ui.num} text-right text-sm text-foreground" title="Share of all activity in the last ${RECENT} weeks">${Math.round(r.loud * 100)}%</span></div>`
+        <span class="${ui.num} relative text-right text-sm text-foreground"><span class="sr">Share of all activity in the last ${RECENT} weeks: </span>${Math.round(r.loud * 100)}%</span></div>`
     )
     .join('')}</div>
     <section class="flex flex-col gap-1 border-t border-border pt-3" aria-live="polite"><div class="flex flex-wrap items-center justify-between gap-2"><p class="flex items-center gap-2 ${ui.panelTitle}">${dim ? swatch(sel.j) : ''}${dim ? esc(P.sectors[sel.j].name) : 'All sectors'} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>${
