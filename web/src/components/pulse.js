@@ -262,7 +262,7 @@ function grid(el, peek) {
         <span class="${ui.num} text-right text-sm text-foreground" title="Share of all activity in the last ${RECENT} weeks">${Math.round(r.loud * 100)}%</span></div>`
     )
     .join('')}</div>
-    <section class="flex flex-col gap-1 border-t border-border pt-3" aria-live="polite"><p class="flex items-center gap-2 ${ui.panelTitle}">${swatch(sel.j)}${esc(P.sectors[sel.j].name)} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>
+    <section class="flex h-96 flex-col gap-1 overflow-y-auto border-t border-border pt-3" aria-live="polite"><p class="flex items-center gap-2 ${ui.panelTitle}">${swatch(sel.j)}${esc(P.sectors[sel.j].name)} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>
       <ol class="flex flex-col">${events.slice(0, LISTED).map(row).join('')}</ol>${events.length > LISTED ? `<p class="${ui.panelNote}">and ${n(events.length - LISTED)} more that week.</p>` : ''}</section></div>`;
 }
 export const sectorPanel = {
@@ -278,7 +278,7 @@ export const sectorPanel = {
         const s = at(e);
         if (s) grid(el, (shown = picked = s));
       });
-      /* pointing at a square previews its week below; leaving the grid returns to the pinned one */
+      /* pointing at a square previews its week below, in a box of fixed height so nothing else on the page moves; leaving returns to the pinned one */
       el.addEventListener('pointerover', e => {
         const s = at(e);
         if (s && (!shown || s.j !== shown.j || s.k !== shown.k)) grid(el, (shown = s));
