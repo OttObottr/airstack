@@ -1,3 +1,6 @@
+import { Method } from '../../ui/method.js';
+import { RepoCard } from '../../ui/repo.js';
+import { ui } from '../../ui/recipes.js';
 import { strip } from '../signals.js';
 import { guideView, modelsView } from './guide.js';
 import { renderAll } from '../app.js';
@@ -50,6 +53,7 @@ function communityView(x) {
     ${channels ? `<ul class="community-links mt-4">${channels}</ul>` : ''}</section>`;
 }
 
+const DASH = '<span class="text-subtle-foreground">—</span>';
 function altView(x) {
   if (!PROF || !TAX || !DIR)
     return (
@@ -73,46 +77,47 @@ function altView(x) {
     c && Array.isArray(c.value)
       ? esc(c.value.slice(0, m).join(', ')) +
         (c.value.length > m ? ` <span class="meta">+${c.value.length - m}</span>` : '')
-      : nobs;
-  return `<h3 class="h-section mt-12">${esc(category)} alternatives</h3><p class="meta">Products classified for the same job. Researched rows are what each product’s own pages say; listings remain clearly separate.</p>
-    ${peers.length ? `<div class="scroll mt-4"><table class="t alt"><thead><tr><th scope="col">Product</th><th scope="col">What it says it does</th><th scope="col">Free plan</th><th scope="col">Plans</th><th scope="col">Integrations</th></tr></thead><tbody>
+      : DASH;
+  const TD = `${ui.td} h-auto py-2.5 align-top`;
+  return `<h3 class="h-section mt-12">Also in ${esc(category)}</h3><p class="meta">Products filed in the same category. Each row is what that product’s own pages say.</p>
+    ${peers.length ? `<div class="mt-4 overflow-x-auto"><table class="${ui.table} min-w-[44rem]"><thead><tr><th class="${ui.th}" scope="col">Product</th><th class="${ui.th}" scope="col">What it says it does</th><th class="${ui.th}" scope="col">Free plan</th><th class="${ui.th}" scope="col">Plans</th><th class="${ui.th} text-right" scope="col">Integrations</th></tr></thead><tbody>
     ${peers
       .map(
-        p => `<tr${p.id === x.id ? ' class="cur"' : ''}><td><span class="who">${mono(p, 's20')}<button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button></span></td><td>${v(p, 'what_it_does') ? esc(String(v(p, 'what_it_does').value).slice(0, 90)) : nobs}</td>
-      <td>${v(p, 'free_plan') ? 'Yes' : nobs}</td><td>${list(v(p, 'plan_names'), 3)}</td><td>${v(p, 'integrations') ? `${v(p, 'integrations').value.length} listed` : nobs}</td></tr>`
+        p => `<tr class="hover:bg-muted"><td class="${TD} w-56"><span class="flex items-center gap-2.5">${mono(p, 's20')}<button class="text-left font-medium text-foreground hover:underline underline-offset-4" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button></span></td><td class="${TD} text-muted-foreground">${v(p, 'what_it_does') ? esc(String(v(p, 'what_it_does').value).slice(0, 90)) : DASH}</td>
+      <td class="${TD} w-24">${v(p, 'free_plan') ? 'Yes' : DASH}</td><td class="${TD} w-56">${list(v(p, 'plan_names'), 3)}</td><td class="${TD} w-28 text-right ${ui.num}">${v(p, 'integrations') ? v(p, 'integrations').value.length : DASH}</td></tr>`
       )
       .join('')}</tbody></table></div>` : ''}
-    ${listed.length ? `<p class="eyebrow mt-6">Also mapped to ${esc(category)}</p><ul class="related-list mt-3">${listed.map(p => `<li><button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button><span class="meta">Listed · own-page research pending</span></li>`).join('')}</ul>` : ''}`;
-}
-function repGraph(r, order) {
-  const c = r.scorecard && r.scorecard.checks;
-  if (!c) return '';
-  return `<span class="rep" role="img" aria-label="${esc(order.map((n, i) => `${n}: ${c[i] == null ? 'not applicable' : c[i] + ' of 10'}`).join('; '))}">${c.map((v, i) => `<i class="${v == null ? 'na' : v === 0 ? 'zero' : ''}" style="--v:${v == null ? 0 : v / 10}" title="${esc(order[i])}: ${v == null ? 'not applicable' : v + '/10'}"></i>`).join('')}</span>`;
+    ${listed.length ? `<p class="eyebrow mt-6">Listed, not yet read</p><ul class="mt-3 flex list-none flex-wrap gap-2">${listed.map(p => `<li><button class="chip" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button></li>`).join('')}</ul>` : ''}`;
 }
 function ossView(x) {
   const job = (TAX && TAX.products[x.id] && TAX.products[x.id][0][0]) || x.lane,
     L = OSS && (OSS.categories[job] || OSS.categories[x.lane]);
   if (!L || !L.length) return '';
-  const ck = OSS.source.checks || {},
-    order = ck.order || [];
-  const discussion = r => {
-    const h = r.community && r.community.hacker_news;
-    if (!h || h.status !== 'observed') return '';
-    return `<span class="osd"><b>Discussed on Hacker News</b> · ${h.count} repository-linked ${h.count === 1 ? 'story' : 'stories'} · ${h.items.map(i => `<a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">Hacker News discussion <span class="meta">${i.points} points · ${fd(i.date)}</span>${ic('out')}</a>`).join('')}</span>`;
-  };
-  const lic = r => (r.license && r.license !== 'NOASSERTION' ? esc(r.license) : 'licence not stated');
-  const row =
-    r => `<li${r.vetted ? ' class="vetted"' : ' class="unvetted"'}><a class="ext" href="${url(r.url)}" target="_blank" rel="noopener noreferrer"><b>${esc(r.repo)}</b>${ic('out')}</a>
-      <span class="osm">${r.vetted ? '<span class="pass">Passes the checks</span> · ' : ''}${lic(r)} · pushed ${fd(r.pushed)} · ★ ${cn(r.stars)} · ${r.forks == null ? 'forks not recorded' : `${cn(r.forks)} forks`} · ${r.open_issues_and_pull_requests == null ? 'issues and pull requests not recorded' : `${cn(r.open_issues_and_pull_requests)} open issues and pull requests`} · discussions ${r.discussions_enabled ? 'enabled' : 'not enabled'} <span class="meta">(repository attention and capability, not use)</span></span>
-      <span class="osr">${r.scorecard ? `<a class="ext sc" href="${url(r.scorecard.url)}" target="_blank" rel="noopener noreferrer">Scorecard ${r.scorecard.score.toFixed(1)}/10${ic('out')}</a>${repGraph(r, order)}<span class="meta">${r.scorecard.commit ? `commit ${esc(r.scorecard.commit.slice(0, 7))} · ` : ''}${fd(r.scorecard.date)}</span>` : ''}</span>
-      ${discussion(r)}
-      ${r.flags && r.flags.length ? `<span class="osf">${r.flags.map(f => `<span>⚠ ${esc(f)}</span>`).join('')}</span>` : ''}</li>`;
-  const ok = L.filter(r => !r.gate).slice(0, 8),
+  const month = iso => fd(iso).replace(/^\d+ /, ''),
+    known = f => !/not (checked|scanned)/.test(f); /* an unknown is not a warning: say nothing */
+  const card = r =>
+    RepoCard({
+      name: r.repo,
+      href: url(r.url),
+      stars: cn(r.stars),
+      forks: r.forks == null ? null : cn(r.forks),
+      issues: r.open_issues_and_pull_requests == null ? null : cn(r.open_issues_and_pull_requests),
+      licence: r.license && r.license !== 'NOASSERTION' ? r.license : null,
+      pushed: fd(r.pushed),
+      created: r.created ? month(r.created) : null,
+      score: r.scorecard ? { text: `Scorecard ${r.scorecard.score.toFixed(1)}/10`, href: url(r.scorecard.url) } : null,
+      warn: r.gate || (r.flags || []).find(known) || null,
+    });
+  const ok = L.filter(r => !r.gate)
+      .sort((a, b) => b.stars - a.stars)
+      .slice(0, 9),
     below = L.filter(r => r.gate);
-  const category = (TAX && TAX.nodes[job] && TAX.nodes[job].name) || x.laneName;
-  return `<h3 class="h-section mt-12">Open-source candidates</h3><p class="meta">Found through ${esc(category)} searches on GitHub (read ${fd(OSS.source.fetched_at)}). Projects that pass OpenSSF Scorecard’s automated checks${ck.fetched_at ? ` (read ${fd(ck.fetched_at)})` : ''} come first.</p>
-    <ol class="oss mt-4">${ok.map(row).join('')}</ol>
-    ${below.length ? `<details class="mt-4"><summary class="meta">Not vetted: ${below.length} more, below the bar (${[...new Set(below.map(r => r.gate))].join(', ')})</summary><ol class="oss mt-3">${below.map(r => row(r).replace('<span class="osf">', `<span class="osf"><span>✕ ${esc(r.gate)}</span>`)).join('')}</ol></details>` : ''}`;
+  const category = (TAX && TAX.nodes[job] && TAX.nodes[job].name) || x.laneName,
+    GRID = 'grid list-none grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3';
+  return `<h3 class="h-section mt-12">Open source in ${esc(category)}</h3><p class="meta">Repositories GitHub returns for this category, most starred first.</p>
+    <ol class="${GRID} mt-4">${ok.map(card).join('')}</ol>
+    ${below.length ? `<details class="mt-4"><summary class="meta cursor-pointer">${below.length} more with no licence or no recent push</summary><ol class="${GRID} mt-3">${below.map(card).join('')}</ol></details>` : ''}
+    <div class="mt-3">${Method(`GitHub search API, read ${fd([].concat(OSS.source.fetched_at).pop())}. Scorecard is OpenSSF’s automated security score, shown where a repository has been scanned. Stars, forks and issues measure attention, not use.`)}</div>`;
 }
 const pageOf = x =>
   x.dir
