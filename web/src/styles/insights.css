@@ -22,11 +22,7 @@
 .t.kpi td .d{display:block;white-space:nowrap}
 .t.kpi thead th{white-space:normal;line-height:1.25;vertical-align:bottom}
 
-body[data-view=insights]{background-image:radial-gradient(55% 44% at 82% 8%,color-mix(in oklab,var(--color-info) 8%,transparent),transparent 72%),linear-gradient(rgba(255,255,255,.01) 1px,transparent 1px);background-size:auto,100% 32px}
 #insights{padding-top:40px}
-#insights>.wrap{max-width:1120px;padding:52px clamp(24px,5vw,72px) 72px;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
-#insights>.wrap::before{inset:0 auto 0 -1px;width:1px;height:auto;background:linear-gradient(var(--color-info),transparent 72%)}
-#insights #insT{max-width:12ch;font-size:var(--text-title);line-height:.98;letter-spacing:-.05em}
 #insights #insSub{padding-top:12px;border-top:1px solid var(--color-hair);font-family:var(--font-mono);color:var(--color-ink-3)}
 #insights .ins-chapter{position:relative;margin-top:96px;padding-top:40px}
 #insights .ins-chapter>.lab{position:absolute;right:0;top:12px;color:var(--color-info)}

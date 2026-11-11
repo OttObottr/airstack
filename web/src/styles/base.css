@@ -1,7 +1,7 @@
 @font-face{font-family:"Inter";src:url(/fonts/Inter-latin.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:optional}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--color-bg)}
-body{min-height:100vh;background-color:var(--color-bg);background-image:radial-gradient(70% 45% at 50% -10%,color-mix(in oklab,var(--color-info) 5.5%,transparent),transparent 72%),linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:auto,64px 64px,64px 64px;color:var(--color-ink);font:400 var(--text-body)/1.55 var(--font-sans);letter-spacing:-.006em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{min-height:100vh;background-color:var(--color-bg);color:var(--color-ink);font:400 var(--text-body)/1.55 var(--font-sans);letter-spacing:-.006em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button,input{font:inherit;color:inherit;background:none;border:0}
 button{cursor:pointer;text-align:inherit}

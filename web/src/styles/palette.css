@@ -18,17 +18,13 @@
 .ag::before{content:"";position:absolute;inset:0 0 auto;height:1px;background:none;opacity:.55}
 .ag code{padding:12px 14px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 68%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);line-height:1.6}
 .ag .lab{color:var(--color-info)}
-#agents>.wrap>.lab{margin-bottom:8px;color:var(--color-info)}
 #agents>.wrap>details{padding:10px 14px;border:1px solid var(--color-hair);border-radius:var(--radius-sm);background:color-mix(in oklab,var(--color-bg) 36%,transparent)}
 #agents>.wrap>details summary{color:var(--color-info)}
 #agents>.wrap>details[open] summary{padding-bottom:8px;border-bottom:1px solid var(--color-hair);margin-bottom:8px}
 @media(max-width:699px){.ag.wide{grid-template-columns:1fr}.ag.wide .ghost{justify-self:start}}
 
-body[data-view=agents]{background-image:radial-gradient(48% 38% at 18% 0,color-mix(in oklab,var(--color-agent) 7.5%,transparent),transparent 72%),linear-gradient(color-mix(in oklab,var(--color-agent) 1.6%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in oklab,var(--color-agent) 1.6%,transparent) 1px,transparent 1px);background-size:auto,24px 24px,24px 24px}
 #agents{padding-top:40px}
-#agents>.wrap{padding:40px clamp(20px,4vw,52px) 52px;border-color:color-mix(in oklab,var(--color-agent) 24%,transparent);border-radius:2px;background:linear-gradient(135deg,color-mix(in oklab,var(--color-agent) 4.5%,transparent),color-mix(in oklab,var(--color-bg) 94%,transparent) 28%);box-shadow:0 28px 72px rgba(0,0,0,.34)}
-#agents>.wrap>.lab,#agents>.wrap>details summary,.ag .lab{color:var(--color-agent)}
-#agents>.wrap>.h2{font:650 var(--text-title)/1 var(--font-mono);letter-spacing:-.045em}
+#agents>.wrap>details summary,.ag .lab{color:var(--color-agent)}
 #agents>.wrap>.meta{max-width:70ch}
 #agents .agents{grid-template-columns:repeat(12,minmax(0,1fr));gap:8px}
 #agents .ag{grid-column:span 6;border-radius:2px;border-color:color-mix(in oklab,var(--color-agent) 16%,transparent);background:color-mix(in oklab,var(--color-bg) 74%,transparent);box-shadow:inset 0 1px 0 color-mix(in oklab,var(--color-agent) 6%,transparent)}

@@ -10,7 +10,7 @@ export const ALL = Object.freeze({ kind: 'all' });
 export function mount(host, p, scope = ALL) {
   host.className = ui.panel;
   host.dataset.panel = p.id;
-  host.innerHTML = `<header class="${ui.panelHead}"><div class="flex flex-col gap-1"><h2 class="${ui.panelTitle}">${esc(p.title)}</h2>${p.note ? `<p class="${ui.panelNote}">${esc(p.note)}</p>` : ''}</div><div class="flex items-center gap-2" data-controls></div></header><div data-body></div>`;
+  host.innerHTML = `<header class="${ui.panelHead}"><div class="flex min-w-0 flex-col gap-1"><h2 class="${ui.panelTitle}">${esc(p.title)}</h2>${p.note ? `<p class="${ui.panelNote}">${esc(p.note)}</p>` : ''}</div><div class="-my-1 flex shrink-0 items-center gap-2" data-controls></div></header><div data-body></div>`;
   const body = host.querySelector('[data-body]'),
     controls = host.querySelector('[data-controls]');
   /* a panel whose data cannot be fetched says so instead of leaving its loader running */
