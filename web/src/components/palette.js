@@ -1,6 +1,6 @@
 import { clearTool, selectTool } from './app.js';
 import { drawTape } from './hero.js';
-import { moverRows, q as searchBox, rank } from './search/index.js';
+import { q as searchBox, rank } from './search/index.js';
 import { loadDir } from './search/directory.js';
 import { M } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
@@ -45,11 +45,11 @@ const COMMANDS = [
     name: 'Show only my tracked tools on the tape',
     when: () => !onlyMine,
     run: () => {
-      onlyMine = drawTape(new Set(stack().map(x => x.id)), moverRows());
-      if (!onlyMine) drawTape();
-      $('#sr').textContent = onlyMine
-        ? 'The tape shows your tracked tools.'
-        : 'None of your tracked tools has a download figure yet; the tape is unchanged.';
+      drawTape(new Set(stack().map(x => x.id))).then(ok => {
+        onlyMine = ok;
+        if (!ok) drawTape();
+        $('#sr').textContent = ok ? 'The top line shows your tracked tools.' : 'None of your tracked tools has news this week; the top line is unchanged.';
+      });
     },
   },
   {

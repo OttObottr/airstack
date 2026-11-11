@@ -2,6 +2,7 @@
    A panel with more than one range opens on the shortest that fills it. */
 import { json } from '../lib/data.js';
 import { cn, esc, fd, n, pct, url } from '../lib/format.js';
+import { announced } from '../lib/news.js';
 import { Lines } from '../ui/lines.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { ui } from '../ui/recipes.js';
@@ -28,11 +29,6 @@ const fromNews = (kinds, score, line) => async days => {
     .map(i => ({ ...who(i.id, i.name), href: url(i.url), ...line(i, days) }));
 };
 const when = (i, days) => (days === 1 ? i.date.slice(11, 16) : fd(i.date).replace(/ \d{4}$/, ''));
-
-/* a vendor post that says something shipped, not a guide written for search engines */
-const SHIPS = /\b(introduc|announc|launch|now available|generally available|general availability|beta|preview|releas|rolls? out|rolling out|unveil|now supports?|support for|what'?s new|new in|is here|now in)\w*/i,
-  FILLER = /\b(guide|how to|what is|what are|why |tips|ideas|best |top \d+|\d+ (ways|best|tips|steps)|vs\.?|webinar|podcast|survey|case study|explained|checklist|template)\b|\?$/i;
-const announced = i => i.kind === 'changelog' || (SHIPS.test(i.title) && !FILLER.test(i.title));
 
 const PANELS = [
   {
