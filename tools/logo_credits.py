@@ -53,7 +53,7 @@ def page(credits, names):
     rows = []
     for pid, (title, file_url, who, licence, licence_url) in sorted(credits.items(), key=lambda kv: (names.get(kv[0], kv[0]).lower(), kv[0])):
         rows.append(f'<tr><td>{e(names.get(pid, pid))}</td><td><a href="{e(file_url)}" rel="noopener">{e(title)}</a></td>'
-                    f'<td>{e(author(who))}</td><td><a href="{e(licence_url)}" rel="noopener">{e(licence)}</a></td></tr>')
+                    f'<td>{e(author(who))}</td><td><a href="{e(licence_url or file_url)}" rel="noopener">{e(licence)}</a></td></tr>')
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Logo credits · AirStack</title><meta name="description" content="Credits for the logos shown on AirStack."><link rel="canonical" href="https://airstack.bot/legal/logos.html">
