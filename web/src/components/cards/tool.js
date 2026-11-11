@@ -10,7 +10,7 @@ import { esc } from '../../lib/format.js';
 import { strip } from '../signals.js';
 import { MK, MKERR } from '../../lib/market.js';
 import { PROF, pview } from '../../lib/profiles.js';
-import { guideView, modelsView } from './guide.js';
+import { guideView } from './guide.js';
 
 export function renderToolCard(x) {
   if (x.dir) return dirCard(x);
@@ -38,7 +38,7 @@ export function renderToolCard(x) {
   ].filter(Boolean).join('');
   const covered = coverage ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}">${coverage}</ul>` : '';
   $('#toolcard').innerHTML =
-    `${covered}${tiles}${PROF ? guideView(x) : ''}${chart}<h3 class="h-section mt-12">What its own pages say</h3>${facts}${PROF ? modelsView(x) : ''}`;
+    `${covered}${tiles}${PROF ? guideView(x) : ''}${chart}<h3 class="h-section mt-12">What its own pages say</h3>${facts}`;
   if (!MK && !MKERR) onMarket(() => renderAll());
 }
 export function notFound(name) {

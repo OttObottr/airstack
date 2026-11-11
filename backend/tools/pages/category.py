@@ -2,10 +2,10 @@
 import shutil
 from airstack import paths
 from .layout import BASE, breadcrumbs, e, foot, head, trim
-from .data import CATS, PAGES, found, listed
+from .data import CATS, found, listed
 from airstack.files import read_json
 
-def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
+def cat_page(cid, name, items, prices, oss, guide, guide_source, ins, kpis):
     url = f"{BASE}/c/{cid}/"; G = guide or {}; idx = ins or {}
     rows = []
     for x in items:
@@ -15,8 +15,6 @@ def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
         rows.append(f'<tr><td><a href="/p/{e(x["slug"])}/">{e(x["name"])}</a></td><td>{e(trim(what)) if what else "<small>Not observed</small>"}</td><td>{price or "<small>Not observed</small>"}</td></tr>')
     kp = "".join(f'<tr><th>{e(k["label"])}</th><td>{found(idx.get(k["key"], 0), idx["researched"])} researched</td></tr>' for k in kpis) if idx.get("researched") else ""
     vetted = [r for r in (oss.get("categories", {}).get(cid) or []) if r.get("vetted")][:6]
-    TASKS = PAGES["category_models"]
-    models = [m for t in TASKS.get(cid, []) for m in (hf.get("tasks", {}).get(t, {}).get("models") or [])[:3]]
     desc = (f"{G.get('what', '')} " + f"{len(items)} products compared on AirStack" + (f"; {found(idx['free_plan'], idx['researched'])} researched state a free plan" if idx.get("researched") else "")
             + ".").strip()
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": name, "url": url, "description": desc[:300],
@@ -40,7 +38,6 @@ def cat_page(cid, name, items, prices, oss, hf, guide, guide_source, ins, kpis):
 <h2>{len(items)} products</h2><table><tr><th>Product</th><th>What it says it does</th><th>List prices</th></tr>{"".join(rows)}</table>
 <p><small>Vendor statements, quoted and dated; not verified by AirStack. “Not observed” means AirStack has not found it on that product’s pages.</small></p>
 {'<h2>Open-source candidates</h2><ul>' + "".join(candidate(r) for r in vetted) + '</ul><p><small>Repository activity is not use or trust. Projects shown pass OpenSSF Scorecard’s automated checks. Automated checks, not an audit.</small></p>' if vetted else ''}
-{'<h2>Open models for the job</h2><ul>' + "".join(f'<li><a href="{e(m["url"])}" rel="nofollow noopener">{e(m["id"])}</a> <small>{m["downloads"]:,} downloads in 30 days · {e(m["license"] or "licence not stated")}</small></li>' for m in models) + '</ul>' if models else ''}
 {foot()}
 </main></body></html>
 """
@@ -50,7 +47,6 @@ def cat_pages(all_, prices, oss):
     guide_data = read_json(paths.CATEGORY_GUIDES) if paths.CATEGORY_GUIDES.exists() else {"source": {}, "categories": {}}
     guides, guide_source = guide_data["categories"], guide_data["source"]
     ins = read_json(paths.INSIGHTS) if paths.INSIGHTS.exists() else {"categories": {}, "kpis": []}
-    hf = read_json(paths.HF) if paths.HF.exists() else {}
     out = paths.PAGE_DIRS["c"]; shutil.rmtree(out, ignore_errors=True); urls, made = [], []
     for cid, name in names.items():
         items = sorted((x for x in all_.values() if x["lane"] == cid and x.get("page")), key=lambda x: (-((x["profile"] or {}).get("facts") or 0), x["name"].lower()))
@@ -58,7 +54,7 @@ def cat_pages(all_, prices, oss):
             continue
         CATS.add(cid)
         d = out / cid; d.mkdir(parents=True, exist_ok=True)
-        d.joinpath("index.html").write_text(cat_page(cid, name, items, prices, oss, hf, guides.get(cid), guide_source, ins["categories"].get(cid), ins.get("kpis", [])))
+        d.joinpath("index.html").write_text(cat_page(cid, name, items, prices, oss, guides.get(cid), guide_source, ins["categories"].get(cid), ins.get("kpis", [])))
         urls.append(f"{BASE}/c/{cid}/")
         made.append((cid, name, len(items)))
     url = f"{BASE}/c/"; lead = f"Browse {len(made):,} software categories and the {sum(n for _, _, n in made):,} researched products in them."

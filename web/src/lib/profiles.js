@@ -6,7 +6,6 @@ let PROFP = null,
 export let PRICES = {},
   OSS = null,
   GUIDES = null,
-  HF = null,
   TAX = null,
   COMMUNITY = null,
   NEWS = null;
@@ -35,9 +34,6 @@ const loadProfiles = () =>
     fetch('category-guides.json')
       .then(r => (r.ok ? r.json() : null))
       .catch(() => null),
-    fetch('hf.json')
-      .then(r => (r.ok ? r.json() : null))
-      .catch(() => null),
     fetch('community.json')
       .then(r => (r.ok ? r.json() : null))
       .catch(() => null),
@@ -46,12 +42,11 @@ const loadProfiles = () =>
       .catch(() => null),
     loadTaxonomy(),
   ])
-    .then(([P, Q, O, G, H, C, N]) => {
+    .then(([P, Q, O, G, C, N]) => {
       PROF = P;
       PRICES = Q;
       OSS = O;
       GUIDES = G;
-      HF = H;
       COMMUNITY = C;
       NEWS = N;
     })

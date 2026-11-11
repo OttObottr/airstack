@@ -46,17 +46,6 @@
     "threads": "Threads",
     "tiktok": "TikTok"
   },
-  "category_models": {
-    "creative-ai": ["text-to-image", "text-to-video", "image-to-video", "text-to-speech"],
-    "ai-assistants": ["text-generation", "image-text-to-text"],
-    "ai-coding": ["text-generation"],
-    "speech-ai": ["automatic-speech-recognition", "text-to-speech"],
-    "meeting-notes": ["automatic-speech-recognition"],
-    "local-inference": ["text-generation"],
-    "vector-dbs": ["feature-extraction"],
-    "llm-sdks-and-routers": ["text-generation"],
-    "coding-agents": ["text-generation"]
-  },
   "min_country": 3,
   "shared_facts": 4,
   "limits": {"movers_top": 12, "feed_entries": 200, "org_products": 200}

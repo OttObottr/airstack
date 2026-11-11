@@ -2,7 +2,7 @@ import { Method } from '../../ui/method.js';
 import { RepoCard } from '../../ui/repo.js';
 import { ui } from '../../ui/recipes.js';
 import { strip } from '../signals.js';
-import { guideView, modelsView } from './guide.js';
+import { guideView } from './guide.js';
 import { renderAll } from '../app.js';
 import { mono } from '../avatar.js';
 import { priceView } from '../prices.js';
@@ -159,6 +159,5 @@ export function catalogCard(x) {
     ${altView(x)}
     ${PROF ? communityView(x) : ''}
     ${PROF ? ossView(x) : ''}
-    ${PROF ? modelsView(x) : ''}
     ${P ? `<h3 class="h-section mt-12">What its own pages say</h3>${pview({ id: x.id, name: x.name }, x.id, () => renderAll())}` : `<p class="note">AirStack lists ${esc(x.name)} by category with the links checked above. Its own pages haven’t been researched yet, so nothing else is claimed about it.</p>`}`;
 }
