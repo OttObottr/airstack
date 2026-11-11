@@ -2,14 +2,14 @@
    A panel with more than one range opens on the shortest that fills it. */
 import { json } from '../lib/data.js';
 import { cn, esc, n, pct, url } from '../lib/format.js';
-import { announced } from '../lib/news.js';
+import { announced, says } from '../lib/news.js';
 import { Lines } from '../ui/lines.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { ui } from '../ui/recipes.js';
 import { mono } from './avatar.js';
 import { byId } from './search/index.js';
 
-const SHOWN = 7,
+const SHOWN = 8,
   FULL = 4 /* rows that make a range worth opening on */,
   HN_MIN = 5; /* a thread with fewer points is noise, not news */
 const who = (id, name) => ({ id, name, avatar: mono(byId(id) || { id, name }, 's20') });
@@ -35,30 +35,14 @@ const PANELS = [
     title: 'Announcements',
     note: 'What vendors shipped or announced this week, most important first.',
     ranges: [7],
-    rows: fromNews(['blog', 'changelog'], i => (announced(i) ? (i.weight || 1) * 1e14 + Date.parse(i.date) : -1), i => ({ text: i.title, value: i.signal || 'update' })), /* what matters most first, then the newest */
+    rows: fromNews(['blog', 'changelog', 'release', 'hacker news'], i => (announced(i) ? (i.weight || 1) * 1e14 + Date.parse(i.date) : -1), i => ({ text: says(i), value: i.signal })), /* what matters most first, then the newest */
   },
   {
     id: 'discussed',
     title: 'Most discussed',
-    note: 'Hacker News threads, by points.',
+    note: 'What Hacker News is discussing, by points.',
     ranges: [7, 30],
-    rows: fromNews(['hacker news'], i => (i.points >= HN_MIN ? i.points : -1), i => ({ text: 'Hacker News thread', value: `${n(i.points || 0)} pts` })),
-  },
-  {
-    id: 'reading',
-    title: 'Trending',
-    note: 'Biggest rise in Wikipedia readers.',
-    ranges: [7, 30],
-    rows: async days => {
-      const A = await json('attention.json'),
-        floor = A.source.params.min_baseline,
-        of = p => (days === 7 ? p.views.slice(-2) : [p.prior_4w, p.last_4w]);
-      return Object.entries(A.products)
-        .map(([id, p]) => ({ id, p, was: of(p)[0], now: of(p)[1] }))
-        .filter(x => x.was >= floor && x.now != null)
-        .sort((a, b) => b.now / b.was - a.now / a.was)
-        .map(x => ({ ...who(x.id, (byId(x.id) || {}).name || x.p.article), href: url(x.p.url), text: `${cn(x.now)} views, was ${cn(x.was)}`, value: pct((x.now / x.was - 1) * 100) }));
-    },
+    rows: fromNews(['hacker news'], i => (i.gist && i.points >= HN_MIN ? i.points : -1), i => ({ text: i.gist, value: `${n(i.points || 0)} pts` })), /* a thread we cannot say anything about is left out */
   },
 ];
 const LABEL = { 1: 'Today', 7: 'This week', 30: 'This month' };

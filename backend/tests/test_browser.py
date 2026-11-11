@@ -79,13 +79,13 @@ FITS = "document.documentElement.scrollWidth <= document.documentElement.clientW
 def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
     shown = page.locator(".nav a:visible").evaluate_all("xs => xs.map(x => x.dataset.view)")      # the rail on a desktop, the tab bar on a phone
-    assert shown == ["overview", "compare", "markets", "makers", "insights", "calendar", "agents"][:7 if width >= 1024 else 5]
+    assert shown == ["overview", "compare", "markets", "calendar", "agents"]
     for view in ("markets", "insights", "calendar", "makers", "compare", "agents", "overview"):
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
         page.wait_for_function("view => document.body.dataset.view === view", arg=view)
         assert page.evaluate(FITS), view
-    wait(page, "document.querySelectorAll('#front [data-body] ol, #insHome [data-body] ol').length > 1")
-    assert page.locator('#browse header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets", "#/insights"]
+    wait(page, "document.querySelectorAll('#front [data-body] > *').length > 1")
+    assert page.locator('#browse header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets"]
     assert not errors
     context.close()
 

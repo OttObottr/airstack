@@ -2,10 +2,10 @@ import { METRIC, STR, chainData, checks, says, showVal } from './chain.js';
 import { kindOf, mono } from './avatar.js';
 import { listed, per } from './prices.js';
 import { loadDir, researchedFacts } from './search/directory.js';
-import { byId, rank } from './search/index.js';
+import { byId, moverRows, rank } from './search/index.js';
 import { M, json } from '../lib/data.js';
 import { $, copy } from '../lib/dom.js';
-import { esc, fd, host, ic, known, url } from '../lib/format.js';
+import { cn, esc, fd, host, ic, known, url } from '../lib/format.js';
 import { PRICES, loadPrices } from '../lib/profiles.js';
 import { send } from '../lib/beacon.js';
 import { show } from '../lib/router.js';
@@ -140,13 +140,15 @@ async function draw() {
   /* up to three others for the product added last, each with its label, reason and source */
   const last = ids[ids.length - 1],
     read = id => (D.entities[id] ? D.entities[id].facts.length : 0),
+    DL = Object.fromEntries(moverRows().map(r => [r.id, r.dl.value || 0])),
+    used = id => DL[id] || 0,
     mate = byId(last),
     /* a product with no measured neighbour still has its category: the most-read products filed beside it */
     lane = mate
       ? M.index
-          .filter(r => r[2] === mate.lane && r[0] !== last && read(r[0]))
-          .sort((a, b) => read(b[0]) - read(a[0]))
-          .map(r => ({ id: r[0], label: 'lane', why: `Also in ${mate.laneName} · ${read(r[0])} facts read` }))
+          .filter(r => r[2] === mate.lane && r[0] !== last)
+          .sort((a, b) => used(b[0]) - used(a[0]) || read(b[0]) - read(a[0])) /* the most downloaded first, then the most read */
+          .map(r => ({ id: r[0], label: 'lane', why: `Also in ${mate.laneName}${used(r[0]) ? ` · ${cn(used(r[0]))} downloads a week` : read(r[0]) ? ` · ${read(r[0])} facts read` : ''}` }))
       : [],
     sug = full || !last ? [] : [...((SUG && SUG[last]) || []), ...lane].filter((s, i, a) => !ids.includes(s.id) && LABEL[s.label] && a.findIndex(y => y.id === s.id) === i).slice(0, 3);
   $('#cmpSug').innerHTML = sug.length

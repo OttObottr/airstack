@@ -14,7 +14,7 @@ const CMP = /[#&]compare=|^#\/compare/;
 export const METRIC = Object.fromEntries(M.labels);
 export const STR = new Set(['what_it_does', 'license', 'pricing_basis']);
 /* One fact as the vendor's words, with the links and dates to check it: the quote highlighted on its page, an archived copy, a report. */
-export const says = (name, f) => `${f.class === 'vendor' ? `${esc(name)}’s page` : esc(f.host)} says: “${esc(f.quote)}”`;
+export const says = (name, f) => `${f.class === 'vendor' ? '' : `${esc(f.host)}: `}“${esc(f.quote)}”`; /* a vendor's own words need no label beside its name; another site's are named */
 export const checks = (name, label, f) =>
   `<span class="${ui.meta} inline-flex flex-wrap gap-x-2 gap-y-1"><a class="ext" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer">See it on ${esc(f.host)}${ic('out')}</a>${
     f.archived ? `<a class="ext" href="${url(f.archived.url)}" target="_blank" rel="noopener noreferrer">Archived copy${ic('out')}</a>` : ''

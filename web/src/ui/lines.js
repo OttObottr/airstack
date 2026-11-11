@@ -8,8 +8,8 @@ export const Lines = ({ rows, empty }) =>
         r => html`<li class="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 border-b border-border py-2 last:border-b-0">${raw(r.avatar)}
           <span class="flex min-w-0 flex-col gap-0.5"><a class="truncate text-sm font-medium text-foreground hover:underline underline-offset-4" href="#app=${r.id}">${r.name}</a>${
             r.href
-              ? html`<a class="truncate text-xs text-muted-foreground hover:text-foreground" href="${raw(r.href)}" target="_blank" rel="noopener noreferrer">${r.text}</a>`
-              : html`<span class="truncate text-xs text-muted-foreground">${r.text}</span>`
+              ? html`<a class="line-clamp-2 text-xs leading-snug text-muted-foreground hover:text-foreground" href="${raw(r.href)}" target="_blank" rel="noopener noreferrer">${r.text}</a>`
+              : html`<span class="line-clamp-2 text-xs leading-snug text-muted-foreground">${r.text}</span>`
           }</span>
           <span class="whitespace-nowrap text-right font-mono text-xs tabular-nums text-muted-foreground">${r.value}</span></li>`
       )}</ol>`

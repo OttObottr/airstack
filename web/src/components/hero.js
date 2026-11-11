@@ -1,7 +1,7 @@
 import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
-import { esc, fd, n } from '../lib/format.js';
-import { announced } from '../lib/news.js';
+import { esc, fd } from '../lib/format.js';
+import { announced, says } from '../lib/news.js';
 
 const DAYS = 3 /* how far back an announcement still leads the page */,
   LOUD = 100; /* Hacker News points that make a thread worth the top line */
@@ -16,12 +16,12 @@ export async function drawTape(only) {
     week = new Date(Date.parse(read) - 6 * 864e5).toISOString().slice(0, 10),
     seen = new Set();
   const rows = N.items
-    .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && ((announced(i) && i.date.slice(0, 10) >= from) || (i.kind === 'hacker news' && i.points >= LOUD && i.date.slice(0, 10) >= week)))
+    .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && announced(i) && (i.date.slice(0, 10) >= from || (i.points >= LOUD && i.date.slice(0, 10) >= week)))
     .sort((a, b) => announced(b) - announced(a) || (b.weight || 0) - (a.weight || 0) || (b.points || 0) - (a.points || 0) || (a.date < b.date ? 1 : -1)) /* what matters most, then the loudest threads */
     .filter(i => !seen.has(i.id) && seen.add(i.id))
     .slice(0, 24);
   const item = i =>
-    `<a href="#app=${esc(i.id)}"><b>${esc(i.name)}</b><span>${i.kind === 'hacker news' ? `${n(i.points)} points on Hacker News` : esc(i.title)}</span></a>`;
+    `<a href="#app=${esc(i.id)}"><b>${esc(i.name)}</b><span>${esc(says(i))}</span></a>`;
   const as = `<span class="as">${only ? 'your tools · ' : ''}latest · ${fd(read)}</span>`;
   if (rows.length) $('#tape').innerHTML = as + rows.map(item).join('') + as + rows.map(item).join('');
   else if (!only) $('#tapeW').hidden = true;

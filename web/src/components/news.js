@@ -79,7 +79,7 @@ function render() {
         `<button class="chip" type="button" aria-pressed="${on.has(k)}" data-kind="${esc(k)}">${label}</button>`
     ).join('');
   $('#newsScope').innerHTML = scopeControl(scope, 'changes');
-  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.title}</a>${raw(version(i))}`;
+  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist || i.title}</a>${raw(version(i))}`;
   $('#newsList').innerHTML = String(
     groups.length
       ? html`${groups.map(([d, items]) =>

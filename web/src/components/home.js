@@ -3,7 +3,6 @@ import { $ } from '../lib/dom.js';
 import { mountScoped, wire } from '../lib/scope.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { panel as pulse, sectorPanel } from './pulse.js';
-import { briefPanel as findings } from './findings.js';
 import { mount as mountFront } from './front.js';
 
 export function mount() {
@@ -19,6 +18,5 @@ export function mount() {
     if (front || e.detail !== 'overview') return;
     front = true;
     mountFront($('#front'));
-    mountPanel($('#insHome'), findings);
   });
 }
