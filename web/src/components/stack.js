@@ -5,7 +5,7 @@ import { LISTED, esc, fd, n, pct } from '../lib/format.js';
 import { PARAMS } from '../lib/data.js';
 import { MK } from '../lib/market.js';
 import { PRICES } from '../lib/profiles.js';
-import { fromLink, replace, shareLink, stack, toggle, tracked } from '../lib/stack.js';
+import { fromLink, remove, replace, shareLink, stack, toggle, tracked } from '../lib/stack.js';
 import { S } from '../lib/state.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { ui } from '../ui/recipes.js';
@@ -126,7 +126,7 @@ export function mount() {
     }
     const rm = e.target.closest('[data-unstack]');
     if (rm) {
-      toggle({ id: rm.dataset.unstack });
+      remove(rm.dataset.unstack);
       return;
     }
     if (e.target.closest('#stackShare')) {

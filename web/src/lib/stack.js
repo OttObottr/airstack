@@ -28,6 +28,14 @@ export function toggle(x) {
   send('stack', { op, id: x.id, size: Math.min(mem.length, 100) });
   dispatchEvent(new CustomEvent('airstack:stack'));
 }
+/* a remove never adds: clicking × twice, or two handlers on one click, leaves the item gone */
+export function remove(id) {
+  if (!tracked(id)) return;
+  mem = mem.filter(y => y.id !== id);
+  write(mem);
+  send('stack', { op: 'remove', id, size: Math.min(mem.length, 100) });
+  dispatchEvent(new CustomEvent('airstack:stack'));
+}
 export function replace(list) {
   mem = list.filter(x => x && typeof x.id === 'string').slice(0, 100);
   write(mem);

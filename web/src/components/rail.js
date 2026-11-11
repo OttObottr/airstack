@@ -1,6 +1,6 @@
 import { $ } from '../lib/dom.js';
 import { n } from '../lib/format.js';
-import { stack, toggle } from '../lib/stack.js';
+import { stack } from '../lib/stack.js';
 import { html, raw } from '../ui/html.js';
 import { mono } from './avatar.js';
 
@@ -18,10 +18,6 @@ function draw() {
 
 export function mount() {
   $('#railAdd').addEventListener('click', () => $('#stackAdd').click());
-  $('#railStack').addEventListener('click', e => {
-    const b = e.target.closest('[data-unstack]');
-    if (b) toggle({ id: b.dataset.unstack });
-  });
   addEventListener('airstack:stack', draw);
   draw();
 }
