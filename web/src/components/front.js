@@ -1,7 +1,7 @@
 /* Home's front page: what vendors announced, what was discussed (news.json) and what readers turned to (attention.json).
    A panel with more than one range opens on the shortest that fills it. */
 import { json } from '../lib/data.js';
-import { cn, esc, fd, n, pct, url } from '../lib/format.js';
+import { cn, esc, n, pct, url } from '../lib/format.js';
 import { announced } from '../lib/news.js';
 import { Lines } from '../ui/lines.js';
 import { mount as mountPanel } from '../ui/panel.js';
@@ -28,15 +28,14 @@ const fromNews = (kinds, score, line) => async days => {
     .filter(i => score(i) >= 0)
     .map(i => ({ ...who(i.id, i.name), href: url(i.url), ...line(i, days) }));
 };
-const when = (i, days) => (days === 1 ? i.date.slice(11, 16) : fd(i.date).replace(/ \d{4}$/, ''));
 
 const PANELS = [
   {
     id: 'headlines',
     title: 'Announcements',
-    note: 'What vendors shipped or announced this week.',
+    note: 'What vendors shipped or announced this week, most important first.',
     ranges: [7],
-    rows: fromNews(['blog', 'changelog'], i => (announced(i) ? Date.parse(i.date) : -1), (i, days) => ({ text: i.title, value: when(i, days) })),
+    rows: fromNews(['blog', 'changelog'], i => (announced(i) ? (i.weight || 1) * 1e14 + Date.parse(i.date) : -1), i => ({ text: i.title, value: i.signal || 'update' })), /* what matters most first, then the newest */
   },
   {
     id: 'discussed',

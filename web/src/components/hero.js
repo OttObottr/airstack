@@ -17,7 +17,7 @@ export async function drawTape(only) {
     seen = new Set();
   const rows = N.items
     .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && ((announced(i) && i.date.slice(0, 10) >= from) || (i.kind === 'hacker news' && i.points >= LOUD && i.date.slice(0, 10) >= week)))
-    .sort((a, b) => announced(b) - announced(a) || (b.points || 0) - (a.points || 0) || (a.date < b.date ? 1 : -1)) /* what a vendor said first, then the loudest threads */
+    .sort((a, b) => announced(b) - announced(a) || (b.weight || 0) - (a.weight || 0) || (b.points || 0) - (a.points || 0) || (a.date < b.date ? 1 : -1)) /* what matters most, then the loudest threads */
     .filter(i => !seen.has(i.id) && seen.add(i.id))
     .slice(0, 24);
   const item = i =>
