@@ -55,14 +55,6 @@ export const panel = {
   controls: scope => scopeControl(scope, 'dates'),
   render: render(VIEW.calendarAgendaDays, Infinity),
 };
-export const briefPanel = {
-  id: 'agenda-brief',
-  title: 'Coming up',
-  note: `Support deadlines and dated releases in the next ${VIEW.homeAheadWeeks} weeks.`,
-  controls: () => `<a class="${ui.button.ghost} shrink-0 whitespace-nowrap" href="#/calendar">All dates</a>`,
-  render: render(VIEW.homeAheadWeeks * 7, VIEW.homeShown),
-};
-
 export function mount() {
   const el = $('#agendaPanel');
   if (el && !el.dataset.panel) mountScoped(el, panel);

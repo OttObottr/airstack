@@ -1,6 +1,5 @@
-import { M } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
-import { fd, n } from '../lib/format.js';
+import { n } from '../lib/format.js';
 import { stack, toggle } from '../lib/stack.js';
 import { html, raw } from '../ui/html.js';
 import { mono } from './avatar.js';
@@ -18,12 +17,6 @@ function draw() {
 }
 
 export function mount() {
-  const read = M.meta && M.meta.checked_at,
-    c = M.meta && M.meta.counts;
-  if (read) {
-    $('#freshness').textContent = `Updated ${fd(read)}`;
-    $('#railFresh').textContent = c ? `${n(c.products)} products` : '';
-  }
   $('#railAdd').addEventListener('click', () => $('#stackAdd').click());
   $('#railStack').addEventListener('click', e => {
     const b = e.target.closest('[data-unstack]');

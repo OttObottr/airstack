@@ -48,7 +48,7 @@ function render() {
   sec.hidden = false;
   $('#stackHead').textContent = shared ? 'A shared software stack' : list.length ? 'Your software stack' : 'Build a software stack';
   $('#stackList').hidden = !list.length;
-  $('#stackNote').textContent = shared ? 'Opened from a link. Save it to make it yours.' : 'Saved in this browser only. No account.';
+  $('#stackNote').textContent = shared ? 'Opened from a link. Save it to make it yours.' : '';
   if (!list.length) {
     $('#stackSum').textContent = 'Start with software you already use.';
     $('#stackList').innerHTML = '';
@@ -117,9 +117,7 @@ export function mount() {
       return;
     }
     if (e.target.closest('#stackAdd')) {
-      if (!$('#picked').hidden) $('#change').click();
-      $('#check').scrollIntoView({ block: 'start' });
-      requestAnimationFrame(() => $('#q').focus({ preventScroll: true }));
+      $('#q').focus({ preventScroll: true }); /* the search sits in the fixed top bar: no need to move the page */
       return;
     }
     if (e.target.closest('#starBtn') && S.tool) {

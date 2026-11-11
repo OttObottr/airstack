@@ -56,7 +56,6 @@
     <ul class="flex list-none flex-col gap-0.5" id="railStack"></ul>
     <button class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" id="railAdd" type="button"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg>Add software</button>
   </section>
-  <p class="mt-auto px-2.5 text-xs leading-relaxed text-muted-foreground" id="railFresh"></p>
 </aside>
 <div class="flex min-w-0 flex-col">
 <header class="sticky top-0 z-50 flex h-14 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur lg:px-6">
@@ -68,7 +67,6 @@
     <kbd class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-border px-1.5 font-mono text-[11px] leading-5 text-muted-foreground max-sm:hidden" aria-hidden="true">/</kbd>
     <ul class="ta" id="ta" role="listbox" aria-label="Matching tools" hidden></ul>
   </div>
-  <p class="ml-auto whitespace-nowrap font-mono text-xs text-muted-foreground max-md:hidden" id="freshness"></p>
 </header>
 <div class="tape" id="tapeW" role="region" aria-label="Latest announcements"><div class="tape-in" id="tape"></div></div>
 <main class="flex-1 pb-20 lg:pb-0" id="main">
@@ -80,16 +78,14 @@
       <div id="nf" hidden><span id="nfText"></span></div>
     </div>
   </section>
-  <section class="work" id="pulse" data-views="overview"><div class="wrap wide"><section id="pulsePanel"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the pulse"></div></section></div></section>
+  <section class="work" id="pulse" data-views="overview calendar"><div class="wrap wide flex flex-col gap-4"><section id="pulsePanel"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the pulse"></div></section><section id="sectorsHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading sector activity"></div></section></div></section>
   <section class="work" data-views="overview">
     <div class="wrap wide">
-      <div class="mb-4"><section id="sectorsHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading sector activity"></div></section></div>
       <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3" id="front"><section data-front="headlines"><div class="skeleton skeleton-list" role="status" aria-label="Loading headlines"></div></section><section data-front="discussed"><div class="skeleton skeleton-list" role="status" aria-label="Loading discussions"></div></section><section data-front="reading"><div class="skeleton skeleton-list" role="status" aria-label="Loading trending products"></div></section></div>
       <div class="mt-4">
-        <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3" id="browse">
+        <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2" id="browse">
           <section class="flex min-w-0 flex-col gap-4 rounded-lg border border-border bg-card p-4" aria-labelledby="mvH"><header class="flex min-h-8 items-start justify-between gap-3"><div class="flex min-w-0 flex-col gap-1"><h2 class="text-sm font-semibold leading-none text-foreground" id="mvH">What moved</h2><p class="text-xs leading-snug text-muted-foreground">Weekly downloads against each tool’s own level.</p></div><a class="inline-flex h-8 shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-2.5 text-sm leading-none text-muted-foreground hover:bg-muted hover:text-foreground" href="#/markets">All movers</a></header>
             <div id="trend" aria-busy="true"><div class="skeleton skeleton-list" role="status" aria-label="Loading market signals"></div></div></section>
-          <section id="upHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming dates"></div></section>
           <section id="insHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section>
         </div>
       </div>
@@ -127,7 +123,7 @@
       <div class="stack-intel mt-4 grid-cols-2 max-[699px]:grid-cols-1" id="stackIntel" aria-label="Stack intelligence" hidden></div>
       <div class="mt-4" id="stackChangesW" hidden><section id="stackChanges"></section></div>
       <div class="sacts mt-4" id="stackActs"><button class="btn btn-primary" id="stackAdd" type="button">Add software</button></div>
-      <p class="meta mt-3" id="stackNote">Saved in this browser only. No account.</p>
+      <p class="meta mt-3" id="stackNote"></p>
     </div>
   </section>
   <section class="work" id="news" data-views="overview" aria-labelledby="newsT" data-loading>

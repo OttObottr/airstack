@@ -3,20 +3,22 @@ import { $ } from '../lib/dom.js';
 import { mountScoped, wire } from '../lib/scope.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { panel as pulse, sectorPanel } from './pulse.js';
-import { briefPanel as agenda } from './calendar.js';
 import { briefPanel as findings } from './findings.js';
 import { mount as mountFront } from './front.js';
 
 export function mount() {
   wire();
-  let done = false;
+  let charts = false,
+    front = false;
   addEventListener('airstack:view', e => {
-    if (done || e.detail !== 'overview') return;
-    done = true;
-    mountScoped($('#pulsePanel'), pulse);
-    mountPanel($('#sectorsHome'), sectorPanel);
+    if (!charts && ['overview', 'calendar'].includes(e.detail)) {
+      charts = true; /* the year at a glance leads both Home and Calendar */
+      mountScoped($('#pulsePanel'), pulse);
+      mountPanel($('#sectorsHome'), sectorPanel);
+    }
+    if (front || e.detail !== 'overview') return;
+    front = true;
     mountFront($('#front'));
-    mountPanel($('#upHome'), agenda);
     mountPanel($('#insHome'), findings);
   });
 }
