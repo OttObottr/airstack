@@ -53,7 +53,7 @@ function byDay(R) {
   return [...days].sort((a, b) => b[0].localeCompare(a[0])).map(([d, xs]) => [d, xs.sort(rank)]);
 }
 const KIND = k => (k === 'hacker news' ? 'HN' : k);
-const version = i => (i.version ? ` <span class="meta">${esc(i.version)}</span>` : '');
+const version = i => (i.version && i.version !== i.title ? ` <span class="meta">${esc(i.version)}</span>` : ''); /* a bare release is its version: say it once */
 const tally = xs =>
   Object.entries(xs.reduce((m, x) => ((m[x.kind] = (m[x.kind] || 0) + 1), m), {}))
     .map(([k, c]) => `${c} ${KIND(k)}${c > 1 && k !== 'hacker news' ? 's' : ''}`)
@@ -82,7 +82,7 @@ function render() {
             `<li class="nday"><h3 class="lab">${stamp(d, N.source.read)} · ${fd(d)}</h3><ol>${items
               .map(
                 i => `<li class="nrow">
-      <span class="flex flex-wrap items-center gap-2 min-w-0 max-[699px]:col-span-full"><a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>${stackToggle(i.id, i.name)}</span>
+      <span class="flex items-center justify-between gap-2 min-w-0 max-[699px]:col-span-full"><a class="who" href="#app=${esc(i.id)}">${mono({ name: i.name })}<b>${esc(i.name)}</b></a>${stackToggle(i.id, i.name)}</span>
       <span class="nt"><a class="ext" href="${url(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>${version(i)}${i.more.length ? `<details class="nmore"><summary class="meta">and ${i.more.length} more · ${esc(tally(i.more))}</summary><ul>${i.more.map(m => `<li><span class="meta">${stamp(day(m.date), N.source.read)}</span> <a class="ext" href="${url(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.title)}</a>${version(m)} <span class="meta">${esc(KIND(m.kind))}</span></li>`).join('')}</ul></details>` : ''}</span>
       <span class="nk">${esc(KIND(i.kind))}</span></li>`
               )

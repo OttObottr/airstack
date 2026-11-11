@@ -24,7 +24,7 @@ export function lb(items, { cur = null, lane = true } = {}) {
         r && r.dl.value != null
           ? `${cn(r.dl.value)} ${esc(r.dl.registry)} a week${r.dl.delta != null ? ` · ${pct(r.dl.delta)} on the week before` : ''}`
           : 'downloads not observed';
-      return `<li style="--i:${i}"><button type="button" data-pick="${esc(x.id)}"${x.id === cur ? ' aria-current="true"' : ''}><span class="who">${mono(x)}<span><b>${esc(x.name)}</b><span class="meta">${lane ? esc(x.laneName) + ' · ' : ''}${vol}</span></span></span><span class="bar" aria-hidden="true">${d !== null ? `<i class="${d < 0 ? 'neg' : ''}" style="--w:${Math.max(2, (Math.abs(d) / mx) * 100).toFixed(1)}%"></i>` : ''}</span><span class="d">${d !== null ? pct(d) : '<span class="nobs">no 4-week level</span>'}</span></button></li>`;
+      return `<li style="--i:${i}"><button type="button" data-pick="${esc(x.id)}"${x.id === cur ? ' aria-current="true"' : ''}><span class="who">${mono(x)}<span><b>${esc(x.name)}</b><span class="meta">${lane ? esc(x.laneName) + ' · ' : ''}${vol}</span></span></span><span class="bar${d === null ? ' invisible' : ''}" aria-hidden="true">${d !== null ? `<i class="${d < 0 ? 'neg' : ''}" style="--w:${Math.max(2, (Math.abs(d) / mx) * 100).toFixed(1)}%"></i>` : ''}</span><span class="d">${d !== null ? pct(d) : '<span class="nobs" title="No ${PARAMS.movers.base_weeks}-week level yet"><span aria-hidden="true">—</span><span class="sr">no ${PARAMS.movers.base_weeks}-week level yet</span></span>'}</span></button></li>`;
     })
     .join('')}</ol>`;
 }
