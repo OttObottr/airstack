@@ -2,7 +2,7 @@
    finds them and every instance looks the same. Variants are lookups, never built from parts at runtime. */
 export const ui = {
   panel: 'flex flex-col gap-4 rounded-lg border border-border bg-card p-4',
-  panelHead: 'flex items-start justify-between gap-3 min-h-8',
+  panelHead: 'flex flex-wrap items-start justify-between gap-x-3 gap-y-2 min-h-8',
   panelTitle: 'text-sm font-semibold text-foreground leading-none',
   panelNote: 'text-xs text-muted-foreground leading-snug',
   meta: 'text-xs text-muted-foreground leading-none',

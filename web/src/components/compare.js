@@ -62,7 +62,7 @@ export function sync() {
 }
 
 const nobs = '<span class="nobs">Not observed</span>';
-const LABEL = { similar: 'Similar', rising: 'Rising' }; /* what each suggestion measured, never a rank */
+const LABEL = { similar: 'Similar', rising: 'Rising', lane: 'Same category' }; /* what each suggestion measured, never a rank */
 let SUG = null;
 const norm = v =>
   Array.isArray(v)
@@ -139,7 +139,16 @@ async function draw() {
   $('#cmpFull').hidden = !full;
   /* up to three others for the product added last, each with its label, reason and source */
   const last = ids[ids.length - 1],
-    sug = full || !SUG ? [] : (SUG[last] || []).filter(s => !ids.includes(s.id) && LABEL[s.label]).slice(0, 3);
+    read = id => (D.entities[id] ? D.entities[id].facts.length : 0),
+    mate = byId(last),
+    /* a product with no measured neighbour still has its category: the most-read products filed beside it */
+    lane = mate
+      ? M.index
+          .filter(r => r[2] === mate.lane && r[0] !== last && read(r[0]))
+          .sort((a, b) => read(b[0]) - read(a[0]))
+          .map(r => ({ id: r[0], label: 'lane', why: `Also in ${mate.laneName} · ${read(r[0])} facts read` }))
+      : [],
+    sug = full || !last ? [] : [...((SUG && SUG[last]) || []), ...lane].filter((s, i, a) => !ids.includes(s.id) && LABEL[s.label] && a.findIndex(y => y.id === s.id) === i).slice(0, 3);
   $('#cmpSug').innerHTML = sug.length
     ? `<p class="eyebrow">Others to compare with ${esc(nameOf(last, D))}</p><ul class="cmp-sug">${sug
         .map(s => {
@@ -153,7 +162,7 @@ async function draw() {
     ...Object.keys(METRIC).map(m => ({
       l: METRIC[m],
       one: STR.has(m),
-      cells: ids.map(id => cellOf(facts(id, m), nameOf(id, D), METRIC[m])),
+      cells: ids.map(id => (D.entities[id] ? cellOf(facts(id, m), nameOf(id, D), METRIC[m]) : { html: '<span class="nobs">—</span>' })),
     })),
   ].filter(r => r.cells.some(c => c.date));
   for (const r of rows) {
@@ -172,8 +181,7 @@ async function draw() {
     ready = ids.length >= 2,
     nd = rows.filter(r => r.diff).length,
     observed = rows.reduce((sum, r) => sum + r.cells.filter(c => c.date).length, 0),
-    possible = rows.length * ids.length,
-    blank = ids.filter(id => !D.entities[id]);
+    possible = rows.length * ids.length;
   sub.textContent = ready
     ? `Scope: ${ids.length} products × ${rows.length} fields · Coverage: ${observed} of ${possible} cells sourced${nd ? ` · ${nd} fields differ` : ''}${oldest ? ` · Oldest source check ${fd(oldest)}` : ''}. Open a cell for the vendor’s exact words.`
     : ids.length
@@ -190,7 +198,7 @@ async function draw() {
   <div class="scroll"><table class="t${ids.length === 2 ? ' two' : ''}" id="cmpTbl"><thead><tr><th scope="col"><span class="sr">Field</span></th>${ids
     .map(id => {
       const x = byId(id);
-      return `<th scope="col"><a href="#app=${esc(id)}">${x ? `${mono(x, 's20')} ` : ''}${esc(nameOf(id, D))}</a>${x ? `<span class="meta">${esc(x.laneName)}</span>` : ''}</th>`;
+      return `<th scope="col"><a href="#app=${esc(id)}">${x ? `${mono(x, 's20')} ` : ''}${esc(nameOf(id, D))}</a>${x ? `<span class="meta">${esc(x.laneName)}</span>` : ''}${D.entities[id] ? '' : '<span class="meta">No pages read yet</span>'}</th>`;
     })
     .join('')}</tr></thead><tbody>${rows
     .filter(r => !(onlyDiff && nd) || r.diff)
@@ -199,7 +207,6 @@ async function draw() {
         `<tr${r.diff ? ' class="diff"' : ''}><th scope="row">${esc(r.l)}${r.diff ? '<span class="dtag">differs</span>' : ''}</th>${r.cells.map((c, i) => `<td data-l="${esc(nameOf(ids[i], D))}">${c.html}</td>`).join('')}</tr>`
     )
     .join('')}</tbody></table></div>
-  ${blank.length ? `<p class="meta mt-4">${esc(blank.map(id => nameOf(id, D)).join(', '))}: AirStack has read none of its pages yet.</p>` : ''}
   <p class="mt-6"><button class="btn btn-secondary" type="button" id="cmpSave">${same ? 'Saved' : 'Save this comparison'}</button> ${mine && !same ? '<button class="btn btn-secondary" type="button" id="cmpOpen">Open the saved one</button> ' : ''}<button class="btn btn-secondary" type="button" id="cmpCopy">Copy link</button></p>
   <p class="meta mt-3" id="cmpExp">${same ? `Saved ${fd(mine.on)}. ` : ''}${ends ? (recheckDue ? `Needs a second look: the oldest supporting source was checked ${fd(oldest)}; previous values remain visible as history.` : `The oldest supporting source was checked ${fd(oldest)}.`) : 'No dated source yet.'}</p>`;
   if (keep) {

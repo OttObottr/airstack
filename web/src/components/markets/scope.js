@@ -41,10 +41,6 @@ export const under = (D, node, id) => {
 export const share = (a, b) => (b ? Math.round((100 * a) / b) : null);
 export const peerName = peer => (peer.parent !== undefined ? `in ${peer.name}` : 'across all sectors');
 
-/* a thin one-hue meter: the share as a bar, the numbers beside it carry the reading */
-export const meter = p =>
-  `<span class="block h-1.5 w-full min-w-12 rounded-full bg-muted" aria-hidden="true"><span class="block h-full rounded-full bg-info" style="width:${p == null ? 0 : Math.max(p, 1)}%"></span></span>`;
-
 /* a cell that reads "a of b" and its share, or Not observed when there is no base */
 export const ofCell = (a, b) =>
   b

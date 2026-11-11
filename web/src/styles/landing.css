@@ -4,7 +4,6 @@ html{scroll-padding-top:96px}
 .tape a,.tape .as,.tape a>span{display:inline-flex;align-items:center;height:100%;line-height:1;white-space:nowrap}.tape a{gap:8px;color:var(--color-ink-2)}.tape a b{font-weight:600}.tape .up{color:var(--color-up)}.tape .dn{color:var(--color-dn)}.tape .as{color:var(--color-ink-2)}
 @keyframes tape{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.tape{overflow-x:auto}.tape-in{animation:none}}
-.honest{margin-top:6px;font:500 var(--text-meta)/1.65 var(--font-mono);color:var(--color-ink-2);letter-spacing:.015em;white-space:pre-line;min-height:3.3em}
 .foot{display:grid;grid-template-columns:minmax(240px,1.5fr) repeat(3,minmax(140px,1fr));gap:32px 48px;max-width:1248px;margin:128px auto 0;padding:40px 32px 64px;color:var(--color-ink-2);border-top:1px solid var(--color-hair);background:linear-gradient(180deg,color-mix(in oklab,var(--color-s1) 64%,transparent),transparent)}
 .foot nav{display:grid;align-content:start;gap:2px}.foot a{display:inline-flex;align-items:center;justify-self:start;min-height:36px;transition:color .15s}
 .foot-brand{display:grid;align-content:start;gap:8px;max-width:32ch}.foot-brand b{font-size:var(--text-lead);font-weight:680;letter-spacing:-.025em;color:var(--color-ink)}.foot-brand p{line-height:1.5}.foot-brand span{font-size:var(--text-meta);color:var(--color-ink-3)}

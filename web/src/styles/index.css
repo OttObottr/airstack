@@ -5,7 +5,6 @@
 @import "./landing.css" layer(components);
 @import "./workspace.css" layer(components);
 @import "./market-map.css" layer(components);
-@import "./insights.css" layer(components);
 @import "./makers.css" layer(components);
 @import "./guide.css" layer(components);
 @import "./news.css" layer(components);

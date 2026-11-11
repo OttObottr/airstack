@@ -75,14 +75,20 @@
   <section class="work" id="check" data-views="overview" aria-labelledby="checkT">
     <div class="wrap wide">
       <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3"><div><h1 class="h-page" id="checkT">This week in software</h1>
-        <p class="honest" id="honest">Every fact quoted from its own page</p></div>
+</div>
         <p class="flex flex-wrap gap-2"><button class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium leading-none text-primary-foreground hover:opacity-90" id="stackStart" type="button">Add your software stack</button><a class="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-border px-4 text-sm font-medium leading-none text-foreground hover:bg-muted" href="#compare=">Compare tools side by side</a></p></div>
-      <div class="pick">
-        <div id="nf" hidden><span id="nfText"></span></div>
-        <div class="mt-5 grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3" id="browse">
+      <div id="nf" hidden><span id="nfText"></span></div>
+    </div>
+  </section>
+  <section class="work" id="pulse" data-views="overview"><div class="wrap wide"><section id="pulsePanel"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the pulse"></div></section></div></section>
+  <section class="work" data-views="overview">
+    <div class="wrap wide">
+      <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2" id="front"><section data-front="headlines"><div class="skeleton skeleton-list" role="status" aria-label="Loading headlines"></div></section><section data-front="discussed"><div class="skeleton skeleton-list" role="status" aria-label="Loading discussions"></div></section><section data-front="shipped"><div class="skeleton skeleton-list" role="status" aria-label="Loading releases"></div></section><section data-front="reading"><div class="skeleton skeleton-list" role="status" aria-label="Loading trending products"></div></section></div>
+      <div class="mt-4">
+        <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3" id="browse">
           <section class="flex min-w-0 flex-col gap-4 rounded-lg border border-border bg-card p-4" aria-labelledby="mvH"><header class="flex min-h-8 items-start justify-between gap-3"><div class="flex min-w-0 flex-col gap-1"><h2 class="text-sm font-semibold leading-none text-foreground" id="mvH">What moved</h2><p class="text-xs leading-snug text-muted-foreground">Weekly downloads against each tool’s own level.</p></div><a class="inline-flex h-8 shrink-0 items-center gap-2 whitespace-nowrap rounded-md px-2.5 text-sm leading-none text-muted-foreground hover:bg-muted hover:text-foreground" href="#/markets">All movers</a></header>
             <div id="trend" aria-busy="true"><div class="skeleton skeleton-list" role="status" aria-label="Loading market signals"></div></div></section>
-          <section id="upHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div></section>
+          <section id="upHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming dates"></div></section>
           <section id="insHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section>
         </div>
       </div>
@@ -106,7 +112,6 @@
     </div>
   </section>
 
-  <section class="work" id="pulse" data-views="overview calendar"><div class="wrap wide"><section id="pulsePanel"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the pulse"></div></section></div></section>
   <section class="work" id="mystack" data-views="overview" aria-labelledby="stackHead">
     <div class="wrap wide">
       <h2 class="h-section" id="stackHead">Build a software stack</h2>
@@ -148,13 +153,12 @@
   </section>
   <section class="work" id="insights" data-views="insights" aria-labelledby="insT">
     <div class="wrap wide">
-      <h2 class="h-page" id="insT">Market insights</h2>
-      <p class="msub" id="insSub">Computed from the stored facts.</p>
-      <div class="mt-6"><section id="insFindings"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section></div>
-      <div id="insBody" aria-busy="true"><div class="skeleton skeleton-report mt-4" role="status" aria-label="Loading market analysis"></div></div>
+      <h2 class="h-page" id="insT">Insights</h2>
+      <div class="mt-5 flex flex-col gap-4"><section id="insFindings"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section>
+        <section id="insDisclosure"><div class="skeleton skeleton-table" role="status" aria-label="Loading what categories state"></div></section></div>
     </div>
   </section>
-  <section class="work" id="calendar" data-views="calendar"><div class="wrap wide"><section id="agendaPanel"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div></section></div></section>
+  <section class="work" id="calendar" data-views="calendar"><div class="wrap wide"><section id="agendaPanel"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming dates"></div></section></div></section>
   <section class="work" id="agents" data-views="agents" aria-labelledby="agentsT">
     <div class="wrap wide">
       <h2 class="h-page" id="agentsT">Run the evidence locally</h2>

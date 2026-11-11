@@ -85,13 +85,6 @@ assert page.count(link) == 1 and "<script>" not in page, "the shell links index.
 for m in sorted(p.relative_to(web).as_posix() for p in (web / "src").rglob("*.js")):
     (out / m).parent.mkdir(parents=True, exist_ok=True); (out / m).write_bytes((web / m).read_bytes())
 preload = '<link rel="modulepreload" href="src/main.js">'
-# First-screen text from the data, as components/hero.js writes it, so nothing moves when the modules run.
-data = (site / "site-data.js").read_text(); sd = json.loads(data[data.index("{"):data.rindex("}") + 1])
-y, mo, d = re.match(r"(\d{4})-(\d{2})-(\d{2})", sd["meta"]["checked_at"]).groups()
-fd = f"{int(d)} {'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()[int(mo) - 1]} {y}"
-was = '<p class="honest" id="honest">Every fact quoted from its own page</p>'
-assert page.count(was) == 1, f"the shell no longer holds {was}"
-page = page.replace(was, f'<p class="honest" id="honest">Scope: {sd["meta"]["counts"]["researched_products"] if "counts" in sd["meta"] else sd["dir"]["researched"]:,} researched products · every fact quoted from its own page\nAs of {fd}</p>')
 page, away = re.subn(r'<section class="([^"]*)"( id="[\w-]+" data-views="([^"]+)")',
                      lambda m: m[0] if "overview" in m[3].split() else f'<section class="{m[1]} view-away"{m[2]}', page)
 tabs = re.findall(r'<a class="[^"]*" href="#/" data-view="overview">', page)

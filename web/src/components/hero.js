@@ -1,6 +1,6 @@
-import { COUNTS, M, PARAMS } from '../lib/data.js';
+import { M, PARAMS } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
-import { esc, fd, n, pct } from '../lib/format.js';
+import { esc, fd, pct } from '../lib/format.js';
 import { VIEW } from '../lib/view.js';
 
 /* `only`: ids to show; returns false when none of them has a figure */
@@ -22,7 +22,4 @@ export function drawTape(only, all) {
 
 export function mount() {
   drawTape();
-  /* the same text tools/assemble.sh writes into the page, so nothing moves */
-  $('#honest').textContent =
-    `Scope: ${n(COUNTS.researched_products)} researched products · every fact quoted from its own page\nAs of ${fd(M.meta.checked_at)}`;
 }

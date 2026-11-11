@@ -20,7 +20,7 @@ const SECTIONS = [
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> of all measured views · was ${p1(i.baseline)} · ×${i.ratio.toFixed(2)}`,
     more: i => `Driven by ${ext(i.driver.url, i.driver.name)}, ${k(i.driver.views[0])} → ${k(i.driver.views[1])} views · ${n(i.base)} products measured`,
     base: F => `Method: ${esc(F.rule)}: ${F.weeks[0]} to ${F.weeks[1]} against ${F.weeks[2]} to ${F.weeks[3]}. ${n(F.base.products)} products; all their views ${k(F.base.views[0])} → ${k(F.base.views[1])}. ${esc(F.source)}. Attention, not adoption.`,
-    one: i => `<b class="text-foreground">${esc(i.name)}</b> ${p1(i.value)} of all measured views, was ${p1(i.baseline)}; driven by ${esc(i.driver.name)}`,
+    one: i => `<b class="text-foreground">${esc(i.name)}</b> drew ${p1(i.value)} of page views, up from ${p1(i.baseline)}. ${esc(i.driver.name)} led.`,
   },
   {
     key: 'ai',
@@ -29,7 +29,7 @@ const SECTIONS = [
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> state AI · average ${p1(i.baseline)}`,
     more: i => `${n(i.found)} of ${n(i.base)} products read · ${i.z} standard errors above the average`,
     base: F => `Method: ${esc(F.rule)}. Average: ${n(F.base.found)} of ${n(F.base.products)} products read.`,
-    one: i => `<b class="text-foreground">${esc(i.name)}</b> ${p1(i.value)} state AI vs ${p1(i.baseline)} average, ${n(i.found)} of ${n(i.base)}`,
+    one: i => `<b class="text-foreground">${esc(i.name)}</b>: ${p1(i.value)} state AI (${n(i.found)} of ${n(i.base)}). The average is ${p1(i.baseline)}.`,
   },
   {
     key: 'entrants',
@@ -38,7 +38,7 @@ const SECTIONS = [
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> started recently · average ${p1(i.baseline)}`,
     more: i => `${n(i.found)} of ${n(i.base)} with an inception year: ${i.examples.map(x => `${ext(x.url, x.name)} ${x.year}`).join(', ')}`,
     base: F => `Method: ${esc(F.rule)}. Across every category: ${n(F.base.found)} of ${n(F.base.products)} (${p1(F.base.found / F.base.products || 0)}). ${esc(F.source)}.`,
-    one: (i, F) => `<b class="text-foreground">${esc(i.name)}</b> ${p1(i.value)} started in ${F.since} or later vs ${p1(i.baseline)} average`,
+    one: (i, F) => `<b class="text-foreground">${esc(i.name)}</b>: ${p1(i.value)} started in ${F.since} or later. The average is ${p1(i.baseline)}.`,
   },
   {
     key: 'standout',
@@ -47,7 +47,7 @@ const SECTIONS = [
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> ${esc(i.label)} · average ${p1(i.baseline)}`,
     more: i => `${n(i.found)} of ${n(i.base)} products read · ${i.z} standard errors above the average`,
     base: F => `Method: ${esc(F.rule)}. ${n(F.base.products)} products read.`,
-    one: i => `<b class="text-foreground">${esc(i.name)}</b> ${p1(i.value)} ${esc(i.label)} vs ${p1(i.baseline)} average, ${n(i.found)} of ${n(i.base)}`,
+    one: i => `<b class="text-foreground">${esc(i.name)}</b>: ${p1(i.value)} state ${esc(i.label)} (${n(i.found)} of ${n(i.base)}). The average is ${p1(i.baseline)}.`,
   },
 ];
 
@@ -64,22 +64,24 @@ const none = (scope, F) => `<p class="${ui.panelNote}">No category${scope.kind =
 
 function full(scope, el) {
   const F = I.findings;
-  el.innerHTML = `<div class="flex flex-col gap-6">${SECTIONS.map(s => {
+  const body = SECTIONS.map(s => {
     const xs = pick(scope, F, s).slice(0, F.params.top),
       m = Math.max(1e-9, ...xs.flatMap(i => [i.value, i.baseline]));
+    if (!xs.length) return '';
     return `<section class="flex flex-col gap-2"><p class="${ui.panelTitle}">${esc(s.title)}</p><p class="${ui.panelNote}">${esc(s.ask)}</p>
-      ${xs.length ? `<ol class="flex flex-col">${xs.map(i => `<li class="grid gap-1.5 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,14rem)_minmax(0,9rem)_minmax(0,1fr)] md:items-center md:gap-x-4">${cat(i)}${bar(i, m)}<span class="flex flex-col gap-1 text-xs text-muted-foreground"><span>${s.value(i)}</span><span>${s.more(i)}</span></span></li>`).join('')}</ol>` : none(scope, F)}
+      <ol class="flex flex-col">${xs.map(i => `<li class="grid gap-1.5 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,14rem)_minmax(0,9rem)_minmax(0,1fr)] md:items-center md:gap-x-4">${cat(i)}${bar(i, m)}<span class="flex flex-col gap-1 text-xs text-muted-foreground"><span>${s.value(i)}</span><span>${s.more(i)}</span></span></li>`).join('')}</ol>
       <p class="${ui.panelNote}">${s.base(F[s.key])}</p></section>`;
-  }).join('')}
-    <p class="${ui.panelNote}">Bar: the category; tick: its baseline.</p></div>`;
+  }).join('');
+  el.innerHTML = body ? `<div class="flex flex-col gap-6">${body}<p class="${ui.panelNote}">Bar: the category; tick: its baseline.</p></div>` : none(scope, F);
 }
 
 function brief(scope, el) {
   const F = I.findings;
-  el.innerHTML = `<ol class="flex flex-col">${SECTIONS.map(s => {
-    const xs = pick(scope, F, s);
-    return `<li class="flex flex-col gap-1 py-2 border-b border-border last:border-b-0"><p class="${ui.meta}">${esc(s.title)}</p><p class="text-sm text-muted-foreground leading-snug">${xs.length ? s.one(xs[0], F[s.key]) : 'No category stands out.'}</p></li>`;
-  }).join('')}</ol>`;
+  /* the leading comparison of each kind, then the runners-up, so a kind with nothing to say takes no row */
+  const rows = [0, 1, 2, 3].flatMap(r => SECTIONS.flatMap(s => pick(scope, F, s).slice(r, r + 1).map(i => [s, i]))).slice(0, 5);
+  el.innerHTML = rows.length
+    ? `<ol class="flex flex-col">${rows.map(([s, i]) => `<li class="flex flex-col gap-1 py-2 border-b border-border last:border-b-0"><p class="${ui.meta}">${esc(s.title)}</p><p class="text-sm text-muted-foreground leading-snug">${s.one(i, F[s.key])}</p></li>`).join('')}</ol>`
+    : none(scope, F);
 }
 
 const render = draw => (scope, el) => {
@@ -98,7 +100,7 @@ export const panel = { id: 'findings', title: 'Category insights', note: NOTE, c
 export const briefPanel = {
   id: 'findings-brief',
   title: 'Category insights',
-  note: 'The leading comparison of each kind, with its base.',
+  note: 'Where a category breaks from the average this week.',
   controls: () => `<a class="${ui.button.ghost} shrink-0 whitespace-nowrap" href="#/insights">All insights</a>`,
   render: render(brief),
 };

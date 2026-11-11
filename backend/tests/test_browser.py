@@ -173,8 +173,8 @@ def test_the_pulse_opens_a_week_with_sourced_events_and_follows_the_stack_scope(
     assert page.get_attribute("#pulsePanel [data-scope=stack]", "aria-pressed") == "true"
     page.evaluate("location.hash = '#/calendar'")
     page.wait_for_function("document.body.dataset.view === 'calendar'")
-    wait(page, "document.querySelector('#agendaPanel [data-body] p')")
-    assert "end of" not in page.inner_text("#agendaPanel").lower()
+    wait(page, "document.querySelector('#agendaPanel [data-body] time')")
+    assert page.locator("#agendaPanel [data-body] li a[href^='https://']").count() == page.locator("#agendaPanel [data-body] li").count()
     assert page.evaluate(FITS)
     assert not errors
     context.close()
@@ -196,8 +196,8 @@ def test_compare_remains_usable_on_a_phone(chrome, app_url):
 def test_markets_panels_cover_every_sector_and_keep_rows_aligned(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
     page.evaluate("location.hash = '#/markets'")
-    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 5")
-    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["sectors", "announcements", "entrants", "interest", "downloads"]
+    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 4")
+    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["interest", "downloads", "announcements", "sectors"]
     tops = page.evaluate("fetch('markets.json').then(r => r.json()).then(d => Object.values(d.nodes).filter(n => n.parent === null).length)")
     assert page.locator('[data-panel="sectors"] tbody tr').count() == tops
     spread = page.evaluate("""[...document.querySelectorAll('#markets [data-panel] tbody tr')].map(tr => {

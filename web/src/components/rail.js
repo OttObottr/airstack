@@ -1,7 +1,7 @@
 import { M } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { fd, n } from '../lib/format.js';
-import { stack } from '../lib/stack.js';
+import { stack, toggle } from '../lib/stack.js';
 import { html, raw } from '../ui/html.js';
 import { mono } from './avatar.js';
 
@@ -12,7 +12,7 @@ function draw() {
   $('#railStackN').textContent = s.length ? n(s.length) : '';
   $('#railStack').innerHTML = String(
     s.length
-      ? html`${s.map(x => html`<li><a class="${ITEM}" href="#app=${x.id}">${raw(mono(x, 's20'))}<span class="truncate">${x.name || x.id}</span></a></li>`)}`
+      ? html`${s.map(x => html`<li class="group relative"><a class="${ITEM} pr-8" href="#app=${x.id}">${raw(mono(x, 's20'))}<span class="truncate">${x.name || x.id}</span></a><button class="absolute right-1 top-1 hidden size-6 items-center justify-center rounded text-subtle-foreground hover:bg-background hover:text-foreground group-hover:flex focus-visible:flex" type="button" data-unstack="${x.id}" aria-label="Remove ${x.name || x.id} from your stack">×</button></li>`)}`
       : html`<li class="px-2.5 text-xs leading-relaxed text-subtle-foreground">Save the tools you use to follow them here.</li>`
   );
 }
@@ -21,10 +21,14 @@ export function mount() {
   const read = M.meta && M.meta.checked_at,
     c = M.meta && M.meta.counts;
   if (read) {
-    $('#freshness').textContent = `Data read ${fd(read)}`;
-    $('#railFresh').textContent = `Data read ${fd(read)}${c ? ` · ${n(c.products)} products · ${n(c.researched_products)} researched` : ''}. Every fact is quoted from its own page.`;
+    $('#freshness').textContent = `Updated ${fd(read)}`;
+    $('#railFresh').textContent = c ? `${n(c.products)} products` : '';
   }
   $('#railAdd').addEventListener('click', () => $('#stackAdd').click());
+  $('#railStack').addEventListener('click', e => {
+    const b = e.target.closest('[data-unstack]');
+    if (b) toggle({ id: b.dataset.unstack });
+  });
   addEventListener('airstack:stack', draw);
   draw();
 }
