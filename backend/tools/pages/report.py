@@ -32,10 +32,10 @@ def report_pages():
     upcoming = [x for x in events["events"] if x["at"] >= start and x["status"] == "scheduled" and not x["kind"].startswith("end of")][:250]
     rows = "".join(f'<tr><td><time datetime="{e(x["at"])}">{e(x["at"])}</time></td><td>{e(x["name"])}</td><td><a href="{e(x["url"])}" rel="nofollow noopener">{e(x["title"])}</a></td><td>{e(x["status"])}</td></tr>' for x in upcoming)
     lead = f"{len(upcoming):,} software launches and releases dated by their sources from {start}, kept separate from observed changes."
-    body = f'<h2>Upcoming dates</h2><table><tr><th>Date</th><th>Product</th><th>Event</th><th>Status</th></tr>{rows}</table><p><small>{e(events["source"]["statuses"]["scheduled"])} Every row links to its publisher.</small></p>'
+    body = f'<h2>Upcoming dates</h2><table><tr><th>Date</th><th>Product</th><th>Event</th><th>Status</th></tr>{rows}</table><p><small>{e(events["source"]["statuses"]["scheduled"])} Rows link to their publishers.</small></p>'
     urls.append(write("calendar", "Software change calendar", lead, body, {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software change calendar", "description": lead}))
 
-    lead = "Every fact on AirStack is a short quote from the product's own page, with the page and the day it was read."
+    lead = "Facts on AirStack are short quotes from product pages, with the page and the day it was read."
     body = ('<h2>Quoted, dated, linked</h2><p>Each fact is the vendor’s own words, linked to where they appear on its page, '
             'with the days AirStack read and re-checked it. When a page no longer says it, the fact is withdrawn.</p>'
             '<h2>What we leave out</h2><p>AirStack does not republish security, compliance or customer claims, which only the vendor can stand behind, '

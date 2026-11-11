@@ -28,10 +28,10 @@ export function renderToolCard(x) {
   const facts = P
     ? pview({ id: x.id, name: x.name }, x.id, () => renderAll())
     : MK
-      ? `<p class="meta">No verified facts yet for ${esc(x.name)}.</p>`
+      ? `<p class="meta">No facts yet for ${esc(x.name)}.</p>`
       : MKERR
-        ? '<p class="load-error">Verified facts could not be loaded. Check your connection and reload.</p>'
-        : '<div class="skeleton skeleton-profile" role="status" aria-label="Loading verified facts"></div>';
+        ? '<p class="load-error">Facts could not be loaded. Check your connection and reload.</p>'
+        : '<div class="skeleton skeleton-profile" role="status" aria-label="Loading facts"></div>';
   const coverage = [
     row ? '<li class="cv2 on">Market signals · current snapshot</li>' : '',
     P ? `<li class="cv2 on">${P.facts} sourced facts</li>` : '',

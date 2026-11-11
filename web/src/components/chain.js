@@ -61,7 +61,7 @@ export async function openChain(id, opener) {
     return;
   }
   if (!E) {
-    $('#chainSub').textContent = 'No verified facts are recorded for this tool yet.';
+    $('#chainSub').textContent = 'No facts are recorded for this tool yet.';
     return;
   }
   const F = E.facts.filter(f => shown(D, f.metric)),
@@ -93,7 +93,7 @@ export async function openChain(id, opener) {
     .join('');
   $('#chainNote').textContent = indep
     ? 'Some facts are also stated by independent sources, listed per fact.'
-    : 'Every source here is the vendor’s own site, a store listing it controls, or the platform maker’s own documentation. None is an independent party, so these are vendor-origin claims that code has confirmed the pages really make.';
+    : 'These are statements from the vendor’s own pages, a store listing or the platform maker’s documentation, not independent sources.';
 }
 function closeChain() {
   $('#chainSec').hidden = true;

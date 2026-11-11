@@ -120,8 +120,8 @@ Each fact is a short quote with its source link and the day the page was read, s
 | `read` | The day AirStack read that page (YYYY-MM-DD) |
 | `licence` | The licence note for this line |
 
-Left out: the stored page text, prices, and every fact from a page whose terms bar automated reading or whose robots.txt is closed to
-AirStackBot. A page that closes later is removed from earlier releases too.
+Left out: the stored page text, prices, and every fact from a page whose robots.txt is closed to AirStackBot, and every fact from
+the hosts whose terms AirStack has recorded as barring automated reading. A page that closes later is removed from earlier releases too.
 
 ## How it is built
 

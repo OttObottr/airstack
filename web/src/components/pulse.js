@@ -44,7 +44,7 @@ const label = e => (bare(e) && e.name && e.url ? `${e.name} ${decodeURIComponent
 /* one dated event: what happened (linked to its source), how it is dated and where it was read, and the product it belongs to */
 const row = e => `<li class="grid gap-1 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-4">
       <span class="flex flex-col gap-1 min-w-0"><span class="text-sm text-foreground">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(label(e))}</a>` : esc(label(e))}</span>
-      ${e.gist ? `<span class="text-sm leading-snug text-muted-foreground">${esc(e.gist)}</span>` : ''}
+      ${e.gist ? `<span class="text-sm leading-snug text-muted-foreground"><span class="text-subtle-foreground">Summary: </span>${esc(e.gist)}</span>` : ''}
       <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${stamp(e.read, P.source.built_for)}` : esc(host(e.url || ''))}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
       ${e.id ? `<span class="flex items-center gap-2"><a class="text-xs text-muted-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name || e.id)}</a>${stackToggle(e.id, e.name)}</span>` : '<span></span>'}</li>`;
 

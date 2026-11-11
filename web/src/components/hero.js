@@ -20,10 +20,10 @@ export async function drawTape(only) {
     .slice(0, 10); /* a short loop: the ten that matter most */
   const item = i =>
     `<a href="#app=${esc(i.id)}"><b>${esc(i.name)}</b><span>${esc(says(i))}</span></a>`;
-  const as = `<span class="as">${only ? 'your tools · ' : ''}latest · ${fd(read)}</span>`;
+  const as = `<span class="as">${only ? 'your tools · ' : ''}latest · ${fd(read)} · AirStack summaries</span>`;
   if (rows.length) {
     const t = $('#tape');
-    t.innerHTML = as + rows.map(item).join('') + as + rows.map(item).join('');
+    t.innerHTML = as + rows.map(item).join('') + `<span class="contents" aria-hidden="true" inert>${as}${rows.map(item).join('')}</span>`; /* the loop's second copy is for the eye only */
     t.style.animationDuration = `${Math.round(t.scrollWidth / 2 / PACE)}s`; /* a steady reading pace however long the lines are */
   }
   else if (!only) $('#tapeW').hidden = true;
@@ -31,3 +31,13 @@ export async function drawTape(only) {
 }
 
 export const mount = () => void drawTape();
+
+/* the strip moves on its own, so it can be stopped (WCAG 2.2.2); the choice is kept for the visit */
+document.addEventListener('click', e => {
+  const b = e.target.closest('#tapeX');
+  if (!b) return;
+  const on = b.getAttribute('aria-pressed') !== 'true';
+  b.setAttribute('aria-pressed', String(on));
+  b.textContent = on ? 'Play' : 'Pause';
+  $('#tapeW').classList.toggle('paused', on);
+});

@@ -19,7 +19,7 @@ def page(p, all_, prices, oss):
     peers = [] if p["lane"] == "directory" else sorted((x for x in all_.values() if x["lane"] == p["lane"] and x["id"] != p["id"] and x["profile"]), key=lambda x: -x["profile"]["facts"])[:10]
     title = f"{p['name']}: {'pricing, plans and ' if Q else ''}{'alternatives' if peers else 'what it does'} · AirStack"
     desc = f"{p['name']}: " + (f"{what} " if what else "") + ("Its plans and list prices as its pricing page lists them, with the date. " if Q else "") \
-        + (f"Compare {p['name']} with {len(peers)} alternatives in {p['category']}, every fact quoted from each product's own pages." if peers else "Every fact quoted from its own pages, with the source.")
+        + (f"Compare {p['name']} with {len(peers)} alternatives in {p['category']}, with facts quoted from product pages." if peers else "Facts quoted from its pages, with sources.")
     url = f"{BASE}/p/{p['slug']}/"
     ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": p["name"], "applicationCategory": p["category"], "url": url,
           **({"description": what} if what else {}), **({"sameAs": [p["homepage"]] + ([f"https://www.wikidata.org/wiki/{p['wikidata']}"] if p.get("wikidata") else [])} if p["homepage"] else {}),

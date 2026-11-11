@@ -33,7 +33,7 @@ const PANELS = [
   {
     id: 'headlines',
     title: 'Announcements',
-    note: 'What vendors shipped or announced this week, most important first.',
+    note: 'What vendors shipped or announced this week, most important first. Lines are machine-written summaries; the linked page governs.',
     ranges: [7],
     rows: fromNews(['blog', 'changelog', 'release'], i => (announced(i) ? lead(i) : -1), i => ({ text: says(i), value: Badge(i.signal), signal: i.signal })),
   },

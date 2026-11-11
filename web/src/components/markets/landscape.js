@@ -92,7 +92,7 @@ export const arrivals = {
 export const mix = {
   id: 'news-mix',
   title: 'What the news is about',
-  note: 'Every vendor post and release in the window, read and classed by what it announces.',
+  note: 'Vendor posts and releases in the window, classed by what they announce.',
   async render(scope, el) {
     const fresh = latest(el);
     loading(el);

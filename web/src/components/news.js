@@ -101,7 +101,7 @@ function render() {
   $('#newsMore').disabled = false;
   $('#newsSub').innerHTML =
     `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days.` +
-    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. Where a line is a summary, AirStack wrote it from the linked page. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
+    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
 }
 
 export function mount() {
