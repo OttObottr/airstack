@@ -233,7 +233,7 @@ export const panel = {
 const RECENT = 4,
   LISTED = 8;
 let picked = null; /* { j: sector, k: week } the reader chose; until then, the loudest sector's latest active week */
-function grid(el, peek) {
+function grid(el) {
   const cols = weeksIn(),
     last = cols.slice(-RECENT),
     all = last.reduce((a, c) => a + c.v, 0) || 1;
@@ -242,7 +242,7 @@ function grid(el, peek) {
     .filter(r => r.sec.id !== 'unplaced' && cols.some(c => c.s[r.j]))
     .sort((a, b) => b.loud - a.loud);
   if (!rows.length) return void (el.innerHTML = `<p class="${ui.panelNote}">No dated activity in the last year.</p>`);
-  const sel = peek || picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
+  const sel = picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
     c = cols[sel.k],
     events = c.e
       .map(([i]) => P.events[i])
@@ -256,7 +256,7 @@ function grid(el, peek) {
           .map((w, k) => {
             const v = w.s[r.j],
               on = r.j === sel.j && k === sel.k;
-            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? (0.25 + 0.75 * (v / r.peak)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" aria-pressed="${on}"></button>`;
+            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? (0.25 + 0.75 * (v / r.peak)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" title="${esc(`${r.sec.name} · ${week(w.w)} · ${v} ${v === 1 ? 'item' : 'items'}`)}" aria-pressed="${on}"></button>`;
           })
           .join('')}</span>
         <span class="${ui.num} text-right text-sm text-foreground" title="Share of all activity in the last ${RECENT} weeks">${Math.round(r.loud * 100)}%</span></div>`
@@ -273,18 +273,9 @@ export const sectorPanel = {
     if (!el.dataset.wired) {
       el.dataset.wired = '1';
       const at = e => (b => b && !b.disabled && { j: +b.dataset.j, k: +b.dataset.k })(e.target.closest('button[data-k]'));
-      let shown = null;
       el.addEventListener('click', e => {
         const s = at(e);
-        if (s) grid(el, (shown = picked = s));
-      });
-      /* pointing at a square previews its week below, in a box of fixed height so nothing else on the page moves; leaving returns to the pinned one */
-      el.addEventListener('pointerover', e => {
-        const s = at(e);
-        if (s && (!shown || s.j !== shown.j || s.k !== shown.k)) grid(el, (shown = s));
-      });
-      el.addEventListener('pointerleave', () => {
-        if (shown) grid(el, (shown = null));
+        if (s) grid(el, (picked = s)); /* only a click changes what is shown: the list never moves under the pointer */
       });
     }
     return P ? grid(el) : load().then(() => grid(el));

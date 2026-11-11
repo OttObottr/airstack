@@ -105,10 +105,11 @@ function priceOf(id) {
   };
 }
 
-/* a record from Wikidata, shown as recorded and linked to its item */
-function recordOf(id, k) {
+/* a record from Wikidata fills a field the product's own page leaves blank; it is labelled, and never counts as a difference */
+const RECORD = { platforms: 'os', license: 'licence' };
+function recordOf(id, k, blank) {
   const v = basics(id, k);
-  return v.length ? { key: norm(v), wd: true, html: `<div class="cv"><b>${esc(v.join(', '))}</b></div><div class="cs">${wdLink(id, DIR.basics.read)}</div>` } : { html: nobs };
+  return v.length ? { wd: true, html: `<div class="cv"><b>${esc(v.join(', '))}</b></div><div class="cs"><span class="meta">Not found on its own pages. Wikidata records:</span> ${wdLink(id, DIR.basics.read)}</div>` } : blank;
 }
 
 async function draw() {
@@ -179,10 +180,11 @@ async function draw() {
     ...Object.keys(METRIC).map(m => ({
       l: METRIC[m],
       one: STR.has(m),
-      cells: ids.map(id => (D.entities[id] ? cellOf(facts(id, m), nameOf(id, D), METRIC[m]) : { html: '<span class="nobs">—</span>' })),
+      cells: ids.map(id => {
+        const own = D.entities[id] ? cellOf(facts(id, m), nameOf(id, D), METRIC[m]) : { html: '<span class="nobs">—</span>' };
+        return own.date || !RECORD[m] ? own : recordOf(id, RECORD[m], own); /* its own page first; Wikidata's record only where the page says nothing */
+      }),
     })),
-    { l: 'Runs on', cells: ids.map(id => recordOf(id, 'os')) },
-    { l: 'Licence', cells: ids.map(id => recordOf(id, 'licence')) },
   ].filter(r => r.cells.some(c => c.date || c.wd));
   for (const r of rows) {
     const seen = new Set(r.cells.filter(c => c.key != null).map(c => c.key));
@@ -205,7 +207,7 @@ async function draw() {
     ? `Scope: ${ids.length} products × ${rows.length} fields · Coverage: ${observed} of ${possible} cells sourced${nd ? ` · ${nd} fields differ` : ''}${oldest ? ` · Oldest source check ${fd(oldest)}` : ''}. Open a cell for the vendor’s exact words.`
     : ids.length
       ? 'Add at least one more product: a comparison is 2 to 5.'
-      : 'Add 2 to 5 products. Every cell is what that product’s own page says, with the page and the day it was found there.';
+      : 'Add 2 to 5 products. Each cell is what that product’s own page says, with the page and the day it was found there; where a page is silent, Wikidata’s record is shown and marked.';
   const groups = new Map();
   for (const [id, , lane] of M.index)
     if (D.entities[id]) groups.set(lane, [...(groups.get(lane) || []), id]);

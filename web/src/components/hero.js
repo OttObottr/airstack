@@ -3,6 +3,7 @@ import { $ } from '../lib/dom.js';
 import { esc, fd } from '../lib/format.js';
 import { announced, lead, says } from '../lib/news.js';
 
+const PACE = 30; /* the top line's speed, in pixels a second */
 const DAYS = 3; /* how far back an announcement still leads the page */
 
 /* The top line: what a reader should not miss. The newest announcement of each product over the last few days, most important first. `only`: product ids to keep; resolves false when none of them has an item. */
@@ -20,7 +21,11 @@ export async function drawTape(only) {
   const item = i =>
     `<a href="#app=${esc(i.id)}"><b>${esc(i.name)}</b><span>${esc(says(i))}</span></a>`;
   const as = `<span class="as">${only ? 'your tools · ' : ''}latest · ${fd(read)}</span>`;
-  if (rows.length) $('#tape').innerHTML = as + rows.map(item).join('') + as + rows.map(item).join('');
+  if (rows.length) {
+    const t = $('#tape');
+    t.innerHTML = as + rows.map(item).join('') + as + rows.map(item).join('');
+    t.style.animationDuration = `${Math.round(t.scrollWidth / 2 / PACE)}s`; /* a steady reading pace however long the lines are */
+  }
   else if (!only) $('#tapeW').hidden = true;
   return rows.length > 0;
 }
