@@ -1,4 +1,6 @@
+import { Method } from '../ui/method.js';
 import { mono } from './avatar.js';
+import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd, n, stamp, url } from '../lib/format.js';
 import { scopeControl, stackScope, stackToggle } from '../lib/scope.js';
@@ -101,8 +103,9 @@ function render() {
   );
   $('#newsMore').hidden = R.length <= shown;
   $('#newsMore').disabled = false;
-  $('#newsSub').textContent =
-    `Each product once, at its latest update, from each vendor’s own feed, substantive GitHub release notes, and Hacker News threads (${HN_MIN}+ points) whose story links to the product’s own site · ${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days · read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`;
+  $('#newsSub').innerHTML =
+    `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days.` +
+    Method(`Each product once, at its latest update, from each vendor’s own feed, substantive GitHub release notes, and Hacker News threads (${HN_MIN}+ points) whose story links to the product’s own site. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
 }
 
 export function mount() {
@@ -112,42 +115,22 @@ export function mount() {
     if (scope.ids) scope = stackScope();
     if (N) render();
   });
-  let loading = null;
-  const load = () =>
-    loading ||
-    (loading = fetch('news.json')
-      .then(r => {
-        if (!r.ok) throw new Error(r.status);
-        return r.json();
-      })
-      .then(d => {
-        N = d;
-        delete sec.dataset.loading;
-        $('#newsList').setAttribute('aria-busy', 'false');
-        render();
-      })
-      .catch(() => {
-        delete sec.dataset.loading;
-        $('#newsKinds').innerHTML = '';
-        $('#newsSub').textContent = 'Sourced updates could not be loaded.';
-        $('#newsMore').hidden = true;
-        $('#newsList').setAttribute('aria-busy', 'false');
-        $('#newsList').innerHTML =
-          '<li class="load-error" role="status">Check the connection and reload.</li>';
-      }));
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      entries => {
-        if (entries.some(entry => entry.isIntersecting)) {
-          io.disconnect();
-          load();
-        }
-      },
-      { rootMargin: '800px' }
-    );
-    io.observe(sec);
-  } else load();
-  for (const type of ['pointerdown', 'keydown', 'focusin', 'scroll']) addEventListener(type, load, { once: true, passive: true });
+  /* the same file Home's front page reads, so it is fetched once */
+  json('news.json')
+    .then(d => {
+      N = d;
+      delete sec.dataset.loading;
+      $('#newsList').setAttribute('aria-busy', 'false');
+      render();
+    })
+    .catch(() => {
+      delete sec.dataset.loading;
+      $('#newsKinds').innerHTML = '';
+      $('#newsSub').textContent = 'Sourced updates could not be loaded.';
+      $('#newsMore').hidden = true;
+      $('#newsList').setAttribute('aria-busy', 'false');
+      $('#newsList').innerHTML = '<li class="load-error" role="status">Check the connection and reload.</li>';
+    });
   sec.addEventListener('click', e => {
     const sc = e.target.closest('#newsScope [data-scope]');
     if (sc) {

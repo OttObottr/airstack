@@ -23,6 +23,7 @@ const fromNews = (kinds, score, line) => async days => {
   const N = await json('news.json'),
     read = N.source.read,
     from = since(read, days);
+  if (read !== clock()) LABEL[1] = fd(read).replace(/ \d{4}$/, ''); /* data older than the clock is named by its date, never called today */
   return perProduct(N.items.filter(i => kinds.includes(i.kind) && i.date.slice(0, 10) >= from && i.date.slice(0, 10) <= read), score)
     .filter(i => score(i) >= 0)
     .map(i => ({ ...who(i.id, i.name), href: url(i.url), ...line(i, days) }));
@@ -69,6 +70,7 @@ const PANELS = [
   },
 ];
 const LABEL = { 1: 'Today', 7: '7 days', 30: '30 days' };
+const clock = () => new Date().toISOString().slice(0, 10);
 
 function open(host, P) {
   let days = null;
@@ -82,9 +84,12 @@ function open(host, P) {
       const all = await Promise.all(P.ranges.map(P.rows));
       if (days == null) {
         days = P.ranges[Math.max(0, all.findIndex(r => r.length >= FULL))];
-        host.querySelectorAll('[data-days]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.days === days));
+        host.querySelectorAll('[data-days]').forEach(b => {
+          b.setAttribute('aria-pressed', +b.dataset.days === days);
+          b.textContent = LABEL[b.dataset.days];
+        });
       }
-      el.innerHTML = String(Lines({ rows: all[P.ranges.indexOf(days)].slice(0, SHOWN), empty: `Nothing ${days === 1 ? 'yet today' : `in ${LABEL[days]}`}.` }));
+      el.innerHTML = String(Lines({ rows: all[P.ranges.indexOf(days)].slice(0, SHOWN), empty: `Nothing ${days === 1 && LABEL[1] === 'Today' ? 'yet today' : `in ${LABEL[days]}`}.` }));
     },
   });
   host.addEventListener('click', e => {

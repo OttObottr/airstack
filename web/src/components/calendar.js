@@ -14,7 +14,9 @@ let E = null,
   ofNode = null;
 
 const draw = (days, shown) => (scope, el) => {
-  const today = E.source.built_for,
+  const built = E.source.built_for,
+    now = new Date().toISOString().slice(0, 10),
+    today = now > built ? now : built /* a date that has passed is not coming up, however old the data */,
     end = new Date(Date.parse(today) + days * DAY).toISOString().slice(0, 10),
     seen = new Set();
   const ahead = E.events

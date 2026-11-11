@@ -1,3 +1,4 @@
+import { Method } from '../../ui/method.js';
 import { ui } from '../../ui/recipes.js';
 import { json } from '../../lib/data.js';
 import { esc, fd, n, pct, url } from '../../lib/format.js';
@@ -87,6 +88,6 @@ export const panel = {
           .join('')}</tbody></table></div>`
           : `<p class="${ui.panelNote}">${lens === 'Top' ? 'No product here has a matched English Wikipedia article.' : `No product here is ${lens.toLowerCase()} by the rule below.`}</p>`
       }
-      <p class="text-xs text-muted-foreground leading-snug">${n(Math.min(VIEW.attentionShown, list.length))} of ${n(list.length)} shown · weeks of ${fd(W[0])} to ${fd(W[W.length - 1])} · rising and falling need at least ${n(P.min_baseline)} views in the prior ${P.window_weeks} weeks · <a class="underline underline-offset-2 hover:text-foreground" href="${url(S.url)}" target="_blank" rel="noopener noreferrer">${esc(S.name)}</a>, ${esc(S.license)}, read ${fd(S.read)}</p>`;
+      ${Method(`${n(Math.min(VIEW.attentionShown, list.length))} of ${n(list.length)} shown · weeks of ${fd(W[0])} to ${fd(W[W.length - 1])} · rising and falling need at least ${n(P.min_baseline)} views in the prior ${P.window_weeks} weeks · <a class="underline underline-offset-2 hover:text-foreground" href="${url(S.url)}" target="_blank" rel="noopener noreferrer">${esc(S.name)}</a>, ${esc(S.license)}, read ${fd(S.read)}`)}`;
   },
 };

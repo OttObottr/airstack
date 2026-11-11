@@ -1,5 +1,6 @@
 /* Category insights (insights.json findings): each item carries its base, its baseline and its spread, and the producer has already
    dropped what fails insights.* (rule 10). Two workspace panels: `panel` (the four comparisons) and `brief` (one line each). */
+import { Method } from '../ui/method.js';
 import { json } from '../lib/data.js';
 import { esc, n, url } from '../lib/format.js';
 import { versus } from '../lib/charts.js';
@@ -19,7 +20,7 @@ const SECTIONS = [
     ask: 'Which categories take a larger share of what people read?',
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> of all measured views · was ${p1(i.baseline)} · ×${i.ratio.toFixed(2)}`,
     more: i => `Driven by ${ext(i.driver.url, i.driver.name)}, ${k(i.driver.views[0])} → ${k(i.driver.views[1])} views · ${n(i.base)} products measured`,
-    base: F => `Method: ${esc(F.rule)}: ${F.weeks[0]} to ${F.weeks[1]} against ${F.weeks[2]} to ${F.weeks[3]}. ${n(F.base.products)} products; all their views ${k(F.base.views[0])} → ${k(F.base.views[1])}. ${esc(F.source)}. Attention, not adoption.`,
+    base: F => `${esc(F.rule)}: ${F.weeks[0]} to ${F.weeks[1]} against ${F.weeks[2]} to ${F.weeks[3]}. ${n(F.base.products)} products; all their views ${k(F.base.views[0])} → ${k(F.base.views[1])}. ${esc(F.source)}. Attention, not adoption.`,
     one: i => `<b class="text-foreground">${esc(i.name)}</b> drew ${p1(i.value)} of page views, up from ${p1(i.baseline)}. ${esc(i.driver.name)} led.`,
   },
   {
@@ -28,7 +29,7 @@ const SECTIONS = [
     ask: 'Which categories state AI in their one-line descriptions more than the average?',
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> state AI · average ${p1(i.baseline)}`,
     more: i => `${n(i.found)} of ${n(i.base)} products read · ${i.z} standard errors above the average`,
-    base: F => `Method: ${esc(F.rule)}. Average: ${n(F.base.found)} of ${n(F.base.products)} products read.`,
+    base: F => `${esc(F.rule)}. Average: ${n(F.base.found)} of ${n(F.base.products)} products read.`,
     one: i => `<b class="text-foreground">${esc(i.name)}</b>: ${p1(i.value)} state AI (${n(i.found)} of ${n(i.base)}). The average is ${p1(i.baseline)}.`,
   },
   {
@@ -37,7 +38,7 @@ const SECTIONS = [
     ask: 'Which categories have the most recently started products?',
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> started recently · average ${p1(i.baseline)}`,
     more: i => `${n(i.found)} of ${n(i.base)} with an inception year: ${i.examples.map(x => `${ext(x.url, x.name)} ${x.year}`).join(', ')}`,
-    base: F => `Method: ${esc(F.rule)}. Across every category: ${n(F.base.found)} of ${n(F.base.products)} (${p1(F.base.found / F.base.products || 0)}). ${esc(F.source)}.`,
+    base: F => `${esc(F.rule)}. Across every category: ${n(F.base.found)} of ${n(F.base.products)} (${p1(F.base.found / F.base.products || 0)}). ${esc(F.source)}.`,
     one: (i, F) => `<b class="text-foreground">${esc(i.name)}</b>: ${p1(i.value)} started in ${F.since} or later. The average is ${p1(i.baseline)}.`,
   },
   {
@@ -46,7 +47,7 @@ const SECTIONS = [
     ask: 'What does a category state far more often than the rest?',
     value: i => `<b class="${ui.num} text-foreground">${p1(i.value)}</b> ${esc(i.label)} · average ${p1(i.baseline)}`,
     more: i => `${n(i.found)} of ${n(i.base)} products read · ${i.z} standard errors above the average`,
-    base: F => `Method: ${esc(F.rule)}. ${n(F.base.products)} products read.`,
+    base: F => `${esc(F.rule)}. ${n(F.base.products)} products read.`,
     one: i => `<b class="text-foreground">${esc(i.name)}</b>: ${p1(i.value)} state ${esc(i.label)} (${n(i.found)} of ${n(i.base)}). The average is ${p1(i.baseline)}.`,
   },
 ];
@@ -70,9 +71,9 @@ function full(scope, el) {
     if (!xs.length) return '';
     return `<section class="flex flex-col gap-2"><p class="${ui.panelTitle}">${esc(s.title)}</p><p class="${ui.panelNote}">${esc(s.ask)}</p>
       <ol class="flex flex-col">${xs.map(i => `<li class="grid gap-1.5 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,14rem)_minmax(0,9rem)_minmax(0,1fr)] md:items-center md:gap-x-4">${cat(i)}${bar(i, m)}<span class="flex flex-col gap-1 text-xs text-muted-foreground"><span>${s.value(i)}</span><span>${s.more(i)}</span></span></li>`).join('')}</ol>
-      <p class="${ui.panelNote}">${s.base(F[s.key])}</p></section>`;
+      ${Method(s.base(F[s.key]) + ' Bar: the category; tick: its baseline.')}</section>`;
   }).join('');
-  el.innerHTML = body ? `<div class="flex flex-col gap-6">${body}<p class="${ui.panelNote}">Bar: the category; tick: its baseline.</p></div>` : none(scope, F);
+  el.innerHTML = body ? `<div class="flex flex-col gap-6">${body}</div>` : none(scope, F);
 }
 
 function brief(scope, el) {

@@ -1,4 +1,4 @@
-/* The pulse: one column per week since pulse.json's start; its height the weighted launches and releases of that week, its bands each
+/* The pulse: one column per week over the last year (WEEKS); its height the weighted launches and releases of that week, its bands each
    sector's share. Hover or focus a week for its headline; select it for its events by sector, each linked to its source.
    A workspace panel (ui/panel.js): render(scope, el) for scope all, a taxonomy node, your stack or a maker. */
 import { json } from '../lib/data.js';
@@ -8,6 +8,7 @@ import { inScope, scopeControl, scopeName, stackToggle } from '../lib/scope.js';
 import { ui } from '../ui/recipes.js';
 
 const DAY = 864e5,
+  WEEKS = 52 /* a rolling year: long enough to see a season, short enough that every column is a week you can read */,
   LANE = 15; /* one landmark label row */
 /* sector bands in the published order: seven sectors, other sectors, not placed */
 const FILL = ['fill-sector-1', 'fill-sector-2', 'fill-sector-3', 'fill-sector-4', 'fill-sector-5', 'fill-sector-6', 'fill-sector-7', 'fill-sector-other', 'fill-sector-other/40'];
@@ -39,7 +40,7 @@ function headline(list) {
 
 function weeksIn(scope) {
   const all = !scope || scope.kind === 'all';
-  return P.weeks.map(o => {
+  return P.weeks.slice(-WEEKS).map(o => {
     const e = all ? o.e : o.e.filter(([i]) => inScope(scope, P.events[i], P.tree)),
       s = all ? o.s : P.sectors.map(() => 0);
     if (!all) for (const [i, part] of e) s[P.events[i].sector] += part;
@@ -62,8 +63,8 @@ function draw(st) {
   let axis = '';
   cols.forEach((c, k) => {
     const x = k * colW;
-    if (k && c.w.slice(0, 4) !== cols[k - 1].w.slice(0, 4))
-      axis += `<line x1="${x}" x2="${x}" y1="${top}" y2="${top + BH + 4}" class="stroke-border"/><text x="${x + 3}" y="${H - 4}" class="fill-muted-foreground text-[10px]">${c.w.slice(0, 4)}</text>`;
+    if (k && c.w.slice(0, 7) !== cols[k - 1].w.slice(0, 7))
+      axis += `<line x1="${x}" x2="${x}" y1="${top + BH}" y2="${top + BH + 4}" class="stroke-border"/><text x="${x + 3}" y="${H - 4}" class="fill-muted-foreground text-[10px]">${MON[+c.w.slice(5, 7) - 1]}${c.w.slice(5, 7) === '01' ? ` ${c.w.slice(0, 4)}` : ''}</text>`;
   });
   const feeds = P.source.feeds_from,
     fk = feeds ? cols.findIndex(c => Date.parse(c.w) + 7 * DAY > Date.parse(feeds)) : -1,
@@ -73,12 +74,14 @@ function draw(st) {
     axis += `<line x1="${x}" x2="${x}" y1="${LANE}" y2="${top + BH}" stroke-dasharray="2 3" class="stroke-muted-foreground"/><text x="${x - 4}" y="${LANE - 3}" text-anchor="end" class="fill-muted-foreground text-[10px]">Vendor feeds from ${fd(feeds)}</text>`;
     rows[0].push([x - 160, x + 2]);
   }
-  /* landmarks: the published ones in scope, on two label rows; a label that would overlap another is left out */
+  /* landmarks: the headlines of the weeks shown, most-read product first, on two label rows; a label that would overlap another is left out */
   let marks = '';
-  for (const i of P.landmarks) {
-    const e = P.events[i],
-      k = inScope(st.scope, e, P.tree) ? cols.findIndex(c => c.e.some(([j]) => j === i)) : -1;
-    if (k < 0) continue;
+  const heads = cols.map((c, k) => [c.h, k]).filter(([h]) => h != null && P.events[h].w >= P.source.params.headline_min_weight);
+  const named = new Set(); /* an event dated to a month headlines several weeks: name it once */
+  for (const [i, k] of heads.sort((a, b) => (P.events[b[0]].views ?? 0) - (P.events[a[0]].views ?? 0))) {
+    const e = P.events[i];
+    if (named.has(i)) continue;
+    named.add(i);
     const x = k * colW + colW / 2,
       label = e.title.length > 26 ? e.title.slice(0, 25) + '…' : e.title,
       w = label.length * 6 + 8,
@@ -119,7 +122,7 @@ function tip(st, k) {
 function detail(st) {
   const c = st.cols[st.sel],
     D = st.detail;
-  if (!c) return void (D.innerHTML = `<p class="${ui.panelNote}">Select a week for its events by sector, each linked to its source. Arrow keys move between weeks.</p>`);
+  if (!c) return void (D.innerHTML = `<p class="${ui.panelNote}">Select a week to see its events.</p>`);
   const by = new Map();
   for (const [i] of c.e) {
     const e = P.events[i];
@@ -191,7 +194,7 @@ function paint(el, scope) {
   if (st.scope && JSON.stringify(st.scope) !== JSON.stringify(scope)) st.sel = null;
   st.scope = scope;
   st.cols = weeksIn(scope);
-  st.svg.setAttribute('aria-label', `${scopeName(scope, P.tree)}: ${st.cols.length} weeks from ${fd(P.source.from)} to ${fd(P.source.built_for)}; ${n(st.cols.reduce((a, c) => a + c.e.length, 0))} event placements. Select a week for its events.`);
+  st.svg.setAttribute('aria-label', `${scopeName(scope, P.tree)}: ${st.cols.length} weeks from ${fd(st.cols[0].w)} to ${fd(P.source.built_for)}; ${n(st.cols.reduce((a, c) => a + c.e.length, 0))} event placements. Select a week for its events.`);
   const end = st.scroll.scrollLeft >= st.scroll.scrollWidth - st.scroll.clientWidth - 2;
   draw(st);
   if (end) st.scroll.scrollLeft = st.scroll.scrollWidth; /* the latest weeks first; the past scrolls in from the left */
@@ -201,7 +204,7 @@ function paint(el, scope) {
 export const panel = {
   id: 'pulse',
   title: 'The pulse',
-  note: 'Launches and releases each week since 2020, by sector. Each event links its source.',
+  note: 'Launches and releases each week over the last year, by sector.',
   controls: scope => scopeControl(scope, 'events'),
   render(scope, el) {
     if (P) return paint(el, scope);

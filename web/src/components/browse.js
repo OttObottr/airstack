@@ -1,3 +1,4 @@
+import { Method } from '../ui/method.js';
 import { S } from '../lib/state.js';
 import { clearTool } from './app.js';
 import { mono } from './avatar.js';
@@ -99,7 +100,7 @@ export function drawBrowse() {
       .slice(0, 5);
   const w = ((MK && MK.movers) || M.moversTop || {}).window;
   $('#trend').innerHTML =
-    `${lb(list, { lane: false, dense: true })}<p class="meta mt-3">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.</p>`;
+    `${lb(list, { lane: false, dense: true })}<div class="mt-3">${Method(`Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.`)}</div>`;
 }
 
 export function mount() {

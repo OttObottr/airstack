@@ -1,3 +1,4 @@
+import { Method } from '../../ui/method.js';
 import { M, json } from '../../lib/data.js';
 import { esc, fd, n, url } from '../../lib/format.js';
 import { ui } from '../../ui/recipes.js';
@@ -59,7 +60,7 @@ export const latest = el => {
 };
 
 export const sourceLine = (text, file, read) =>
-  `<p class="text-xs text-muted-foreground leading-snug">${text} · <a class="underline underline-offset-2 hover:text-foreground" href="${url(new URL(file, location.href).href)}">${esc(file)}</a>${read ? `, read ${fd(read)}` : ''}</p>`;
+  Method(`${text} · <a class="underline underline-offset-2 hover:text-foreground" href="${url(new URL(file, location.href).href)}">${esc(file)}</a>${read ? `, read ${fd(read)}` : ''}`);
 
 /* the comparisons the producer published for these rows, each read against its peer: `say` words one measure */
 const RATE = { announced: ['announced', 'watched'], talked: ['talked', 'watched'], entrants: ['entrants', 'dated'] };

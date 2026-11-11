@@ -1,3 +1,4 @@
+import { Method } from '../../ui/method.js';
 import { ui } from '../../ui/recipes.js';
 import { M, PARAMS, json } from '../../lib/data.js';
 import { esc, fd, n, pct, url } from '../../lib/format.js';
@@ -68,6 +69,6 @@ export const panel = {
         ${rows.length > VIEW.moversTop ? `<button type="button" class="${ui.button.secondary} self-start" data-more>${all ? `Show top ${VIEW.moversTop}` : `Show all ${n(rows.length)}`}</button>` : ''}`
           : ''
       }
-      <p class="text-xs text-muted-foreground leading-snug">Each registry’s own daily counts, ${fd(Mv.window.last7[0])} to ${fd(Mv.window.last7[1])}, fetched ${fd(Mv.generated)}. vs own weeks: the latest week against the tool’s own ${B.base_weeks}-week level. Changes are shown from ${n(B.solid_min_downloads)} downloads a week. npm and PyPI count different things: compare within a registry.</p>`;
+      ${Method(`Each registry’s own daily counts, ${fd(Mv.window.last7[0])} to ${fd(Mv.window.last7[1])}, fetched ${fd(Mv.generated)}. vs own weeks: the latest week against the tool’s own ${B.base_weeks}-week level. Changes are shown from ${n(B.solid_min_downloads)} downloads a week. npm and PyPI count different things: compare within a registry.`)}`;
   },
 };
