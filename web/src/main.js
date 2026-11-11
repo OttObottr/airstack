@@ -9,6 +9,7 @@ import { mount as mountBrowse } from './components/browse.js';
 import { mount as mountHome } from './components/home.js';
 import { mount as mountAgents } from './components/agents.js';
 import { mount as mountKeys } from './components/keys.js';
+import { mount as mountRail } from './components/rail.js';
 import { mount as mountBeacon } from './lib/beacon.js';
 import { stack } from './lib/stack.js';
 import { fillParams } from './lib/data.js';
@@ -41,7 +42,7 @@ const lazy = () =>
 /* a few components per task keeps taps responsive; search opens a deep-linked product, so it starts after every view listener, then the router */
 const GROUPS = [
   [mountHero, mountMarket, mountChain],
-  [mountNews, mountStack],
+  [mountNews, mountStack, mountRail],
   [mountBrowse, mountHome, mountAgents, mountKeys, lazy, () => mountBeacon(() => stack().length), mountSearch, mountRouter],
 ];
 const run = i => {

@@ -6,6 +6,7 @@ export const VIEWS = {
   calendar: 'Calendar',
   makers: 'Makers',
   agents: 'Agents',
+  product: 'Product', /* one product's page: opened by #app=<id>, it has no tab */
 };
 export const TITLE = 'AirStack · See the software market move';
 let view = null;
@@ -15,7 +16,8 @@ function viewOf(hash) {
   const m = /^#\/([a-z]*)/.exec(h);
   if (m) return VIEWS[m[1]] ? m[1] : 'overview';
   if (/^#compare=/.test(h)) return 'compare';
-  if (/[#&](app|q|stack)=/.test(h)) return 'overview';
+  if (/[#&]app=/.test(h)) return 'product';
+  if (/[#&](q|stack)=/.test(h)) return 'overview';
   if (/[#&]tool=/.test(h)) return 'markets';
   if (/[#&]chain=/.test(h)) return null; /* the chain opens over whatever view you are on */
   return /^#[\w-]+$/.test(h) ? null : 'overview';

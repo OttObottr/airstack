@@ -78,7 +78,8 @@ FITS = "document.documentElement.scrollWidth <= document.documentElement.clientW
 @pytest.mark.parametrize("width", [1280, 390])
 def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
-    assert page.locator(".nav a").evaluate_all("xs => xs.map(x => x.dataset.view)") == ["overview", "compare", "markets", "makers"]
+    shown = page.locator(".nav a:visible").evaluate_all("xs => xs.map(x => x.dataset.view)")      # the rail on a desktop, the tab bar on a phone
+    assert shown == ["overview", "compare", "markets", "makers", "insights", "calendar", "agents"][:7 if width >= 1024 else 5]
     for view in ("markets", "insights", "calendar", "makers", "compare", "agents", "overview"):
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
         page.wait_for_function("view => document.body.dataset.view === view", arg=view)
@@ -183,7 +184,7 @@ def test_compare_remains_usable_on_a_phone(chrome, app_url):
     context, page, errors = open_app(chrome, app_url, width=390)
     ids = [item["id"] for item in comparison_pair(page)]
     page.evaluate("ids => { location.hash = '#compare=' + ids.join(',') }", ids)
-    page.wait_for_selector('.nav a[data-view="compare"][aria-current="page"]')
+    page.wait_for_selector('.nav a[data-view="compare"][aria-current="page"]:visible')
     wait(page, "document.querySelectorAll('#cmpTbl thead th').length >= 3")
     assert page.evaluate(FITS)
     assert page.locator("#cmpTbl").is_visible()

@@ -10,6 +10,7 @@ import { PRICES, loadPrices } from '../lib/profiles.js';
 import { send } from '../lib/beacon.js';
 import { show } from '../lib/router.js';
 import { VIEW } from '../lib/view.js';
+import { SearchField } from '../ui/search.js';
 
 const KEY = 'airstack.compare.v1',
   DAYS = VIEW.compareRecheckDays,
@@ -237,7 +238,7 @@ function choose(x) {
 function mount() {
   $('#cmpBody').innerHTML =
     `<div class="cmp-top"><div class="chips" id="cmpChips" aria-label="Products being compared"></div>
-    <div class="find big"><svg class="i si" aria-hidden="true"><use href="#i-search"/></svg><input id="cmpQ" role="combobox" aria-label="Add a product to compare" aria-expanded="false" aria-controls="cmpTa" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="Add a product"><ul class="ta" id="cmpTa" role="listbox" aria-label="Matching products" hidden></ul></div>
+    ${SearchField({ id: 'cmpQ', label: 'Add a product to compare', placeholder: 'Add a product', listId: 'cmpTa', listLabel: 'Matching products' })}
     <p class="meta" id="cmpFull" hidden>Five is the most.</p><div id="cmpSug"></div></div><div id="cmpOut" aria-live="polite"></div>`;
   $('#cmpBody').setAttribute('aria-busy', 'false');
   const q = $('#cmpQ');

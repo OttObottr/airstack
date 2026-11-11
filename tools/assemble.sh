@@ -94,9 +94,9 @@ assert page.count(was) == 1, f"the shell no longer holds {was}"
 page = page.replace(was, f'<p class="honest" id="honest">Scope: {sd["meta"]["counts"]["researched_products"] if "counts" in sd["meta"] else sd["dir"]["researched"]:,} researched products · every fact quoted from its own page\nAs of {fd}</p>')
 page, away = re.subn(r'<section class="([^"]*)"( id="[\w-]+" data-views="([^"]+)")',
                      lambda m: m[0] if "overview" in m[3].split() else f'<section class="{m[1]} view-away"{m[2]}', page)
-tab = '<a href="#/" data-view="overview">'
-assert away >= 10 and page.count(tab) == 1, "the shell's views and tabs are not where assembly expects them"
-page = page.replace(tab, tab[:-1] + ' aria-current="page">')
+tabs = re.findall(r'<a class="[^"]*" href="#/" data-view="overview">', page)
+assert away >= 10 and len(tabs) == 2, "the shell's views and tabs (rail and phone bar) are not where assembly expects them"
+page = re.sub(r'(<a class="[^"]*" href="#/" data-view="overview")>', r'\1 aria-current="page">', page)
 (out / "index.html").write_text(page.replace(link, "<style>" + "\n".join(css) + "</style>\n" + preload))
 (out / "data-manifest.json").write_text(json.dumps({f: hashlib.sha256((out / f).read_bytes()).hexdigest() for f in shipped}, indent=1) + "\n")
 PY

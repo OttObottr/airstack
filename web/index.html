@@ -42,24 +42,42 @@
   <symbol id="i-compare" viewBox="0 0 24 24"><rect width="7" height="16" x="3" y="4" rx="1"/><rect width="7" height="16" x="14" y="4" rx="1"/></symbol>
   <symbol id="i-bld" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></symbol>
 </svg>
-<header class="topbar"><a class="brand" href="#/"><span class="dot" aria-hidden="true"></span>AirStack</a>
-  <nav class="nav" aria-label="Views"><a href="#/" data-view="overview"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg>Home</a><a href="#/compare" data-view="compare"><svg class="i" aria-hidden="true"><use href="#i-compare"/></svg>Compare</a><a href="#/markets" data-view="markets"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Markets</a><a href="#/makers" data-view="makers"><svg class="i" aria-hidden="true"><use href="#i-bld"/></svg>Makers</a></nav>
+<div class="grid min-h-screen grid-cols-1 lg:grid-cols-[15rem_minmax(0,1fr)]">
+<aside class="sticky top-0 hidden h-screen flex-col gap-6 overflow-y-auto border-r border-border bg-card px-3 py-4 lg:flex" aria-label="Workspace">
+  <a class="flex h-9 items-center gap-2.5 px-2.5 text-[15px] font-semibold tracking-tight" href="#/"><span class="size-2 rotate-45 rounded-[2px] bg-primary" aria-hidden="true"></span>AirStack</a>
+  <nav class="nav flex flex-col gap-0.5" aria-label="Views"><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/" data-view="overview"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg>Home</a><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/compare" data-view="compare"><svg class="i" aria-hidden="true"><use href="#i-compare"/></svg>Compare</a><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/markets" data-view="markets"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Markets</a><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/makers" data-view="makers"><svg class="i" aria-hidden="true"><use href="#i-bld"/></svg>Makers</a><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/insights" data-view="insights"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg>Insights</a><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/calendar" data-view="calendar"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Calendar</a><a class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" href="#/agents" data-view="agents"><svg class="i" aria-hidden="true"><use href="#i-term"/></svg>Agents</a></nav>
+  <section class="flex min-h-0 flex-col gap-1" aria-labelledby="railStackT">
+    <h2 class="flex h-8 items-center justify-between px-2.5 text-xs font-medium text-muted-foreground" id="railStackT">Your stack<span class="font-mono tabular-nums" id="railStackN"></span></h2>
+    <ul class="flex list-none flex-col gap-0.5" id="railStack"></ul>
+    <button class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" id="railAdd" type="button"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg>Add software</button>
+  </section>
+  <p class="mt-auto px-2.5 text-xs leading-relaxed text-muted-foreground" id="railFresh"></p>
+</aside>
+<div class="flex min-w-0 flex-col">
+<header class="sticky top-0 z-50 flex h-14 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur lg:px-6">
+  <a class="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight lg:hidden" href="#/"><span class="size-2 rotate-45 rounded-[2px] bg-primary" aria-hidden="true"></span><span class="max-sm:sr">AirStack</span></a>
+  <p class="sr" id="qApp">Which product or maker are you looking for?</p>
+  <div class="find relative flex min-w-0 flex-1 lg:max-w-xl" id="findw">
+    <svg class="i pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" aria-hidden="true"><use href="#i-search"/></svg>
+    <input class="h-9 w-full rounded-md border border-border bg-card pl-9 pr-10 text-sm placeholder:text-muted-foreground focus:border-ring focus:outline-none" id="q" role="combobox" aria-labelledby="qApp" placeholder="Search every tool we track" aria-expanded="false" aria-controls="ta" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off">
+    <kbd class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 rounded border border-border px-1.5 font-mono text-[11px] leading-5 text-muted-foreground max-sm:hidden" aria-hidden="true">/</kbd>
+    <ul class="ta" id="ta" role="listbox" aria-label="Matching tools" hidden></ul>
+  </div>
+  <p class="ml-auto whitespace-nowrap font-mono text-xs text-muted-foreground max-md:hidden" id="freshness"></p>
 </header>
 <div class="tape" id="tapeW" role="region" data-aria="Momentum: weekly downloads against each tool's own {movers.base_weeks}-week level"><div class="tape-in" id="tape"></div></div>
-<main id="main">
+<main class="flex-1 pb-20 lg:pb-0" id="main">
   <section class="work" id="check" data-views="overview" aria-labelledby="checkT">
     <div class="wrap wide">
       <div class="dhead"><div><h1 id="checkT">This week in software</h1>
         <p class="honest" id="honest">Every fact quoted from its own page</p></div>
         <p class="acts"><button class="cta" id="stackStart" type="button">Add your software stack</button><a class="ghost" href="#compare=">Compare tools side by side</a></p></div>
       <div class="pick">
-        <p class="sr" id="qApp">Which product or maker are you looking for?</p>
-        <div class="find big" id="findw">
-          <svg class="i si" aria-hidden="true"><use href="#i-search"/></svg>
-          <input id="q" role="combobox" aria-labelledby="qApp" placeholder="Search every tool we track" aria-expanded="false" aria-controls="ta" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off"><kbd aria-hidden="true">/</kbd>
-          <ul class="ta" id="ta" role="listbox" aria-label="Matching tools" hidden></ul>
-        </div>
         <div id="nf" hidden><span id="nfText"></span></div>
         <div class="dash" id="browse">
           <section class="pnl" aria-labelledby="mvH"><header><h2 class="h2" id="mvH">What moved</h2><a href="#/markets">All movers</a></header>
@@ -67,8 +85,13 @@
           <section class="pnl" id="upHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div></section>
           <section class="pnl" id="insHome"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section>
         </div>
-        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="ghost" id="starBtn" type="button" aria-pressed="false" hidden>+ Add to your stack</button><button class="ghost" id="cmpThis" type="button" data-compare="">Compare with others</button><button class="ghost" id="change" type="button">Change tool</button></div>
       </div>
+    </div>
+  </section>
+
+  <section class="work" id="product" data-views="product" aria-labelledby="pickedName">
+    <div class="wrap wide">
+        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="ghost" id="starBtn" type="button" aria-pressed="false" hidden>+ Add to your stack</button><button class="ghost" id="cmpThis" type="button" data-compare="">Compare with others</button><button class="ghost" id="change" type="button">Change tool</button></div>
       <article id="toolcard" hidden aria-label="About this tool"></article>
     </div>
   </section>
@@ -151,7 +174,7 @@
     </div>
   </section>
 
-  <section class="work" id="chainSec" data-views="overview markets insights makers agents" aria-labelledby="chainT" hidden>
+  <section class="work" id="chainSec" data-views="overview product markets insights makers agents" aria-labelledby="chainT" hidden>
     <div class="wrap wide">
       <div class="lhead"><h2 class="h2" id="chainT" tabindex="-1">Evidence chain</h2><button class="ghost" id="chainX" type="button">Close</button></div>
       <p class="meta" id="chainSub" role="status"></p>
@@ -178,6 +201,9 @@
   <nav aria-label="Intelligence"><p class="lab">Intelligence</p><a href="/insights/">Insights</a><a href="/calendar/">Calendar</a><a href="/changes.atom">Change feed</a></nav>
   <nav aria-label="About"><p class="lab">About</p><a href="/method/">How we check</a><a href="#/agents">Local MCP</a><a href="/open-data/">Open data</a><a href="https://github.com/OttObottr/airstack" target="_blank" rel="noopener noreferrer">GitHub</a><a href="/legal/">Terms and privacy</a></nav>
 </footer>
+</div>
+</div>
+<nav class="nav fixed inset-x-0 bottom-0 z-50 flex h-14 border-t border-border bg-background/95 backdrop-blur lg:hidden" aria-label="Views"><a class="flex min-w-14 flex-1 flex-col items-center justify-center gap-1 text-[11px] leading-none text-muted-foreground aria-[current=page]:text-foreground" href="#/" data-view="overview"><svg class="i text-base" aria-hidden="true"><use href="#i-grid"/></svg>Home</a><a class="flex min-w-14 flex-1 flex-col items-center justify-center gap-1 text-[11px] leading-none text-muted-foreground aria-[current=page]:text-foreground" href="#/compare" data-view="compare"><svg class="i text-base" aria-hidden="true"><use href="#i-compare"/></svg>Compare</a><a class="flex min-w-14 flex-1 flex-col items-center justify-center gap-1 text-[11px] leading-none text-muted-foreground aria-[current=page]:text-foreground" href="#/markets" data-view="markets"><svg class="i text-base" aria-hidden="true"><use href="#i-trend"/></svg>Markets</a><a class="flex min-w-14 flex-1 flex-col items-center justify-center gap-1 text-[11px] leading-none text-muted-foreground aria-[current=page]:text-foreground" href="#/makers" data-view="makers"><svg class="i text-base" aria-hidden="true"><use href="#i-bld"/></svg>Makers</a><a class="flex min-w-14 flex-1 flex-col items-center justify-center gap-1 text-[11px] leading-none text-muted-foreground aria-[current=page]:text-foreground" href="#/insights" data-view="insights"><svg class="i text-base" aria-hidden="true"><use href="#i-chart"/></svg>Insights</a></nav>
 <div class="sr" id="sr" aria-live="polite"></div>
 
 <script type="module" src="src/main.js"></script>
