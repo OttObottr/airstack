@@ -29,7 +29,7 @@ def main():
                    for i, (v, ln) in enumerate(tiles))
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-labelledby="t d">
 <title id="t">AirStack: {n(tiles[0][0])} software products, {n(tiles[2][0])} read from their own pages</title>
-<desc id="d">AirStack's counts as deployed, and weekly registry downloads against each tool's own {mt["params"]["base_weeks"]}-week level, {day(w[0])} to {day(w[1])}. https://airstack.bot</desc>
+<desc id="d">AirStack's counts as deployed{f", and weekly registry downloads against each tool's own {mt['params']['base_weeks']}-week level, {day(w[0])} to {day(w[1])}" if rows else ""}. https://airstack.bot</desc>
 <style>
 :root{{--bg:#0A0A0B;--s1:#141416;--ink:#F5F5F7;--ink2:rgba(245,245,247,.62);--hair:rgba(255,255,255,.1);--up:#3DDC97;--dn:#FF6B5E;--acc:#FF4F00}}
 @media (prefers-color-scheme:light){{:root{{--bg:#FFFFFF;--s1:#F5F5F7;--ink:#0A0A0B;--ink2:rgba(10,10,11,.6);--hair:rgba(0,0,0,.1);--up:#0A8F5A;--dn:#D33A2C}}}}

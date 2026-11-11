@@ -12,6 +12,7 @@ Bundled third-party licence texts: `web/public/legal/notices.txt`. Inter’s lic
 - Wikipedia: text by Wikipedia contributors, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/); each quote links its article. https://en.wikipedia.org/wiki/Wikipedia:Reusing_Wikipedia_content
 - Wikimedia pageviews: CC0 1.0. https://dumps.wikimedia.org/legal.html
 - GitHub: each record links its repository. https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies
+- Majestic Million: Majestic Million, CC BY 3.0, linked. https://majestic.com/reports/majestic-million
 - npm: each count links its package. https://docs.npmjs.com/policies/open-source-terms
 - PyPI: each record links its package. https://policies.python.org/pypi.org/Terms-of-Use/
 - PyPI Stats: download counts from the Python Software Foundation's public data, via pypistats.org. https://pypistats.org/api/
