@@ -5,7 +5,7 @@ import { make, network } from './auth.js';
 import { d1 } from './index.test.js';
 
 const SQL = readFileSync(new URL('./users.sql', import.meta.url), 'utf8');
-const L = { dayWrites: 1e6, requestsPerNetworkDay: 1e6, emailsPerMonth: 2800, codesPer15Min: 3, codesPerAddressDay: 10, codesPerNetworkDay: 30, codeTries: 5, sessionDays: 30, stackMax: 100, from: 'AirStack <signin@airstack.bot>' };
+const L = { dayWrites: 1e6, requestsPerNetworkDay: 1e6, emailsPerMonth: 2800, codesPer15Min: 3, codesPerAddressDay: 10, codesPerNetworkDay: 30, codeTries: 5, sessionDays: 30, stackMax: 100, from: { name: 'AirStack', email: 'signin@airstack.bot' } };
 const ORIGIN = 'https://airstack.bot';
 
 function setup(limits = {}) {
