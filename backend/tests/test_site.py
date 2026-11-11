@@ -160,7 +160,8 @@ def org_qid(slug):
 
 @functools.cache
 def wikidata_product_pages():
-    return [f for f in sorted((ROOT / "p").glob("*/index.html")) if "wikidata.org/wiki/Q" in f.read_text()]
+    listed = re.compile(r'"sameAs": \[[^\]]*wikidata\.org/wiki/Q')            # a directory listing names its Wikidata item as itself
+    return [f for f in sorted((ROOT / "p").glob("*/index.html")) if listed.search(f.read_text())]
 
 def test_every_maker_page_lists_a_product_and_the_leaderboard_ranks_only_what_wikidata_dates():
     import html as H
