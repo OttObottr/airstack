@@ -232,6 +232,12 @@ export const panel = {
    weeks, and the headline of those weeks. */
 const RECENT = 4,
   LISTED = 8;
+/* one sector's items in one week: what matters most, then what we can describe, then version bumps */
+const ranked = (c, j) =>
+  c.e
+    .map(([i]) => P.events[i])
+    .filter(e => e.sector === j)
+    .sort((a, b) => (b.weight || 0) - (a.weight || 0) || !!b.gist - !!a.gist || bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w);
 let picked = null; /* { j: sector, k: week } the reader chose; until then, the loudest sector's latest active week */
 function grid(el) {
   const cols = weeksIn(),
@@ -244,10 +250,7 @@ function grid(el) {
   if (!rows.length) return void (el.innerHTML = `<p class="${ui.panelNote}">No dated activity in the last year.</p>`);
   const sel = picked || { j: rows[0].j, k: cols.findLastIndex(c => c.s[rows[0].j]) },
     c = cols[sel.k],
-    events = c.e
-      .map(([i]) => P.events[i])
-      .filter(e => e.sector === sel.j)
-      .sort((a, b) => (b.weight || 0) - (a.weight || 0) || !!b.gist - !!a.gist || bare(a) - bare(b) || (b.views ?? 0) - (a.views ?? 0) || b.w - a.w); /* what matters most, then what we can describe, then version bumps */
+    events = ranked(c, sel.j);
   el.innerHTML = `<div class="flex flex-col gap-4"><div class="flex flex-col gap-1 overflow-x-auto">${rows
     .map(
       r => `<div class="grid min-w-[40rem] grid-cols-[minmax(0,13rem)_minmax(0,1fr)_3rem] items-center gap-x-3">
@@ -256,13 +259,13 @@ function grid(el) {
           .map((w, k) => {
             const v = w.s[r.j],
               on = r.j === sel.j && k === sel.k;
-            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? (0.25 + 0.75 * (v / r.peak)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" title="${esc(`${r.sec.name} · ${week(w.w)} · ${v} ${v === 1 ? 'item' : 'items'}`)}" aria-pressed="${on}"></button>`;
+            return `<button type="button" class="h-4 rounded-[2px] ${v ? SW[r.j] : 'bg-muted'} ${on ? 'ring-2 ring-foreground ring-offset-1 ring-offset-card' : ''} disabled:cursor-default" style="opacity:${v ? (0.25 + 0.75 * (v / r.peak)).toFixed(2) : 1}" data-j="${r.j}" data-k="${k}"${v ? '' : ' disabled'} aria-label="${esc(`${r.sec.name}, ${week(w.w)}`)}" aria-pressed="${on}"></button>`;
           })
           .join('')}</span>
         <span class="${ui.num} text-right text-sm text-foreground" title="Share of all activity in the last ${RECENT} weeks">${Math.round(r.loud * 100)}%</span></div>`
     )
     .join('')}</div>
-    <section class="flex h-96 flex-col gap-1 overflow-y-auto border-t border-border pt-3" aria-live="polite"><p class="flex items-center gap-2 ${ui.panelTitle}">${swatch(sel.j)}${esc(P.sectors[sel.j].name)} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>
+    <section class="flex flex-col gap-1 border-t border-border pt-3" aria-live="polite"><p class="flex items-center gap-2 ${ui.panelTitle}">${swatch(sel.j)}${esc(P.sectors[sel.j].name)} · ${esc(week(c.w))} · ${n(events.length)} event${events.length === 1 ? '' : 's'}</p>
       <ol class="flex flex-col">${events.slice(0, LISTED).map(row).join('')}</ol>${events.length > LISTED ? `<p class="${ui.panelNote}">and ${n(events.length - LISTED)} more that week.</p>` : ''}</section></div>`;
 }
 export const sectorPanel = {
@@ -277,6 +280,26 @@ export const sectorPanel = {
         const s = at(e);
         if (s) grid(el, (picked = s)); /* only a click changes what is shown: the list never moves under the pointer */
       });
+      /* pointing at a square floats that week's biggest items beside it; nothing on the page moves */
+      const tip = document.createElement('div');
+      tip.className = 'pointer-events-none fixed z-50 hidden w-72 rounded-md border border-border bg-popover p-3 text-xs shadow-lg';
+      document.body.append(tip);
+      el.addEventListener('pointerover', e => {
+        const s = at(e);
+        if (!s) return void tip.classList.add('hidden');
+        const w = weeksIn()[s.k],
+          ev = ranked(w, s.j),
+          r = e.target.getBoundingClientRect();
+        tip.innerHTML = `<p class="font-medium text-foreground">${esc(P.sectors[s.j].name)} · ${esc(week(w.w))}</p><ul class="mt-2 flex flex-col gap-1.5 text-muted-foreground">${ev
+          .slice(0, 3)
+          .map(x => `<li class="line-clamp-2">${esc(x.gist ? `${x.name}: ${x.gist}` : label(x))}</li>`)
+          .join('')}</ul>${ev.length > 3 ? `<p class="mt-2 text-subtle-foreground">and ${n(ev.length - 3)} more · click to list</p>` : ''}`;
+        tip.classList.remove('hidden');
+        tip.style.left = `${Math.max(8, Math.min(innerWidth - 296, r.left - 140))}px`;
+        tip.style.top = `${r.top > 190 ? r.top - tip.offsetHeight - 8 : r.bottom + 8}px`;
+      });
+      for (const t of ['pointerleave', 'click']) el.addEventListener(t, () => tip.classList.add('hidden'));
+      addEventListener('scroll', () => tip.classList.add('hidden'), { passive: true });
     }
     return P ? grid(el) : load().then(() => grid(el));
   },

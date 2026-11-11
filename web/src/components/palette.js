@@ -72,7 +72,7 @@ const SOURCES = [
   ['Download figures (built)', () => M.moversTop && M.moversTop.generated],
   ['Software directory (Wikidata)', () => M.dir && M.dir.fetched_at],
   ['Vendor news', () => json('news.json', j => j.source && j.source.read)],
-  ['Calendar', () => json('events.json', j => j.source && j.source.built_for)],
+  ['Dated events', () => json('events.json', j => j.source && j.source.built_for)],
   ['Open models (Hugging Face)', () => json('hf.json', j => j.source && j.source.fetched_at)],
   ['Open-source candidates (GitHub)', () => json('oss.json', j => j.source && j.source.fetched_at)],
 ];

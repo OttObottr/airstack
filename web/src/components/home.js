@@ -10,8 +10,8 @@ export function mount() {
   let charts = false,
     front = false;
   addEventListener('airstack:view', e => {
-    if (!charts && ['overview', 'calendar'].includes(e.detail)) {
-      charts = true; /* the year at a glance leads both Home and Calendar */
+    if (!charts && e.detail === 'overview') {
+      charts = true;
       mountScoped($('#pulsePanel'), pulse);
       mountPanel($('#sectorsHome'), sectorPanel);
     }

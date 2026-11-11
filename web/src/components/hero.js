@@ -17,7 +17,7 @@ export async function drawTape(only) {
     .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && announced(i) && i.date.slice(0, 10) >= from)
     .sort((a, b) => lead(b) - lead(a))
     .filter(i => !seen.has(i.id) && seen.add(i.id))
-    .slice(0, 24);
+    .slice(0, 10); /* a short loop: the ten that matter most */
   const item = i =>
     `<a href="#app=${esc(i.id)}"><b>${esc(i.name)}</b><span>${esc(says(i))}</span></a>`;
   const as = `<span class="as">${only ? 'your tools · ' : ''}latest · ${fd(read)}</span>`;

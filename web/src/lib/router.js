@@ -3,7 +3,6 @@ export const VIEWS = {
   compare: 'Compare',
   markets: 'Markets',
   insights: 'Insights',
-  calendar: 'Calendar',
   makers: 'Makers',
   agents: 'Agents',
   product: 'Product', /* one product's page: opened by #app=<id>, it has no tab */

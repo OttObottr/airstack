@@ -107,9 +107,9 @@ function priceOf(id) {
 
 /* a record from Wikidata fills a field the product's own page leaves blank; it is labelled, and never counts as a difference */
 const RECORD = { platforms: 'os', license: 'licence' };
-function recordOf(id, k, blank) {
+function recordOf(id, k, blank, read) {
   const v = basics(id, k);
-  return v.length ? { wd: true, html: `<div class="cv"><b>${esc(v.join(', '))}</b></div><div class="cs"><span class="meta">Not found on its own pages. Wikidata records:</span> ${wdLink(id, DIR.basics.read)}</div>` } : blank;
+  return v.length ? { wd: true, html: `<div class="cv"><b>${esc(v.join(', '))}</b></div><div class="cs"><span class="meta">${read ? 'Not found on its own pages' : 'Its own pages are not read yet'}. Wikidata records:</span> ${wdLink(id, DIR.basics.read)}</div>` } : blank;
 }
 
 async function draw() {
@@ -182,7 +182,7 @@ async function draw() {
       one: STR.has(m),
       cells: ids.map(id => {
         const own = D.entities[id] ? cellOf(facts(id, m), nameOf(id, D), METRIC[m]) : { html: '<span class="nobs">—</span>' };
-        return own.date || !RECORD[m] ? own : recordOf(id, RECORD[m], own); /* its own page first; Wikidata's record only where the page says nothing */
+        return own.date || !RECORD[m] ? own : recordOf(id, RECORD[m], own, !!D.entities[id]); /* its own page first; Wikidata's record only where the page says nothing */
       }),
     })),
   ].filter(r => r.cells.some(c => c.date || c.wd));
