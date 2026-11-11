@@ -4,7 +4,7 @@ import { clearTool } from './app.js';
 import { mono } from './avatar.js';
 import { DIR, KIDS, loadDir, orgName, researchedFacts } from './search/directory.js';
 import { BR, IDX, moverRows } from './search/index.js';
-import { M, PARAMS } from '../lib/data.js';
+import { M, PARAMS, json } from '../lib/data.js';
 import { $, reduce } from '../lib/dom.js';
 import { LISTED, cn, esc, fd, n, pct } from '../lib/format.js';
 import { MK } from '../lib/market.js';
@@ -89,18 +89,24 @@ function typeView() {
 }
 export function drawBrowse() {
   $('#trend').setAttribute('aria-busy', 'false');
-  $('#mvH').textContent = BR.type != null ? 'Browse by type' : 'What moved';
+  $('#mvH').textContent = BR.type != null ? 'Browse by type' : 'Most active this week';
   if (BR.type != null) return typeView();
-  const R = rowMap(),
-    list = IDX.filter(x => {
-      const r = R[x.id];
-      return r && r.dl.delta != null && r.dl.value >= PARAMS.movers.solid_min_downloads && !(r.dl.vsBase != null && r.dl.vsBase < 0);
-    })
-      .sort(byGrowth(R))
-      .slice(0, 5);
-  const w = ((MK && MK.movers) || M.moversTop || {}).window;
-  $('#trend').innerHTML =
-    `${lb(list, { lane: false, dense: true })}<div class="mt-3">${Method(`Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.`)}</div>`;
+  /* the products that announced most in the last week, counted from their own feeds, changelogs and releases (news.json) */
+  json('news.json').then(N => {
+    const from = new Date(Date.parse(N.source.read) - 6 * 864e5).toISOString().slice(0, 10),
+      count = {};
+    for (const i of N.items) if (i.date.slice(0, 10) >= from && i.date.slice(0, 10) <= N.source.read && i.signal !== 'other') count[i.id] = (count[i.id] || 0) + 1;
+    const top = Object.entries(count)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 5)
+      .map(([id, k]) => {
+        const x = IDX.find(y => y.id === id) || { id, name: (N.items.find(i => i.id === id) || {}).name || id };
+        return { id, avatar: mono(x), name: x.name, note: x.laneName || '', value: k, label: `${k} ${k === 1 ? 'update' : 'updates'}` };
+      });
+    $('#trend').innerHTML = top.length
+      ? `${RankList({ rows: top, dense: true })}<div class="mt-3">${Method(`Posts, changelog entries and releases each product published on its own channels, ${fd(from)} to ${fd(N.source.read)}.`)}</div>`
+      : '<p class="meta mt-4">No announcements recorded this week.</p>';
+  }, () => ($('#trend').innerHTML = '<p class="load-error">This could not be loaded. Check the connection and reload.</p>'));
 }
 
 export function mount() {
