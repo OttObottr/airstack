@@ -8,6 +8,24 @@ import { ui } from '../ui/recipes.js';
 const NAME = { google: 'Google', github: 'GitHub', email: 'Email' };
 const BTN = 'btn btn-secondary w-full justify-center';
 let step = { email: '', sent: false, msg: '', link: false };
+/* Cloudflare Turnstile on the email form, only when the site turns it on: its script loads the first time the form shows */
+let check = { token: '', widget: null, loading: null };
+const turnstile = () =>
+  (check.loading ||= new Promise((ok, no) => {
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    s.async = true;
+    s.onload = () => ok(window.turnstile);
+    s.onerror = () => ((check.loading = null), no());
+    document.head.append(s);
+  }));
+async function mountCheck() {
+  const el = document.querySelector('#signin [data-check]');
+  if (!el || !A.ways.check) return;
+  check.token = '';
+  const t = await turnstile().catch(() => null);
+  if (t && el.isConnected) check.widget = t.render(el, { sitekey: A.ways.check, callback: v => (check.token = v), 'expired-callback': () => (check.token = '') });
+}
 
 const say = m => (step.msg = m || '');
 const MSG = {
@@ -18,6 +36,7 @@ const MSG = {
   taken: 'That sign-in already belongs to another account.',
   failed: 'Sign-in didn’t complete. Please try again.',
   last: 'Keep at least one way to sign in.',
+  check: 'Please complete the check, then ask for the code again.',
 };
 
 function body() {
@@ -39,7 +58,7 @@ function body() {
 }
 const emailForm = () =>
   !step.sent
-    ? `<form class="mt-4 flex flex-col gap-2" data-start><label class="text-sm" for="siEmail">Email</label><input class="h-9 rounded-md border border-input bg-background px-3 text-sm" id="siEmail" type="email" autocomplete="email" required value="${esc(step.email)}"><button class="${ui.button.primary}" type="submit">Email me a code</button></form>`
+    ? `<form class="mt-4 flex flex-col gap-2" data-start><label class="text-sm" for="siEmail">Email</label><input class="h-9 rounded-md border border-input bg-background px-3 text-sm" id="siEmail" type="email" autocomplete="email" required value="${esc(step.email)}">${A.ways.check ? '<div data-check></div>' : ''}<button class="${ui.button.primary}" type="submit">Email me a code</button></form>`
     : `<form class="mt-4 flex flex-col gap-2" data-verify><label class="text-sm" for="siCode">Code sent to ${esc(step.email)}</label><input class="h-9 rounded-md border border-input bg-background px-3 text-sm tracking-widest" id="siCode" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required><button class="${ui.button.primary}" type="submit">Sign in</button><button class="${ui.button.ghost}" type="button" data-again>Use a different email</button></form>`;
 
 function draw() {
@@ -48,6 +67,7 @@ function draw() {
   const rail = $('#railAccount');
   rail.hidden = !A.enabled;
   rail.textContent = A.user ? A.user.email : 'Sign in';
+  mountCheck();
 }
 const open = () => {
   draw();
@@ -87,7 +107,7 @@ export function mount() {
     e.preventDefault();
     if (e.target.matches('[data-start]')) {
       step.email = $('#siEmail').value.trim();
-      const r = await startEmail(step.email);
+      const r = await startEmail(step.email, check.token);
       step.sent = r.ok;
       say(r.ok ? '' : MSG[r.body.error] || MSG.busy);
     } else {

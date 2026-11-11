@@ -227,3 +227,29 @@ test('the deployed configuration declares the edge rate limiter the code reads',
   const rl = (cfg.ratelimits || []).find(r => r.name === 'NETWORK_BURST');
   assert.ok(rl && /^[1-9]\d*$/.test(rl.namespace_id) && [10, 60].includes(rl.simple.period) && rl.simple.limit > 0);
 });
+
+test('with Turnstile on, a code is emailed only after Cloudflare accepts the check', async () => {
+  const asked = [];
+  const fake = async (u, o) => (asked.push(String(o.body)), { ok: true, json: async () => ({ success: String(o.body).includes('response=good') }) });
+  const sent = [],
+    env = { USERS: d1(SQL), AUTH_SECRET: 's', TURNSTILE_SITE_KEY: 'site', TURNSTILE_SECRET: 'sec', EMAIL: { send: async m => sent.push(m) } };
+  const w = make(L, fake);
+  const start = check => w.handle(new Request(ORIGIN + '/api/auth/email/start', { method: 'POST', body: JSON.stringify({ email: 'a@x.com', check }), headers: { origin: ORIGIN } }), env, Date.parse('2026-11-11T12:00:00Z'));
+  for (const bad of [undefined, '', 'bad', 'x'.repeat(3000)]) assert.equal((await start(bad)).status, 400);
+  assert.equal(sent.length, 0);
+  assert.equal(env.USERS.sql.prepare('SELECT COUNT(*) AS c FROM verification').get().c, 0);
+  assert.equal((await start('good')).status, 200);
+  assert.equal(sent.length, 1);
+  assert.ok(asked.every(b => b.includes('secret=sec')));
+  const me = await (await w.handle(new Request(ORIGIN + '/api/me'), env, Date.now())).json();
+  assert.equal(me.ways.check, 'site');
+  delete env.TURNSTILE_SECRET; /* a site key alone does not turn it on */
+  assert.equal((await (await w.handle(new Request(ORIGIN + '/api/me'), env, Date.now())).json()).ways.check, undefined);
+});
+
+test('when Cloudflare cannot be reached the check fails closed', async () => {
+  const env = { USERS: d1(SQL), AUTH_SECRET: 's', TURNSTILE_SITE_KEY: 'site', TURNSTILE_SECRET: 'sec', EMAIL: { send: async () => assert.fail('sent') } };
+  const w = make(L, async () => { throw new Error('down'); });
+  const r = await w.handle(new Request(ORIGIN + '/api/auth/email/start', { method: 'POST', body: '{"email":"a@x.com","check":"t"}', headers: { origin: ORIGIN } }), env, Date.now());
+  assert.equal(r.status, 400);
+});

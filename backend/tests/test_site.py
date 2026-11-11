@@ -55,7 +55,8 @@ def test_security_headers_are_on_every_response():
     assert hdr["x-frame-options"] == "DENY" and hdr["x-content-type-options"] == "nosniff"
     csp = {d.split()[0]: d.split()[1:] for d in hdr["content-security-policy"].split("; ")}
     assert csp["default-src"] == ["'self'"] and csp["object-src"] == ["'none'"] and csp["base-uri"] == ["'none'"] and csp["frame-ancestors"] == ["'none'"]
-    assert all("http" not in v and "*" not in v for vals in csp.values() for v in vals)
+    turnstile = "https://challenges.cloudflare.com"  # the one outside host: Turnstile on the email sign-in form
+    assert all(("http" not in v or (v == turnstile and k in ("script-src", "frame-src"))) and "*" not in v for k, vals in csp.items() for v in vals)
     assert '"workers_dev": false' in (ROOT / "wrangler.jsonc").read_text()
 
 def test_every_scraped_url_goes_through_the_scheme_check():

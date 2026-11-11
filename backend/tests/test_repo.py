@@ -139,7 +139,9 @@ def test_ruff_passes():
 
 def test_every_script_comes_from_this_origin():
     csp = next(ln for ln in (ROOT / "web" / "public" / "_headers").read_text().splitlines() if ln.strip().startswith("Content-Security-Policy:"))
-    assert re.search(r"script-src ([^;]+)", csp).group(1).split() == ["'self'"]
+    # the one exception: Cloudflare Turnstile on the email sign-in form, loaded only when the site turns it on
+    assert re.search(r"script-src ([^;]+)", csp).group(1).split() == ["'self'", "https://challenges.cloudflare.com"]
+    assert re.search(r"frame-src ([^;]+)", csp).group(1).split() == ["https://challenges.cloudflare.com"]
     page = (ROOT / "web" / "index.html").read_text()
     assert all("src=" in a or 'type="application/ld+json"' in a for a in re.findall(r"<script\b([^>]*)>", page, re.I))
     assert sorted(re.findall(r'<script[^>]* src="([^"]+)"', page)) == ["site-data.js", "src/main.js"]

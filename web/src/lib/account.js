@@ -16,7 +16,7 @@ export async function refresh() {
   return A;
 }
 
-export const startEmail = email => call('/api/auth/email/start', { email });
+export const startEmail = (email, check) => call('/api/auth/email/start', { email, check });
 export const verifyEmail = (email, code, link = false) => call('/api/auth/email/verify', { email, code, link });
 export const saveStack = (op, id, name) => call('/api/stack', { op, id, name });
 export const signOut = () => call('/api/auth/signout', {}).then(refresh);

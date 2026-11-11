@@ -78,6 +78,16 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
     ]);
   const busy = () => json({ error: 'busy', message: 'Sign-in is busy right now. Please try again later.' }, 429);
 
+  /* Cloudflare Turnstile's answer for a token from the sign-in form; a missing, long or refused token, or no answer, is a no */
+  async function human(env, token, req) {
+    if (typeof token !== 'string' || !token || token.length > 2048) return false;
+    const r = await fetcher('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: token, remoteip: req.headers.get('cf-connecting-ip') || '' }),
+    }).catch(() => null);
+    return !!(r && r.ok && (await r.json().catch(() => ({}))).success === true);
+  }
+
   async function session(req, db, now) {
     const t = cookie(req, COOKIE);
     if (!t) return null;
@@ -132,6 +142,7 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
       today = iso(now).slice(0, 10);
     if (req.method === 'POST' && req.headers.get('origin') !== url.origin) return json({ error: 'origin' }, 403);
     const ways = { email: !!env.EMAIL, google: !!env.GOOGLE_CLIENT_ID, github: !!env.GITHUB_CLIENT_ID };
+    if (env.TURNSTILE_SITE_KEY && env.TURNSTILE_SECRET) ways.check = env.TURNSTILE_SITE_KEY; /* Cloudflare Turnstile, only when both are set */
     if (p === '/api/me' && !cookie(req, COOKIE)) return json({ user: null, enabled: true, ways }); /* every signed-out page load: no database */
     const ip = await hmac(env.AUTH_SECRET, `${today}|${network(req.headers.get('cf-connecting-ip') || '')}`);
     /* a burst from one network is refused at the edge before the database is touched; the daily counts below stay exact */
@@ -162,6 +173,7 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
     if (p === '/api/auth/email/start' && req.method === 'POST') {
       const email = String(body.email || '').trim().toLowerCase();
       if (!EMAIL.test(email) || email.length > 254) return json({ error: 'email' }, 400);
+      if (ways.check && !(await human(env, body.check, req))) return json({ error: 'check' }, 400); /* before anything is written or sent */
       const id = await ident(email);
       await sweep(db, now, today);
       const recent = await db.prepare('SELECT COUNT(*) AS n FROM verification WHERE identifier = ? AND createdAt > ?').bind(id, iso(now - 15 * 60e3)).first('n');
