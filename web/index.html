@@ -55,8 +55,10 @@
     <h2 class="flex h-8 items-center justify-between px-2.5 text-xs font-medium text-muted-foreground" id="railStackT">Your stack<span class="font-mono tabular-nums" id="railStackN"></span></h2>
     <ul class="flex list-none flex-col gap-0.5" id="railStack"></ul>
     <button class="flex h-9 items-center gap-2.5 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground aria-[current=page]:bg-muted aria-[current=page]:font-medium aria-[current=page]:text-foreground" id="railAdd" type="button"><svg class="i" aria-hidden="true"><use href="#i-layers"/></svg>Add software</button>
+    <button class="mt-2 flex h-9 items-center gap-2.5 truncate rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" id="railAccount" type="button" hidden>Sign in</button>
   </section>
 </aside>
+<dialog id="signin" class="fixed inset-0 m-auto h-fit max-h-[90vh] w-[min(26rem,calc(100vw-2rem))] overflow-y-auto rounded-lg border border-border bg-popover p-6 text-foreground" aria-label="Account"><button class="btn btn-ghost absolute right-3 top-3 h-8 px-2.5" type="button" data-close aria-label="Close">×</button><div data-body></div></dialog>
 <div class="flex min-w-0 flex-col">
 <header class="sticky top-0 z-50 flex h-14 items-center gap-3 border-b border-border bg-background/90 px-4 backdrop-blur lg:px-6">
   <a class="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight lg:hidden" href="#/"><span class="size-2 rotate-45 rounded-[2px] bg-primary" aria-hidden="true"></span><span class="max-sm:sr">AirStack</span></a>

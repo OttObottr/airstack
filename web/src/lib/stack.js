@@ -1,5 +1,6 @@
 import { M } from './data.js';
 import { send } from './beacon.js';
+import { A, refresh, saveStack } from './account.js';
 const KEY = 'airstack.stack.v1';
 const read = () => {
   try {
@@ -19,20 +20,37 @@ const write = s => {
 let mem = read();
 export const stack = () => mem.slice();
 export const tracked = id => mem.some(x => x.id === id);
+/* with accounts on, the stack is the signed-in person's: a signed-out click asks them to sign in instead of saving */
+const gate = () => {
+  if (!A.enabled) return true;
+  if (!A.user) {
+    dispatchEvent(new CustomEvent('airstack:signin'));
+    return false;
+  }
+  return true;
+};
+const persist = (op, x) => {
+  if (A.enabled && A.user)
+    saveStack(op, x.id, x.name).then(r => {
+      if (!r.ok) refresh(); /* the server's stack is the truth: show it again */
+    });
+  else write(mem);
+};
 export function toggle(x) {
+  if (!gate()) return;
   const op = tracked(x.id) ? 'remove' : 'add';
   mem = op === 'remove'
     ? mem.filter(y => y.id !== x.id)
     : mem.concat([{ id: x.id, name: x.name, added: new Date().toISOString().slice(0, 10) }]);
-  write(mem);
+  persist(op, x);
   send('stack', { op, id: x.id, size: Math.min(mem.length, 100) });
   dispatchEvent(new CustomEvent('airstack:stack'));
 }
 /* a remove never adds: clicking × twice, or two handlers on one click, leaves the item gone */
 export function remove(id) {
-  if (!tracked(id)) return;
+  if (!tracked(id) || !gate()) return;
   mem = mem.filter(y => y.id !== id);
-  write(mem);
+  persist('remove', { id });
   send('stack', { op: 'remove', id, size: Math.min(mem.length, 100) });
   dispatchEvent(new CustomEvent('airstack:stack'));
 }
@@ -61,3 +79,18 @@ export function fromLink(hash) {
     return null;
   }
 }
+
+/* on sign-in, a stack kept in this browser moves into the account once, then the browser copy is cleared */
+addEventListener('airstack:account', async () => {
+  if (!A.enabled) return;
+  if (A.user) {
+    const local = read();
+    if (local.length) {
+      await Promise.all(local.filter(x => !A.stack.some(y => y.id === x.id)).map(x => saveStack('add', x.id, x.name)));
+      write([]);
+      return void refresh();
+    }
+    mem = A.stack.map(x => ({ id: x.id, name: x.name, added: x.added }));
+  } else mem = [];
+  dispatchEvent(new CustomEvent('airstack:stack'));
+});

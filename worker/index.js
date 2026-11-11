@@ -1,4 +1,5 @@
 import schema from './schema.json' with { type: 'json' };
+import { make as makeAccounts } from './auth.js';
 
 const BOT = /bot|crawl|spider|slurp|headless|lighthouse|preview|monitor|curl|wget|python|httpclient|okhttp|java\/|go-http|node-fetch|axios/i;
 const QUERY = new RegExp(schema.query, 'u');
@@ -168,9 +169,15 @@ export function make(L) {
   };
 }
 
-let worker;
+let worker, accounts;
 export default {
   fetch(request, env, ctx) {
+    if (new URL(request.url).pathname.startsWith('/api/')) {
+      /* accounts stay off until their secret and database are in place: until then the site keeps the stack in the browser */
+      if (!env.AUTH_SECRET || !env.USERS) return new Response(JSON.stringify({ user: null, enabled: false }), { status: 200, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
+      accounts ||= makeAccounts(env.ACCOUNT_LIMITS);
+      return accounts.handle(request, env, Date.now()).catch(() => new Response(JSON.stringify({ error: 'busy', message: 'Sign-in is busy right now. Please try again later.' }), { status: 503, headers: { 'content-type': 'application/json' } }));
+    }
     worker ||= make(env.LIMITS);
     return worker.fetch(request, env, ctx);
   },

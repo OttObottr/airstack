@@ -82,3 +82,8 @@
     @apply bg-muted/50;
   }
 }
+
+/* the account dialog dims the page behind it */
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.6);
+}
