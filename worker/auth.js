@@ -1,6 +1,8 @@
 /* Accounts: sign in with Google, GitHub or a code sent by email; one person, any number of linked ways in; a saved stack.
-   Tables follow bottr's (user, account, session, verification) so the two sites share one shape. Nothing a stranger sends can
-   cost money past a cap: every write is counted against a daily ceiling first, and sign-in emails stop at a monthly cap. */
+   Nothing a stranger sends can cost money past a cap: a signed-out page load reads nothing, every other request is counted
+   against its network's daily limit and then the daily ceiling, and sign-in emails stop at a monthly cap. Signing out and
+   deleting an account are never refused by the ceiling. Pending codes and counters hold a keyed hash of an address, never
+   the address. */
 
 const DAY = 864e5;
 const enc = new TextEncoder();
@@ -29,7 +31,9 @@ export const PROVIDERS = {
     secret: 'GOOGLE_CLIENT_SECRET',
     async profile(token, fetcher) {
       const r = await fetcher('https://openidconnect.googleapis.com/v1/userinfo', { headers: { authorization: `Bearer ${token}` } });
+      if (!r.ok) return null;
       const p = await r.json();
+      if (typeof p.sub !== 'string' || !p.sub) return null;
       return { accountId: p.sub, email: p.email_verified ? String(p.email).toLowerCase() : null, name: p.name || p.email };
     },
   },
@@ -41,7 +45,11 @@ export const PROVIDERS = {
     secret: 'GITHUB_CLIENT_SECRET',
     async profile(token, fetcher) {
       const h = { authorization: `Bearer ${token}`, 'user-agent': 'airstack.bot', accept: 'application/vnd.github+json' };
-      const [u, e] = await Promise.all([fetcher('https://api.github.com/user', { headers: h }).then(r => r.json()), fetcher('https://api.github.com/user/emails', { headers: h }).then(r => r.json())]);
+      const [ur, er] = await Promise.all([fetcher('https://api.github.com/user', { headers: h }), fetcher('https://api.github.com/user/emails', { headers: h })]);
+      if (!ur.ok) return null;
+      const u = await ur.json(),
+        e = er.ok ? await er.json() : null;
+      if (!Number.isSafeInteger(u.id) || u.id <= 0) return null;
       const primary = Array.isArray(e) ? e.find(x => x.primary && x.verified) : null;
       return { accountId: String(u.id), email: primary ? primary.email.toLowerCase() : null, name: u.name || u.login };
     },
@@ -112,13 +120,17 @@ export function make(L, fetcher = (...a) => fetch(...a)) {
       p = url.pathname,
       today = iso(now).slice(0, 10);
     if (req.method === 'POST' && req.headers.get('origin') !== url.origin) return json({ error: 'origin' }, 403);
-    if (!(await spend(db, 'writes', today, L.dayWrites))) return busy();
+    const ways = { email: !!env.EMAIL, google: !!env.GOOGLE_CLIENT_ID, github: !!env.GITHUB_CLIENT_ID };
+    if (p === '/api/me' && !cookie(req, COOKIE)) return json({ user: null, enabled: true, ways }); /* every signed-out page load: no database */
     const ip = await hmac(env.AUTH_SECRET, `${today}|${req.headers.get('cf-connecting-ip') || ''}`);
+    const leaving = req.method === 'POST' && (p === '/api/auth/signout' || p === '/api/account/delete');
+    if (!(await spend(db, `net:${ip}`, today, L.requestsPerNetworkDay))) return busy();
+    if (!leaving && !(await spend(db, 'writes', today, L.dayWrites))) return busy();
     const body = req.method === 'POST' ? await req.json().catch(() => ({})) : {};
+    const ident = async email => `email:${await hmac(env.AUTH_SECRET, `address|${email}`)}`;
 
     if (p === '/api/me') {
       const me = await session(req, db, now);
-      const ways = { email: !!env.EMAIL, google: !!env.GOOGLE_CLIENT_ID, github: !!env.GITHUB_CLIENT_ID };
       if (!me) return json({ user: null, enabled: true, ways });
       const [methods, stack] = await Promise.all([
         db.prepare('SELECT providerId FROM account WHERE userId = ? ORDER BY createdAt').bind(me.userId).all(),
@@ -130,10 +142,15 @@ export function make(L, fetcher = (...a) => fetch(...a)) {
     if (p === '/api/auth/email/start' && req.method === 'POST') {
       const email = String(body.email || '').trim().toLowerCase();
       if (!EMAIL.test(email) || email.length > 254) return json({ error: 'email' }, 400);
-      const id = `email:${email}`;
+      const id = await ident(email);
+      await db.batch([ /* past codes and past days' counters go; nothing older than 15 minutes or than this day (or month) stays */
+        db.prepare('DELETE FROM verification WHERE createdAt < ?').bind(iso(now - 15 * 60e3)),
+        db.prepare('DELETE FROM quota WHERE length(period) = 10 AND period < ?').bind(today),
+        db.prepare('DELETE FROM quota WHERE length(period) = 7 AND period < ?').bind(today.slice(0, 7)),
+      ]);
       const recent = await db.prepare('SELECT COUNT(*) AS n FROM verification WHERE identifier = ? AND createdAt > ?').bind(id, iso(now - 15 * 60e3)).first('n');
       if (recent >= L.codesPer15Min) return busy();
-      if (!(await spend(db, `ip:${ip}`, today, L.codesPerNetworkDay)) || !(await spend(db, `code:${email}`, today, L.codesPerAddressDay))) return busy();
+      if (!(await spend(db, `ip:${ip}`, today, L.codesPerNetworkDay)) || !(await spend(db, `code:${id}`, today, L.codesPerAddressDay))) return busy();
       if (!(await spend(db, 'emails', today.slice(0, 7), L.emailsPerMonth))) return busy();
       const code = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1e6).padStart(6, '0');
       await db
@@ -156,18 +173,19 @@ export function make(L, fetcher = (...a) => fetch(...a)) {
     if (p === '/api/auth/email/verify' && req.method === 'POST') {
       const email = String(body.email || '').trim().toLowerCase(),
         code = String(body.code || '').trim();
+      const id = await ident(email);
       const row = await db
         .prepare('SELECT id, value FROM verification WHERE identifier = ? AND expiresAt > ? ORDER BY createdAt DESC LIMIT 1')
-        .bind(`email:${email}`, iso(now))
+        .bind(id, iso(now))
         .first();
       if (!row || !/^\d{6}$/.test(code)) return json({ error: 'code' }, 400);
       const [want, tries] = row.value.split('.');
       if (+tries >= L.codeTries) return json({ error: 'code' }, 400);
-      if ((await hmac(env.AUTH_SECRET, `${email}|${code}`)) !== want) {
-        await db.prepare('UPDATE verification SET value = ? WHERE id = ?').bind(`${want}.${+tries + 1}`, row.id).run();
-        return json({ error: 'code' }, 400);
-      }
-      await db.prepare('DELETE FROM verification WHERE identifier = ?').bind(`email:${email}`).run();
+      /* a guess first takes one try in a single statement that only succeeds against the value just read, so guesses sent
+         at the same moment cannot share a try */
+      const took = await db.prepare('UPDATE verification SET value = ? WHERE id = ? AND value = ? RETURNING id').bind(`${want}.${+tries + 1}`, row.id, row.value).first('id');
+      if (!took || (await hmac(env.AUTH_SECRET, `${email}|${code}`)) !== want) return json({ error: 'code' }, 400);
+      await db.prepare('DELETE FROM verification WHERE identifier = ?').bind(id).run();
       const r = await enter(db, req, now, 'email', email, email, email.split('@')[0], !!body.link);
       if (r.error) return json({ error: r.error }, 409);
       return json({ ok: true }, 200, { 'set-cookie': await open(db, r.userId, req, now) });
@@ -233,7 +251,10 @@ export function make(L, fetcher = (...a) => fetch(...a)) {
       return json({ ok: true });
     }
     if (p === '/api/account/delete' && req.method === 'POST') {
+      const id = await ident(me.email);
       await db.batch([
+        db.prepare('DELETE FROM verification WHERE identifier IN (?, ?)').bind(id, `email:${me.email}`),
+        db.prepare('DELETE FROM quota WHERE name IN (?, ?)').bind(`code:${id}`, `code:${me.email}`),
         db.prepare('DELETE FROM stack WHERE userId = ?').bind(me.userId),
         db.prepare('DELETE FROM session WHERE userId = ?').bind(me.userId),
         db.prepare('DELETE FROM account WHERE userId = ?').bind(me.userId),

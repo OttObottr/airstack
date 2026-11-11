@@ -23,13 +23,9 @@ def cat_page(cid, name, items, prices, oss, guide, guide_source, ins, kpis):
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Categories", "/c/"), (name, None)))
     li = lambda xs: "".join(f"<li>{e(v)}</li>" for v in xs)
     def candidate(r):
-        hn = (r.get("community") or {}).get("hacker_news") or {}
-        discussed = "" if hn.get("status") != "observed" else "<br><small>Discussed on Hacker News: " + " · ".join(
-            f'<a href="{e(i["url"])}" rel="nofollow noopener">Hacker News discussion</a> · {i["points"]} points, {e(i["date"])}'
-            for i in hn["items"]) + "</small>"
         return (f'<li><a href="{e(r["url"])}" rel="nofollow noopener">{e(r["repo"])}</a> '
                 f'<small>OpenSSF Scorecard {r["scorecard"]["score"]:.1f}/10 · {e(r["license"] or "licence not stated")} · '
-                f'{r["forks"]:,} forks · {r["open_issues_and_pull_requests"]:,} open issues and pull requests</small>{discussed}</li>')
+                f'{r["forks"]:,} forks · {r["open_issues_and_pull_requests"]:,} open issues and pull requests</small></li>')
     return head(title, desc, url, (ld, crumb)) + f"""<body><main>{nav}
 <h1>{e(name)}</h1>{f'<p class="lead">{e(G["what"])}</p>' if G.get("what") else ''}
 <a class="cta" href="/">Search AirStack</a>

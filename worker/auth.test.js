@@ -5,7 +5,7 @@ import { make } from './auth.js';
 import { d1 } from './index.test.js';
 
 const SQL = readFileSync(new URL('./users.sql', import.meta.url), 'utf8');
-const L = { dayWrites: 1e6, emailsPerMonth: 2800, codesPer15Min: 3, codesPerAddressDay: 10, codesPerNetworkDay: 30, codeTries: 5, sessionDays: 30, stackMax: 100, from: 'AirStack <signin@airstack.bot>' };
+const L = { dayWrites: 1e6, requestsPerNetworkDay: 1e6, emailsPerMonth: 2800, codesPer15Min: 3, codesPerAddressDay: 10, codesPerNetworkDay: 30, codeTries: 5, sessionDays: 30, stackMax: 100, from: 'AirStack <signin@airstack.bot>' };
 const ORIGIN = 'https://airstack.bot';
 
 function setup(limits = {}) {
@@ -81,14 +81,80 @@ test('the last way in cannot be removed, and deleting the account removes everyt
 
 test('past the daily write ceiling every request is refused before it writes', async () => {
   const { call, sent } = setup({ dayWrites: 2 });
-  await call('/api/me');
-  await call('/api/me');
-  assert.equal((await call('/api/auth/email/start', { email: 'a@x.com' })).status, 429);
-  assert.equal(sent.length, 0);
+  await call('/api/auth/email/start', { email: 'a@x.com' }, { ip: '192.0.2.1' });
+  await call('/api/auth/email/start', { email: 'b@x.com' }, { ip: '192.0.2.2' });
+  assert.equal((await call('/api/auth/email/start', { email: 'c@x.com' }, { ip: '192.0.2.3' })).status, 429);
+  assert.equal(sent.length, 2);
+});
+
+test('a signed-out page load touches no database and spends nothing', async () => {
+  const { call, sent, env } = setup({ dayWrites: 1, requestsPerNetworkDay: 1 });
+  for (let i = 0; i < 20; i++) assert.deepEqual(await (await call('/api/me')).json(), { user: null, enabled: true, ways: { email: true, google: false, github: false } });
+  assert.equal(env.USERS.sql.prepare('SELECT COUNT(*) AS c FROM quota').get().c, 0);
+  assert.equal((await call('/api/auth/email/start', { email: 'a@x.com' })).status, 200);
+  assert.equal(sent.length, 1);
+});
+
+test('one network cannot use up the day for everyone', async () => {
+  const { call, sent } = setup({ dayWrites: 10, requestsPerNetworkDay: 3 });
+  for (let i = 0; i < 50; i++) await call('/api/me', null, { ip: '198.51.100.7' }).then(() => call('/api/stack', { op: 'add', id: 'x' }, { ip: '198.51.100.7' }));
+  assert.equal((await call('/api/auth/email/start', { email: 'ok@x.com' }, { ip: '192.0.2.9' })).status, 200);
+  assert.equal(sent.length, 1);
+});
+
+test('signing out and deleting the account still work once the daily ceiling is reached', async () => {
+  const { call, code, env } = setup({ dayWrites: 2 });
+  await call('/api/auth/email/start', { email: 'f@x.com' });
+  await call('/api/auth/email/verify', { email: 'f@x.com', code: code() });
+  assert.equal((await call('/api/stack', { op: 'add', id: 'slack' })).status, 429); /* the ceiling is reached */
+  assert.equal((await call('/api/account/delete', {})).status, 200);
+  assert.equal(env.USERS.sql.prepare('SELECT COUNT(*) AS c FROM "user"').get().c, 0);
+});
+
+test('guesses sent all at once still get five tries in total', async () => {
+  const { call, code, env } = setup();
+  await call('/api/auth/email/start', { email: 'g@x.com' });
+  const c = code();
+  const guesses = Array.from({ length: 60 }, (_, i) => String((+c + 1 + i) % 1e6).padStart(6, '0'));
+  guesses[59] = c; /* the right code, last in the burst */
+  const out = await Promise.all(guesses.map(g => call('/api/auth/email/verify', { email: 'g@x.com', code: g })));
+  assert.ok(out.every(r => r.status === 400));
+  assert.equal(env.USERS.sql.prepare('SELECT COUNT(*) AS c FROM "user"').get().c, 0);
+  assert.equal((await call('/api/auth/email/verify', { email: 'g@x.com', code: c })).status, 400);
+});
+
+test('email addresses are not stored in pending codes or counters, and old ones are cleared', async () => {
+  const { call, code, env } = setup();
+  const db = env.USERS.sql;
+  db.prepare("INSERT INTO verification(id, identifier, value, expiresAt, createdAt, updatedAt) VALUES ('old', 'email:old@x.com', 'h.0', '2026-11-10T00:10:00Z', '2026-11-10T00:00:00Z', NULL)").run();
+  db.prepare("INSERT INTO quota(name, period, n) VALUES ('code:old@x.com', '2026-11-10', 1), ('emails', '2026-10', 5)").run();
+  await call('/api/auth/email/start', { email: 'Hana@Example.com' });
+  const stored = () => JSON.stringify([db.prepare('SELECT * FROM verification').all(), db.prepare('SELECT * FROM quota').all()]);
+  assert.ok(!/@/.test(stored()), stored());
+  await call('/api/auth/email/verify', { email: 'hana@example.com', code: code() });
+  await call('/api/auth/email/start', { email: 'hana@example.com', link: true });
+  assert.equal((await call('/api/account/delete', {})).status, 200);
+  assert.equal(db.prepare('SELECT COUNT(*) AS c FROM verification').get().c, 0);
+  assert.ok(!/code:/.test(stored()), stored());
+});
+
+test('a failed GitHub or Google profile answer never signs anyone in', async () => {
+  for (const provider of ['github', 'google']) {
+    const fake = async u => (String(u).includes('token') ? { ok: true, json: async () => ({ access_token: 't' }) } : { ok: false, json: async () => ({ message: 'Bad credentials' }) });
+    const w = make(L, fake);
+    const env = { USERS: d1(SQL), AUTH_SECRET: 's', GOOGLE_CLIENT_ID: 'id', GOOGLE_CLIENT_SECRET: 'sec', GITHUB_CLIENT_ID: 'id', GITHUB_CLIENT_SECRET: 'sec' };
+    const go = (path, cookie = '') => w.handle(new Request(ORIGIN + path, { headers: { origin: ORIGIN, cookie } }), env, Date.parse('2026-11-11T12:00:00Z'));
+    for (let i = 0; i < 2; i++) {
+      const flow = (await go(`/api/auth/${provider}/start`)).headers.get('set-cookie').split(';')[0];
+      const cb = await go(`/api/auth/${provider}/callback?state=${flow.split('=')[1].split('.')[0]}&code=c`, flow);
+      assert.match(cb.headers.get('location'), /signin=failed/, provider);
+    }
+    assert.equal(env.USERS.sql.prepare('SELECT COUNT(*) AS c FROM account').get().c, 0, provider);
+  }
 });
 
 test('Google never takes over an account by matching its email; linking needs the person signed in', async () => {
-  const fake = async (u, o) => ({ json: async () => (String(u).includes('token') ? { access_token: 't' } : { sub: 'g-1', email: 'ada@example.com', email_verified: true, name: 'Ada' }) });
+  const fake = async (u, o) => ({ ok: true, json: async () => (String(u).includes('token') ? { access_token: 't' } : { sub: 'g-1', email: 'ada@example.com', email_verified: true, name: 'Ada' }) });
   const w = make(L, fake);
   const sent = [],
     env = { USERS: d1(SQL), AUTH_SECRET: 's', GOOGLE_CLIENT_ID: 'id', GOOGLE_CLIENT_SECRET: 'sec', EMAIL: { send: async m => sent.push(m) } };

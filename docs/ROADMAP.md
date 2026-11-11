@@ -9,7 +9,6 @@ Open work, by area. Each item ships only with evidence: a fact needs its quote o
 - Search: category synonyms, a full results view, and a reviewed query set checked in CI.
 - Market stories from typed updates, with rule-based detectors for breakouts and trend changes.
 - A makers map sized by measured adoption.
-- Accounts: optional sign-in that syncs a stack, with a clear privacy notice and a delete path.
 
 ## Evidence
 - Independent second sources (app stores, marketplaces, registries); "corroborated" only on an independent match.

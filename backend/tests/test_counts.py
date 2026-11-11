@@ -19,5 +19,5 @@ def test_the_counting_code_passes_its_tests():
     node = shutil.which("node")
     if not node:
         pytest.skip("node is not installed")
-    out = subprocess.run([node, "--test", "worker/index.test.js", "worker/beacon.test.js"], cwd=ROOT, capture_output=True, text=True)
+    out = subprocess.run([node, "--test", "worker/index.test.js", "worker/beacon.test.js", "worker/auth.test.js"], cwd=ROOT, capture_output=True, text=True)
     assert out.returncode == 0, out.stdout[-3000:] + out.stderr[-1000:]

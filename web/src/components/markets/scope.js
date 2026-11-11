@@ -63,7 +63,7 @@ export const sourceLine = (text, file, read) =>
   Method(`${text} · <a class="underline underline-offset-2 hover:text-foreground" href="${url(new URL(file, location.href).href)}">${esc(file)}</a>${read ? `, read ${fd(read)}` : ''}`);
 
 /* the comparisons the producer published for these rows, each read against its peer: `say` words one measure */
-const RATE = { announced: ['announced', 'watched'], talked: ['talked', 'watched'], entrants: ['entrants', 'dated'] };
+const RATE = { announced: ['announced', 'watched'], entrants: ['entrants', 'dated'] };
 export const findings = (D, ids, peer, say, days) =>
   ids.flatMap(id => {
     const o = D.nodes[id];

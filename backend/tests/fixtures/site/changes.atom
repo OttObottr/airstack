@@ -5,21 +5,12 @@
   <subtitle>Changelogs, releases and announcements from the products AirStack tracks, in the last 30 days, each linked to its source.</subtitle>
   <link rel="self" type="application/atom+xml" href="https://airstack.bot/changes.atom" />
   <link rel="alternate" type="text/html" href="https://airstack.bot/" />
-  <updated>2026-11-02T15:30:00Z</updated>
+  <updated>2026-10-30T09:00:00Z</updated>
   <author>
     <name>AirStack</name>
     <uri>https://airstack.bot/</uri>
   </author>
   <rights>Titles remain their publishers' property. Original compilation metadata is CC BY 4.0 where applicable.</rights>
-  <entry>
-    <id>tag:airstack.bot,2026:https://news.ycombinator.com/item?id=900000001</id>
-    <title type="text">Discussed on Hacker News (42 points)</title>
-    <updated>2026-11-02T15:30:00Z</updated>
-    <link rel="alternate" type="text/html" href="https://news.ycombinator.com/item?id=900000001" />
-    <link rel="related" type="text/html" href="https://airstack.bot/p/delta-vector/" title="Delta Vector on AirStack" />
-    <category term="hacker news" />
-    <summary type="text">A Hacker News story linking to Delta Vector’s own site.</summary>
-  </entry>
   <entry>
     <id>tag:airstack.bot,2026:https://acme-notes.example/changelog/shared-boards</id>
     <title type="text">Shared boards for every workspace</title>

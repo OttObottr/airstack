@@ -16,11 +16,11 @@ const nodeRow = (D, id) => {
 };
 
 const productRow = p => {
-  const [items, stories, year] = p.rec || [];
+  const [items, , year] = p.rec || [];
   const researched = MK && MK.profiles ? (MK.profiles[p.id] ? 'Yes' : 'No') : '';
   return `<tr><td class="${ui.td}"><a class="text-foreground hover:underline underline-offset-2" href="#app=${encodeURIComponent(p.id)}">${esc(p.name)}</a></td>
     <td class="${TD}">${researched}</td><td class="${TD}">${p.rec && p.rec[3] ? n(items) : '<span class="text-muted-foreground">Not watched</span>'}</td>
-    <td class="${TD} hidden sm:table-cell">${p.rec && p.rec[3] ? n(stories) : ''}</td><td class="${TD} hidden md:table-cell">${year || '<span class="text-muted-foreground">Not recorded</span>'}</td></tr>`;
+    <td class="${TD} hidden md:table-cell">${year || '<span class="text-muted-foreground">Not recorded</span>'}</td></tr>`;
 };
 
 export const panel = {
@@ -38,7 +38,7 @@ export const panel = {
     el.removeAttribute('aria-busy');
     if (R.products) {
       el.innerHTML = R.products.length
-        ? `<div class="overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th}">Product</th><th class="${TH}">Researched</th><th class="${TH}">Announcements, ${days} days</th><th class="${TH} hidden sm:table-cell">Hacker News stories</th><th class="${TH} hidden md:table-cell">Inception</th></tr></thead><tbody>${R.products.map(productRow).join('')}</tbody></table></div>`
+        ? `<div class="overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th}">Product</th><th class="${TH}">Researched</th><th class="${TH}">Announcements, ${days} days</th><th class="${TH} hidden md:table-cell">Inception</th></tr></thead><tbody>${R.products.map(productRow).join('')}</tbody></table></div>`
         : `<p class="${ui.panelNote}">Nothing here yet. Add products to your stack to see them measured.</p>`;
       return;
     }

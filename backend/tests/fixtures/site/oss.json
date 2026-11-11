@@ -52,27 +52,7 @@
     "forks": 140,
     "open_issues_and_pull_requests": 14,
     "discussions_enabled": true,
-    "community": {
-     "hacker_news": {
-      "status": "observed",
-      "source": "Hacker News search",
-      "query": "https://github.com/open-board-example/open-board",
-      "window": [
-       "2026-08-05",
-       "2026-11-05"
-      ],
-      "fetched_at": "2026-11-03T06:00:00+00:00",
-      "count": 1,
-      "items": [
-       {
-        "url": "https://news.ycombinator.com/item?id=900000002",
-        "date": "2026-10-10",
-        "points": 31
-       }
-      ],
-      "truncated": false
-     }
-    },
+    "community": {},
     "pushed": "2026-10-30",
     "created": "2024-03-01",
     "homepage": "",
@@ -107,21 +87,7 @@
     "forks": 22,
     "open_issues_and_pull_requests": 14,
     "discussions_enabled": false,
-    "community": {
-     "hacker_news": {
-      "status": "not_observed",
-      "source": "Hacker News search",
-      "query": "https://github.com/plan-kit-example/plan-kit",
-      "window": [
-       "2026-08-05",
-       "2026-11-05"
-      ],
-      "fetched_at": "2026-11-03T06:00:00+00:00",
-      "count": 0,
-      "items": [],
-      "truncated": false
-     }
-    },
+    "community": {},
     "pushed": "2026-01-10",
     "created": "2024-03-01",
     "homepage": "",
@@ -141,21 +107,7 @@
     "forks": 260,
     "open_issues_and_pull_requests": 14,
     "discussions_enabled": true,
-    "community": {
-     "hacker_news": {
-      "status": "not_observed",
-      "source": "Hacker News search",
-      "query": "https://github.com/agent-kit-example/agent-kit",
-      "window": [
-       "2026-08-05",
-       "2026-11-05"
-      ],
-      "fetched_at": "2026-11-03T06:00:00+00:00",
-      "count": 0,
-      "items": [],
-      "truncated": false
-     }
-    },
+    "community": {},
     "pushed": "2026-10-30",
     "created": "2024-03-01",
     "homepage": "",

@@ -15,8 +15,7 @@ from pages.layout import WIKIMEDIA, breadcrumbs, e, foot, head, slug as page_slu
 
 BASE, ATOM, TAG = "https://airstack.bot", "http://www.w3.org/2005/Atom", "tag:airstack.bot,2026:"
 SCHEDULE = "From {}’s support schedule on endoflife.date."
-SAYS = {"changelog": "From {}’s own changelog.", "blog": "From {}’s own blog or news feed.", "release": "A GitHub release of {}.",
-        "hacker news": "A Hacker News story linking to {}’s own site.", "end of life": SCHEDULE, "end of active support": SCHEDULE, "end of extended support": SCHEDULE}
+SAYS = {"changelog": "From {}’s own changelog.", "blog": "From {}’s own blog or news feed.", "release": "A GitHub release of {}.", "end of life": SCHEDULE, "end of active support": SCHEDULE, "end of extended support": SCHEDULE}
 NOT_XML = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]")
 slug = lambda s: page_slug(s, 80)
 tag = lambda url: TAG + urllib.parse.quote(url, safe="/:?@!$&'()*+,;=%-._~")  # RFC 4151 tag URI

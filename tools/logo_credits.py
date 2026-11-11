@@ -1,8 +1,7 @@
 """The logos that ship with the site, and /legal/logos.html, the credits page for the ones whose licence asks for credit.
 
 Used by tools/assemble.sh. A logo ships only as a PNG or JPEG that logos.json names, under logos/<16 hex>.png or .jpg, within the size limits below;
-logos.json is rewritten to name only what shipped. Credits come from each file's Commons record (data/site/logos.json, built by
-airstack-ops tools/build_logos.py); email addresses and markup in author fields are not published."""
+logos.json is rewritten to name only what shipped. Credits come from each file's Commons record (data/site/logos.json); email addresses and markup in author fields are not published."""
 import html
 import json
 import re

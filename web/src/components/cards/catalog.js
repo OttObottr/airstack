@@ -44,13 +44,9 @@ function communityView(x) {
       return `<li><a class="chip ext" href="${url(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}${ic('out')}</a><span class="meta">${index ? 'Maker' : 'Product'} · ${f ? `${cn(f[0])} followers · stated ${f[1] ? fd(f[1]) : 'without a date'}` : 'channel recorded; audience not measured'}</span></li>`;
     });
   }).filter(Boolean).join('');
-  const hn = NEWS ? NEWS.items.filter(i => i.id === x.id && i.kind === 'hacker news') : [],
-    attention = hn.length
-      ? `${hn.length} retained Hacker News ${hn.length === 1 ? 'story' : 'stories'} in the ${NEWS.source.window_days}-day update feed · ${hn.reduce((s, i) => s + (i.points || 0), 0)} points when read. `
-      : '';
-  if (!channels && !attention) return '';
+  if (!channels) return '';
   return `<section class="community mt-12" aria-labelledby="community-${esc(x.id)}"><p class="eyebrow">Attention, kept separate from adoption</p><h3 class="h-section" id="community-${esc(x.id)}">Community footprint</h3>
-    <p class="meta">${esc(attention)}Channel links and audience counts are Wikidata’s dated record, not evidence of use.</p>
+    <p class="meta">Channel links and audience counts are Wikidata’s dated record, not evidence of use.</p>
     ${channels ? `<ul class="community-links mt-4">${channels}</ul>` : ''}</section>`;
 }
 

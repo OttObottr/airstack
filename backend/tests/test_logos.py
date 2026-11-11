@@ -6,7 +6,7 @@ from logo_credits import PNG, author, page, ship
 
 
 def test_author_fields_publish_no_email_or_markup():
-    assert author("Gary V. Vaughan (<gary@gnu.org>), Free Software Foundation") == "Gary V. Vaughan, Free Software Foundation"
+    assert author("Ada Example (<ada@example.org>), Example Foundation") == "Ada Example, Example Foundation"
     assert author('<a href="//x">Jane</a> jane@example.org') == "Jane"
     assert author("") == "see the file page"
 

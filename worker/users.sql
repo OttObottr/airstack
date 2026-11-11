@@ -1,5 +1,5 @@
--- AirStack accounts: the one schema, applied as is (every statement can run again). The first four tables match bottr's,
--- so both sites share one shape: a person (user), their ways in (account), their sign-ins (session) and pending codes (verification).
+-- AirStack accounts: the one schema, applied as is (every statement can run again): a person (user), their ways in (account),
+-- their sign-ins (session) and pending codes (verification).
 
 CREATE TABLE IF NOT EXISTS "user" (
   id            TEXT PRIMARY KEY NOT NULL,
@@ -43,7 +43,7 @@ CREATE INDEX IF NOT EXISTS session_userId ON session(userId);
 
 CREATE TABLE IF NOT EXISTS "verification" (
   id         TEXT PRIMARY KEY NOT NULL,
-  identifier TEXT NOT NULL,
+  identifier TEXT NOT NULL,         -- 'email:' and a keyed hash of the address; the address itself is not stored here
   value      TEXT NOT NULL,         -- a keyed hash of the code, then '.' and the wrong tries so far
   expiresAt  TEXT NOT NULL,
   createdAt  TEXT,

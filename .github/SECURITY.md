@@ -4,4 +4,4 @@ Use GitHub's **Report a vulnerability** form when available. Otherwise open an i
 
 Please do not test production with load, automated scanning, social engineering or destructive requests.
 
-Production is a static application plus one endpoint that keeps the daily counts listed on Terms and privacy. Report issues in the client, published data or build pipeline through the same channel.
+Production is a static application plus one Worker that keeps the daily counts and the optional accounts listed on Terms and privacy. Report issues in the client, published data or build pipeline through the same channel.

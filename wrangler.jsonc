@@ -14,7 +14,7 @@
   ],
   "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["signin@airstack.bot"] }],
   "vars": {
-    "ACCOUNT_LIMITS": { "dayWrites": 20000, "emailsPerMonth": 2800, "codesPer15Min": 3, "codesPerAddressDay": 10, "codesPerNetworkDay": 30, "codeTries": 5, "sessionDays": 30, "stackMax": 100, "from": "AirStack <signin@airstack.bot>" },
+    "ACCOUNT_LIMITS": { "dayWrites": 20000, "requestsPerNetworkDay": 1000, "emailsPerMonth": 2800, "codesPer15Min": 3, "codesPerAddressDay": 10, "codesPerNetworkDay": 30, "codeTries": 5, "sessionDays": 30, "stackMax": 100, "from": "AirStack <signin@airstack.bot>" },
     "LIMITS": {
       "keyHex": 16,
       "perDay": 600,

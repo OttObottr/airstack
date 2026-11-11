@@ -2,19 +2,16 @@ import { ui } from '../../ui/recipes.js';
 import { esc, fd, n } from '../../lib/format.js';
 import { findings, latest, loading, peerName, rows, share, sourceLine } from './scope.js';
 
-/* Who announced something, and who was talked about: vendors' own channels and Hacker News, per node, with the comparisons
-   the producer published (each node against its parent, a sector against all sectors) */
+/* Who announced something on their own channels, per node, with the comparisons the producer published (each node against its parent, a sector against all sectors) */
 const MEASURE = {
   announced: (o, p, days) =>
     `${n(o.announced)} of ${n(o.watched)} watched products announced something in ${days} days (${share(o.announced, o.watched)}%), against ${share(p.announced, p.watched)}% ${peerName(p)} (${n(p.announced)} of ${n(p.watched)}).`,
-  talked: (o, p, days) =>
-    `Hacker News stories in ${days} days linked to ${n(o.talked)} of ${n(o.watched)} watched products (${share(o.talked, o.watched)}%), against ${share(p.talked, p.watched)}% ${peerName(p)} (${n(p.talked)} of ${n(p.watched)}).`,
 };
 
 export const panel = {
   id: 'announcements',
-  title: 'Announcements and conversation',
-  note: 'Products that posted to their own feed, changelog or releases, and products a Hacker News story linked to. Recorded days, not a weekly trend.',
+  title: 'Announcements',
+  note: 'Products that posted to their own feed, changelog or releases. Recorded days, not a weekly trend.',
   async render(scope, el) {
     const fresh = latest(el);
     el.className = 'flex flex-col gap-3 min-w-0';
