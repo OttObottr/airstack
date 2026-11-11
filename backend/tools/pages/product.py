@@ -45,8 +45,8 @@ def page(p, all_, prices, oss):
 {f'<h2>What {e(p["name"])}’s pages say</h2><table>{facts}</table><p><small>Vendor statements, quoted and dated{", last read " + day(checked) if checked else ""}; not verified by AirStack. A missing field means AirStack has not found it on its pages.</small></p>' if facts else ''}
 {f'<h2>{e(p["name"])} alternatives</h2><ul>{alt}</ul>' if alt else ''}
 {f'<h2>Compare {e(p["name"])}</h2><ul>' + "".join(f'<li><a href="/compare/{e(sl)}/">{e(p["name"])} vs {e(o["name"])}</a></li>' for o, sl in PAIRS.get(p["id"], [])) + '</ul>' if PAIRS.get(p["id"]) else ''}
-{f'<h2>Open-source alternatives to {e(p["name"])}</h2><ul>{os_}</ul><p><small>Projects tagged with {e(p["category"])} topics on GitHub, ranked by stars. A lead, not an endorsement.</small></p>' if os_ else ''}
-{foot('Facts extracted with Muse Spark. ')}
+{f'<h2>Open-source projects in {e(p["category"])}</h2><ul>{os_}</ul><p><small>Projects tagged with {e(p["category"])} topics on GitHub. A lead, not an endorsement.</small></p>' if os_ else ''}
+{foot('Facts extracted by a language model. ')}
 </main></body></html>
 """
 
