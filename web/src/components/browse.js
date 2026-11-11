@@ -46,11 +46,11 @@ export const catList = items =>
 function typeView() {
   if (!DIR) {
     $('#trend').setAttribute('aria-busy', 'true');
-    $('#trend').innerHTML = '<div class="skeleton skeleton-list mt24" role="status" aria-label="Loading the directory"></div>';
+    $('#trend').innerHTML = '<div class="skeleton skeleton-list mt-6" role="status" aria-label="Loading the directory"></div>';
     loadDir().then(drawBrowse, () => {
       $('#trend').setAttribute('aria-busy', 'false');
       $('#trend').innerHTML =
-        '<p class="load-error mt24" role="status">The directory could not be loaded. Check your connection and reload.</p>';
+        '<p class="load-error mt-6" role="status">The directory could not be loaded. Check your connection and reload.</p>';
     });
     return;
   }
@@ -71,7 +71,7 @@ function typeView() {
       .slice(0, 24),
     kids = KIDS[i];
   $('#trend').innerHTML =
-    `<p class="lab mt24 crumb">${path.map(j => (j === i ? esc(T[j][1]) : `<button type="button" data-type="${j}">${esc(T[j][1])}</button>`)).join(' › ')} · ${n(T[i][4])} products</p>
+    `<p class="eyebrow mt-6 crumb">${path.map(j => (j === i ? esc(T[j][1]) : `<button type="button" data-type="${j}">${esc(T[j][1])}</button>`)).join(' › ')} · ${n(T[i][4])} products</p>
     ${
       kids.length
         ? `<div class="tl">${kids
@@ -80,11 +80,11 @@ function typeView() {
               j =>
                 `<button type="button" data-type="${j}">${esc(T[j][1])} <span class="meta">${n(T[j][4])}</span></button>`
             )
-            .join('')}</div>${kids.length > 60 ? `<p class="meta mt12">and ${kids.length - 60} smaller types</p>` : ''}`
+            .join('')}</div>${kids.length > 60 ? `<p class="meta mt-3">and ${kids.length - 60} smaller types</p>` : ''}`
         : ''
     }
-    <p class="lab mt24">Best known</p>${catList(items)}
-    <p class="meta mt12">Types and products from Wikidata (CC0), read ${fd(DIR.source.fetched_at)}, ranked by how many Wikipedia and sister-site pages cover them.</p>`;
+    <p class="eyebrow mt-6">Best known</p>${catList(items)}
+    <p class="meta mt-3">Types and products from Wikidata (CC0), read ${fd(DIR.source.fetched_at)}, ranked by how many Wikipedia and sister-site pages cover them.</p>`;
 }
 export function drawBrowse() {
   $('#trend').setAttribute('aria-busy', 'false');
@@ -99,7 +99,7 @@ export function drawBrowse() {
       .slice(0, 5);
   const w = ((MK && MK.movers) || M.moversTop || {}).window;
   $('#trend').innerHTML =
-    `${lb(list, { lane: false, dense: true })}<p class="meta mt12">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.</p>`;
+    `${lb(list, { lane: false, dense: true })}<p class="meta mt-3">Registry downloads (npm, PyPI)${w ? `, ${fd(w.last7[0])} to ${fd(w.last7[1])},` : ''} against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, set by the largest change shown. Only tools above their own ${PARAMS.movers.base_weeks}-week level and over ${n(PARAMS.movers.solid_min_downloads)} downloads a week are listed.</p>`;
 }
 
 export function mount() {

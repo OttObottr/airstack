@@ -45,9 +45,9 @@ function communityView(x) {
       ? `${hn.length} retained Hacker News ${hn.length === 1 ? 'story' : 'stories'} in the ${NEWS.source.window_days}-day update feed · ${hn.reduce((s, i) => s + (i.points || 0), 0)} points when read. `
       : '';
   if (!channels && !attention) return '';
-  return `<section class="community mt48" aria-labelledby="community-${esc(x.id)}"><p class="lab">Attention, kept separate from adoption</p><h3 class="h2" id="community-${esc(x.id)}">Community footprint</h3>
+  return `<section class="community mt-12" aria-labelledby="community-${esc(x.id)}"><p class="eyebrow">Attention, kept separate from adoption</p><h3 class="h-section" id="community-${esc(x.id)}">Community footprint</h3>
     <p class="meta">${esc(attention)}Channel links and audience counts are Wikidata’s dated record, not evidence of use.</p>
-    ${channels ? `<ul class="community-links mt16">${channels}</ul>` : ''}</section>`;
+    ${channels ? `<ul class="community-links mt-4">${channels}</ul>` : ''}</section>`;
 }
 
 function altView(x) {
@@ -74,15 +74,15 @@ function altView(x) {
       ? esc(c.value.slice(0, m).join(', ')) +
         (c.value.length > m ? ` <span class="meta">+${c.value.length - m}</span>` : '')
       : nobs;
-  return `<h3 class="h2 mt48">${esc(category)} alternatives</h3><p class="meta">Products classified for the same job. Researched rows are what each product’s own pages say; listings remain clearly separate.</p>
-    ${peers.length ? `<div class="scroll mt16"><table class="t alt"><thead><tr><th scope="col">Product</th><th scope="col">What it says it does</th><th scope="col">Free plan</th><th scope="col">Plans</th><th scope="col">Integrations</th></tr></thead><tbody>
+  return `<h3 class="h-section mt-12">${esc(category)} alternatives</h3><p class="meta">Products classified for the same job. Researched rows are what each product’s own pages say; listings remain clearly separate.</p>
+    ${peers.length ? `<div class="scroll mt-4"><table class="t alt"><thead><tr><th scope="col">Product</th><th scope="col">What it says it does</th><th scope="col">Free plan</th><th scope="col">Plans</th><th scope="col">Integrations</th></tr></thead><tbody>
     ${peers
       .map(
         p => `<tr${p.id === x.id ? ' class="cur"' : ''}><td><span class="who">${mono(p, 's20')}<button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button></span></td><td>${v(p, 'what_it_does') ? esc(String(v(p, 'what_it_does').value).slice(0, 90)) : nobs}</td>
       <td>${v(p, 'free_plan') ? 'Yes' : nobs}</td><td>${list(v(p, 'plan_names'), 3)}</td><td>${v(p, 'integrations') ? `${v(p, 'integrations').value.length} listed` : nobs}</td></tr>`
       )
       .join('')}</tbody></table></div>` : ''}
-    ${listed.length ? `<p class="lab mt24">Also mapped to ${esc(category)}</p><ul class="related-list mt12">${listed.map(p => `<li><button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button><span class="meta">Listed · own-page research pending</span></li>`).join('')}</ul>` : ''}`;
+    ${listed.length ? `<p class="eyebrow mt-6">Also mapped to ${esc(category)}</p><ul class="related-list mt-3">${listed.map(p => `<li><button class="lk" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button><span class="meta">Listed · own-page research pending</span></li>`).join('')}</ul>` : ''}`;
 }
 function repGraph(r, order) {
   const c = r.scorecard && r.scorecard.checks;
@@ -110,9 +110,9 @@ function ossView(x) {
   const ok = L.filter(r => !r.gate).slice(0, 8),
     below = L.filter(r => r.gate);
   const category = (TAX && TAX.nodes[job] && TAX.nodes[job].name) || x.laneName;
-  return `<h3 class="h2 mt48">Open-source candidates</h3><p class="meta">Found through ${esc(category)} searches on GitHub (read ${fd(OSS.source.fetched_at)}). Projects that pass OpenSSF Scorecard’s automated checks${ck.fetched_at ? ` (read ${fd(ck.fetched_at)})` : ''} come first.</p>
-    <ol class="oss mt16">${ok.map(row).join('')}</ol>
-    ${below.length ? `<details class="mt16"><summary class="meta">Not vetted: ${below.length} more, below the bar (${[...new Set(below.map(r => r.gate))].join(', ')})</summary><ol class="oss mt12">${below.map(r => row(r).replace('<span class="osf">', `<span class="osf"><span>✕ ${esc(r.gate)}</span>`)).join('')}</ol></details>` : ''}`;
+  return `<h3 class="h-section mt-12">Open-source candidates</h3><p class="meta">Found through ${esc(category)} searches on GitHub (read ${fd(OSS.source.fetched_at)}). Projects that pass OpenSSF Scorecard’s automated checks${ck.fetched_at ? ` (read ${fd(ck.fetched_at)})` : ''} come first.</p>
+    <ol class="oss mt-4">${ok.map(row).join('')}</ol>
+    ${below.length ? `<details class="mt-4"><summary class="meta">Not vetted: ${below.length} more, below the bar (${[...new Set(below.map(r => r.gate))].join(', ')})</summary><ol class="oss mt-3">${below.map(r => row(r).replace('<span class="osf">', `<span class="osf"><span>✕ ${esc(r.gate)}</span>`)).join('')}</ol></details>` : ''}`;
 }
 const pageOf = x =>
   x.dir
@@ -143,7 +143,7 @@ export function catalogCard(x) {
     : '';
   const link = u =>
     `<a class="ext" href="${url(u)}" target="_blank" rel="noopener noreferrer">${esc(host(u))}${ic('out')}</a> <span class="meta">reached ${fd(C.checked)}</span>`;
-  tc.innerHTML = `${covered}${strip(x)}<dl class="kv mt24"><div><dt>Vendor</dt><dd>${C.vendor ? esc(C.vendor) : nobs}</dd></div><div><dt>Category</dt><dd>${esc(x.laneName)} <span class="meta">AirStack’s classification</span></dd></div>
+  tc.innerHTML = `${covered}${strip(x)}<dl class="kv mt-6"><div><dt>Vendor</dt><dd>${C.vendor ? esc(C.vendor) : nobs}</dd></div><div><dt>Category</dt><dd>${esc(x.laneName)} <span class="meta">AirStack’s classification</span></dd></div>
       <div><dt>Homepage</dt><dd>${C.homepage ? link(C.homepage) : nobs}</dd></div><div><dt>Share</dt><dd><a class="ext" href="${pageOf(x)}">airstack.bot${pageOf(x)}</a></dd></div><div><dt>Pricing page</dt><dd>${C.pricing ? link(C.pricing) : '<span class="nobs">Not confirmed</span>'}</dd></div></dl>
     ${PROF ? guideView(x) : ''}
     ${PROF ? priceView(x) : ''}
@@ -151,5 +151,5 @@ export function catalogCard(x) {
     ${PROF ? communityView(x) : ''}
     ${PROF ? ossView(x) : ''}
     ${PROF ? modelsView(x) : ''}
-    ${P ? `<h3 class="h2 mt48">What its own pages say</h3>${pview({ id: x.id, name: x.name }, x.id, () => renderAll())}` : `<p class="note">AirStack lists ${esc(x.name)} by category with the links checked above. Its own pages haven’t been researched yet, so nothing else is claimed about it.</p>`}`;
+    ${P ? `<h3 class="h-section mt-12">What its own pages say</h3>${pview({ id: x.id, name: x.name }, x.id, () => renderAll())}` : `<p class="note">AirStack lists ${esc(x.name)} by category with the links checked above. Its own pages haven’t been researched yet, so nothing else is claimed about it.</p>`}`;
 }

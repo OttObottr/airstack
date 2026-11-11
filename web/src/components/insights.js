@@ -117,13 +117,13 @@ function mapView() {
     <div class="aiplot"><canvas id="aimap" role="img" aria-label="${esc(`${n(P.length)} products. ${[2, 1, 0].map(b => `${ax.y[b]}: ${n(by[b])}`).join('. ')}. ${n(I.map.unplaced)} more miss an input and are not placed.`)}"></canvas>
       <p class="aitip meta" id="aitip" aria-live="polite">Point at a dot for the product; open it for its page.</p>
       <div class="aiq" aria-hidden="true"><span>Little documented</span><span>How widely documented → (${esc(ax.x)}, log scale)</span><span>Widely documented</span></div></div></div>
-    <p class="ins-annotation mt12"><b>Read the split, not a score.</b> ${n(by[1])} show AI elsewhere on their pages: across all listed software, ${n(E.models)} name the models they use and ${n(E.providers)} integrate AI providers. ${pop === 'all_listed' ? 'Most listed software is general-purpose and long predates AI, so this population is mostly “No AI”. ' : ''}${n(P.length)} placed · ${n(I.map.unplaced)} not placed because an input is missing · x is how widely a product is documented, not market share · y is what its own pages say, not what it does.</p>
-    <details class="mt12"><summary class="meta">The most documented in each band, as a list</summary><div class="aitop">${[
+    <p class="ins-annotation mt-3"><b>Read the split, not a score.</b> ${n(by[1])} show AI elsewhere on their pages: across all listed software, ${n(E.models)} name the models they use and ${n(E.providers)} integrate AI providers. ${pop === 'all_listed' ? 'Most listed software is general-purpose and long predates AI, so this population is mostly “No AI”. ' : ''}${n(P.length)} placed · ${n(I.map.unplaced)} not placed because an input is missing · x is how widely a product is documented, not market share · y is what its own pages say, not what it does.</p>
+    <details class="mt-3"><summary class="meta">The most documented in each band, as a list</summary><div class="aitop">${[
       2, 1, 0,
     ]
       .map(
         b =>
-          `<div><p class="lab">${esc(ax.y[b])}</p><ol>${top(b)
+          `<div><p class="eyebrow">${esc(ax.y[b])}</p><ol>${top(b)
             .map(
               p => `<li><a href="#app=${esc(p[0])}">${esc(p[1])}</a> <span class="meta">${n(p[3])} pages</span></li>`
             )
@@ -151,13 +151,13 @@ function kpiView() {
     ([, c]) =>
       `${c.department !== last ? `<tr class="dept"><th scope="colgroup" colspan="${K.length + 2}">${esc((last = c.department || 'Other'))}</th></tr>` : ''}<tr><th scope="row">${esc(c.name)}</th><td class="r num">${n(c.researched)} <span class="meta">of ${n(c.listed)}</span></td>${K.map(k => cell(cnt(c[k.key], c))).join('')}</tr>`
   ).join('');
-  return `<div class="scroll mt16"><table class="t kpi"><thead><tr><th scope="col">Category</th><th scope="col" class="r">Products read</th>${K.map(k => `<th scope="col" class="r">${esc(k.label)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
-    <p class="meta mt12">Grouped by the department each category serves. Each share counts the products whose own pages say so, out of those AirStack has read; “—” where none are read.</p>`;
+  return `<div class="scroll mt-4"><table class="t kpi"><thead><tr><th scope="col">Category</th><th scope="col" class="r">Products read</th>${K.map(k => `<th scope="col" class="r">${esc(k.label)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="meta mt-3">Grouped by the department each category serves. Each share counts the products whose own pages say so, out of those AirStack has read; “—” where none are read.</p>`;
 }
 
 function render() {
-  $('#insBody').innerHTML = `<section class="ins-chapter"><p class="lab">01 · Positioning</p><h3 class="h3">Where does AI appear in vendors’ own words?</h3>${mapView()}</section>
-    <section class="ins-chapter"><p class="lab">02 · Disclosure</p><h3 class="h3">What do categories consistently disclose?</h3>${kpiView()}</section>`;
+  $('#insBody').innerHTML = `<section class="ins-chapter"><p class="eyebrow">01 · Positioning</p><h3 class="h3">Where does AI appear in vendors’ own words?</h3>${mapView()}</section>
+    <section class="ins-chapter"><p class="eyebrow">02 · Disclosure</p><h3 class="h3">What do categories consistently disclose?</h3>${kpiView()}</section>`;
   $('#insSub').textContent =
     `Computed from the stored facts: ${I.source.facts_from}; ${I.source.documentation_from}; ${I.source.prices_from}.`;
   requestAnimationFrame(drawMap);
@@ -195,7 +195,7 @@ export function mount() {
         $('#insSub').textContent = 'The stored market measurements could not be loaded.';
         $('#insBody').setAttribute('aria-busy', 'false');
         $('#insBody').innerHTML =
-          '<p class="load-error mt16" role="status">Check the connection and reload. No measurement is shown until its source file loads.</p>';
+          '<p class="load-error mt-4" role="status">Check the connection and reload. No measurement is shown until its source file loads.</p>';
       });
   };
   if ('IntersectionObserver' in window) {

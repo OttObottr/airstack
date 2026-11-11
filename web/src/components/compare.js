@@ -141,7 +141,7 @@ async function draw() {
   const last = ids[ids.length - 1],
     sug = full || !SUG ? [] : (SUG[last] || []).filter(s => !ids.includes(s.id) && LABEL[s.label]).slice(0, 3);
   $('#cmpSug').innerHTML = sug.length
-    ? `<p class="lab">Others to compare with ${esc(nameOf(last, D))}</p><ul class="cmp-sug">${sug
+    ? `<p class="eyebrow">Others to compare with ${esc(nameOf(last, D))}</p><ul class="cmp-sug">${sug
         .map(s => {
           const src = s.source && typeof s.source === 'object' ? s.source : { url: s.source };
           return `<li><button class="chip" type="button" data-add="${esc(s.id)}">Add ${esc(nameOf(s.id, D))}</button><span class="dtag">${LABEL[s.label]}</span><span class="meta">${esc(s.why)}${src.url ? ` · <a class="ext" href="${url(src.url)}" target="_blank" rel="noopener noreferrer">${esc(src.name && src.name !== 'source' ? src.name : host(src.url))}${ic('out')}</a>` : ''}${src.read ? ` · read ${fd(src.read)}` : ''}</span></li>`;
@@ -184,7 +184,7 @@ async function draw() {
     if (D.entities[id]) groups.set(lane, [...(groups.get(lane) || []), id]);
   const eg = [...groups.values()].filter(group => group.length >= 3).slice(0, 3).map(group => group.slice(0, 3));
   out.innerHTML = !ready
-    ? ids.length ? '' /* one picked: the suggestions above are the next step */ : `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="cta" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
+    ? ids.length ? '' /* one picked: the suggestions above are the next step */ : `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="btn btn-primary" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
     : `<div class="cmp-bar"><button class="chip" type="button" id="cmpDiff" aria-pressed="${onlyDiff && nd > 0}"${nd ? '' : ' disabled'}>Only what differs</button></div>
   ${ids.length > 2 ? '<p class="cmp-swipe meta">Swipe the table to see every product <span aria-hidden="true">→</span></p>' : ''}
   <div class="scroll"><table class="t${ids.length === 2 ? ' two' : ''}" id="cmpTbl"><thead><tr><th scope="col"><span class="sr">Field</span></th>${ids
@@ -199,9 +199,9 @@ async function draw() {
         `<tr${r.diff ? ' class="diff"' : ''}><th scope="row">${esc(r.l)}${r.diff ? '<span class="dtag">differs</span>' : ''}</th>${r.cells.map((c, i) => `<td data-l="${esc(nameOf(ids[i], D))}">${c.html}</td>`).join('')}</tr>`
     )
     .join('')}</tbody></table></div>
-  ${blank.length ? `<p class="meta mt16">${esc(blank.map(id => nameOf(id, D)).join(', '))}: AirStack has read none of its pages yet.</p>` : ''}
-  <p class="mt24"><button class="ghost" type="button" id="cmpSave">${same ? 'Saved' : 'Save this comparison'}</button> ${mine && !same ? '<button class="ghost" type="button" id="cmpOpen">Open the saved one</button> ' : ''}<button class="ghost" type="button" id="cmpCopy">Copy link</button></p>
-  <p class="meta mt12" id="cmpExp">${same ? `Saved ${fd(mine.on)}. ` : ''}${ends ? (recheckDue ? `Needs a second look: the oldest supporting source was checked ${fd(oldest)}; previous values remain visible as history.` : `The oldest supporting source was checked ${fd(oldest)}.`) : 'No dated source yet.'}</p>`;
+  ${blank.length ? `<p class="meta mt-4">${esc(blank.map(id => nameOf(id, D)).join(', '))}: AirStack has read none of its pages yet.</p>` : ''}
+  <p class="mt-6"><button class="btn btn-secondary" type="button" id="cmpSave">${same ? 'Saved' : 'Save this comparison'}</button> ${mine && !same ? '<button class="btn btn-secondary" type="button" id="cmpOpen">Open the saved one</button> ' : ''}<button class="btn btn-secondary" type="button" id="cmpCopy">Copy link</button></p>
+  <p class="meta mt-3" id="cmpExp">${same ? `Saved ${fd(mine.on)}. ` : ''}${ends ? (recheckDue ? `Needs a second look: the oldest supporting source was checked ${fd(oldest)}; previous values remain visible as history.` : `The oldest supporting source was checked ${fd(oldest)}.`) : 'No dated source yet.'}</p>`;
   if (keep) {
     const k = $(keep);
     keep = '';

@@ -25,7 +25,7 @@
 #insights{padding-top:40px}
 #insights #insSub{padding-top:12px;border-top:1px solid var(--color-hair);font-family:var(--font-mono);color:var(--color-ink-3)}
 #insights .ins-chapter{position:relative;margin-top:96px;padding-top:40px}
-#insights .ins-chapter>.lab{position:absolute;right:0;top:12px;color:var(--color-info)}
+#insights .ins-chapter>.eyebrow{position:absolute;right:0;top:12px;color:var(--color-info)}
 #insights .ins-chapter>.h3{max-width:19ch}
 #insights .ai2{border-radius:2px;background:linear-gradient(100deg,color-mix(in oklab,var(--color-info) 6.5%,transparent),color-mix(in oklab,var(--color-bg) 30%,transparent) 38%,color-mix(in oklab,var(--color-bg) 62%,transparent))}
 #insights .t.kpi{border-collapse:collapse}

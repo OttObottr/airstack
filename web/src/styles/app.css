@@ -38,3 +38,33 @@
   --radius-md: 10px;
   --radius-lg: 14px;
 }
+
+/* Components: each is declared once here from the tokens above, and the markup names it. */
+@utility btn {
+  @apply inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-md px-3.5 text-sm font-medium leading-none transition-colors disabled:cursor-default disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply bg-primary text-primary-foreground hover:opacity-90;
+}
+@utility btn-secondary {
+  @apply border border-border text-foreground hover:bg-muted;
+}
+@utility btn-ghost {
+  @apply text-muted-foreground hover:bg-muted hover:text-foreground;
+}
+/* a toggle or filter: pressed and checked read as filled */
+@utility chip {
+  @apply inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-md border border-border px-3 text-sm leading-none text-muted-foreground transition-colors hover:text-foreground disabled:cursor-default disabled:opacity-50 aria-checked:border-foreground aria-checked:bg-foreground aria-checked:text-background aria-pressed:border-foreground aria-pressed:bg-foreground aria-pressed:text-background;
+}
+@utility eyebrow {
+  @apply font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground;
+}
+@utility meta {
+  @apply text-xs leading-normal text-muted-foreground;
+}
+@utility h-page {
+  @apply text-2xl font-semibold leading-tight tracking-tight text-foreground;
+}
+@utility h-section {
+  @apply text-lg font-semibold leading-snug tracking-tight text-foreground;
+}

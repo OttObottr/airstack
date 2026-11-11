@@ -74,7 +74,7 @@
 <main class="flex-1 pb-20 lg:pb-0" id="main">
   <section class="work" id="check" data-views="overview" aria-labelledby="checkT">
     <div class="wrap wide">
-      <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3"><div><h1 class="text-2xl font-semibold leading-tight tracking-tight" id="checkT">This week in software</h1>
+      <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3"><div><h1 class="h-page" id="checkT">This week in software</h1>
         <p class="honest" id="honest">Every fact quoted from its own page</p></div>
         <p class="flex flex-wrap gap-2"><button class="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-medium leading-none text-primary-foreground hover:opacity-90" id="stackStart" type="button">Add your software stack</button><a class="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-border px-4 text-sm font-medium leading-none text-foreground hover:bg-muted" href="#compare=">Compare tools side by side</a></p></div>
       <div class="pick">
@@ -91,7 +91,7 @@
 
   <section class="work" id="product" data-views="product" aria-labelledby="pickedName">
     <div class="wrap wide">
-        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="ghost" id="starBtn" type="button" aria-pressed="false" hidden>+ Add to your stack</button><button class="ghost" id="cmpThis" type="button" data-compare="">Compare with others</button><button class="ghost" id="change" type="button">Change tool</button></div>
+        <div id="picked" class="picked" hidden><span id="pickedMono"></span><b id="pickedName"></b><span class="meta" id="pickedLane"></span><button class="btn btn-secondary" id="starBtn" type="button" aria-pressed="false" hidden>+ Add to your stack</button><button class="btn btn-secondary" id="cmpThis" type="button" data-compare="">Compare with others</button><button class="btn btn-secondary" id="change" type="button">Change tool</button></div>
       <article id="toolcard" hidden aria-label="About this tool"></article>
     </div>
   </section>
@@ -109,31 +109,31 @@
   <section class="work" id="pulse" data-views="overview calendar"><div class="wrap wide"><section id="pulsePanel"><div class="skeleton skeleton-chart" role="status" aria-label="Loading the pulse"></div></section></div></section>
   <section class="work" id="mystack" data-views="overview" aria-labelledby="stackHead">
     <div class="wrap wide">
-      <h2 class="text-lg font-semibold leading-snug tracking-tight" id="stackHead">Build a software stack</h2>
+      <h2 class="h-section" id="stackHead">Build a software stack</h2>
       <p class="meta" id="stackIntro">Keep the tools you use together: what changed on their own pages, research coverage and price evidence, in one place.</p>
       <p class="meta mt-1" id="stackSum" aria-live="polite">Start with software you already use.</p>
-      <ol class="stack mt16" id="stackList" hidden></ol>
-      <div class="stack-intel mt16 grid-cols-2 max-[699px]:grid-cols-1" id="stackIntel" aria-label="Stack intelligence" hidden></div>
+      <ol class="stack mt-4" id="stackList" hidden></ol>
+      <div class="stack-intel mt-4 grid-cols-2 max-[699px]:grid-cols-1" id="stackIntel" aria-label="Stack intelligence" hidden></div>
       <div class="mt-4" id="stackChangesW" hidden><section id="stackChanges"></section></div>
-      <div class="sacts mt16" id="stackActs"><button class="cta" id="stackAdd" type="button">Add software</button></div>
-      <p class="meta mt12" id="stackNote">Saved in this browser only. No account.</p>
+      <div class="sacts mt-4" id="stackActs"><button class="btn btn-primary" id="stackAdd" type="button">Add software</button></div>
+      <p class="meta mt-3" id="stackNote">Saved in this browser only. No account.</p>
     </div>
   </section>
   <section class="work" id="news" data-views="overview" aria-labelledby="newsT" data-loading>
     <div class="wrap wide">
-      <h2 class="text-lg font-semibold leading-snug tracking-tight" id="newsT">What changed</h2>
+      <h2 class="h-section" id="newsT">What changed</h2>
       <p class="meta" id="newsSub" aria-live="polite">Loading sourced updates…</p>
       <div class="mt-4 flex flex-col gap-3"><div class="flex flex-wrap items-center gap-2" id="newsScope"></div><div class="chips" id="newsKinds" role="group" aria-label="Which feeds"><span class="skeleton skeleton-pills" aria-hidden="true"></span></div></div>
       <ol class="mt-4 grid list-none gap-5" id="newsList" aria-busy="true"><li class="skeleton skeleton-news" role="status" aria-label="Loading sourced updates"></li></ol>
-      <button class="ghost mt16" id="newsMore" type="button" disabled>Show more</button>
+      <button class="btn btn-secondary mt-4" id="newsMore" type="button" disabled>Show more</button>
     </div>
   </section>
   <section class="work" id="leaders" data-views="makers" aria-labelledby="leadersT">
     <div class="wrap wide">
-      <h2 class="text-2xl font-semibold leading-tight tracking-tight" id="leadersT">Software makers</h2>
+      <h2 class="h-page" id="leadersT">Software makers</h2>
       <p class="meta">The organizations that make the listed software. Each lens names the public signal that puts a maker on it, with its number and source; the address keeps your view, so you can share it.</p>
-      <div class="chips mt16" id="mkLens" role="radiogroup" aria-label="Lens"></div>
-      <p class="meta mt8" id="mkRule"></p>
+      <div class="chips mt-4" id="mkLens" role="radiogroup" aria-label="Lens"></div>
+      <p class="meta mt-2" id="mkRule"></p>
       <div class="mkbar" role="search">
         <input id="mkQ" class="mkq" type="search" placeholder="Find a maker" aria-label="Find a maker" autocomplete="off" spellcheck="false">
         <select id="mkCat" class="sel" aria-label="Category"><option value="">All categories</option></select>
@@ -142,48 +142,48 @@
       </div>
       <p class="meta" id="mkCount" aria-live="polite"><span class="skeleton skeleton-line" aria-hidden="true"></span></p>
       <div class="scroll"><table class="t mkr"><thead><tr><th scope="col" class="r">#</th><th scope="col">Maker</th><th scope="col">Why it is here</th><th scope="col">Category</th><th scope="col" class="r">Founded</th><th scope="col" class="r">Employees</th><th scope="col" class="r">Products listed</th></tr></thead><tbody id="mkList" aria-busy="true"><tr class="skelrow"><td colspan="7"><div class="skeleton skeleton-table" role="status" aria-label="Loading makers"></div></td></tr></tbody></table></div>
-      <p class="meta mt8">Employees: as Wikidata records it, with its year; shown for context, never the order.</p>
+      <p class="meta mt-2">Employees: as Wikidata records it, with its year; shown for context, never the order.</p>
       <p><button id="mkMore" class="chip" type="button" disabled>Show more</button></p>
     </div>
   </section>
   <section class="work" id="insights" data-views="insights" aria-labelledby="insT">
     <div class="wrap wide">
-      <h2 class="text-2xl font-semibold leading-tight tracking-tight" id="insT">Market insights</h2>
+      <h2 class="h-page" id="insT">Market insights</h2>
       <p class="msub" id="insSub">Computed from the stored facts.</p>
       <div class="mt-6"><section id="insFindings"><div class="skeleton skeleton-list" role="status" aria-label="Loading category insights"></div></section></div>
-      <div id="insBody" aria-busy="true"><div class="skeleton skeleton-report mt16" role="status" aria-label="Loading market analysis"></div></div>
+      <div id="insBody" aria-busy="true"><div class="skeleton skeleton-report mt-4" role="status" aria-label="Loading market analysis"></div></div>
     </div>
   </section>
   <section class="work" id="calendar" data-views="calendar"><div class="wrap wide"><section id="agendaPanel"><div class="skeleton skeleton-list" role="status" aria-label="Loading upcoming launches"></div></section></div></section>
   <section class="work" id="agents" data-views="agents" aria-labelledby="agentsT">
     <div class="wrap wide">
-      <h2 class="text-2xl font-semibold leading-tight tracking-tight" id="agentsT">Run the evidence locally</h2>
+      <h2 class="h-page" id="agentsT">Run the evidence locally</h2>
       <p class="meta">The repository includes a local, read-only MCP server for the same sourced record. It answers from the published data without a hosted API.</p>
       <p class="meta" id="agScope"></p>
       <div class="agents">
-        <div class="ag"><p class="lab">Start from this repository</p><code class="mono" id="agCli">PYTHONPATH=backend python -m airstack.mcp_server data/site</code><button class="ghost" type="button" data-copy="#agCli">Copy</button></div>
-        <div class="ag"><p class="lab">Client configuration</p><code class="mono" id="agJson">{"mcpServers":{"airstack":{"command":"python","args":["-m","airstack.mcp_server","data/site"],"env":{"PYTHONPATH":"backend"}}}}</code><button class="ghost" type="button" data-copy="#agJson">Copy</button></div>
-        <div class="ag"><p class="lab">Boundary</p><p class="meta">The public site is static. Local MCP reads files already on your machine and starts no crawler, model call or hosted function.</p></div>
-        <div class="ag"><p class="lab">Guide</p><p><a class="ghost" href="https://github.com/OttObottr/airstack/blob/main/docs/MCP.md" target="_blank" rel="noopener noreferrer">Read the local setup</a></p></div>
-        <div class="ag wide"><p class="lab">Then ask it</p><code class="mono" id="agAsk">Use AirStack to show the sourced facts about a tool.</code><button class="ghost" type="button" data-copy="#agAsk">Copy</button></div>
+        <div class="ag"><p class="eyebrow">Start from this repository</p><code class="mono" id="agCli">PYTHONPATH=backend python -m airstack.mcp_server data/site</code><button class="btn btn-secondary" type="button" data-copy="#agCli">Copy</button></div>
+        <div class="ag"><p class="eyebrow">Client configuration</p><code class="mono" id="agJson">{"mcpServers":{"airstack":{"command":"python","args":["-m","airstack.mcp_server","data/site"],"env":{"PYTHONPATH":"backend"}}}}</code><button class="btn btn-secondary" type="button" data-copy="#agJson">Copy</button></div>
+        <div class="ag"><p class="eyebrow">Boundary</p><p class="meta">The public site is static. Local MCP reads files already on your machine and starts no crawler, model call or hosted function.</p></div>
+        <div class="ag"><p class="eyebrow">Guide</p><p><a class="btn btn-secondary" href="https://github.com/OttObottr/airstack/blob/main/docs/MCP.md" target="_blank" rel="noopener noreferrer">Read the local setup</a></p></div>
+        <div class="ag wide"><p class="eyebrow">Then ask it</p><code class="mono" id="agAsk">Use AirStack to show the sourced facts about a tool.</code><button class="btn btn-secondary" type="button" data-copy="#agAsk">Copy</button></div>
       </div>
-      <details class="mt12"><summary id="agToolSummary">Tools</summary><p class="meta"><span id="agTools"></span>. Answers are lookups over the published, sourced data.</p></details>
+      <details class="mt-3"><summary id="agToolSummary">Tools</summary><p class="meta"><span id="agTools"></span>. Answers are lookups over the published, sourced data.</p></details>
     </div>
   </section>
 
   <section class="work" id="chainSec" data-views="overview product markets insights makers agents" aria-labelledby="chainT" hidden>
     <div class="wrap wide">
-      <div class="lhead"><h2 class="text-lg font-semibold leading-snug tracking-tight" id="chainT" tabindex="-1">Evidence chain</h2><button class="ghost" id="chainX" type="button">Close</button></div>
+      <div class="lhead"><h2 class="h-section" id="chainT" tabindex="-1">Evidence chain</h2><button class="btn btn-secondary" id="chainX" type="button">Close</button></div>
       <p class="meta" id="chainSub" role="status"></p>
       <p class="stat" id="chainSum"></p>
       <div class="scroll"><table class="t stack" id="chainTbl"><thead><tr><th scope="col">Fact, in the page’s words</th><th scope="col">Source</th><th scope="col">Retrieved</th><th scope="col">Extracted</th><th scope="col">Quote found on the page</th><th scope="col">Re-checked</th><th scope="col">Also stated on</th></tr></thead><tbody></tbody></table></div>
-      <p class="mt16 meta" id="chainNote"></p>
+      <p class="mt-4 meta" id="chainNote"></p>
     </div>
   </section>
 
   <section class="work" id="cmpSec" data-views="compare" aria-labelledby="cmpT">
     <div class="wrap wide">
-      <h2 class="text-2xl font-semibold leading-tight tracking-tight" id="cmpT" tabindex="-1">Compare software</h2>
+      <h2 class="h-page" id="cmpT" tabindex="-1">Compare software</h2>
       <p class="msub" id="cmpSub" role="status">Loading the evidence…</p>
       <div id="cmpBody" aria-busy="true"><div class="skeleton skeleton-card" role="status" aria-label="Loading comparison tools"></div></div>
     </div>
@@ -193,9 +193,9 @@
 
 <footer class="foot">
   <div class="foot-brand"><b>AirStack</b><p>Source-linked software market intelligence.</p><span id="built">Facts extracted with Muse Spark</span></div>
-  <nav aria-label="Explore"><p class="lab">Explore</p><a href="/p/">Products</a><a href="/compare/">Comparisons</a><a href="/c/">Categories</a><a href="/t/">Software types</a><a href="/o/">Makers</a></nav>
-  <nav aria-label="Intelligence"><p class="lab">Intelligence</p><a href="/insights/">Insights</a><a href="/calendar/">Calendar</a><a href="/changes.atom">Change feed</a></nav>
-  <nav aria-label="About"><p class="lab">About</p><a href="/method/">How we check</a><a href="#/agents">Local MCP</a><a href="/open-data/">Open data</a><a href="https://github.com/OttObottr/airstack" target="_blank" rel="noopener noreferrer">GitHub</a><a href="/legal/">Terms and privacy</a></nav>
+  <nav aria-label="Explore"><p class="eyebrow">Explore</p><a href="/p/">Products</a><a href="/compare/">Comparisons</a><a href="/c/">Categories</a><a href="/t/">Software types</a><a href="/o/">Makers</a></nav>
+  <nav aria-label="Intelligence"><p class="eyebrow">Intelligence</p><a href="/insights/">Insights</a><a href="/calendar/">Calendar</a><a href="/changes.atom">Change feed</a></nav>
+  <nav aria-label="About"><p class="eyebrow">About</p><a href="/method/">How we check</a><a href="#/agents">Local MCP</a><a href="/open-data/">Open data</a><a href="https://github.com/OttObottr/airstack" target="_blank" rel="noopener noreferrer">GitHub</a><a href="/legal/">Terms and privacy</a></nav>
 </footer>
 </div>
 </div>

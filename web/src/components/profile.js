@@ -40,5 +40,5 @@ export function profileView(r, p, redo) {
     })
     .join('');
   const missing = PF.filter(([k]) => !p[k]).map(([, l]) => l.toLowerCase());
-  return `<dl class="kv">${rows}${missing.length ? `<div><dt>Not observed</dt><dd><details class="nobsd"><summary class="nobs">${missing.length} field${missing.length > 1 ? 's' : ''} not on the pages read</summary><span class="nobs">${esc(missing.join(', '))}</span></details></dd></div>` : ''}</dl><p class="mt8 meta">Vendor statements, quoted and dated; not verified by AirStack. Check with the vendor. “Not observed” means the pages read didn’t say.</p><button class="ext" type="button" data-chain="${esc(r.id)}">Evidence chain · ${p.facts} facts</button>`;
+  return `<dl class="kv">${rows}${missing.length ? `<div><dt>Not observed</dt><dd><details class="nobsd"><summary class="nobs">${missing.length} field${missing.length > 1 ? 's' : ''} not on the pages read</summary><span class="nobs">${esc(missing.join(', '))}</span></details></dd></div>` : ''}</dl><p class="mt-2 meta">Vendor statements, quoted and dated; not verified by AirStack. Check with the vendor. “Not observed” means the pages read didn’t say.</p><button class="ext" type="button" data-chain="${esc(r.id)}">Evidence chain · ${p.facts} facts</button>`;
 }

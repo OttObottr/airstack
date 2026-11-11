@@ -36,9 +36,9 @@ function intelligence(rows) {
     ? `<p class="stack-value"><a href="#app=${esc(gap.x.id)}">${esc(gap.x.name)}</a></p>
        <p class="meta">Own-page research is not recorded yet.</p>`
     : '<p class="stack-value">Coverage complete</p><p class="meta">Every tracked tool has own-page research. Compare them before the next review.</p>';
-  return `<section class="stack-insight" aria-labelledby="stackMonitor"><p class="lab" id="stackMonitor">Monitoring</p>
+  return `<section class="stack-insight" aria-labelledby="stackMonitor"><p class="eyebrow" id="stackMonitor">Monitoring</p>
       <p class="stack-value">${n(rows.length)} in your stack</p><p class="meta">${n(researched)} researched on their own pages.</p></section>
-    <section class="stack-insight" aria-labelledby="stackReview"><p class="lab" id="stackReview">Next to research</p>${review}<p class="meta stack-caveat">Review order reflects evidence coverage, not product fit.</p></section>`;
+    <section class="stack-insight" aria-labelledby="stackReview"><p class="eyebrow" id="stackReview">Next to research</p>${review}<p class="meta stack-caveat">Review order reflects evidence coverage, not product fit.</p></section>`;
 }
 
 function render() {
@@ -55,7 +55,7 @@ function render() {
     $('#stackIntel').hidden = true;
     $('#stackIntel').innerHTML = '';
     $('#stackChangesW').hidden = true;
-    $('#stackActs').innerHTML = '<button class="cta" id="stackAdd" type="button">Add software</button>';
+    $('#stackActs').innerHTML = '<button class="btn btn-primary" id="stackAdd" type="button">Add software</button>';
     return;
   }
   const rows = list.map(dossier);
@@ -77,14 +77,14 @@ function render() {
   else changes.update(scope);
   const compare =
     list.length > 1
-      ? `<a class="ghost" href="#compare=${esc(list
+      ? `<a class="btn btn-secondary" href="#compare=${esc(list
           .slice(0, 5)
           .map(x => x.id)
           .join(','))}">Compare ${Math.min(5, list.length)} stack tools</a>`
       : '';
   $('#stackActs').innerHTML = shared
-    ? `<button class="ghost" type="button" id="stackSave">Save on this device</button>${compare}<button class="lk" type="button" id="stackDrop">Close</button>`
-    : `<button class="ghost" type="button" id="stackAdd">Add software</button>${compare}<button class="ghost" type="button" id="stackShare">Copy a share link</button>`;
+    ? `<button class="btn btn-secondary" type="button" id="stackSave">Save on this device</button>${compare}<button class="lk" type="button" id="stackDrop">Close</button>`
+    : `<button class="btn btn-secondary" type="button" id="stackAdd">Add software</button>${compare}<button class="btn btn-secondary" type="button" id="stackShare">Copy a share link</button>`;
 }
 
 function star() {

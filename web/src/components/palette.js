@@ -90,7 +90,7 @@ function build() {
   dlg.id = 'pal';
   dlg.setAttribute('aria-label', 'Jump to');
   dlg.setAttribute('aria-modal', 'true');
-  dlg.innerHTML = `<div class="palin"><input id="palq" role="combobox" aria-label="Jump to a view, a product or a command" aria-expanded="true" aria-controls="pall" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="Jump to a view, a product or a command"><button type="button" class="ghost" id="palx">Close</button></div>
+  dlg.innerHTML = `<div class="palin"><input id="palq" role="combobox" aria-label="Jump to a view, a product or a command" aria-expanded="true" aria-controls="pall" aria-autocomplete="list" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="Jump to a view, a product or a command"><button type="button" class="btn btn-secondary" id="palx">Close</button></div>
 <ul id="pall" role="listbox" aria-label="Results"></ul>
 <ul class="palbar" aria-label="Data sources, last read">${SOURCES.map(([name]) => `<li><span>${esc(name)}</span><span class="meta">…</span></li>`).join('')}</ul>`;
   document.body.append(dlg);

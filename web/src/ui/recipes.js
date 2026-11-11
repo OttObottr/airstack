@@ -17,11 +17,7 @@ export const ui = {
     down: 'inline-flex items-center h-5 px-1.5 rounded-sm bg-down/12 text-[11px] font-medium leading-none text-down',
     info: 'inline-flex items-center h-5 px-1.5 rounded-sm bg-info/12 text-[11px] font-medium leading-none text-info',
   },
-  button: {
-    primary: 'inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium leading-none hover:opacity-90',
-    secondary: 'inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-border text-sm font-medium leading-none text-foreground hover:bg-muted',
-    ghost: 'inline-flex items-center justify-center gap-2 h-8 px-2.5 rounded-md text-sm leading-none text-muted-foreground hover:bg-muted hover:text-foreground',
-  },
+  button: { primary: 'btn btn-primary', secondary: 'btn btn-secondary', ghost: 'btn btn-ghost h-8 px-2.5 font-normal' },
   segmented: 'inline-flex items-center h-8 p-0.5 rounded-md border border-border bg-background',
   segment: 'inline-flex items-center h-full px-3 rounded-sm text-xs leading-none text-muted-foreground aria-pressed:bg-muted aria-pressed:text-foreground',
   table: 'w-full border-collapse text-sm',

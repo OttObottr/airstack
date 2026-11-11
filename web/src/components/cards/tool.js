@@ -20,10 +20,10 @@ export function renderToolCard(x) {
     row = R[x.id],
     P = MK && MK.profiles && MK.profiles[x.id],
     peers = IDX.filter(p => p.lane === x.lane).sort(byGrowth(R));
-  const tiles = strip(x) || `<p class="meta mt24">No public signals observed for ${esc(x.name)} yet.</p>`;
+  const tiles = strip(x) || `<p class="meta mt-6">No public signals observed for ${esc(x.name)} yet.</p>`;
   const chart =
     peers.length > 1
-      ? `<h3 class="h2 mt48">Where ${esc(x.name)} sits in ${esc(x.laneName)}</h3><p class="meta">Weekly registry downloads against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, the largest change shown.</p>${lb(peers, { cur: x.id, lane: false })}`
+      ? `<h3 class="h-section mt-12">Where ${esc(x.name)} sits in ${esc(x.laneName)}</h3><p class="meta">Weekly registry downloads against each tool’s own ${PARAMS.movers.base_weeks}-week level. Bars share one scale, the largest change shown.</p>${lb(peers, { cur: x.id, lane: false })}`
       : '';
   const facts = P
     ? pview({ id: x.id, name: x.name }, x.id, () => renderAll())
@@ -38,7 +38,7 @@ export function renderToolCard(x) {
   ].filter(Boolean).join('');
   const covered = coverage ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}">${coverage}</ul>` : '';
   $('#toolcard').innerHTML =
-    `${covered}${tiles}${PROF ? guideView(x) : ''}${chart}<h3 class="h2 mt48">What its own pages say</h3>${facts}${PROF ? modelsView(x) : ''}`;
+    `${covered}${tiles}${PROF ? guideView(x) : ''}${chart}<h3 class="h-section mt-12">What its own pages say</h3>${facts}${PROF ? modelsView(x) : ''}`;
   if (!MK && !MKERR) onMarket(() => renderAll());
 }
 export function notFound(name) {
