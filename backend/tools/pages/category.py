@@ -23,7 +23,7 @@ def cat_page(cid, name, items, prices, oss, guide, guide_source, ins, kpis):
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Categories", "/c/"), (name, None)))
     li = lambda xs: "".join(f"<li>{e(v)}</li>" for v in xs)
     def candidate(r):
-        return (f'<li><a href="{e(r["url"])}" rel="nofollow noopener">{e(r["repo"])}</a> '
+        return (f'<li><a href="{e(r["url"])}" rel="nofollow noopener">{e(r["repo"].split("/")[-1])}</a> '
                 f'<small>OpenSSF Scorecard {r["scorecard"]["score"]:.1f}/10 · {e(r["license"] or "licence not stated")} · '
                 f'{r["forks"]:,} forks · {r["open_issues_and_pull_requests"]:,} open issues and pull requests</small></li>')
     return head(title, desc, url, (ld, crumb)) + f"""<body><main>{nav}

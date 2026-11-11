@@ -95,7 +95,7 @@ function ossView(x) {
     known = f => !/not (checked|scanned)/.test(f); /* an unknown is not a warning: say nothing */
   const card = r =>
     RepoCard({
-      name: r.repo,
+      name: r.repo.split('/').pop(), /* the project, not its owner: GitHub data is shown only as non-personal (register, github) */
       href: url(r.url),
       stars: cn(r.stars),
       forks: r.forks == null ? null : cn(r.forks),
