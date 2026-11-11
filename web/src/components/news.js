@@ -83,7 +83,7 @@ function render() {
             heading: html`${raw(stamp(d, N.source.read))} · ${fd(d)}`,
             rows: items.map(i =>
               FeedRow({
-                who: html`<a data-who class="flex min-h-11 min-w-0 flex-1 items-center gap-2.5" href="#app=${i.id}">${raw(mono({ name: i.name }))}<b class="truncate font-semibold">${i.name}</b></a>`,
+                who: html`<a data-who class="flex min-h-11 min-w-0 flex-1 items-center gap-2.5" href="#app=${i.id}">${raw(mono({ id: i.id, name: i.name }))}<b class="truncate font-semibold">${i.name}</b></a>`,
                 action: raw(stackToggle(i.id, i.name)),
                 title: link(i),
                 more: i.others.length && {

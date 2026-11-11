@@ -72,6 +72,13 @@ for name in shipped:
         (out / name).write_text(json.dumps(project(json.loads((site / name).read_text()), fields[name]), ensure_ascii=False, separators=(",", ":")) + "\n")
     else:
         shutil.copyfile(site / name, out / name)
+if "logos.json" in shipped:   # logos: checked PNGs only, and the credits page for the ones whose licence asks for credit
+    from logo_credits import page as credits_page, ship as ship_logos
+    kept, credits = ship_logos(site, out)
+    names = {r[0]: r[1] for r in json.loads((site / "directory.json").read_text()).get("products", [])}
+    names.update({r["id"]: r["name"] for r in json.loads((site / "catalog.json").read_text()) if isinstance(r, dict) and "id" in r})
+    (out / "legal").mkdir(exist_ok=True)
+    (out / "legal" / "logos.html").write_text(credits_page(credits, names))
 page = (web / "index.html").read_text()
 index = (web / "src" / "styles" / "index.css").read_text()
 plain = lambda css: "\n".join(l.strip() for l in re.sub(r"/\*[\s\S]*?\*/", "", css).splitlines() if l.strip())
