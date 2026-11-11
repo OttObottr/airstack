@@ -192,8 +192,8 @@ def test_compare_remains_usable_on_a_phone(chrome, app_url):
 def test_markets_panels_cover_every_sector_and_keep_rows_aligned(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
     page.evaluate("location.hash = '#/markets'")
-    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 4")
-    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["interest", "downloads", "announcements", "sectors"]
+    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 5")
+    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["arrivals", "news-mix", "downloads", "announcements", "sectors"]
     tops = page.evaluate("fetch('markets.json').then(r => r.json()).then(d => Object.values(d.nodes).filter(n => n.parent === null).length)")
     assert page.locator('[data-panel="sectors"] tbody tr').count() == tops
     spread = page.evaluate("""[...document.querySelectorAll('#markets [data-panel] tbody tr')].map(tr => {

@@ -14,7 +14,7 @@ export function dirCard(x) {
     T = DIR.types,
     tc = $('#toolcard');
   const covered = P
-    ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}"><li class="cv2 on">Own-page facts · ${P.facts} quotes found</li></ul>`
+    ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}"><li class="cv2 on">${P.facts} sourced facts</li></ul>`
     : '';
   const path = [];
   for (let j = x.t; j != null && path.length < 12; j = T[j][2].length ? T[j][2][0] : null) path.unshift(j);

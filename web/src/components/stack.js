@@ -34,8 +34,8 @@ function intelligence(rows) {
     gap = rows.find(r => !r.profile);
   const review = gap
     ? `<p class="stack-value"><a href="#app=${esc(gap.x.id)}">${esc(gap.x.name)}</a></p>
-       <p class="meta">Own-page research is not recorded yet.</p>`
-    : '<p class="stack-value">Coverage complete</p><p class="meta">Every tracked tool has own-page research. Compare them before the next review.</p>';
+       <p class="meta">Not researched yet.</p>`
+    : '<p class="stack-value">Coverage complete</p><p class="meta">Every tool in your stack is researched. Compare them before the next review.</p>';
   return `<section class="stack-insight" aria-labelledby="stackMonitor"><p class="eyebrow" id="stackMonitor">Monitoring</p>
       <p class="stack-value">${n(rows.length)} in your stack</p><p class="meta">${n(researched)} researched on their own pages.</p></section>
     <section class="stack-insight" aria-labelledby="stackReview"><p class="eyebrow" id="stackReview">Next to research</p>${review}<p class="meta stack-caveat">Review order reflects evidence coverage, not product fit.</p></section>`;

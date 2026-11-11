@@ -34,7 +34,7 @@ export function renderToolCard(x) {
         : '<div class="skeleton skeleton-profile" role="status" aria-label="Loading verified facts"></div>';
   const coverage = [
     row ? '<li class="cv2 on">Market signals · current snapshot</li>' : '',
-    P ? `<li class="cv2 on">Own-page facts · ${P.facts} quotes found</li>` : '',
+    P ? `<li class="cv2 on">${P.facts} sourced facts</li>` : '',
   ].filter(Boolean).join('');
   const covered = coverage ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}">${coverage}</ul>` : '';
   $('#toolcard').innerHTML =

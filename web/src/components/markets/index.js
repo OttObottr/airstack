@@ -5,13 +5,14 @@ import { ALL, mount as mountPanel } from '../../ui/panel.js';
 import { onMarket } from '../search/index.js';
 import { panel as sectors } from './sectors.js';
 import { panel as announcements } from './announcements.js';
-import { panel as interest } from './interest.js';
+import { arrivals, mix } from './landscape.js';
 import { panel as downloads } from './downloads.js';
 import { load } from './scope.js';
 
 /* The Markets view: a scope picker standing in for the workspace rail, and the panels in one grid */
 const CELLS = [
-  [interest, 'lg:col-span-2'],
+  [arrivals, ''],
+  [mix, ''],
   [downloads, 'lg:col-span-2'],
   [announcements, ''],
   [sectors, ''],

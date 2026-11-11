@@ -144,7 +144,7 @@ export function catalogCard(x) {
   const C = (MK.catalog && MK.catalog[x.id]) || {},
     P = MK.profiles && MK.profiles[x.id];
   const covered = P
-    ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}"><li class="cv2 on">Own-page facts · ${P.facts} quotes found</li></ul>`
+    ? `<ul class="cover" aria-label="Available AirStack coverage for ${esc(x.name)}"><li class="cv2 on">${P.facts} sourced facts</li></ul>`
     : '';
   const link = u =>
     `<a class="ext" href="${url(u)}" target="_blank" rel="noopener noreferrer">${esc(host(u))}${ic('out')}</a> <span class="meta">reached ${fd(C.checked)}</span>`;
