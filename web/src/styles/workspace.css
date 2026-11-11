@@ -32,11 +32,8 @@ h3{font-size:var(--text-body);font-weight:600}
 .cmp-bar{display:flex;justify-content:flex-start;margin-bottom:8px}.cmp-bar .chip[aria-pressed=true]{background:var(--color-ink);border-color:var(--color-ink);color:var(--color-bg)}.cmp-bar .chip:disabled{opacity:.5}
 .cmp-swipe{display:none}
 #cmpTbl{border-collapse:separate;border-spacing:0;min-width:100%}
-#cmpTbl th,#cmpTbl td{padding:16px 16px 16px 0;border-bottom:1px solid var(--color-hair);vertical-align:top;text-align:left}
-#cmpTbl thead th{text-transform:none;letter-spacing:0;font-size:var(--text-lead);font-weight:650;color:var(--color-ink);white-space:normal;vertical-align:bottom}
 #cmpTbl thead th a{display:inline-flex;align-items:center;gap:8px}#cmpTbl thead th .meta{display:block;font-weight:400}
 #cmpTbl th:first-child{position:sticky;left:0;z-index:2;width:9rem;background:var(--color-s1)}
-#cmpTbl tbody th{text-transform:none;letter-spacing:0;font-size:var(--text-body);font-weight:var(--font-weight-medium);color:var(--color-ink-2);white-space:normal}
 #cmpTbl td,#cmpTbl thead th:not(:first-child){min-width:15rem}
 
 #cmpTbl tr.diff td{background:rgba(255,255,255,.03)}

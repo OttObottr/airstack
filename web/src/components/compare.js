@@ -197,7 +197,7 @@ async function draw() {
     ? ids.length ? '' /* one picked: the suggestions above are the next step */ : `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="btn btn-primary" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
     : `<div class="cmp-bar"><button class="chip" type="button" id="cmpDiff" aria-pressed="${onlyDiff && nd > 0}"${nd ? '' : ' disabled'}>Only what differs</button></div>
   ${ids.length > 2 ? '<p class="cmp-swipe meta">Swipe the table to see every product <span aria-hidden="true">→</span></p>' : ''}
-  <div class="scroll"><table class="t${ids.length === 2 ? ' two' : ''}" id="cmpTbl"><thead><tr><th scope="col"><span class="sr">Field</span></th>${ids
+  <div class="overflow-x-auto rounded-lg border border-border bg-card"><table class="tbl${ids.length === 2 ? ' two' : ''}" id="cmpTbl"><thead><tr><th scope="col"><span class="sr">Field</span></th>${ids
     .map(id => {
       const x = byId(id);
       return `<th scope="col"><a href="#app=${esc(id)}">${x ? `${mono(x, 's20')} ` : ''}${esc(nameOf(id, D))}</a>${x ? `<span class="meta">${esc(x.laneName)}</span>` : ''}${D.entities[id] ? '' : '<span class="meta">No pages read yet</span>'}</th>`;

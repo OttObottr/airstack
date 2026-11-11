@@ -11,7 +11,7 @@ button{cursor:pointer;text-align:inherit}
 .ext .i{margin-left:4px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .num,td.r,.mono{font-variant-numeric:tabular-nums}   /* numbers and dates only: Inter's tabular set also widens hyphens */
-.kv dt,.t th{font:600 var(--text-meta)/1.4 var(--font-mono);letter-spacing:var(--tracking-caps);color:var(--color-ink-2);text-transform:uppercase}
+.kv dt{font:600 var(--text-meta)/1.4 var(--font-mono);letter-spacing:var(--tracking-caps);color:var(--color-ink-2);text-transform:uppercase}
 .ext{display:inline-flex;align-items:center;min-height:44px;max-width:100%;overflow-wrap:anywhere;font-weight:500;text-decoration:underline;text-decoration-color:var(--color-hair);text-underline-offset:4px;transition:opacity .15s}
 .ext:hover,.foot a:hover,.foot button:hover{color:var(--color-ink);text-decoration-color:currentColor}
 .view-away{display:none!important}

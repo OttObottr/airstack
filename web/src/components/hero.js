@@ -1,7 +1,7 @@
 import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
 import { esc, fd } from '../lib/format.js';
-import { announced, says } from '../lib/news.js';
+import { announced, lead, says } from '../lib/news.js';
 
 const DAYS = 3; /* how far back an announcement still leads the page */
 
@@ -14,7 +14,7 @@ export async function drawTape(only) {
     seen = new Set();
   const rows = N.items
     .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && announced(i) && i.date.slice(0, 10) >= from)
-    .sort((a, b) => (b.weight || 0) - (a.weight || 0) || (a.date < b.date ? 1 : -1)) /* what matters most, then the newest */
+    .sort((a, b) => lead(b) - lead(a))
     .filter(i => !seen.has(i.id) && seen.add(i.id))
     .slice(0, 24);
   const item = i =>

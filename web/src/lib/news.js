@@ -3,3 +3,6 @@
 export const announced = i => !!i.gist && i.signal !== 'other' && (i.kind !== 'release' || i.weight > 1);
 /* what an item says: the model's sentence about its page where there is one, else the vendor's own headline */
 export const says = i => i.gist || i.title;
+/* how much an item should lead: what can hurt a reader first, then what is new, then routine change; the model's weight and the date break ties */
+const TIER = { incident: 4, security: 4, launch: 3, pricing: 3, feature: 2 };
+export const lead = i => (TIER[i.signal] || 1) * 1e15 + (i.weight || 1) * 1e14 + Date.parse(i.date);

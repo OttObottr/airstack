@@ -69,3 +69,8 @@ export const textFragment = (u, quote) => {
 };
 export const reportUrl = (product, field, u, quote) =>
   `https://github.com/OttObottr/airstack/issues/new?title=${term(`Problem with a fact: ${product}, ${field}`)}&body=${term(`Product: ${product}\nFact: ${field}\nPage: ${u}\nQuote: “${quote}”\n\nWhat is wrong:\n`)}`;
+/* a change against a baseline: direction as a glyph and a colour, one decimal; under half a point it is flat */
+export const delta = x =>
+  x == null
+    ? '<span class="text-subtle-foreground" title="not recorded">–</span>'
+    : `<span class="${x > 0.5 ? 'text-up' : x < -0.5 ? 'text-down' : 'text-muted-foreground'}">${x > 0.5 ? '▲ ' : x < -0.5 ? '▼ ' : ''}${Math.abs(x).toFixed(1)}%</span>`;

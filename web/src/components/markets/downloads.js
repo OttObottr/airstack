@@ -1,7 +1,7 @@
 import { Method } from '../../ui/method.js';
 import { ui } from '../../ui/recipes.js';
 import { M, PARAMS, json } from '../../lib/data.js';
-import { esc, fd, n, pct, url } from '../../lib/format.js';
+import { esc, fd, n, delta, url } from '../../lib/format.js';
 import { MK } from '../../lib/market.js';
 import { series, spark } from '../../lib/spark.js';
 import { VIEW } from '../../lib/view.js';
@@ -51,7 +51,7 @@ export const panel = {
     rows.sort((a, b) => solid(b) - solid(a) || (key(b) ?? -Infinity) - (key(a) ?? -Infinity) || a.name.localeCompare(b.name));
     const sectors = [...new Set(Mv.rows.map(r => node(r.id)).map(id => { let x = id; while (x && D.nodes[x] && D.nodes[x].parent) x = D.nodes[x].parent; return x && D.nodes[x] ? D.nodes[x].name : null; }).filter(Boolean))];
     const shown = all ? rows : rows.slice(0, VIEW.moversTop);
-    const cell = v => (v == null ? '<span class="text-muted-foreground">·</span>' : pct(v));
+    const cell = v => delta(v);
     el.innerHTML = `<p class="text-xs text-muted-foreground leading-snug">${n(Mv.rows.length)} tools tracked, all in ${esc(sectors.length > 1 ? `${sectors.slice(0, -1).join(', ')} and ${sectors[sectors.length - 1]}` : sectors.join(''))}. ${rows.length ? '' : 'None of them is in this scope.'}</p>
       ${
         rows.length

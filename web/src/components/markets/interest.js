@@ -1,7 +1,7 @@
 import { Method } from '../../ui/method.js';
 import { ui } from '../../ui/recipes.js';
 import { json } from '../../lib/data.js';
-import { esc, fd, n, pct, url } from '../../lib/format.js';
+import { esc, fd, n, delta, url } from '../../lib/format.js';
 import { spark } from '../../lib/spark.js';
 import { VIEW } from '../../lib/view.js';
 import { latest, load, loading, nameOf, rows } from './scope.js';
@@ -34,7 +34,7 @@ const row = (A, D, id, i) => {
     <td class="${ui.td} min-w-0"><a class="block max-w-[9rem] truncate sm:max-w-none text-foreground hover:underline underline-offset-2" href="#app=${encodeURIComponent(id)}">${esc(nm)}</a></td>
     <td class="${ui.td} text-right ${ui.num}">${n(p.last_4w)}</td>
     <td class="${ui.td} hidden sm:table-cell">${spark(p.views, A.weeks, `${nm}, English Wikipedia views`, { w: 96, h: 24, maxMissing: A.source.params.max_missing_share ?? 1 }) || ''}</td>
-    <td class="${ui.td} text-right ${ui.num}">${p.change != null && p.prior_4w >= P.min_baseline ? pct(p.change * 100) : '<span class="text-muted-foreground" title="under the baseline or not recorded">·</span>'}</td>
+    <td class="${ui.td} text-right ${ui.num}">${p.change != null && p.prior_4w >= P.min_baseline ? delta(p.change * 100) : '<span class="text-muted-foreground" title="under the baseline or not recorded">·</span>'}</td>
     <td class="${ui.td} hidden md:table-cell"><a class="text-muted-foreground hover:text-foreground underline underline-offset-2" href="${url(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.article)}</a></td></tr>`;
 };
 

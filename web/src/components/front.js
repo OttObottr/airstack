@@ -2,7 +2,8 @@
    A panel with more than one range opens on the shortest that fills it. */
 import { json } from '../lib/data.js';
 import { cn, esc, n, pct, url } from '../lib/format.js';
-import { announced, says } from '../lib/news.js';
+import { announced, lead, says } from '../lib/news.js';
+import { Badge } from '../ui/badge.js';
 import { Lines } from '../ui/lines.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { ui } from '../ui/recipes.js';
@@ -34,7 +35,7 @@ const PANELS = [
     title: 'Announcements',
     note: 'What vendors shipped or announced this week, most important first.',
     ranges: [7],
-    rows: fromNews(['blog', 'changelog', 'release'], i => (announced(i) ? (i.weight || 1) * 1e14 + Date.parse(i.date) : -1), i => ({ text: says(i), value: i.signal })), /* what matters most first, then the newest */
+    rows: fromNews(['blog', 'changelog', 'release'], i => (announced(i) ? lead(i) : -1), i => ({ text: says(i), value: Badge(i.signal) })),
   },
 ];
 const LABEL = { 1: 'Today', 7: 'This week', 30: 'This month' };

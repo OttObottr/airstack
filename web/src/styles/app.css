@@ -68,3 +68,17 @@
 @utility h-section {
   @apply text-lg font-semibold leading-snug tracking-tight text-foreground;
 }
+/* a data table: one definition for every table that is not built cell by cell */
+@utility tbl {
+  @apply w-full border-collapse text-sm;
+  & th {
+    @apply h-9 px-3 text-left align-middle text-xs font-medium text-muted-foreground border-b border-border;
+  }
+  & td,
+  & tbody th {
+    @apply px-3 py-2.5 align-top text-left font-normal text-sm text-foreground border-b border-border;
+  }
+  & tbody tr:hover {
+    @apply bg-muted/50;
+  }
+}
