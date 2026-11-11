@@ -44,6 +44,25 @@ function tiles(x) {
   return out;
 }
 
+/* a year of this product's own dated events, one square a week: releases, posts, threads and support dates as they were observed */
+const WEEKS = 52,
+  WEEK = 7 * 864e5;
+function activity(x) {
+  if (!EV) return '';
+  const end = Date.parse(EV.source.built_for),
+    n = Array(WEEKS).fill(0),
+    mine = EV.events.filter(e => e.id === x.id && e.status === 'observed');
+  for (const e of mine) {
+    const k = WEEKS - 1 - Math.floor((end - Date.parse(e.at)) / WEEK);
+    if (k >= 0 && k < WEEKS) n[k]++;
+  }
+  const total = n.reduce((a, b) => a + b, 0),
+    peak = Math.max(...n);
+  if (!total) return '';
+  return `<div class="mt-4 flex flex-col gap-2 rounded-lg border border-border bg-card p-4"><p class="${ui.tileLabel}">Activity · ${WEEKS} weeks · ${total} dated event${total === 1 ? '' : 's'}</p>
+    <span class="grid grid-cols-[repeat(52,minmax(0,1fr))] gap-px" role="img" aria-label="${esc(`${x.name}: ${total} dated events over ${WEEKS} weeks`)}">${n.map((v, k) => `<i class="h-4 rounded-[2px] ${v ? 'bg-info' : 'bg-muted'}" style="opacity:${v ? (0.3 + 0.7 * (v / peak)).toFixed(2) : 1}" title="${esc(`Week of ${fd(new Date(end - (WEEKS - 1 - k) * WEEK).toISOString())}: ${v}`)}"></i>`).join('')}</span></div>`;
+}
+
 /* the strip renders now from what is loaded, and fills in place once attention and events arrive */
 export function strip(x) {
   const ready = ATT !== null && EV !== null,
@@ -55,9 +74,11 @@ export function strip(x) {
         const u = tiles(x);
         if (u.length) box.innerHTML = u.join('');
         else box.remove();
+        const act = $('#sigAct');
+        if (act) act.innerHTML = activity(x);
       }
     });
   return t.length || !ready
-    ? `<div class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-x-4 gap-y-2" id="sigs" data-id="${esc(x.id)}" aria-label="Public signals for ${esc(x.name)}">${t.join('')}${ready ? '' : '<div class="skeleton row-span-4 min-h-32 rounded-lg" aria-hidden="true"></div>'}</div>`
-    : '';
+    ? `<div class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-x-4 gap-y-2" id="sigs" data-id="${esc(x.id)}" aria-label="Public signals for ${esc(x.name)}">${t.join('')}${ready ? '' : '<div class="skeleton row-span-4 min-h-32 rounded-lg" aria-hidden="true"></div>'}</div><div id="sigAct">${activity(x)}</div>`
+    : `<div id="sigAct">${activity(x)}</div>`;
 }
