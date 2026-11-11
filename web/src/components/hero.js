@@ -3,21 +3,18 @@ import { $ } from '../lib/dom.js';
 import { esc, fd } from '../lib/format.js';
 import { announced, says } from '../lib/news.js';
 
-const DAYS = 3 /* how far back an announcement still leads the page */,
-  LOUD = 100; /* Hacker News points that make a thread worth the top line */
+const DAYS = 3; /* how far back an announcement still leads the page */
 
-/* The top line: what a reader should not miss. The newest announcement of each product over the last few days, and the threads
-   everyone is in. `only`: product ids to keep; resolves false when none of them has an item. */
+/* The top line: what a reader should not miss. The newest announcement of each product over the last few days, most important first. `only`: product ids to keep; resolves false when none of them has an item. */
 export async function drawTape(only) {
   const N = await json('news.json').catch(() => null);
   if (!N) return void ($('#tapeW').hidden = true), false;
   const read = N.source.read,
     from = new Date(Date.parse(read) - (DAYS - 1) * 864e5).toISOString().slice(0, 10),
-    week = new Date(Date.parse(read) - 6 * 864e5).toISOString().slice(0, 10),
     seen = new Set();
   const rows = N.items
-    .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && announced(i) && (i.date.slice(0, 10) >= from || (i.points >= LOUD && i.date.slice(0, 10) >= week)))
-    .sort((a, b) => announced(b) - announced(a) || (b.weight || 0) - (a.weight || 0) || (b.points || 0) - (a.points || 0) || (a.date < b.date ? 1 : -1)) /* what matters most, then the loudest threads */
+    .filter(i => i.date.slice(0, 10) <= read && (!only || only.has(i.id)) && announced(i) && i.date.slice(0, 10) >= from)
+    .sort((a, b) => (b.weight || 0) - (a.weight || 0) || (a.date < b.date ? 1 : -1)) /* what matters most, then the newest */
     .filter(i => !seen.has(i.id) && seen.add(i.id))
     .slice(0, 24);
   const item = i =>

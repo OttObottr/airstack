@@ -9,9 +9,8 @@ import { ui } from '../ui/recipes.js';
 import { mono } from './avatar.js';
 import { byId } from './search/index.js';
 
-const SHOWN = 8,
-  FULL = 4 /* rows that make a range worth opening on */,
-  HN_MIN = 5; /* a thread with fewer points is noise, not news */
+const SHOWN = 12,
+  FULL = 4; /* rows that make a range worth opening on */
 const who = (id, name) => ({ id, name, avatar: mono(byId(id) || { id, name }, 's20') });
 const since = (read, days) => new Date(Date.parse(read) - (days - 1) * 864e5).toISOString().slice(0, 10);
 /* the newest (or best, by `score`) item of each product inside the range */
@@ -35,14 +34,7 @@ const PANELS = [
     title: 'Announcements',
     note: 'What vendors shipped or announced this week, most important first.',
     ranges: [7],
-    rows: fromNews(['blog', 'changelog', 'release', 'hacker news'], i => (announced(i) ? (i.weight || 1) * 1e14 + Date.parse(i.date) : -1), i => ({ text: says(i), value: i.signal })), /* what matters most first, then the newest */
-  },
-  {
-    id: 'discussed',
-    title: 'Most discussed',
-    note: 'What Hacker News is discussing, by points.',
-    ranges: [7, 30],
-    rows: fromNews(['hacker news'], i => (i.gist && i.points >= HN_MIN ? i.points : -1), i => ({ text: i.gist, value: `${n(i.points || 0)} pts` })), /* a thread we cannot say anything about is left out */
+    rows: fromNews(['blog', 'changelog', 'release'], i => (announced(i) ? (i.weight || 1) * 1e14 + Date.parse(i.date) : -1), i => ({ text: says(i), value: i.signal })), /* what matters most first, then the newest */
   },
 ];
 const LABEL = { 1: 'Today', 7: 'This week', 30: 'This month' };

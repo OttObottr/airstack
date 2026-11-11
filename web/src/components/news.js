@@ -14,12 +14,10 @@ let N = null,
 const KINDS = [
   ['changelog', 'Changelogs'],
   ['release', 'Releases'],
-  ['hacker news', 'Hacker News'],
   ['blog', 'Blogs'],
 ];
-const on = new Set(['changelog', 'hacker news']); /* a bare version number says nothing: releases are one tap away, not the default */
+const on = new Set(['changelog', 'release']); /* a bare version number says nothing: releases are one tap away, not the default */
 let scope = ALL; /* all products, or your stack */
-const HN_MIN = 5; /* a story with fewer points is noise, not news */
 const day = iso => iso.slice(0, 10);
 
 function rows() {
@@ -29,19 +27,17 @@ function rows() {
     i =>
       on.has(i.kind) &&
       day(i.date) <= read &&
-      (i.kind !== 'hacker news' || (i.points || 0) >= HN_MIN) &&
       (!ids || ids.has(i.id))
   );
 }
 
 const ORDER = {
   changelog: 0,
-  'hacker news': 1,
   blog: 2,
   release: 3,
 }; /* within a day: what a vendor says changed, then discussion, then version bumps */
 function byDay(R) {
-  const rank = (a, b) => ORDER[a.kind] - ORDER[b.kind] || (b.points || 0) - (a.points || 0);
+  const rank = (a, b) => (b.weight || 0) - (a.weight || 0) || ORDER[a.kind] - ORDER[b.kind]; /* what matters most first */
   const by = new Map();
   for (const i of R) {
     if (!by.has(i.id)) by.set(i.id, []);
@@ -56,11 +52,11 @@ function byDay(R) {
   }
   return [...days].sort((a, b) => b[0].localeCompare(a[0])).map(([d, xs]) => [d, xs.sort(rank)]);
 }
-const KIND = k => (k === 'hacker news' ? 'HN' : k);
+const KIND = k => k;
 const version = i => (i.version && i.version !== i.title ? ` <span class="meta">${esc(i.version)}</span>` : ''); /* a bare release is its version: say it once */
 const tally = xs =>
   Object.entries(xs.reduce((m, x) => ((m[x.kind] = (m[x.kind] || 0) + 1), m), {}))
-    .map(([k, c]) => `${c} ${KIND(k)}${c > 1 && k !== 'hacker news' ? 's' : ''}`)
+    .map(([k, c]) => `${c} ${KIND(k)}${c > 1 ? 's' : ''}`)
     .join(', ');
 
 function render() {
@@ -105,7 +101,7 @@ function render() {
   $('#newsMore').disabled = false;
   $('#newsSub').innerHTML =
     `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.more.length, 0))} updates in ${N.source.window_days} days.` +
-    Method(`Each product once, at its latest update, from each vendor’s own feed, substantive GitHub release notes, and Hacker News threads (${HN_MIN}+ points) whose story links to the product’s own site. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
+    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. Where a line is a summary, AirStack wrote it from the linked page. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
 }
 
 export function mount() {
