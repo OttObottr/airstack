@@ -16,8 +16,6 @@ Bundled third-party licence texts: `web/public/legal/notices.txt`. Inter’s lic
 - npm: each count links its package. https://docs.npmjs.com/policies/open-source-terms
 - PyPI: each record links its package. https://policies.python.org/pypi.org/Terms-of-Use/
 - PyPI Stats: download counts from the Python Software Foundation's public data, via pypistats.org. https://pypistats.org/api/
-- Hugging Face Hub: each model links its page. https://huggingface.co/terms-of-service
-- Hacker News: via the Algolia search API; each story links its discussion. https://hn.algolia.com/api
 - endoflife.date: MIT, Copyright 2020 endoflife.date contributors; licence text in /legal/notices.txt. https://github.com/endoflife-date/endoflife.date/blob/master/LICENSE
 - Internet Archive Wayback Machine: each capture is linked. https://archive.org/about/terms.php
 - OpenSSF Scorecard: CDLA-Permissive-2.0; licence text in /legal/notices.txt. https://github.com/ossf/scorecard#public-data
