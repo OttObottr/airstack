@@ -7,9 +7,12 @@ import { IDX, onMarket } from '../search/index.js';
 import { $ } from '../../lib/dom.js';
 import { cap, esc, host, ic, n, nobs, sq, url } from '../../lib/format.js';
 import { MK, MKERR } from '../../lib/market.js';
+import { loadScale, reach, since } from '../../lib/reach.js';
 import { pview, PROF } from '../../lib/profiles.js';
 
+let scaled = false;
 export function dirCard(x) {
+  if (!scaled) loadScale().then(() => ((scaled = true), renderAll()));
   const P = MK && MK.profiles && MK.profiles[x.id],
     T = DIR.types,
     tc = $('#toolcard');
@@ -29,6 +32,8 @@ export function dirCard(x) {
   tc.innerHTML = `${covered}${strip(x)}<dl class="kv mt-6"><div><dt>What it is</dt><dd>${x.desc ? cap(x.desc) : nobs} <span class="meta">Wikidata’s description</span></dd></div>
       <div><dt>Made by</dt><dd>${devs || nobs}</dd></div>
       ${[['Runs on', 'os'], ['Licence', 'licence']].map(([l, k]) => (basics(x.id, k).length ? `<div><dt>${l}</dt><dd>${esc(basics(x.id, k).join(', '))} <span class="meta">as Wikidata records it</span></dd></div>` : '')).join('')}
+      ${reach(x.id) ? `<div><dt>Site reach</dt><dd>${reach(x.id)} <span class="meta">most-linked domains · Majestic Million, CC BY 3.0</span></dd></div>` : ''}
+      ${since(x.id) ? `<div><dt>Since</dt><dd>${since(x.id)} <span class="meta">as Wikidata records it</span></dd></div>` : ''}
       <div><dt>Type</dt><dd class="crumb">${path.map(j => `<button type="button" data-type="${j}">${esc(T[j][1])}</button>`).join(' › ')}</dd></div>
       <div><dt>Website</dt><dd>${x.site ? `<a class="ext" href="${url(x.site)}" target="_blank" rel="noopener noreferrer">${esc(host(x.site))}${ic('out')}</a> <span class="meta">as Wikidata records it</span>` : nobs}</dd></div>
       <div><dt>Record</dt><dd>${wdLink(x.id)}</dd></div>

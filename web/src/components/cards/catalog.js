@@ -11,6 +11,7 @@ import { DIR, loadDir } from '../search/directory.js';
 import { $ } from '../../lib/dom.js';
 import { cn, esc, fd, host, ic, nobs, url } from '../../lib/format.js';
 import { MK, MKERR } from '../../lib/market.js';
+import { loadScale, rankOf, reach, reachCredit, since } from '../../lib/reach.js';
 import { COMMUNITY, NEWS, OSS, PROF, TAX, pview } from '../../lib/profiles.js';
 
 const CHANNELS = {
@@ -66,8 +67,8 @@ function altView(x) {
     node = [...jobs][0],
     category = (TAX.nodes[node] || {}).name || x.laneName,
     peers = IDX.filter(p => sameJob(p) && PROF[p.id])
-      .sort((a, b) => PROF[b.id].facts - PROF[a.id].facts || a.name.localeCompare(b.name))
-      .slice(0, 10),
+      .sort((a, b) => (rankOf(a.id) || 1e9) - (rankOf(b.id) || 1e9) || PROF[b.id].facts - PROF[a.id].facts || a.name.localeCompare(b.name)) /* the most widely linked first */
+      .slice(0, 12),
     listed = IDX.filter(p => sameJob(p) && !PROF[p.id])
       .sort((a, b) => (b.links || 0) - (a.links || 0) || a.name.localeCompare(b.name))
       .slice(0, 24);
@@ -79,11 +80,12 @@ function altView(x) {
         (c.value.length > m ? ` <span class="meta">+${c.value.length - m}</span>` : '')
       : DASH;
   const TD = `${ui.td} h-auto py-2.5 align-top`;
-  return `<h3 class="h-section mt-12">Also in ${esc(category)}</h3><p class="meta">Products filed in the same category. Each row is what that product’s own pages say.</p>
-    ${peers.length ? `<div class="mt-4 overflow-x-auto"><table class="${ui.table} min-w-[44rem]"><thead><tr><th class="${ui.th}" scope="col">Product</th><th class="${ui.th}" scope="col">What it says it does</th><th class="${ui.th}" scope="col">Free plan</th><th class="${ui.th}" scope="col">Plans</th><th class="${ui.th} text-right" scope="col">Integrations</th></tr></thead><tbody>
+  return `<h3 class="h-section mt-12">Also in ${esc(category)}</h3><p class="meta">Products filed in the same category, the most widely linked first. Plans and integrations are what each product’s own pages say.</p>${reachCredit() ? Method(reachCredit(), 'How reach and age are measured') : ''}
+    ${peers.length ? `<div class="mt-4 overflow-x-auto"><table class="${ui.table} min-w-[44rem]"><thead><tr><th class="${ui.th}" scope="col">Product</th><th class="${ui.th}" scope="col">What it says it does</th><th class="${ui.th}" scope="col">Site reach</th><th class="${ui.th} text-right" scope="col">Since</th><th class="${ui.th}" scope="col">Free plan</th><th class="${ui.th}" scope="col">Plans</th><th class="${ui.th} text-right" scope="col">Integrations</th></tr></thead><tbody>
     ${peers
       .map(
         p => `<tr class="hover:bg-muted"><td class="${TD} w-56"><span class="flex items-center gap-2.5">${mono(p, 's20')}<button class="text-left font-medium text-foreground hover:underline underline-offset-4" type="button" data-pick="${esc(p.id)}">${esc(p.name)}</button></span></td><td class="${TD} text-muted-foreground">${v(p, 'what_it_does') ? esc(String(v(p, 'what_it_does').value).slice(0, 90)) : DASH}</td>
+      <td class="${TD} w-32 whitespace-nowrap">${reach(p.id) || DASH}</td><td class="${TD} w-16 text-right ${ui.num}">${since(p.id) || DASH}</td>
       <td class="${TD} w-24">${v(p, 'free_plan') ? 'Yes' : DASH}</td><td class="${TD} w-56">${list(v(p, 'plan_names'), 3)}</td><td class="${TD} w-28 text-right ${ui.num}">${v(p, 'integrations') ? v(p, 'integrations').value.length : DASH}</td></tr>`
       )
       .join('')}</tbody></table></div>` : ''}
@@ -131,9 +133,11 @@ const pageOf = x =>
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')
         .slice(0, 60)}/`;
+let scaled = false;
 export function catalogCard(x) {
   const tc = $('#toolcard');
   if (!DIR) loadDir().then(renderAll, () => {});
+  if (!scaled) loadScale().then(() => ((scaled = true), renderAll()));
   if (!MK) {
     tc.innerHTML = MKERR
       ? '<p class="load-error">This product’s details could not be loaded. Check your connection and reload.</p>'

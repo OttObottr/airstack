@@ -1,3 +1,4 @@
+import { loadScale, reach, since } from '../lib/reach.js';
 import { METRIC, STR, chainData, checks, says, showVal } from './chain.js';
 import { kindOf, mono } from './avatar.js';
 import { listed, per } from './prices.js';
@@ -121,7 +122,7 @@ async function draw() {
   out.innerHTML = `<div class="skeleton ${st.ids.length ? 'skeleton-table' : 'skeleton-pills'}" role="status" aria-label="Loading comparison evidence"></div>`;
   let D;
   try {
-    [D, SUG] = await Promise.all([chainData(), json('suggestions.json').catch(() => null), loadPrices(), loadDir().catch(() => null), loadTaxonomy().catch(() => null)]);
+    [D, SUG] = await Promise.all([chainData(), json('suggestions.json').catch(() => null), loadPrices(), loadDir().catch(() => null), loadTaxonomy().catch(() => null), loadScale()]);
     st.ids = st.ids.map(idOf); /* a slug in the address becomes its product once the directory is here */
   } catch {
     sub.textContent = 'The comparison needs a connection: the evidence is loaded on demand.';
@@ -185,6 +186,8 @@ async function draw() {
         return own.date || !RECORD[m] ? own : recordOf(id, RECORD[m], own, !!D.entities[id]); /* its own page first; Wikidata's record only where the page says nothing */
       }),
     })),
+    { l: 'Site reach', one: true, cells: ids.map(id => (reach(id) ? { wd: true, html: `<div class="cv"><b>${reach(id)}</b></div><div class="cs"><span class="meta">most-linked domains · Majestic Million, CC BY 3.0</span></div>` } : { html: nobs })) },
+    { l: 'Since', one: true, cells: ids.map(id => (since(id) ? { wd: true, html: `<div class="cv"><b>${since(id)}</b></div><div class="cs"><span class="meta">as Wikidata records it</span></div>` } : { html: nobs })) },
   ].filter(r => r.cells.some(c => c.date || c.wd));
   for (const r of rows) {
     const seen = new Set(r.cells.filter(c => c.key != null).map(c => c.key));
