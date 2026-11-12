@@ -18,6 +18,7 @@ const KEY = 'airstack.compare.v1',
   SHOWN = VIEW.compareShown;
 let st = { ids: [] },
   onlyDiff = false,
+  oneSided = false, /* fields only one product's pages state: folded away unless asked for */
   act = 0,
   hits = [],
   blurT,
@@ -63,7 +64,7 @@ export function sync() {
   draw();
 }
 
-const nobs = '<span class="nobs">Not observed</span>';
+const nobs = '<span class="nobs" aria-hidden="true">—</span><span class="sr">not found on its pages</span>';
 const LABEL = { similar: 'Similar', rising: 'Rising', lane: 'Same category' }; /* what each suggestion measured, never a rank */
 let SUG = null;
 const norm = v =>
@@ -204,6 +205,8 @@ async function draw() {
     same = mine && mine.ids.join() === ids.join(),
     ready = ids.length >= 2,
     nd = rows.filter(r => r.diff).length,
+    sourced = r => r.cells.filter(c => c.date || c.wd).length,
+    sided = rows.filter(r => ids.length > 1 && sourced(r) < 2).length,
     observed = rows.reduce((sum, r) => sum + r.cells.filter(c => c.date || c.wd).length, 0),
     possible = rows.length * ids.length;
   sub.textContent = ready
@@ -219,7 +222,7 @@ async function draw() {
   const eg = [...groups.values()].filter(group => group.length >= 3).slice(0, 3).map(group => [...group].sort((a, b) => known(a) - known(b)).slice(0, 3));
   out.innerHTML = !ready
     ? ids.length ? '' /* one picked: the suggestions above are the next step */ : `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="btn btn-primary" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
-    : `<div class="cmp-bar"><button class="chip" type="button" id="cmpDiff" aria-pressed="${onlyDiff && nd > 0}"${nd ? '' : ' disabled'}>Only what differs</button></div>
+    : `<div class="cmp-bar"><button class="chip" type="button" id="cmpDiff" aria-pressed="${onlyDiff && nd > 0}"${nd ? '' : ' disabled'}>Only what differs</button>${sided ? `<button class="chip" type="button" id="cmpSided" aria-pressed="${oneSided}">${oneSided ? 'Hide' : 'Show'} ${sided} field${sided === 1 ? '' : 's'} only one product states</button>` : ''}</div>
   ${ids.length > 2 ? '<p class="cmp-swipe meta">Swipe the table to see every product <span aria-hidden="true">→</span></p>' : ''}
   <div class="overflow-x-auto rounded-lg border border-border bg-card"><table class="tbl${ids.length === 2 ? ' two' : ''}" id="cmpTbl"><thead><tr><th scope="col"><span class="sr">Field</span></th>${ids
     .map(id => {
@@ -228,6 +231,7 @@ async function draw() {
     })
     .join('')}</tr></thead><tbody>${rows
     .filter(r => !(onlyDiff && nd) || r.diff)
+    .filter(r => oneSided || ids.length < 2 || sourced(r) >= 2)
     .map(
       r =>
         `<tr${r.diff ? ' class="diff"' : ''}><th scope="row">${esc(r.l)}${r.diff ? '<span class="dtag">differs</span>' : ''}</th>${r.cells.map((c, i) => `<td data-l="${esc(nameOf(ids[i], D))}">${c.html}</td>`).join('')}</tr>`
@@ -308,6 +312,10 @@ function mount() {
     } else if (t.dataset.rm) {
       keep = '#cmpQ';
       go({ ids: st.ids.filter(x => x !== t.dataset.rm) });
+    } else if (t.id === 'cmpSided') {
+      oneSided = !oneSided;
+      keep = '#cmpSided';
+      draw();
     } else if (t.id === 'cmpDiff') {
       onlyDiff = !onlyDiff;
       keep = '#cmpDiff';

@@ -29,7 +29,7 @@ h3{font-size:var(--text-body);font-weight:600}
 @media(min-width:900px){#cmpSec .cmp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,440px);align-items:center;gap:12px 24px;max-width:none}#cmpSec .cmp-top .chips{margin:0}#cmpFull{grid-column:2}}
 #cmpOut{margin-top:32px}
 .cmp-eg{display:flex;flex-wrap:wrap;align-items:center;gap:12px}.cmp-eg .meta{width:100%}
-.cmp-bar{display:flex;justify-content:flex-start;margin-bottom:8px}.cmp-bar .chip[aria-pressed=true]{background:var(--color-ink);border-color:var(--color-ink);color:var(--color-bg)}.cmp-bar .chip:disabled{opacity:.5}
+.cmp-bar{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;margin-bottom:8px}.cmp-bar .chip{max-width:100%;white-space:normal}.cmp-bar .chip[aria-pressed=true]{background:var(--color-ink);border-color:var(--color-ink);color:var(--color-bg)}.cmp-bar .chip:disabled{opacity:.5}
 .cmp-swipe{display:none}
 #cmpTbl{border-collapse:separate;border-spacing:0;min-width:100%}
 #cmpTbl thead th a{display:inline-flex;align-items:center;gap:8px}#cmpTbl thead th .meta{display:block;font-weight:400}
