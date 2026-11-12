@@ -5,7 +5,7 @@
     "category-guides.json",
     "chain-data.json",
     "changes.atom",
-    "community.json",
+    "community.json", "coverage.json",
     "directory.json",
     "events.json",
     "insights.json",

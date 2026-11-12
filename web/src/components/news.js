@@ -15,8 +15,9 @@ const KINDS = [
   ['changelog', 'Changelogs'],
   ['release', 'Releases'],
   ['blog', 'Blogs'],
+  ['press', 'Press'],
 ];
-const on = new Set(['changelog', 'release']); /* a bare version number says nothing: releases are one tap away, not the default */
+const on = new Set(['changelog', 'release', 'press']); /* a bare version number says nothing: releases are one tap away, not the default */
 let scope = ALL; /* all products, or your stack */
 const day = iso => iso.slice(0, 10);
 
@@ -35,6 +36,7 @@ const ORDER = {
   changelog: 0,
   blog: 2,
   release: 3,
+  press: 1,
 }; /* within a day: what a vendor says changed, then discussion, then version bumps */
 function byDay(R) {
   const rank = (a, b) => (b.weight || 0) - (a.weight || 0) || ORDER[a.kind] - ORDER[b.kind]; /* what matters most first */
@@ -53,6 +55,9 @@ function byDay(R) {
   return [...days].sort((a, b) => b[0].localeCompare(a[0])).map(([d, xs]) => [d, xs.sort(rank)]);
 }
 const KIND = k => k;
+/* coverage.json: AirStack's sentence about an outlet's headline, found through GDELT; the outlet is named beside it */
+const PRESS = C => (C && C.items ? C.items.map(i => ({ ...i, kind: 'press', title: i.gist })) : []);
+const outlet = i => (i.kind === 'press' && i.outlet ? ` <span class="meta">${esc(i.outlet)}</span>` : '');
 const version = i => (i.version && i.version !== i.title ? ` <span class="meta">${esc(i.version)}</span>` : ''); /* a bare release is its version: say it once */
 const tally = xs =>
   Object.entries(xs.reduce((m, x) => ((m[x.kind] = (m[x.kind] || 0) + 1), m), {}))
@@ -75,7 +80,7 @@ function render() {
         `<button class="chip" type="button" aria-pressed="${on.has(k)}" data-kind="${esc(k)}">${label}</button>`
     ).join('');
   $('#newsScope').innerHTML = scopeControl(scope, 'changes');
-  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist || i.title}</a>${raw(version(i))}${raw(i.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${i.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '')}`;
+  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist || i.title}</a>${raw(version(i))}${raw(outlet(i))}${raw(i.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${i.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '')}`;
   $('#newsList').innerHTML = String(
     groups.length
       ? html`${groups.map(([d, items]) =>
@@ -101,7 +106,7 @@ function render() {
   $('#newsMore').disabled = false;
   $('#newsSub').innerHTML =
     `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.others.length, 0))} updates in ${N.source.window_days} days.` +
-    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.`);
+    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.${N.press ? ` Press: AirStack’s sentence about an outlet’s headline, found through <a class="underline underline-offset-2" href="https://www.gdeltproject.org/">The GDELT Project</a>; no article text is reproduced and the linked article governs.` : ''}`);
 }
 
 export function mount() {
@@ -112,9 +117,9 @@ export function mount() {
     if (N) render();
   });
   /* the same file Home's front page reads, so it is fetched once */
-  json('news.json')
-    .then(d => {
-      N = d;
+  Promise.all([json('news.json'), json('coverage.json').catch(() => null)])
+    .then(([d, c]) => {
+      N = { ...d, items: [...d.items, ...PRESS(c)], press: c && c.source };
       delete sec.dataset.loading;
       $('#newsList').setAttribute('aria-busy', 'false');
       render();

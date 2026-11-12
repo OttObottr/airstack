@@ -14,6 +14,7 @@ npm: each count links its package. https://docs.npmjs.com/policies/open-source-t
 PyPI: each record links its package. https://policies.python.org/pypi.org/Terms-of-Use/
 PyPI Stats: download counts from the Python Software Foundation's public data, via pypistats.org. https://pypistats.org/api/
 endoflife.date: MIT, Copyright 2020 endoflife.date contributors; licence text in /legal/notices.txt. https://github.com/endoflife-date/endoflife.date/blob/master/LICENSE
+The GDELT Project: press items are found through its article index; each links the outlet's article. https://www.gdeltproject.org/
 Internet Archive Wayback Machine: each capture is linked. https://archive.org/about/terms.php
 OpenSSF Scorecard: CDLA-Permissive-2.0; licence text in /legal/notices.txt. https://github.com/ossf/scorecard#public-data
 Product pages: each product's own pages (pricing, features, docs, changelogs, feeds, trust pages), quoted briefly and linked; names and marks belong to their owners.
