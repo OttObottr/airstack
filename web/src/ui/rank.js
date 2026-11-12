@@ -23,7 +23,7 @@ export function RankList({ rows, dense = false, missing = 'not observed' }) {
       class="group grid ${dense ? COLS.dense : COLS.wide} -ml-3 min-h-16 w-[calc(100%+1.5rem)] items-center rounded-sm p-3 text-left transition-colors hover:bg-info/5">
       <span class="flex min-w-0 items-center gap-2.5">${raw(r.avatar)}<span class="min-w-0"><b class="block truncate font-semibold decoration-border underline-offset-4 group-hover:underline group-aria-[current=true]:underline group-aria-[current=true]:decoration-foreground">${r.name}</b><span class="block text-xs leading-normal text-muted-foreground [overflow-wrap:anywhere]">${r.note}</span></span></span>
       ${Bar({ share: r.value == null ? null : Math.abs(r.value) / max, negative: r.value < 0, strong: !marked || r.current })}
-      <span class="whitespace-nowrap text-right font-medium tabular-nums">${
+      <span class="whitespace-nowrap pr-2 text-right font-medium tabular-nums">${
         r.value == null ? html`<span class="text-subtle-foreground" title="${missing}"><span aria-hidden="true">—</span><span class="sr">${missing}</span></span>` : r.label
       }</span></button></li>`
   )}</ol>`;
