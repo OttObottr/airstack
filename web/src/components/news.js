@@ -135,7 +135,7 @@ function render() {
   $('#newsMore').disabled = false;
   $('#newsSub').innerHTML =
     `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.others.length, 0))} updates in ${N.source.window_days} days.` +
-    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.${N.press ? ` Press: AirStack’s sentence about an outlet’s headline, found through <a class="underline underline-offset-2" href="https://www.gdeltproject.org/">The GDELT Project</a>; no article text is reproduced and the linked article governs.` : ''}`);
+    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.${N.press ? ` Press: an outlet’s own headline, found through <a class="underline underline-offset-2" href="https://www.gdeltproject.org/">The GDELT Project</a> and linked to the article; AirStack’s model chose which are about the product.` : ''}`);
 }
 
 export function mount() {
