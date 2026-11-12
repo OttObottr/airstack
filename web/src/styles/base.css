@@ -24,4 +24,4 @@ button{cursor:pointer;text-align:inherit}
 
 /* the brand: AirStack with a white BOT tag, a sticker slapped on the name */
 .wordmark{display:inline-flex;align-items:center;gap:6px}
-.bot-tag{display:inline-block;padding:2px 5px 1px;border-radius:4px;background:#F4F6F8;color:#07090B;font:900 9.5px/1.1 var(--font-mono);letter-spacing:.09em;transform:rotate(-6deg) translateY(-1px);box-shadow:1px 1px 0 var(--color-accent)}
+.bot-tag{display:inline-block;padding:2px 5px 1px;border-radius:4px;background:#F4F6F8;color:#07090B;font:900 9.5px/1.1 var(--font-mono);letter-spacing:.09em;box-shadow:1px 1px 0 var(--color-accent)}
