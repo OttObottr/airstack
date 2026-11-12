@@ -10,8 +10,8 @@ const SW = [...ui.sector, 'bg-sector-other/40'];
 const W = 1000, H = 420, GAP = 2;
 /* a label that fits its block (about 8.6 units a character at this size), shortened with an ellipsis, or none on a block too small */
 const fit = (name, w) => {
-  const room = Math.floor((w - 18) / 8.6);
-  return room < 4 ? '' : name.length <= room ? name : name.slice(0, room - 1) + '…';
+  const room = Math.floor((w - 16) / 7.4);
+  return room < 6 && name.length > room ? '' : name.length <= room ? name : name.slice(0, room - 1) + '…';
 };
 
 /* squarified layout (Bruls, Huizing and van Wijk): rows of blocks whose aspect ratios stay near square */
@@ -67,7 +67,7 @@ function draw(el, P, T) {
       .map(
         (r, k) => `<g class="cursor-pointer" data-k="${k}" tabindex="0" role="link" aria-label="${esc(`${r.name}: ${r.events.length} update${r.events.length > 1 ? 's' : ''}`)}">
           <rect x="${r.x + GAP / 2}" y="${r.y + GAP / 2}" width="${Math.max(0, r.w - GAP)}" height="${Math.max(0, r.h - GAP)}" rx="4" class="${FILL[r.j] || FILL[7]} hover:opacity-80"/>
-          ${r.h > 34 && fit(r.name, r.w) ? `<text x="${r.x + 10}" y="${r.y + 24}" class="fill-foreground text-[15px] font-semibold" style="paint-order:stroke;stroke:var(--color-bg);stroke-width:3px">${esc(fit(r.name, r.w))}</text>` : ''}
+          ${r.h > 30 && fit(r.name, r.w) ? `<text x="${r.x + 9}" y="${r.y + 21}" class="text-[12.5px] font-semibold" style="fill:var(${r.j >= 7 ? '--color-foreground' : '--color-background'})">${esc(fit(r.name, r.w))}</text>` : ''}
         </g>`
       )
       .join('')}</svg><div class="pointer-events-none absolute z-10 hidden max-w-xs rounded-md border border-border bg-popover p-2 text-xs shadow-md" data-tip></div></div>
@@ -82,8 +82,8 @@ function draw(el, P, T) {
     const t = g.querySelector('text'), room = g.querySelector('rect').getBBox().width - 16;
     if (!t) continue;
     let s = t.textContent;
-    while (s.length > 3 && t.getComputedTextLength() > room) t.textContent = (s = s.slice(0, -2) + '…');
-    if (t.getComputedTextLength() > room) t.remove();
+    while (s.length > 6 && t.getComputedTextLength() > room) t.textContent = (s = s.slice(0, -2) + '…');
+    if (t.getComputedTextLength() > room || t.textContent.replace('…', '').length < 6 && t.textContent.endsWith('…')) t.remove();   /* too small: the tooltip names it */
   }
   const tip = el.querySelector('[data-tip]'), svg = el.querySelector('svg');
   const show = (g, ev) => {
