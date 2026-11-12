@@ -46,7 +46,7 @@ export const peerName = peer => (peer.parent !== undefined ? `in ${peer.name}` :
 export const ofCell = (a, b) =>
   b
     ? `<span class="text-foreground">${n(a)}</span><span class="text-muted-foreground"> of ${n(b)}</span>`
-    : '<span class="text-muted-foreground">Not observed</span>';
+    : '<span class="text-subtle-foreground" aria-hidden="true">—</span><span class="sr">not watched</span>';
 
 export const loading = el => {
   el.setAttribute('aria-busy', 'true');

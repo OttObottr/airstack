@@ -195,19 +195,34 @@ def test_compare_remains_usable_on_a_phone(chrome, app_url):
 
 
 @pytest.mark.parametrize("width", [1280, 390])
-def test_markets_panels_cover_every_sector_and_keep_rows_aligned(chrome, app_url, width):
+def test_markets_landing_names_products_and_a_picked_market_shows_its_field(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
     page.evaluate("location.hash = '#/markets'")
-    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 4")
-    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["arrivals", "news-mix", "announcements", "sectors"]
+    wait(page, "document.querySelectorAll('#markets [data-panel] [data-body]:not([aria-busy])').length === 3")
+    assert page.locator("#markets [data-panel]").evaluate_all("xs => xs.map(x => x.dataset.panel)") == ["landing", "support", "sectors"]
     tops = page.evaluate("fetch('markets.json').then(r => r.json()).then(d => Object.values(d.nodes).filter(n => n.parent === null).length)")
     assert page.locator('[data-panel="sectors"] tbody tr').count() == tops
-    spread = page.evaluate("""[...document.querySelectorAll('#markets [data-panel] tbody tr')].map(tr => {
+    spread = page.evaluate("""[...document.querySelectorAll('[data-panel="sectors"] tbody tr')].map(tr => {
         const ys = [...tr.children].filter(td => td.offsetParent).map(td => { const r = document.createRange(); r.selectNodeContents(td); return r.getClientRects()[0]; })
           .filter(Boolean).map(b => b.top + b.height / 2);
         return ys.length > 1 ? Math.max(...ys) - Math.min(...ys) : 0; }).reduce((a, b) => Math.max(a, b), 0)""")
-    assert spread <= 1 and page.evaluate(FITS)
-    page.locator('[data-panel="sectors"] button[data-node]').first.click()
+    assert spread <= 1
+    assert page.evaluate(FITS)
+    cards = page.locator('[data-panel="landing"] .grid > button[data-node]')
+    assert cards.count() > 0
+    # a card leads with products by name, never a bare id
+    names = cards.first.locator("span.truncate").all_inner_texts()
+    assert names and not any(re.fullmatch(r"Q\d+", n) for n in names)
+    cards.first.click()
     wait(page, "document.querySelector('#mkScope').value.startsWith('node:')")
+    wait(page, "document.querySelector('[data-panel=\"field\"] tbody tr') !== null")
+    first = page.locator('[data-panel="field"] tbody tr td:first-child').first.inner_text().strip()
+    assert first and not re.fullmatch(r"Q\d+", first)
+    # every column shown covers at least one product: no column of dashes
+    assert page.evaluate("""(() => { const t = document.querySelector('[data-panel="field"] table'); const n = t.tHead.rows[0].cells.length;
+        return [...Array(n).keys()].slice(1).every(i => [...t.tBodies[0].rows].some(r => !/^—/.test(r.cells[i].innerText.trim()))); })()""")
+    assert page.evaluate(FITS)
+    page.select_option("#mkScope", "all")
+    wait(page, "document.querySelector('[data-panel=\"landing\"]') !== null")
     assert not errors
     context.close()

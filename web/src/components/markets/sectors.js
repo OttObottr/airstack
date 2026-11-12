@@ -38,12 +38,12 @@ export const panel = {
     el.removeAttribute('aria-busy');
     if (R.products) {
       el.innerHTML = R.products.length
-        ? `<div class="overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th}">Product</th><th class="${TH}">Researched</th><th class="${TH}">Announcements, ${days} days</th><th class="${TH} hidden md:table-cell">Inception</th></tr></thead><tbody>${R.products.map(productRow).join('')}</tbody></table></div>`
+        ? `<div class="relative overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th}">Product</th><th class="${TH}">Researched</th><th class="${TH}">Announcements, ${days} days</th><th class="${TH} hidden md:table-cell">Inception</th></tr></thead><tbody>${R.products.map(productRow).join('')}</tbody></table></div>`
         : `<p class="${ui.panelNote}">Nothing here yet. Add products to your stack to see them measured.</p>`;
       return;
     }
     const total = R.nodes.reduce((s, id) => s + D.nodes[id].listed, 0);
-    el.innerHTML = `<div class="overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th}">${R.peer.parent === undefined ? 'Sector' : 'Category'}</th><th class="${TH}">Products</th>
+    el.innerHTML = `<div class="relative overflow-x-auto"><table class="${ui.table}"><thead><tr><th class="${ui.th}">${R.peer.parent === undefined ? 'Sector' : 'Category'}</th><th class="${TH}">Products</th>
       <th class="${TH}">Announced, ${days} days <span class="font-normal">(of watched)</span></th></tr></thead>
       <tbody>${R.nodes
         .sort((a, b) => D.nodes[b].listed - D.nodes[a].listed)
