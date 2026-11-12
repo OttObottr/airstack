@@ -15,9 +15,8 @@ const KINDS = [
   ['changelog', 'Changelogs'],
   ['release', 'Releases'],
   ['blog', 'Blogs'],
-  ['press', 'Press'],
 ];
-const on = new Set(['changelog', 'release', 'press']); /* a bare version number says nothing: releases are one tap away, not the default */
+const on = new Set(['changelog', 'release']); /* a bare version number says nothing: releases are one tap away, not the default */
 let scope = ALL; /* all products, or your stack */
 const day = iso => iso.slice(0, 10);
 
@@ -38,7 +37,6 @@ const ORDER = {
   changelog: 0,
   blog: 2,
   release: 3,
-  press: 1,
 }; /* within a day: what a vendor says changed, then discussion, then version bumps */
 function byDay(R) {
   const rank = (a, b) => (b.weight || 0) - (a.weight || 0) || ORDER[a.kind] - ORDER[b.kind]; /* what matters most first */
@@ -57,9 +55,8 @@ function byDay(R) {
   return [...days].sort((a, b) => b[0].localeCompare(a[0])).map(([d, xs]) => [d, xs.sort(rank)]);
 }
 const KIND = k => k;
-/* coverage.json: an outlet's own headline, found through GDELT; the outlet is named beside it */
-const PRESS = C => (C && C.items ? C.items.map(i => ({ ...i, kind: 'press', title: i.title || i.gist })) : []);
-const outlet = i => (i.kind === 'press' && i.outlet ? ` <span class="meta">${esc(i.outlet)}</span>` : '');
+/* coverage.json: links to outlets' articles about a product, with outlet and date; no outlet wording is shown, only "Covered by" links */
+let PRESS = [];
 const version = i => (i.version && i.version !== i.title ? ` <span class="meta">${esc(i.version)}</span>` : ''); /* a bare release is its version: say it once */
 const tally = xs =>
   Object.entries(xs.reduce((m, x) => ((m[x.kind] = (m[x.kind] || 0) + 1), m), {}))
@@ -71,7 +68,7 @@ const tally = xs =>
 const SIGNAL = { launch: 'Launch', feature: 'New feature', pricing: 'Pricing', company: 'Company', security: 'Security', incident: 'Incident' };
 function stories() {
   const read = Date.parse(N.source.read), seen = new Set();
-  const press = N.items.filter(i => i.kind === 'press');
+  const press = PRESS;
   return N.items
     .filter(i => (i.kind === 'blog' || i.kind === 'changelog') && i.gist && (i.weight || 1) >= 2 && read - Date.parse(i.date) <= 14 * 864e5)
     .sort((a, b) => !!b.story - !!a.story || (b.weight || 0) - (a.weight || 0) || b.date.localeCompare(a.date))
@@ -119,7 +116,7 @@ function render() {
         `<button class="chip" type="button" aria-pressed="${on.has(k)}" data-kind="${esc(k)}">${label}</button>`
     ).join('');
   $('#newsScope').innerHTML = scopeControl(scope, 'changes');
-  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist || i.title}</a>${raw(version(i))}${raw(outlet(i))}${raw(i.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${i.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '')}`;
+  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist || i.title}</a>${raw(version(i))}${raw(i.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${i.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '')}`;
   $('#newsList').innerHTML = String(
     groups.length
       ? html`${groups.map(([d, items]) =>
@@ -145,7 +142,7 @@ function render() {
   $('#newsMore').disabled = false;
   $('#newsSub').innerHTML =
     `${n(R.length)} products, ${n(R.reduce((k, i) => k + 1 + i.others.length, 0))} updates in ${N.source.window_days} days.` +
-    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.${N.press ? ` Press: an outlet’s own headline, found through <a class="underline underline-offset-2" href="https://www.gdeltproject.org/">The GDELT Project</a> and linked to the article; AirStack’s model chose which are about the product.` : ''}`);
+    Method(`Each product once, at its latest update, from each vendor’s own feed and GitHub releases. A summary line is machine-written by AirStack and may contain errors; the linked page governs. Read ${fd(N.source.read)}. Vendor headlines are the vendors’ own.${PRESS.length ? ` “Covered by” links go to outlets that reported on the product around the same days, found through <a class=\"underline underline-offset-2\" href=\"https://www.gdeltproject.org/\">The GDELT Project</a>; AirStack shows none of their words.` : ''}`);
 }
 
 export function mount() {
@@ -159,7 +156,8 @@ export function mount() {
   Promise.all([json('news.json'), json('coverage.json').catch(() => null), json('taxonomy-index.json').catch(() => null)])
     .then(([d, c, t]) => {
       TAX = t;
-      N = { ...d, items: [...d.items, ...PRESS(c)], press: c && c.source };
+      N = d;
+      PRESS = c && c.items ? c.items : [];
       delete sec.dataset.loading;
       $('#newsList').setAttribute('aria-busy', 'false');
       render();

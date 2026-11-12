@@ -32,12 +32,5 @@ export async function drawTape(only) {
 
 export const mount = () => void drawTape();
 
-/* the strip moves on its own, so it can be stopped (WCAG 2.2.2); the choice is kept for the visit */
-document.addEventListener('click', e => {
-  const b = e.target.closest('#tapeX');
-  if (!b) return;
-  const on = b.getAttribute('aria-pressed') !== 'true';
-  b.setAttribute('aria-pressed', String(on));
-  b.textContent = on ? 'Play' : 'Pause';
-  $('#tapeW').classList.toggle('paused', on);
-});
+/* the strip moves on its own; it stops under the pointer and on keyboard focus, and it does not move on touch screens or with reduced
+   motion (WCAG 2.2.2): landing.css */
