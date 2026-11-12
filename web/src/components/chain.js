@@ -16,7 +16,7 @@ export const STR = new Set(['what_it_does', 'license', 'pricing_basis']);
 export const says = (name, f) => `${f.class === 'vendor' ? '' : `${esc(f.host)}: `}“${esc(f.quote)}”`; /* a vendor's own words need no label beside its name; another site's are named */
 /* a fact's footnote: the page it is on, opening at the quoted words; the quote and the dates show on hover and focus */
 export const checks = (name, label, f) =>
-  `<a class="ext text-xs font-normal text-subtle-foreground hover:text-foreground" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer" data-tip="${esc(`“${f.quote}” · read ${fd(f.first_read || f.verified)}${f.checked ? `, re-checked ${fd(f.checked)}` : ''}`)}">${esc(f.host)}${ic('out')}<span class="sr">: “${esc(f.quote)}”, read ${fd(f.first_read || f.verified)}</span></a>`;
+  `<a class="ext text-xs font-normal text-subtle-foreground hover:text-foreground" href="${url(textFragment(f.url, f.quote))}" target="_blank" rel="noopener noreferrer" data-note="${esc(`“${f.quote}” · read ${fd(f.first_read || f.verified)}${f.checked ? `, re-checked ${fd(f.checked)}` : ''}`)}">${esc(f.host)}${ic('out')}<span class="sr">: “${esc(f.quote)}”, read ${fd(f.first_read || f.verified)}</span></a>`;
 export const chainNow = () => CH;
 /* the fields chain-data.json's published policy lets a page show */
 export const shown = (D, m) => !D.policy || D.policy.tiers.low.includes(m) || D.policy.tiers.medium.includes(m);

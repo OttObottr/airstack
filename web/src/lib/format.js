@@ -57,7 +57,7 @@ export const ago = (iso, now) => {
   return d === 0 ? 'today' : d < 14 ? `${d}d ago` : d <= 60 ? `${Math.round(d / 7)}w ago` : `${MON[+iso.slice(5, 7) - 1]} ${iso.slice(0, 4)}`;
 };
 /* a note that shows on hover and on keyboard focus, and that a screen reader reads: `shown` stays visible, `note` is spoken and drawn as the tip */
-export const tip = (shown, note) => `<span class="tip" tabindex="0" data-tip="${esc(note)}">${shown}<span class="sr"> (${esc(note)})</span></span>`;
+export const tip = (shown, note) => `<span class="tip" tabindex="0" data-note="${esc(note)}">${shown}<span class="sr"> (${esc(note)})</span></span>`;
 export const stamp = (iso, now) => (iso ? `<time datetime="${esc(iso.slice(0, 10))}" title="${fd(iso)}">${ago(iso, now)}</time>` : '');
 /* Links that let a reader check one fact; backend/airstack/evidence.py builds the same ones for the static pages. */
 const term = s => encodeURIComponent(s).replace(/[!'()*-]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
