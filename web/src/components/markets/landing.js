@@ -2,7 +2,7 @@ import { esc, n } from '../../lib/format.js';
 import { ui } from '../../ui/recipes.js';
 import { mono } from '../avatar.js';
 import { latest, loading, sourceLine } from './scope.js';
-import { SORTS, bestSort, ensureNames, files, lastNews, nameOf, rowsOf } from './field.js';
+import { SORTS, activeSince, bestSort, ensureNames, files, nameOf, rowsOf } from './field.js';
 
 /* The Markets landing: one card per market, led by the products in it by name, ordered by how many of them announced
    something lately. Every category is reachable from "All markets", grouped by sector. */
@@ -27,10 +27,7 @@ function markets(F) {
       const rows = rowsOf(F, ps),
         k = bestSort(rows),
         ranked = rows.filter(SORTS[k].has).sort(SORTS[k].by).map(r => r.id);
-      const active = ps.filter(p => {
-        const e = lastNews(F, p);
-        return e && e.at >= since;
-      });
+      const active = ps.filter(p => activeSince(F, p, since));
       return { id, ids: ps, name: D.nodes[id].name, sector: D.nodes[D.nodes[id].parent] ? D.nodes[D.nodes[id].parent].name : '', size: ps.length, top: ranked.slice(0, 3), active: active.length };
     })
     .filter(m => m.size >= 1);

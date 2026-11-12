@@ -25,7 +25,7 @@ const item = (e, extra = '') => `<li class="flex items-start gap-3 py-2 border-b
   ${mono({ id: e.id, name: nameOf(e.id) || e.name }, 's20')}
   <div class="flex min-w-0 flex-col gap-0.5"><span class="text-sm"><a class="font-medium text-foreground hover:underline underline-offset-2" href="#app=${encodeURIComponent(e.id)}">${esc(nameOf(e.id) === e.id ? e.name : nameOf(e.id))}</a>
   <a class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(label(e))}</a></span>
-  <span class="${ui.meta}">${extra}${esc(e.kind)} · ${fd(e.at)}${e.more ? ` · and ${e.more} more that day` : ''}</span></div></li>`;
+  <span class="${ui.meta}">${extra}${esc(e.kind)} · ${fd(e.at)}${e.more ? ' · and more that day' : ''}</span></div></li>`;
 
 const list = (rows, el, empty, open) =>
   rows.length
@@ -51,8 +51,8 @@ export const changes = {
     const tagged = new Map();
     for (const e of recent.filter(bare)) tagged.set(e.id, (tagged.get(e.id) || []).concat(e));
     const also = [...tagged]
-      .sort((a, b) => b[1].length - a[1].length)
-      .map(([id, es]) => `<a class="hover:text-foreground hover:underline underline-offset-2" href="${url(es[0].url.replace(/\/tag\/[^/]+$/, ''))}" target="_blank" rel="noopener noreferrer">${esc(nameOf(id) === id ? es[0].name : nameOf(id))} (${es.length})</a>`);
+      .sort((a, b) => (a[1][0].at < b[1][0].at ? 1 : -1))
+      .map(([id, es]) => `<a class="hover:text-foreground hover:underline underline-offset-2" href="${url(es[0].url.replace(/\/tag\/[^/]+$/, ''))}" target="_blank" rel="noopener noreferrer">${esc(nameOf(id) === id ? es[0].name : nameOf(id))} ${esc(label(es[0]).replace(/^Release /, ''))}</a>`);
     const rows = recent
       .filter(e => !bare(e))
       .sort((a, b) => (a.at < b.at ? 1 : -1))
@@ -67,9 +67,9 @@ export const changes = {
     let open = false;
     const draw = () =>
       (el.innerHTML =
-        list(rows, el, also.length ? 'No announcement here says what changed; only release numbers, listed below.' : ids && ids.size ? 'None of these products announced anything on the channels we read in this window. Most makers here are not watched yet: unknown, not quiet.' : 'Nothing to show.', open) +
-        (also.length ? `<p class="${ui.panelNote}">Also released, without release notes on file yet: ${also.join(', ')}.</p>` : '') +
-        sourceLine('The makers’ own feeds, changelogs and GitHub releases, read daily', 'events.json', F.E && F.E.source && F.E.source.built_for));
+        list(rows, el, also.length ? 'No post or changelog here in this window; GitHub releases are listed below by version.' : ids && ids.size ? 'Nothing from these makers’ own channels in this window. Many makers here are not read by AirStack, so this is unknown, not quiet.' : 'Nothing to show.', open) +
+        (also.length ? `<p class="${ui.panelNote}">Also released on GitHub (version only, latest first): ${also.join(', ')}.</p>` : '') +
+        sourceLine('The makers’ own feeds, changelogs and GitHub releases, as last read; a few of each kind per product', 'events.json', F.E && F.E.source && F.E.source.built_for));
     draw();
     el.onclick = e => e.target.closest('[data-more]') && ((open = !open), draw());
   },

@@ -92,6 +92,8 @@ const announced = (F, id) => (F.byProduct.get(id) || []).filter(e => ANNOUNCE.ha
 /* the latest thing a product announced on its own channels that says what changed; and its recent releases, by count */
 export const lastNews = (F, id) => announced(F, id).find(e => !bare(e)) || null;
 export const releases = (F, id, since) => announced(F, id).filter(e => e.kind === 'release' && e.at >= since);
+/* did a product announce anything, a bare release included, since a date (events.json keeps a few per kind: a yes, not a count) */
+export const activeSince = (F, id, since) => announced(F, id).some(e => e.at >= since);
 
 const spark = views => {
   const v = (views || []).map(x => (x === null ? null : +x));
@@ -167,7 +169,7 @@ const readCell = p => {
 };
 const relLine = p =>
   p.rel.length
-    ? `<a class="${ui.meta} hover:text-foreground hover:underline underline-offset-2" href="${url(p.rel[0].url.replace(/\/tag\/[^/]+$/, ''))}" target="_blank" rel="noopener noreferrer">${p.rel.length} release${p.rel.length === 1 ? '' : 's'} in 30 days · latest ${esc(label(p.rel[0]).replace(/^Release /, ''))}</a>`
+    ? `<a class="${ui.meta} hover:text-foreground hover:underline underline-offset-2" href="${url(p.rel[0].url.replace(/\/tag\/[^/]+$/, ''))}" target="_blank" rel="noopener noreferrer">Latest release ${esc(label(p.rel[0]).replace(/^Release /, ''))} · ${fd(p.rel[0].at)}</a>`
     : '';
 const newsCell = p =>
   !p.news
@@ -227,7 +229,7 @@ export const field = {
         <tbody>${shown.map(p => row(p, cols)).join('')}</tbody></table></div>
       ${list.length > SHOW ? `<button type="button" class="${ui.button.ghost} self-start" data-more>${open ? 'Show fewer' : `Show all ${n(list.length)}`}</button>` : ''}
       ${sourceLine(
-        `Covered: GitHub stars ${covered('g', p => p.stars != null)} of ${all.length} (the tool’s own repository, current count); site reach ${covered('r', p => p.rank)} of ${all.length} (Majestic Million, CC BY 3.0, the product’s own domain among the million most-linked); Wikipedia readers ${covered('a', p => p.read != null)} (Wikimedia pageviews, CC0: attention, not adoption; a change shows only on a base of 2,000 views); latest update ${covered('n', p => p.news)} (the maker’s own feed, changelog or releases, past year); entry price ${covered('p', p => p.price)} (the maker’s pricing page as read; the lowest plan in its first listed currency).`,
+        `${F.R && F.R.source ? `Site reach: the product’s own domain among the million most-linked, <a class="underline underline-offset-2" href="${url(F.R.source.url)}" target="_blank" rel="noopener noreferrer">Majestic Million</a> (CC BY 3.0), read ${fd(F.R.source.read)}. ` : ''}Covered: GitHub stars ${covered('g', p => p.stars != null)} of ${all.length} (the tool’s own repository, current count); site reach ${covered('r', p => p.rank)} of ${all.length} ; Wikipedia readers ${covered('a', p => p.read != null)} (Wikimedia pageviews, CC0: attention, not adoption; a change shows only on a base of 2,000 views); latest update ${covered('n', p => p.news || p.rel.length)} (the maker’s own feed or changelog in the past year, else its latest GitHub release in 30 days, by version and date); entry price ${covered('p', p => p.price)} (the maker’s pricing page as read; the lowest plan in its first listed currency).`,
         'taxonomy-index.json'
       )}`;
     };
