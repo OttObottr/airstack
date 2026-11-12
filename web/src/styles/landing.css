@@ -6,6 +6,6 @@ html{scroll-padding-top:96px}
 @media (prefers-reduced-motion:reduce){.tape{overflow-x:auto}.tape-in{animation:none}}
 .foot{display:grid;grid-template-columns:minmax(240px,1.5fr) repeat(3,minmax(140px,1fr));gap:32px 48px;max-width:1248px;margin:128px auto 0;padding:40px 32px 64px;color:var(--color-ink-2);border-top:1px solid var(--color-hair);background:linear-gradient(180deg,color-mix(in oklab,var(--color-s1) 64%,transparent),transparent)}
 .foot nav{display:grid;align-content:start;gap:2px}.foot a{display:inline-flex;align-items:center;justify-self:start;min-height:36px;transition:color .15s}
-.foot-brand{display:grid;align-content:start;gap:8px;max-width:32ch}.foot-brand b{font-size:var(--text-lead);font-weight:680;letter-spacing:-.025em;color:var(--color-ink)}.foot-brand p{line-height:1.5}.foot-brand span{font-size:var(--text-meta);color:var(--color-ink-3)}
+.foot-brand{display:grid;align-content:start;gap:8px;max-width:32ch}.foot-brand b{font-size:var(--text-lead);font-weight:680;letter-spacing:-.025em;color:var(--color-ink)}.foot-brand p{line-height:1.5}.foot-brand span{font-size:var(--text-meta);color:var(--color-ink-3)}.foot-brand .bot-tag{font-size:9.5px;color:#07090B}
 @media(max-width:899px){.foot{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:80px;padding:32px 20px 48px;gap:28px}.foot-brand{grid-column:1/-1}}
 
