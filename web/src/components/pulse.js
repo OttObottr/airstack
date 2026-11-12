@@ -41,10 +41,18 @@ function headline(list) {
 /* what an event is called on screen: a bare "Release" becomes the product and its version tag; any other title leads with its product */
 const bare = e => e.title === 'Release';
 const label = e => (bare(e) && e.name && e.url ? `${e.name} ${decodeURIComponent(e.url.split('/').pop())}` : e.name && !e.title.toLowerCase().includes(e.name.toLowerCase()) ? `${e.name}: ${e.title}` : e.title);
+/* a summary is shown only when it says something the title does not: most of its words already in the title is a repeat */
+const words = s => new Set(String(s || '').toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) || []);
+const adds = (title, gist) => {
+  const t = [...words(title)], g = words(gist);
+  if (!g.size) return false;
+  const covered = t.length ? t.filter(w => g.has(w)).length / t.length : 0;
+  return !(covered >= 0.6 && g.size <= 2 * t.length); /* it restates most of the title and adds little length: a repeat */
+};
 /* one dated event: what happened (linked to its source), how it is dated and where it was read, and the product it belongs to */
 const row = e => `<li class="grid gap-1 py-2 border-b border-border last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-x-4">
       <span class="flex flex-col gap-1 min-w-0"><span class="text-sm text-foreground">${e.url ? `<a class="${LINK}" href="${url(e.url)}" target="_blank" rel="noopener noreferrer">${esc(label(e))}</a>` : esc(label(e))}</span>
-      ${e.gist ? `<span class="text-sm leading-snug text-muted-foreground"><span class="text-subtle-foreground">Summary: </span>${esc(e.gist)}</span>` : ''}${e.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${e.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
+      ${e.gist && adds(label(e), e.gist) ? `<span class="text-sm leading-snug text-muted-foreground">${esc(e.gist)}</span>` : ''}${e.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${e.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
       <span class="${ui.panelNote}">${esc(e.what || e.via)} · ${esc(when(e))} · ${e.read ? `${esc(host(e.url))}, read ${stamp(e.read, P.source.built_for)}` : esc(host(e.url || ''))}${e.note ? ` · ${esc(e.note)}` : ''}</span></span>
       ${e.id ? `<span class="flex items-center gap-2"><a class="text-xs text-muted-foreground ${LINK}" href="#app=${esc(e.id)}">${esc(e.name || e.id)}</a>${stackToggle(e.id, e.name)}</span>` : '<span></span>'}</li>`;
 

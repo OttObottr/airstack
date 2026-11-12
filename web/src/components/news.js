@@ -24,9 +24,11 @@ const day = iso => iso.slice(0, 10);
 function rows() {
   const read = N.source.read;
   const ids = scope.ids ? new Set(scope.ids) : null;
+  const top = new Set(stories().map(i => i.url)); /* a story in Top stories is not repeated in the feed below it */
   return N.items.filter(
     i =>
       on.has(i.kind) &&
+      !top.has(i.url) &&
       day(i.date) <= read &&
       (!ids || ids.has(i.id))
   );
@@ -85,7 +87,7 @@ function renderTop() {
         i => html`<li class="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
           <a class="flex items-center gap-3" href="#app=${i.id}">${raw(mono({ id: i.id, name: i.name }, 's44'))}<span class="flex flex-col"><b class="font-semibold">${i.name}</b><span class="text-xs text-muted-foreground">${SIGNAL[i.signal] || 'Update'} · ${fd(i.date.slice(0, 10))}</span></span></a>
           <a class="text-lg font-semibold leading-snug text-foreground hover:underline underline-offset-2" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.story ? i.story.headline : i.gist}</a>
-          ${i.story ? html`<p class="text-sm leading-relaxed text-muted-foreground">${i.story.summary}</p><p class="text-sm leading-relaxed"><b class="font-medium text-foreground">Why it matters:</b> <span class="text-muted-foreground">${i.story.why}</span></p>` : ''}
+          ${i.story ? html`<p class="text-sm leading-relaxed text-muted-foreground">${i.story.summary}</p>${i.story.why ? html`<p class="text-sm leading-relaxed"><b class="font-medium text-foreground">Why it matters:</b> <span class="text-muted-foreground">${i.story.why}</span></p>` : ''}` : ''}
           <span class="text-xs text-muted-foreground">From ${host(i.url)} · written by AirStack from the vendor’s page</span>
           ${i.covered.length ? html`<span class="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">Covered by ${i.covered.map(p => html`<a class="chip ext" href="${raw(url(p.url))}" target="_blank" rel="noopener noreferrer">${p.outlet}</a>`)}</span>` : ''}
         </li>`
