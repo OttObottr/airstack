@@ -79,19 +79,26 @@ function stories() {
     .slice(0, 9)
     .map(i => ({ ...i, covered: press.filter(p => p.id === i.id && Math.abs(Date.parse(p.date) - Date.parse(i.date)) <= 3 * 864e5).slice(0, 3) }));
 }
+const BTN_MORE = 'mt-3 inline-flex h-9 items-center rounded-md border border-border px-3 text-sm hover:bg-muted';
+let topAll = false,
+  TAX = null; /* taxonomy-index.json: each product's category, so a card says what kind of software it is */
+const category = id => {
+  const node = TAX && TAX.products[id] && TAX.products[id][0] && TAX.products[id][0][0];
+  return node && TAX.nodes[node] ? TAX.nodes[node].name : '';
+}; /* Top stories show three until the reader asks for more */
 function renderTop() {
-  const S = stories(), el = $('#newsTop');
+  const all = stories(), S = topAll ? all : all.slice(0, 3), el = $('#newsTop');
   if (!el) return;
   el.innerHTML = S.length
     ? String(html`<h3 class="h-section mb-3">Top stories</h3><ul class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">${S.map(
         i => html`<li class="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
-          <a class="flex items-center gap-3" href="#app=${i.id}">${raw(mono({ id: i.id, name: i.name }, 's44'))}<span class="flex flex-col"><b class="font-semibold">${i.name}</b><span class="text-xs text-muted-foreground">${SIGNAL[i.signal] || 'Update'} · ${fd(i.date.slice(0, 10))}</span></span></a>
+          <a class="flex items-center gap-3" href="#app=${i.id}">${raw(mono({ id: i.id, name: i.name }, 's44'))}<span class="flex flex-col"><b class="font-semibold">${i.name}</b><span class="text-xs text-muted-foreground">${category(i.id) ? html`<b class="font-medium text-foreground/80">${category(i.id)}</b> · ` : ''}${SIGNAL[i.signal] || 'Update'} · ${fd(i.date.slice(0, 10))}</span></span></a>
           <a class="text-lg font-semibold leading-snug text-foreground hover:underline underline-offset-2" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.story ? i.story.headline : i.gist}</a>
-          ${i.story ? html`<p class="text-sm leading-relaxed text-muted-foreground">${i.story.summary}</p>${i.story.why ? html`<p class="text-sm leading-relaxed"><b class="font-medium text-foreground">Why it matters:</b> <span class="text-muted-foreground">${i.story.why}</span></p>` : ''}` : ''}
+          ${i.story ? html`<p class="clamp3 text-sm leading-relaxed text-muted-foreground">${i.story.summary}</p>${i.story.why ? html`<p class="text-sm leading-relaxed"><b class="font-medium text-foreground">Why it matters:</b> <span class="text-muted-foreground">${i.story.why}</span></p>` : ''}` : ''}
           <span class="text-xs text-muted-foreground">From ${host(i.url)} · written by AirStack from the vendor’s page</span>
           ${i.covered.length ? html`<span class="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">Covered by ${i.covered.map(p => html`<a class="chip ext" href="${raw(url(p.url))}" target="_blank" rel="noopener noreferrer">${p.outlet}</a>`)}</span>` : ''}
         </li>`
-      )}</ul>`)
+      )}</ul>${all.length > 3 ? html`<button class="${BTN_MORE}" type="button" data-top-more>${topAll ? 'Fewer top stories' : `More top stories (${all.length - 3})`}</button>` : ''}`)
     : '';
 }
 
@@ -149,8 +156,9 @@ export function mount() {
     if (N) render();
   });
   /* the same file Home's front page reads, so it is fetched once */
-  Promise.all([json('news.json'), json('coverage.json').catch(() => null)])
-    .then(([d, c]) => {
+  Promise.all([json('news.json'), json('coverage.json').catch(() => null), json('taxonomy-index.json').catch(() => null)])
+    .then(([d, c, t]) => {
+      TAX = t;
       N = { ...d, items: [...d.items, ...PRESS(c)], press: c && c.source };
       delete sec.dataset.loading;
       $('#newsList').setAttribute('aria-busy', 'false');
@@ -163,6 +171,14 @@ export function mount() {
       $('#newsMore').hidden = true;
       $('#newsList').setAttribute('aria-busy', 'false');
       $('#newsList').innerHTML = '<li class="load-error" role="status">Check the connection and reload.</li>';
+    });
+  /* Top stories sit at the head of Home, outside this section */
+  const top = $('#topSec');
+  if (top)
+    top.addEventListener('click', e => {
+      if (!e.target.closest('[data-top-more]')) return;
+      topAll = !topAll;
+      renderTop();
     });
   sec.addEventListener('click', e => {
     const sc = e.target.closest('#newsScope [data-scope]');

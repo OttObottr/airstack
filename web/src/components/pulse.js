@@ -203,7 +203,7 @@ function paint(el, scope) {
         <div class="absolute top-0 z-10 flex w-72 max-w-full flex-col gap-1.5 rounded-md border border-border bg-popover p-3 shadow-lg pointer-events-none" role="status" hidden data-tip></div></div>
       <ul class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground" aria-label="Sectors">${P.sectors.map((s, j) => `<li class="inline-flex items-center gap-1.5">${swatch(j)}${esc(s.name)}</li>`).join('')}</ul>
       <div class="flex flex-col gap-3 border-t border-border pt-3" aria-live="polite" data-day></div>
-      <details class="inline-block"><summary class="inline-flex size-5 cursor-pointer list-none items-center justify-center rounded-full border border-border text-[11px] font-semibold leading-none text-subtle-foreground hover:text-foreground" aria-label="How the columns are counted" title="How the columns are counted">i</summary><p class="${ui.panelNote} mt-2 max-w-prose">Height: a launch, beta, general availability or major release counts ${R.release_major}; a minor release ${R.release_minor}, a patch ${R.release_patch}, a changelog entry ${R.changelog}; blog posts are not counted. Until ${fd(P.source.feeds_from)} the columns hold a dated chronology of launches; from then they add vendor release feeds and changelogs, so the latest weeks are fuller. A month-level date is spread over its month’s weeks; a year-level date is listed with its year. Columns above the ${Math.round(P.source.params.scale_quantile * 100)}th percentile week are clipped and marked ▼. Headline: the event whose product has the most English Wikipedia views, else the strongest source.</p></details></div>`;
+      <details class="inline-block"><summary class="info" aria-label="How the columns are counted" title="How the columns are counted">i</summary><p class="${ui.panelNote} mt-2 max-w-prose">Height: a launch, beta, general availability or major release counts ${R.release_major}; a minor release ${R.release_minor}, a patch ${R.release_patch}, a changelog entry ${R.changelog}; blog posts are not counted. Until ${fd(P.source.feeds_from)} the columns hold a dated chronology of launches; from then they add vendor release feeds and changelogs, so the latest weeks are fuller. A month-level date is spread over its month’s weeks; a year-level date is listed with its year. Columns above the ${Math.round(P.source.params.scale_quantile * 100)}th percentile week are clipped and marked ▼. Headline: the event whose product has the most English Wikipedia views, else the strongest source.</p></details></div>`;
     st = { box: el.querySelector('[data-box]'), scroll: el.querySelector('[data-scroll]'), svg: el.querySelector('svg'), tip: el.querySelector('[data-tip]'), detail: el.querySelector('[data-day]'), sel: null };
     state.set(el, st);
     wire(st);
@@ -239,7 +239,7 @@ export const panel = {
    own busiest week, so a quiet sector still shows its rhythm; the figures beside it are its share of everything in the last four
    weeks, and the headline of those weeks. */
 const RECENT = 4,
-  LISTED = 8;
+  LISTED = 3;
 /* one sector's items in one week: what matters most, then what we can describe, then version bumps */
 const ranked = (c, j) =>
   c.e
