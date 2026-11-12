@@ -1,5 +1,6 @@
 export const VIEWS = {
   overview: 'Home',
+  news: 'News',
   compare: 'Compare',
   markets: 'Markets',
   insights: 'Insights',

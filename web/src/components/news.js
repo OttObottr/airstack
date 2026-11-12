@@ -2,7 +2,7 @@ import { Method } from '../ui/method.js';
 import { mono } from './avatar.js';
 import { json } from '../lib/data.js';
 import { $ } from '../lib/dom.js';
-import { esc, fd, n, stamp, url } from '../lib/format.js';
+import { esc, fd, host, n, stamp, url } from '../lib/format.js';
 import { scopeControl, stackScope, stackToggle } from '../lib/scope.js';
 import { FeedDay, FeedEmpty, FeedRow } from '../ui/feed.js';
 import { html, raw } from '../ui/html.js';
@@ -55,8 +55,8 @@ function byDay(R) {
   return [...days].sort((a, b) => b[0].localeCompare(a[0])).map(([d, xs]) => [d, xs.sort(rank)]);
 }
 const KIND = k => k;
-/* coverage.json: AirStack's sentence about an outlet's headline, found through GDELT; the outlet is named beside it */
-const PRESS = C => (C && C.items ? C.items.map(i => ({ ...i, kind: 'press', title: i.gist })) : []);
+/* coverage.json: an outlet's own headline, found through GDELT; the outlet is named beside it */
+const PRESS = C => (C && C.items ? C.items.map(i => ({ ...i, kind: 'press', title: i.title || i.gist })) : []);
 const outlet = i => (i.kind === 'press' && i.outlet ? ` <span class="meta">${esc(i.outlet)}</span>` : '');
 const version = i => (i.version && i.version !== i.title ? ` <span class="meta">${esc(i.version)}</span>` : ''); /* a bare release is its version: say it once */
 const tally = xs =>
@@ -64,7 +64,36 @@ const tally = xs =>
     .map(([k, c]) => `${c} ${KIND(k)}${c > 1 ? 's' : ''}`)
     .join(', ');
 
+/* Top stories: the vendors' own announcements (blog and changelog, AirStack's sentence checked against the vendor's page), the weightiest first,
+   one per product, each with the outlets that covered the product around the same days */
+const SIGNAL = { launch: 'Launch', feature: 'New feature', pricing: 'Pricing', company: 'Company', security: 'Security', incident: 'Incident' };
+function stories() {
+  const read = Date.parse(N.source.read), seen = new Set();
+  const press = N.items.filter(i => i.kind === 'press');
+  return N.items
+    .filter(i => (i.kind === 'blog' || i.kind === 'changelog') && i.gist && (i.weight || 1) >= 2 && read - Date.parse(i.date) <= 14 * 864e5)
+    .sort((a, b) => (b.weight || 0) - (a.weight || 0) || b.date.localeCompare(a.date))
+    .filter(i => !seen.has(i.id) && seen.add(i.id))
+    .slice(0, 9)
+    .map(i => ({ ...i, covered: press.filter(p => p.id === i.id && Math.abs(Date.parse(p.date) - Date.parse(i.date)) <= 3 * 864e5).slice(0, 3) }));
+}
+function renderTop() {
+  const S = stories(), el = $('#newsTop');
+  if (!el) return;
+  el.innerHTML = S.length
+    ? String(html`<h3 class="h-section mb-3">Top stories</h3><ul class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">${S.map(
+        i => html`<li class="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
+          <a class="flex items-center gap-3" href="#app=${i.id}">${raw(mono({ id: i.id, name: i.name }, 's44'))}<span class="flex flex-col"><b class="font-semibold">${i.name}</b><span class="text-xs text-muted-foreground">${SIGNAL[i.signal] || 'Update'} · ${fd(i.date.slice(0, 10))}</span></span></a>
+          <a class="text-base leading-snug text-foreground hover:underline underline-offset-2" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist}</a>
+          <span class="text-xs text-muted-foreground">From ${host(i.url)}</span>
+          ${i.covered.length ? html`<span class="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">Covered by ${i.covered.map(p => html`<a class="chip ext" href="${raw(url(p.url))}" target="_blank" rel="noopener noreferrer">${p.outlet}</a>`)}</span>` : ''}
+        </li>`
+      )}</ul>`)
+    : '';
+}
+
 function render() {
+  renderTop();
   const all = byDay(rows()),
     groups = [];
   let left = shown;
