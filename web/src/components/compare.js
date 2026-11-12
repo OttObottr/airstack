@@ -1,4 +1,4 @@
-import { loadScale, reach, since } from '../lib/reach.js';
+import { loadScale, rankOf, reach, since } from '../lib/reach.js';
 import { METRIC, STR, chainData, checks, says, showVal } from './chain.js';
 import { kindOf, mono } from './avatar.js';
 import { listed, per } from './prices.js';
@@ -214,7 +214,9 @@ async function draw() {
   const groups = new Map();
   for (const [id, , lane] of M.index)
     if (D.entities[id]) groups.set(lane, [...(groups.get(lane) || []), id]);
-  const eg = [...groups.values()].filter(group => group.length >= 3).slice(0, 3).map(group => group.slice(0, 3));
+  /* the best-known products of each kind first: how widely linked the product's own site is (Majestic Million), unknown last */
+  const known = id => rankOf(id) ?? Infinity;
+  const eg = [...groups.values()].filter(group => group.length >= 3).slice(0, 3).map(group => [...group].sort((a, b) => known(a) - known(b)).slice(0, 3));
   out.innerHTML = !ready
     ? ids.length ? '' /* one picked: the suggestions above are the next step */ : `<div class="cmp-eg"><p class="meta">Try one</p>${eg.map(g => `<a class="btn btn-primary" href="#compare=${g.join(',')}">${esc(g.map(id => nameOf(id, D)).join(' · '))}</a>`).join('')}</div>`
     : `<div class="cmp-bar"><button class="chip" type="button" id="cmpDiff" aria-pressed="${onlyDiff && nd > 0}"${nd ? '' : ' disabled'}>Only what differs</button></div>
