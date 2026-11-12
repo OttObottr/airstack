@@ -77,6 +77,14 @@ function draw(el, P, T) {
     <details class="mt-2"><summary class="${ui.panelNote}">See as a list</summary><table class="${ui.table} mt-2"><thead><tr><th class="${ui.th}">Product</th><th class="${ui.th}">Category</th><th class="${ui.th} text-right">Updates</th><th class="${ui.th} text-right">Weight</th></tr></thead><tbody>${rects
       .map(r => `<tr><td class="${ui.td}"><a href="#app=${esc(r.id)}">${esc(r.name)}</a></td><td class="${ui.td}">${esc(cat(r.node))}</td><td class="${ui.td} text-right">${n(r.events.length)}</td><td class="${ui.td} text-right">${r.v.toFixed(2)}</td></tr>`)
       .join('')}</tbody></table></details>`;
+  /* measure each drawn label and trim it until it sits inside its block with a margin, or drop it */
+  for (const g of el.querySelectorAll('svg g[data-k]')) {
+    const t = g.querySelector('text'), room = g.querySelector('rect').getBBox().width - 16;
+    if (!t) continue;
+    let s = t.textContent;
+    while (s.length > 3 && t.getComputedTextLength() > room) t.textContent = (s = s.slice(0, -2) + '…');
+    if (t.getComputedTextLength() > room) t.remove();
+  }
   const tip = el.querySelector('[data-tip]'), svg = el.querySelector('svg');
   const show = (g, ev) => {
     const r = rects[+g.dataset.k], t = top(r);
