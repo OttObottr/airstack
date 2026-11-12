@@ -3,6 +3,7 @@ import { $ } from '../lib/dom.js';
 import { mountScoped, wire } from '../lib/scope.js';
 import { mount as mountPanel } from '../ui/panel.js';
 import { panel as pulse, sectorPanel } from './pulse.js';
+import { mount as mountMap } from './treemap.js';
 
 export function mount() {
   wire();
@@ -12,6 +13,7 @@ export function mount() {
       charts = true;
       mountScoped($('#pulsePanel'), pulse);
       mountPanel($('#sectorsHome'), sectorPanel);
+      mountMap($('#weekMap'));
     }
   });
 }

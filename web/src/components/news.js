@@ -13,10 +13,9 @@ let N = null,
   shown = FIRST;
 const KINDS = [
   ['changelog', 'Changelogs'],
-  ['release', 'Releases'],
   ['blog', 'Blogs'],
 ];
-const on = new Set(['changelog', 'release']); /* a bare version number says nothing: releases are one tap away, not the default */
+const on = new Set(['changelog', 'blog']); /* releases that say only their version are not rows: they count in Most active */ /* a bare version number says nothing: releases are one tap away, not the default */
 let scope = ALL; /* all products, or your stack */
 const day = iso => iso.slice(0, 10);
 
@@ -27,6 +26,7 @@ function rows() {
   return N.items.filter(
     i =>
       on.has(i.kind) &&
+      !bare(i) &&
       !top.has(i.url) &&
       day(i.date) <= read &&
       (!ids || ids.has(i.id))
@@ -38,8 +38,10 @@ const ORDER = {
   blog: 2,
   release: 3,
 }; /* within a day: what a vendor says changed, then discussion, then version bumps */
+/* a release that says nothing but its version: shown only folded into its product's line as a count and its latest version */
+const bare = i => i.kind === 'release' && !i.gist && !i.story && (!i.title || i.title === i.version || /^v?\d[\w.+-]*$/.test(String(i.title).trim()));
 function byDay(R) {
-  const rank = (a, b) => (b.weight || 0) - (a.weight || 0) || ORDER[a.kind] - ORDER[b.kind]; /* what matters most first */
+  const rank = (a, b) => bare(a) - bare(b) || (b.weight || 0) - (a.weight || 0) || ORDER[a.kind] - ORDER[b.kind]; /* what says something first, then what matters most */
   const by = new Map();
   for (const i of R) {
     if (!by.has(i.id)) by.set(i.id, []);
@@ -116,7 +118,9 @@ function render() {
         `<button class="chip" type="button" aria-pressed="${on.has(k)}" data-kind="${esc(k)}">${label}</button>`
     ).join('');
   $('#newsScope').innerHTML = scopeControl(scope, 'changes');
-  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${i.gist || i.title}</a>${raw(version(i))}${raw(i.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${i.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '')}`;
+  const releases = i => 1 + i.others.filter(bare).length;
+  const label = i => (i.others && bare(i) ? `${releases(i)} release${releases(i) > 1 ? 's' : ''} · latest ${i.version || i.title}` : i.gist || i.title);
+  const link = (i, cls = '') => html`<a class="ext font-normal decoration-transparent hover:decoration-border ${cls}" href="${raw(url(i.url))}" target="_blank" rel="noopener noreferrer">${label(i)}</a>${raw(bare(i) ? '' : version(i))}${raw(i.more ? `<ul class="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-sm leading-snug text-muted-foreground">${i.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '')}`;
   $('#newsList').innerHTML = String(
     groups.length
       ? html`${groups.map(([d, items]) =>
@@ -127,9 +131,9 @@ function render() {
                 who: html`<a data-who class="flex min-h-11 min-w-0 flex-1 items-center gap-2.5" href="#app=${i.id}">${raw(mono({ id: i.id, name: i.name }))}<b class="truncate font-semibold">${i.name}</b></a>`,
                 action: raw(stackToggle(i.id, i.name)),
                 title: link(i),
-                more: i.others.length && {
-                  summary: `and ${i.others.length} more · ${tally(i.others)}`,
-                  items: i.others.map(m => html`<span class="text-xs text-muted-foreground">${raw(stamp(day(m.date), N.source.read))}</span> ${link(m)} <span class="text-xs text-muted-foreground">${KIND(m.kind)}</span>`),
+                more: i.others.filter(o => !(bare(i) && bare(o))).length && {
+                  summary: `and ${i.others.filter(o => !(bare(i) && bare(o))).length} more · ${tally(i.others.filter(o => !(bare(i) && bare(o))))}`,
+                  items: i.others.filter(o => !(bare(i) && bare(o))).map(m => html`<span class="text-xs text-muted-foreground">${raw(stamp(day(m.date), N.source.read))}</span> ${link(m)} <span class="text-xs text-muted-foreground">${KIND(m.kind)}</span>`),
                 },
                 kind: KIND(i.kind),
               })
