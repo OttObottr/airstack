@@ -81,14 +81,14 @@ BROKEN = r"(document.querySelector('main') || document.body).innerText.match(/\[
 def test_primary_views_open_without_browser_errors_and_fit(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
     shown = page.locator(".nav a:visible").evaluate_all("xs => xs.map(x => x.dataset.view)")      # the rail on a desktop, the tab bar on a phone
-    assert shown == ["overview", "news", "compare", "markets", "agents"]
-    for view in ("markets", "insights", "makers", "compare", "agents", "news", "overview"):
+    assert shown == ["overview", "compare", "markets", "agents"]
+    for view in ("markets", "insights", "makers", "compare", "agents", "overview"):
         page.evaluate("view => { location.hash = view === 'overview' ? '#/' : '#/' + view }", view)
         page.wait_for_function("view => document.body.dataset.view === view", arg=view)
         assert page.evaluate(FITS), view
         page.wait_for_timeout(300)
         assert not page.evaluate(BROKEN), (view, page.evaluate(BROKEN))
-    wait(page, "document.querySelectorAll('#front [data-body] > *').length > 0")
+    wait(page, "!!document.querySelector('#topSec #newsTop')")                       # Top stories lead Home (empty when no story qualifies)
     wait(page, "document.querySelectorAll('#newsList li').length > 0")
     assert not page.evaluate(BROKEN), page.evaluate(BROKEN)
     assert page.locator('#browse header a').evaluate_all("xs => xs.map(x => x.getAttribute('href'))") == ["#/markets"]

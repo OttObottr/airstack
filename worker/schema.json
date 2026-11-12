@@ -2,7 +2,7 @@
   "maxBytes": 512,
   "query": "^[\\p{L}\\p{N} .+#&'-]{2,40}$",
   "events": {
-    "view": { "route": ["overview", "news", "compare", "markets", "insights", "makers", "agents", "product"], "ref?": "host", "size?": [0, 100] },
+    "view": { "route": ["overview", "compare", "markets", "insights", "makers", "agents", "product"], "ref?": "host", "size?": [0, 100] },
     "product": { "id": "id" },
     "compare": { "n": [1, 5] },
     "stack": { "op": ["add", "remove"], "id": "id", "size": [0, 100] },
