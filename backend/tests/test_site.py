@@ -78,7 +78,7 @@ def test_every_page_has_a_title_a_description_a_canonical_url_and_parseable_stru
     assert pages
     for f in pages[::97]:
         h = f.read_text(); slug = f.parent.name
-        assert re.search(r"<title>[^<]+ · AirStack</title>", h) and '<meta name="description" content="' in h
+        assert re.search(r"<title>[^<]+ · AirStack\.bot</title>", h) and '<meta name="description" content="' in h
         assert f'<link rel="canonical" href="https://airstack.bot/p/{slug}/">' in h
         lds = [json.loads(ld) for ld in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h)]
         crumb = next(ld for ld in lds if ld["@type"] == "BreadcrumbList")

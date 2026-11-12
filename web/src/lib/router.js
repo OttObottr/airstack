@@ -7,7 +7,7 @@ export const VIEWS = {
   agents: 'Agents',
   product: 'Product', /* one product's page: opened by #app=<id>, it has no tab */
 };
-export const TITLE = 'AirStack · See the software market move';
+export const TITLE = 'AirStack.bot · See the software market move';
 let view = null;
 
 function viewOf(hash) {

@@ -37,7 +37,7 @@ def head(title, desc, url, lds, og_title=None):
     blocks = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False).replace("<", "\\u003c")}</script>' for x in lds)
     return (f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{d}"><link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="AirStack"><meta property="og:title" content="{e(og_title or title)}"><meta property="og:description" content="{d}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}/icons/og.png"><meta property="og:image:alt" content="AirStack software market intelligence">
+<meta property="og:type" content="website"><meta property="og:site_name" content="AirStack.bot"><meta property="og:title" content="{e(og_title or title)}"><meta property="og:description" content="{d}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}/icons/og.png"><meta property="og:image:alt" content="AirStack software market intelligence">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(og_title or title)}"><meta name="twitter:description" content="{d}"><meta name="twitter:image" content="{BASE}/icons/og.png"><link rel="alternate" type="application/atom+xml" href="/changes.atom"><link rel="icon" href="/icons/icon-192.png">
 {blocks}
 {STYLE}</head>

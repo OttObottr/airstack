@@ -52,7 +52,7 @@ def maker_lists(keep, made):
     top = [kv for kv in by_size if ranked(*kv)][:100]                      # businesses with a headcount dated 2015 or later, one per website
     every = "".join(f'<li><a href="/o/{ORGS[q]}/">{e(r[0])}</a>{f" <small>{e(r[2])}</small>" if r[2] else ""}</li>' for q, r in sorted(keep.items(), key=lambda kv: kv[1][0].lower()))
     body = f"<h2>Largest businesses by headcount</h2>{maker_table(top, made, bad)}<h2>Most products listed</h2>{maker_table(by_count[:50], made, bad)}<h2>By country</h2><ul>{idx}</ul><h2>Every maker A–Z</h2><ul>{every}</ul>"
-    (out / "index.html").write_text(list_page(f"{BASE}/o/", "Software makers: the largest, by headcount and products · AirStack", "Software makers",
+    (out / "index.html").write_text(list_page(f"{BASE}/o/", "Software makers: the largest, by headcount and products · AirStack.bot", "Software makers",
         f"{len(keep):,} organizations that make software listed on AirStack, in {len(countries)} countries, ranked by headcount as Wikidata records it and by products listed.", body, top))
     urls.append(f"{BASE}/o/")
     seen.clear(); order = {q: i for i, (q, r) in enumerate(kv for kv in by_size if ranked(*kv))}          # the same ranking the hub shows, for the app's Makers view
@@ -67,7 +67,7 @@ def maker_lists(keep, made):
         rest = sorted((kv for kv in v if kv[0] not in ids), key=lambda kv: kv[1][0].lower()); rows = first + rest
         body = (f"<h2>Largest businesses by headcount</h2>{maker_table(first, made, bad)}" if first else "") + (f"<h2>Every other maker, A to Z</h2>{maker_table(rest, made, bad, rank=False)}" if rest else "")
         d = out / "in" / slug(c); d.mkdir(parents=True, exist_ok=True)
-        d.joinpath("index.html").write_text(list_page(f"{BASE}/o/in/{slug(c)}/", f"Software makers in {c} · AirStack", f"Software makers in {c}",
+        d.joinpath("index.html").write_text(list_page(f"{BASE}/o/in/{slug(c)}/", f"Software makers in {c} · AirStack.bot", f"Software makers in {c}",
             f"{len(v):,} organizations in {c} that make software listed on AirStack: businesses ranked by headcount as Wikidata dates it (2015 or later), then every other maker A to Z.", body, rows))
         urls.append(f"{BASE}/o/in/{slug(c)}/")
     return urls

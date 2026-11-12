@@ -48,7 +48,7 @@ def org_page(qid, row, made, all_, community, duplicate=False):
     domain = re.sub(r"^www\.", "", re.sub(r"^https?://", "", site or "").split("/", 1)[0])
     detail = domain or (f"founded {founded}" if founded else kind)
     qualifier = f" ({detail})" if duplicate else ""
-    title = f"{name}{qualifier}{' in ' + country if country else ''}: products, size and community · AirStack"
+    title = f"{name}{qualifier}{' in ' + country if country else ''}: products, size and community · AirStack.bot"
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Software makers", "/o/"), (name, None)))
     return head(title, desc, url, (ld, crumb)) + f"""<body><main>{nav}
 <h1>{e(name)}</h1>

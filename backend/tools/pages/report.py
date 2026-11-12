@@ -10,7 +10,7 @@ def write(name, title, lead, body, ld):
     url = f"{BASE}/{name}/"; out = paths.PAGE_DIRS[name]
     shutil.rmtree(out, ignore_errors=True); out.mkdir()
     nav, crumb = breadcrumbs((("AirStack", "/"), (title, None)))
-    out.joinpath("index.html").write_text(head(f"{title} · AirStack", lead, url, (ld | {"url": url}, crumb)) + f"<body><main>{nav}<h1>{e(title)}</h1><p class=\"lead\">{e(lead)}</p>{body}{foot()}</main></body></html>\n")
+    out.joinpath("index.html").write_text(head(f"{title} · AirStack.bot", lead, url, (ld | {"url": url}, crumb)) + f"<body><main>{nav}<h1>{e(title)}</h1><p class=\"lead\">{e(lead)}</p>{body}{foot()}</main></body></html>\n")
     return url
 
 

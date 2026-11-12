@@ -35,7 +35,7 @@ def compare_page(a, b, prices, cat):
     table = "".join(f"<tr><th>{e(ln)}</th><td>{x}</td><td>{y}</td></tr>" for ln, x, y in rows)
     diff = differences(a, b)
     desc = f"{a['name']} vs {b['name']}, from each product’s own pages: " + (diff[0] if diff else "plans, platforms and integrations, side by side.")
-    title = f"{a['name']} vs {b['name']}: plans, prices and features compared · AirStack"
+    title = f"{a['name']} vs {b['name']}: plans, prices and features compared · AirStack.bot"
     ld = {"@context": "https://schema.org", "@type": "WebPage", "name": f"{a['name']} vs {b['name']}", "url": url, "description": desc[:300],
           "about": [{"@type": "SoftwareApplication", "name": x["name"], "url": f"{BASE}/p/{x['slug']}/", "applicationCategory": x["category"]} for x in (a, b)]}
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Categories", "/c/"), (cat, f'/c/{a["lane"]}/'), (f"{a['name']} vs {b['name']}", None)))
@@ -73,7 +73,7 @@ def compare_hub(out, named):
     url, lead = f"{BASE}/compare/", "Pick 2 to 5 products and see what each one’s own pages state, side by side, with the page and the day each fact was found."
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Compare software", None)))
     pairs = "".join(f'<li><a href="/compare/{e(s)}/">{e(label)}</a></li>' for s, label in sorted(named, key=lambda x: x[1].lower()))
-    page = head("Compare software · AirStack", lead, url, ({"@context": "https://schema.org", "@type": "WebPage", "name": "Compare software", "url": url, "description": lead}, crumb))
+    page = head("Compare software · AirStack.bot", lead, url, ({"@context": "https://schema.org", "@type": "WebPage", "name": "Compare software", "url": url, "description": lead}, crumb))
     page = page.replace("</head>", '<meta http-equiv="refresh" content="0; url=/#/compare"></head>', 1)
     out.mkdir(parents=True, exist_ok=True)
     out.joinpath("index.html").write_text(page + f'<body><main>{nav}<h1>Compare software</h1><p class="lead">{e(lead)}</p><a class="cta" href="/#/compare">Open the comparison</a>'

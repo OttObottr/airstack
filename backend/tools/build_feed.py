@@ -146,7 +146,7 @@ def open_page(releases):
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Open data", None)))
     fields = "".join(f"<li><code>{x}</code></li>" for x in OPEN_FIELDS)
     rows = "".join(f'<tr><td><a href="{e(n)}">{e(n)}</a></td><td>{len(ls):,}</td><td>{len({json.loads(line)["id"] for line in ls}):,}</td></tr>' for n, ls in sorted(releases.items(), reverse=True))
-    return (head("Open software market data · AirStack", lead, url, (ld, crumb)) + f"""<body><main>{nav}<h1>AirStack open data</h1><p class="lead">{e(lead)}</p>
+    return (head("Open software market data · AirStack.bot", lead, url, (ld, crumb)) + f"""<body><main>{nav}<h1>AirStack open data</h1><p class="lead">{e(lead)}</p>
 <p>Each line contains a short source quote, the normalized fact it supports, its source URL, and the day AirStack read it.</p>
 <h2>Downloads</h2><table><tr><th>Release</th><th>Facts</th><th>Products</th></tr>{rows}</table>
 <h2>Fields</h2><ul>{fields}</ul>

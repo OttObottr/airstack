@@ -26,7 +26,7 @@ def tax_page(nid, kids, members, direct, all_, names, descs, researched, total, 
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": n["name"], "url": url, "description": desc[:300],
           **({"mainEntity": {"@type": "ItemList", "numberOfItems": len(schema_rows), "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": names[pid],
                          "url": f"{BASE}/p/{all_[pid]['slug']}/"} for i, pid in enumerate(schema_rows)]}} if schema_rows else {})}
-    title = f"{n['name']} software: what is listed, and what it says it does · AirStack"
+    title = f"{n['name']} software: what is listed, and what it says it does · AirStack.bot"
     return head(title, desc, url, (ld, crumb)) + f"""<body><main>{nav}
 <h1>{e(n['name'])}</h1><p class="lead">{e(n['definition'])}</p>
 {f'<p><small>Includes: {e(n["includes"])}</small></p>' if n.get('includes') else ''}
@@ -70,7 +70,7 @@ def taxonomy_pages(all_):
     desc = f"Browse {placed:,} software products by what they do across {len([d for d in kids[None] if kids_members[d]])} top-level areas, each with its definition, subcategories and products."
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software types", "url": f"{BASE}/t/", "description": desc}
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Software types", None)))
-    (out / "index.html").write_text(head("Software types: every category, with its products · AirStack", desc, f"{BASE}/t/", (ld, crumb), og_title="Software types · AirStack") + f"""<body><main>{nav}
+    (out / "index.html").write_text(head("Software types: every category, with its products · AirStack.bot", desc, f"{BASE}/t/", (ld, crumb), og_title="Software types · AirStack.bot") + f"""<body><main>{nav}
 <h1>Software types</h1><p class="lead">{e(desc)}</p>
 <ul>{doms}</ul>
 <p><small>{placed:,} of {total:,} listed products are placed in a category. The other {total - placed:,} are named only generically (for example “application software” or “program”) and carry no category yet; AirStack does not guess.</small></p>

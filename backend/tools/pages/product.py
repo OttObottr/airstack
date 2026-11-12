@@ -17,7 +17,7 @@ def page(p, all_, prices, oss):
     P, Q = p["profile"] or {}, prices.get(p["id"])
     what = P.get("what_it_does", {}).get("value") if P.get("what_it_does") else p.get("description")
     peers = [] if p["lane"] == "directory" else sorted((x for x in all_.values() if x["lane"] == p["lane"] and x["id"] != p["id"] and x["profile"]), key=lambda x: -x["profile"]["facts"])[:10]
-    title = f"{p['name']}: {'pricing, plans and ' if Q else ''}{'alternatives' if peers else 'what it does'} · AirStack"
+    title = f"{p['name']}: {'pricing, plans and ' if Q else ''}{'alternatives' if peers else 'what it does'} · AirStack.bot"
     desc = f"{p['name']}: " + (f"{what} " if what else "") + ("Its plans and list prices as its pricing page lists them, with the date. " if Q else "") \
         + (f"Compare {p['name']} with {len(peers)} alternatives in {p['category']}, with facts quoted from product pages." if peers else "Facts quoted from its pages, with sources.")
     url = f"{BASE}/p/{p['slug']}/"
@@ -65,7 +65,7 @@ def product_directory(all_):
         ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": f"Software products: {key.upper()}", "url": url, "description": lead,
               "mainEntity": {"@type": "ItemList", "numberOfItems": len(rows), "itemListElement": [{"@type": "ListItem", "position": i, "name": p["name"], "url": f"{BASE}/p/{p['slug']}/"} for i, p in enumerate(rows, 1)]}}
         links = "".join(f'<li><a href="/p/{e(p["slug"])}/">{e(p["name"])}</a> <small>{e(p["category"])}</small></li>' for p in rows)
-        d.joinpath("index.html").write_text(head(f"Software products beginning with {key.upper()} · AirStack", lead, url, (ld, crumb)) + f"<body><main>{nav}<h1>Software products: {e(key.upper())}</h1><p class=\"lead\">{e(lead)}</p><ul>{links}</ul>{foot()}</main></body></html>\n")
+        d.joinpath("index.html").write_text(head(f"Software products beginning with {key.upper()} · AirStack.bot", lead, url, (ld, crumb)) + f"<body><main>{nav}<h1>Software products: {e(key.upper())}</h1><p class=\"lead\">{e(lead)}</p><ul>{links}</ul>{foot()}</main></body></html>\n")
         urls.append(url)
     url = f"{BASE}/p/"; lead = f"Browse {sum(map(len, groups.values())):,} researched software products by name."
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Products", None)))
@@ -73,5 +73,5 @@ def product_directory(all_):
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software products", "url": url, "description": lead,
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": [{"@type": "ListItem", "position": i, "name": key.upper(), "url": f"{BASE}/p/by/{key}/"} for i, (key, _) in enumerate(items, 1)]}}
     links = "".join(f'<li><a href="/p/by/{e(key)}/">{e(key.upper())}</a> <small>{len(rows):,}</small></li>' for key, rows in items)
-    paths.PAGE_DIRS["p"].joinpath("index.html").write_text(head("Software products A–Z · AirStack", lead, url, (ld, crumb)) + f"<body><main>{nav}<h1>Software products A–Z</h1><p class=\"lead\">{e(lead)}</p><ul>{links}</ul>{foot()}</main></body></html>\n")
+    paths.PAGE_DIRS["p"].joinpath("index.html").write_text(head("Software products A–Z · AirStack.bot", lead, url, (ld, crumb)) + f"<body><main>{nav}<h1>Software products A–Z</h1><p class=\"lead\">{e(lead)}</p><ul>{links}</ul>{foot()}</main></body></html>\n")
     return [url] + urls

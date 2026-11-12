@@ -19,7 +19,7 @@ def cat_page(cid, name, items, prices, oss, guide, guide_source, ins, kpis):
             + ".").strip()
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": name, "url": url, "description": desc[:300],
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{BASE}/p/{x['slug']}/", "name": x["name"]} for i, x in enumerate(items)]}}
-    title = f"{name}: products and prices{' with open-source alternatives' if vetted else ''} · AirStack"
+    title = f"{name}: products and prices{' with open-source alternatives' if vetted else ''} · AirStack.bot"
     nav, crumb = breadcrumbs((("AirStack", "/"), ("Categories", "/c/"), (name, None)))
     li = lambda xs: "".join(f"<li>{e(v)}</li>" for v in xs)
     def candidate(r):
@@ -58,5 +58,5 @@ def cat_pages(all_, prices, oss):
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Software categories", "url": url, "description": lead,
           "mainEntity": {"@type": "ItemList", "numberOfItems": len(made), "itemListElement": [{"@type": "ListItem", "position": i, "name": name, "url": f"{BASE}/c/{cid}/"} for i, (cid, name, _) in enumerate(made, 1)]}}
     links = "".join(f'<li><a href="/c/{e(cid)}/">{e(name)}</a> <small>{n:,} researched products</small></li>' for cid, name, n in made)
-    out.mkdir(exist_ok=True); out.joinpath("index.html").write_text(head("Software categories · AirStack", lead, url, (ld, crumb)) + f"<body><main>{nav}<h1>Software categories</h1><p class=\"lead\">{e(lead)}</p><ul>{links}</ul>{foot()}</main></body></html>\n")
+    out.mkdir(exist_ok=True); out.joinpath("index.html").write_text(head("Software categories · AirStack.bot", lead, url, (ld, crumb)) + f"<body><main>{nav}<h1>Software categories</h1><p class=\"lead\">{e(lead)}</p><ul>{links}</ul>{foot()}</main></body></html>\n")
     return [url] + urls
