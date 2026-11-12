@@ -34,7 +34,7 @@ def page(p, all_, prices, oss):
     price_rows = "".join(f'<tr><th>{e(q["plan"])}</th><td>{e(q["price"])} <small>{"per user " if q["unit"] == "user" else ""}{"/ month" if q["period"] == "month" else "/ year" if q["period"] == "year" else ""}'
                          f'<br>The pricing page says: <q>{e(q["quote"])}</q></small></td></tr>' for q in (Q or {}).get("plans", []))
     alt = "".join(f'<li><a href="/p/{e(x["slug"])}/">{e(x["name"])}</a></li>' for x in peers)
-    os_ = "".join(f'<li><a href="{e(r["url"])}" rel="nofollow noopener">{e(r["repo"])}</a> <small>★ {r["stars"]:,} · {e(r["license"] or "licence not stated")}</small></li>'
+    os_ = "".join(f'<li><a href="{e(r["url"])}" rel="nofollow noopener">{e(r["repo"].split("/")[-1])}</a> <small>★ {r["stars"]:,} · {e(r["license"] or "licence not stated")}</small></li>'
                   for r in (oss.get("categories", {}).get(p["lane"]) or [])[:6])
     checked = max([c.get("checked", "") for c in P.values() if isinstance(c, dict)] + [""])
     return head(title, desc, url, (ld, crumbs)) + f"""<body><main>{nav}
