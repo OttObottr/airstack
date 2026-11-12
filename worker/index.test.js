@@ -4,7 +4,7 @@ import test from 'node:test';
 import { browser, check, device, key, make, os } from './index.js';
 
 const DDL = `CREATE TABLE salt(day TEXT PRIMARY KEY, v TEXT NOT NULL);
-CREATE TABLE uniq(day TEXT, k TEXT, n INTEGER, PRIMARY KEY(day, k)) WITHOUT ROWID;
+CREATE TABLE uniq(day TEXT, k TEXT, n INTEGER, h INTEGER NOT NULL DEFAULT 0, a INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(day, k)) WITHOUT ROWID;
 CREATE TABLE agg(day TEXT, dim TEXT, key TEXT, n INTEGER, PRIMARY KEY(day, dim, key)) WITHOUT ROWID;
 CREATE TABLE search(day TEXT, q TEXT, found INTEGER, k TEXT, PRIMARY KEY(day, q, k)) WITHOUT ROWID;`;
 const LIMITS = { keyHex: 16, dayCap: 1e9, perDay: 5, perMinute: 3, rejectFlush: 1000, idsTtl: 60, sizes: [1, 2, 3, 5, 10, 20], steps: { lcp: 100, inp: 10, cls: 10 }, caps: { lcp: 10000, inp: 2000, cls: 1000 } };
@@ -106,6 +106,26 @@ test('an accepted view counts a visitor once and stores no address or user agent
   assert.equal(e.DB.sql.prepare('SELECT q FROM search').get().q, 'vector db');
   const dump = JSON.stringify(['salt', 'uniq', 'agg', 'search'].map(x => e.DB.sql.prepare(`SELECT * FROM ${x}`).all()));
   assert.ok(!dump.includes('192.0.2.1') && !dump.includes('Mozilla') && !dump.includes('Chrome/'));
+});
+
+test('a key counts once as interacted or automated, by its country, and never twice', async t => {
+  const e = env(),
+    w = make({ ...LIMITS, perMinute: 50, perDay: 50 });
+  t.mock.timers.enable({ apis: ['Date'], now: Date.parse('2026-11-08T10:00:00Z') });
+  const de = { cf: { country: 'DE' } },
+    at = (body, o) => Object.assign(post(body, o), {});
+  /* person one: views, then interacts twice; person two: views and never interacts; person three: a driven browser */
+  for (const b of [{ t: 'view', route: 'overview' }, { t: 'seen' }, { t: 'seen' }]) await w.fetch(Object.defineProperty(at(b), 'cf', { value: de.cf }), e, ctx);
+  await w.fetch(post({ t: 'view', route: 'overview' }, { ip: '192.0.2.2' }), e, ctx);
+  await w.fetch(post({ t: 'view', route: 'overview', auto: 1 }, { ip: '192.0.2.3' }), e, ctx);
+  await w.fetch(post({ t: 'view', route: 'compare', auto: 1 }, { ip: '192.0.2.3' }), e, ctx);
+  assert.deepEqual(rows(e.DB, 'visitors'), { all: 3 });
+  assert.deepEqual(rows(e.DB, 'visitors_human'), { all: 1 });
+  assert.deepEqual(rows(e.DB, 'country_human'), { DE: 1 });
+  assert.deepEqual(rows(e.DB, 'visitors_auto'), { all: 1 });
+  assert.deepEqual(rows(e.DB, 'country_auto'), { XX: 1 });
+  assert.equal(check('{"t":"seen","x":1}'), 'field');
+  assert.equal(check('{"t":"view","route":"compare","auto":2}'), 'value');
 });
 
 test('a new day makes a new salt, so the same visitor gets an unlinkable key', async t => {

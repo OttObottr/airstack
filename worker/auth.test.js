@@ -39,6 +39,10 @@ test('an emailed code signs a new person in once, and their stack is theirs', as
   const me = await (await call('/api/me')).json();
   assert.deepEqual(me.methods, ['email']);
   assert.deepEqual(me.stack.map(x => x.id), ['notion']);
+  await call('/api/me');
+  const daily = Object.fromEntries(env.USERS.sql.prepare('SELECT metric, n FROM daily').all().map(r => [r.metric, r.n]));
+  assert.deepEqual(daily, { signups: 1, signins: 1, active: 1 }); /* two signed-in page loads, one person: active once */
+  assert.ok(!JSON.stringify(env.USERS.sql.prepare('SELECT * FROM seen_day').all()).includes('ada')); /* the mark names no one */
   const stored = JSON.stringify(env.USERS.sql.prepare('SELECT * FROM verification').all()) + JSON.stringify(env.USERS.sql.prepare('SELECT token FROM session').all());
   assert.ok(!stored.includes(c)); /* neither the code nor the cookie is stored as is */
 });

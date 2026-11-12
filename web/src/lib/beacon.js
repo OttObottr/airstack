@@ -8,6 +8,8 @@ const CLICKS = [
   ['a[href="/open-data/"]', 'export', { what: 'open_data' }],
 ];
 
+const SEEN = ['pointerdown', 'keydown', 'touchstart', 'wheel'];
+
 export const quiet = () => navigator.globalPrivacyControl === true || navigator.doNotTrack === '1' || globalThis.doNotTrack === '1';
 
 export function send(t, f = {}) {
@@ -32,6 +34,7 @@ export function mount(size = () => 0) {
     const f = { route };
     if (first) {
       first = false;
+      if (navigator.webdriver === true) f.auto = 1; /* the browser reports it is driven by software */
       f.size = Math.min(size(), 100);
       try {
         const r = new URL(document.referrer).hostname.toLowerCase().replace(/^www\./, '');
@@ -40,6 +43,12 @@ export function mount(size = () => 0) {
     }
     send('view', f);
   });
+  /* once per page load: the first real scroll, click, key or touch, so the daily count can tell people from pages nobody used */
+  const seen = () => {
+    for (const t of SEEN) removeEventListener(t, seen, true);
+    send('seen');
+  };
+  for (const t of SEEN) addEventListener(t, seen, { capture: true, passive: true });
   document.addEventListener('click', e => {
     const hit = e.target.closest && CLICKS.find(([s]) => e.target.closest(s));
     if (hit) send(hit[1], hit[2]);

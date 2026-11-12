@@ -32,9 +32,9 @@ PY
 total=0
 while IFS= read -r name; do
   mkdir -p "$(dirname "$stage/$name")"
-  curl -fsSL -A "$ua" --max-redirs 2 --proto-redir =https --compressed --max-time 120 --max-filesize 20000000 "$base/$name" -o "$stage/$name"
+  curl -fsSL -A "$ua" --max-redirs 2 --proto-redir =https --compressed --max-time 120 --max-filesize 24000000 "$base/$name" -o "$stage/$name"
   size=$(wc -c < "$stage/$name" | tr -d ' ')
-  [ "$size" -le 20000000 ] || { echo "refused published data: $name exceeds 20000000 bytes" >&2; exit 1; }
+  [ "$size" -le 24000000 ] || { echo "refused published data: $name exceeds 24000000 bytes" >&2; exit 1; }
   total=$((total + size))
   [ "$total" -le 64000000 ] || { echo "refused published data: snapshot exceeds 64000000 bytes" >&2; exit 1; }
 done < "$stage/files.txt"

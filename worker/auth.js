@@ -69,9 +69,14 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
   /* count one unit of `name` in this period: the new count, or null once the cap is reached (read and written in one statement) */
   const spend = (db, name, period, cap) =>
     db.prepare('INSERT INTO quota(name, period, n) VALUES (?, ?, 1) ON CONFLICT(name, period) DO UPDATE SET n = n + 1 WHERE n < ? RETURNING n').bind(name, period, cap).first('n');
-  /* codes older than 15 minutes and counters from past days (or months) go */
+  /* the daily totals the admin dashboard reads: counts only, never a person */
+  const tally = (db, metric, today) =>
+    db.prepare('INSERT INTO daily(day, metric, n) VALUES (?, ?, 1) ON CONFLICT(day, metric) DO UPDATE SET n = n + 1').bind(today, metric);
+  /* codes older than 15 minutes, counters and signed-in-day marks from past days (or months), and totals past 13 months go */
   const sweep = (db, now, today) =>
     db.batch([
+      db.prepare('DELETE FROM seen_day WHERE day < ?').bind(today),
+      db.prepare('DELETE FROM daily WHERE day < ?').bind(iso(now - 396 * DAY).slice(0, 10)),
       db.prepare('DELETE FROM verification WHERE createdAt < ?').bind(iso(now - 15 * 60e3)),
       db.prepare('DELETE FROM quota WHERE length(period) = 10 AND period < ?').bind(today),
       db.prepare('DELETE FROM quota WHERE length(period) = 7 AND period < ?').bind(today.slice(0, 7)),
@@ -101,12 +106,16 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
       .prepare('INSERT INTO session(id, expiresAt, token, createdAt, updatedAt, ipAddress, userAgent, userId) VALUES (?, ?, ?, ?, ?, NULL, NULL, ?)')
       .bind(rand(16), iso(now + L.sessionDays * DAY), await sha(t), at, at, userId)
       .run();
+    await tally(db, 'signins', at.slice(0, 10)).run();
     return setCookie(COOKIE, t, L.sessionDays * 86400);
   }
   async function newUser(db, email, name, now) {
     const id = rand(16),
       at = iso(now);
-    await db.prepare('INSERT INTO "user"(id, name, email, emailVerified, image, createdAt, updatedAt) VALUES (?, ?, ?, 1, NULL, ?, ?)').bind(id, name || email, email, at, at).run();
+    await db.batch([
+      db.prepare('INSERT INTO "user"(id, name, email, emailVerified, image, createdAt, updatedAt) VALUES (?, ?, ?, 1, NULL, ?, ?)').bind(id, name || email, email, at, at),
+      tally(db, 'signups', at.slice(0, 10)),
+    ]);
     return id;
   }
   const addAccount = (db, userId, providerId, accountId, now) =>
@@ -163,6 +172,9 @@ export function make(limits, fetcher = (...a) => fetch(...a)) {
     if (p === '/api/me') {
       const me = await session(req, db, now);
       if (!me) return json({ user: null, enabled: true, ways });
+      /* a signed-in page load marks the day once per person; the mark is a keyed hash of the account and the day */
+      const k = (await hmac(env.AUTH_SECRET, `day|${today}|${me.userId}`)).slice(0, 32);
+      if (await db.prepare('INSERT OR IGNORE INTO seen_day(day, k) VALUES (?, ?) RETURNING k').bind(today, k).first('k')) await tally(db, 'active', today).run();
       const [methods, stack] = await Promise.all([
         db.prepare('SELECT providerId FROM account WHERE userId = ? ORDER BY createdAt').bind(me.userId).all(),
         db.prepare('SELECT productId AS id, name, addedAt AS added FROM stack WHERE userId = ? ORDER BY addedAt, productId').bind(me.userId).all(),

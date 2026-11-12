@@ -11,7 +11,7 @@ def test_the_privacy_notice_lists_exactly_the_fields_the_site_sends():
     schema = json.loads((ROOT / "worker" / "schema.json").read_text())["events"]
     sent = {t: sorted(k.rstrip("?") for k in f) for t, f in schema.items()}
     page = (ROOT / "web" / "public" / "legal" / "index.html").read_text()
-    listed = {t: sorted(f.split()) for t, f in re.findall(r'data-event="(\w+)" data-fields="([\w ]+)"', page)}
+    listed = {t: sorted(f.split()) for t, f in re.findall(r'data-event="(\w+)" data-fields="([\w ]*)"', page)}
     assert listed == sent
 
 

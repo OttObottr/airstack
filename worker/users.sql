@@ -66,3 +66,17 @@ CREATE TABLE IF NOT EXISTS quota (
   n      INTEGER NOT NULL,
   PRIMARY KEY (name, period)
 ) WITHOUT ROWID;
+
+-- Daily use, as counts: 'active' (people signed in that day), 'signins', 'signups'. A signed-in day is marked in seen_day by a
+-- keyed hash of the account and the day, so each person counts once a day; those marks are deleted once the day ends.
+CREATE TABLE IF NOT EXISTS seen_day (
+  day TEXT NOT NULL,
+  k   TEXT NOT NULL,
+  PRIMARY KEY (day, k)
+) WITHOUT ROWID;
+CREATE TABLE IF NOT EXISTS daily (
+  day    TEXT NOT NULL,
+  metric TEXT NOT NULL,
+  n      INTEGER NOT NULL,
+  PRIMARY KEY (day, metric)
+) WITHOUT ROWID;

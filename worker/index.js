@@ -132,13 +132,20 @@ export function make(L) {
 
     const map = e.t === 'product' || e.t === 'stack' ? await ids(env, url, now) : null,
       id = map && (map.has(e.id) ? e.id : '(other)'),
+      raw = (request.cf && request.cf.country) || '',
+      cc = /^[A-Z][A-Z0-9]$/.test(raw) ? raw : 'XX',
       w = [up(db, d, 'events', 'all')];
+    /* a key's class is set at most once a day: interacted (a real scroll, click, key or touch on the page) or automated (the
+       browser says it is driven by software); a key with neither ran the page without interacting */
+    const mark = col => db.prepare(`UPDATE uniq SET ${col} = 1 WHERE day = ? AND k = ? AND ${col} = 0 RETURNING k`).bind(d, k).first('k');
     if (n === 1) {
-      const cc = (request.cf && request.cf.country) || '';
-      w.push(up(db, d, 'visitors', 'all'), up(db, d, 'country', /^[A-Z][A-Z0-9]$/.test(cc) ? cc : 'XX'));
+      w.push(up(db, d, 'visitors', 'all'), up(db, d, 'country', cc));
       w.push(up(db, d, 'device', device(ua)), up(db, d, 'browser', browser(ua)), up(db, d, 'os', os(ua)));
     }
-    if (e.t === 'view') {
+    if (e.t === 'seen') {
+      if (await mark('h')) w.push(up(db, d, 'visitors_human', 'all'), up(db, d, 'country_human', cc));
+    } else if (e.t === 'view') {
+      if (e.auto && (await mark('a'))) w.push(up(db, d, 'visitors_auto', 'all'), up(db, d, 'country_auto', cc));
       w.push(up(db, d, 'view', e.route));
       if (e.ref) w.push(up(db, d, 'ref', e.ref));
       if (e.size !== undefined && n === 1) w.push(up(db, d, 'stack_size', sizeBucket(e.size, L.sizes)));
