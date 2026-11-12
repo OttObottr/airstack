@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from airstack.files import read_json
 
 MAX_FILES = 128
-MAX_FILE_BYTES = 20_000_000
+MAX_FILE_BYTES = 24_000_000   # under Cloudflare's 25 MiB per-file asset limit; chain-data.json is near it and is to be split by category
 MAX_TOTAL_BYTES = 64_000_000
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 POLICY = read_json(ROOT / "config" / "published-files.json")
