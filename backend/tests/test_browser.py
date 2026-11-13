@@ -121,7 +121,14 @@ def test_stack_stays_local_and_starts_a_comparison(chrome, app_url):
 @pytest.mark.parametrize("width", [1280, 390])
 def test_signal_tiles_fit_and_share_row_baselines(chrome, app_url, width):
     context, page, errors = open_app(chrome, app_url, width)
-    page.locator("#trend [data-pick]").first.click()
+    # the first product in Most active that has market signals (registry-tracked tools do; a catalog-only product has none)
+    wait(page, "!!(window.AIRSTACK_MARKET && window.AIRSTACK_MARKET.movers && document.querySelector('#trend [data-pick]'))")
+    pick = page.evaluate("""(() => { const ids = new Set(window.AIRSTACK_MARKET.movers.rows.map(r => r.id));
+      return [...document.querySelectorAll('#trend [data-pick]')].map(b => b.dataset.pick).find(id => ids.has(id)) || null; })()""")
+    if pick:
+        page.locator(f'#trend [data-pick="{pick}"]').first.click()
+    else:
+        page.evaluate("location.hash = '#app=' + window.AIRSTACK_MARKET.movers.rows[0].id")
     page.wait_for_selector("#sigs [data-tile]")
     assert page.locator("#sigs [data-tile]").evaluate_all(
         "tiles => tiles.every(tile => tile.scrollWidth <= tile.clientWidth && [...tile.children].every(child => child.getBoundingClientRect().right <= tile.getBoundingClientRect().right + 1))"
@@ -218,6 +225,8 @@ def test_markets_landing_names_products_and_a_picked_market_shows_its_field(chro
     wait(page, "document.querySelector('[data-panel=\"field\"] tbody tr') !== null")
     first = page.locator('[data-panel="field"] tbody tr td:first-child').first.inner_text().strip()
     assert first and not re.fullmatch(r"Q\d+", first)
+    if page.locator('[data-panel="field"] [data-more]').count():
+        page.locator('[data-panel="field"] [data-more]').click()      # every row, so a column is judged on the whole field
     # every column shown covers at least one product: no column of dashes
     assert page.evaluate("""(() => { const t = document.querySelector('[data-panel="field"] table'); const n = t.tHead.rows[0].cells.length;
         return [...Array(n).keys()].slice(1).every(i => [...t.tBodies[0].rows].some(r => !/^—/.test(r.cells[i].innerText.trim()))); })()""")
