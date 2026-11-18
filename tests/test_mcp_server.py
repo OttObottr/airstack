@@ -65,6 +65,7 @@ class Server(unittest.TestCase):
         self.assertEqual([r["id"] for r in self.call("search_products", query="acmedocs")[0]["results"]], ["acme"])
         hits = self.call("search_products", query="a")
         self.assertTrue(hits[1])  # one letter is too short to search
+        self.assertFalse(self.call("search_products", query="a b")[1])  # two short words are a query, not an error
         self.assertEqual(
             self.call("search_products", query="Acme Docs")[0]["results"][0],
             {"id": "acme", "name": "Acme Docs", "category": "docs", "researched": True},
