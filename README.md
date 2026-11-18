@@ -18,7 +18,14 @@ Add it to your MCP client, with the folder's full path:
 Tools: `search_products`, `get_product`, `get_evidence`, `changes_since`, `review_stack`. A product with no published fact says
 "Not observed". Run `./pull.sh` again for newer data.
 
+Tests: `python3 -m unittest discover tests`
+
+## Security
+
+Report a vulnerability privately through [GitHub](https://github.com/OttObottr/airstack/security/advisories/new). Anything else:
+privacy@airstack.bot.
+
 ## Licences
 
 The code is MIT. The data's terms are at [airstack.bot/open-data](https://airstack.bot/open-data/) and
-[airstack.bot/legal/notices.txt](https://airstack.bot/legal/notices.txt). Contact: privacy@airstack.bot.
+[airstack.bot/legal/notices.txt](https://airstack.bot/legal/notices.txt).

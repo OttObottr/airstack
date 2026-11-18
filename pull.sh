@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Download the AirStack.bot files the MCP server reads into data/site, each checked against the published manifest; the old copy is
-# replaced only when every file has arrived and matches.   Usage: ./pull.sh [base-url]   (default https://airstack.bot)
+# Download the files the MCP server reads into data/site, each checked against the published manifest. The previous copy is
+# replaced only when every file has arrived and matches.
+# Usage: ./pull.sh [base-url]    (default https://airstack.bot)
 set -euo pipefail
 cd "$(dirname "$0")"
 base="${1:-https://airstack.bot}"

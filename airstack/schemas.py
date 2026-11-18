@@ -1,10 +1,14 @@
 """A JSON-schema subset validator and the MCP tool argument schemas."""
+
 import re
+
 
 class SchemaError(ValueError):
     pass
 
+
 _T = {"object": dict, "array": list, "string": str, "boolean": bool, "null": type(None)}
+
 
 def _is(v, t):
     if t == "integer":
@@ -12,6 +16,7 @@ def _is(v, t):
     if t == "number":
         return isinstance(v, (int, float)) and not isinstance(v, bool)
     return isinstance(v, _T[t])
+
 
 def validate(inst, schema, path="$"):
     t = schema.get("type")
@@ -55,17 +60,34 @@ def validate(inst, schema, path="$"):
                 validate(inst[k], sub, f"{path}.{k}")
     return inst
 
+
 ID = r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
 _ID = {"type": "string", "pattern": ID}
 _DATE = {"type": "string", "pattern": r"^\d{4}-\d{2}-\d{2}$"}
 MAX_STACK = 25
 
 TOOL_ARGS = {
-    "search_products": {"type": "object", "additionalProperties": False, "required": ["query"], "properties": {
-        "query": {"type": "string", "minLength": 2, "maxLength": 80}, "limit": {"type": "integer", "minimum": 1, "maximum": 50}}},
+    "search_products": {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["query"],
+        "properties": {
+            "query": {"type": "string", "minLength": 2, "maxLength": 80, "pattern": r"\S\S"},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 50},
+        },
+    },
     "get_product": {"type": "object", "additionalProperties": False, "required": ["id"], "properties": {"id": _ID}},
     "get_evidence": {"type": "object", "additionalProperties": False, "required": ["id"], "properties": {"id": _ID}},
-    "changes_since": {"type": "object", "additionalProperties": False, "required": ["since"], "properties": {"since": _DATE}},
-    "review_stack": {"type": "object", "additionalProperties": False, "required": ["ids"], "properties": {
-        "ids": {"type": "array", "minItems": 1, "maxItems": MAX_STACK, "items": _ID}}},
+    "changes_since": {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["since"],
+        "properties": {"since": _DATE},
+    },
+    "review_stack": {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["ids"],
+        "properties": {"ids": {"type": "array", "minItems": 1, "maxItems": MAX_STACK, "items": _ID}},
+    },
 }
