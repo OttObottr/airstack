@@ -27,5 +27,5 @@ privacy@airstack.bot.
 
 ## Licences
 
-The code is MIT. The data's terms are at [airstack.bot/open-data](https://airstack.bot/open-data/) and
+The code is MIT. AirStack.bot's compilation is CC BY 4.0; text quoted from Wikimedia projects is CC BY-SA 4.0, and other quotes and marks remain their owners' property (keep each record's source link). Full data terms and source notices are at [airstack.bot/open-data](https://airstack.bot/open-data/) and
 [airstack.bot/legal/notices.txt](https://airstack.bot/legal/notices.txt).
