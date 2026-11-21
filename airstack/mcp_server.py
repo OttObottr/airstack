@@ -48,9 +48,7 @@ class Site:
         return json.loads((self.root / name).read_text())
 
     def _get(self, key, load):
-        extra = self.root / "directory.json"
-        dir_stamp = (st.st_mtime_ns, st.st_size) if extra.exists() and (st := extra.stat()) else None
-        stamp = tuple((st.st_mtime_ns, st.st_size) for name in FILES for st in ((self.root / name).stat(),)) + (dir_stamp,)
+        stamp = tuple((st.st_mtime_ns, st.st_size) for name in FILES for st in ((self.root / name).stat(),))
         if stamp != self._stamp:
             self._cache.clear()
             self._stamp = stamp
@@ -80,17 +78,12 @@ class Site:
 
     @property
     def products(self):
-        """Every product with a name, as [id, name, category, aliases]: the curated index, published facts, and optional directory.json."""
+        """Every product with a name, as [id, name, category, aliases]: the curated index, then every product with published facts."""
 
         def load():
             rows = {r[0]: r for r in self.site_data.get("index", [])}
             for pid, e in self.entities.items():
                 rows.setdefault(pid, [pid, e.get("name") or pid, "", []])
-            extra = self.root / "directory.json"
-            if extra.exists():
-                for r in json.loads(extra.read_text()).get("products", []):
-                    if r and r[0] not in rows:
-                        rows[r[0]] = [r[0], r[1], "directory", r[7] if len(r) > 7 and isinstance(r[7], list) else []]
             return rows
 
         return self._get("products", load)

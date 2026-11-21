@@ -133,14 +133,6 @@ class Server(unittest.TestCase):
         self.assertFalse(by_m["free_plan"]["differs"])  # True vs True vs None (unobserved is not a difference)
         self.assertTrue(self.call("compare_products", ids=["acme"])[1])
 
-    def test_directory_json_extends_search_when_present(self):
-        self.assertEqual(self.call("search_products", query="Zeta")[0]["results"], [])
-        (self.root / "directory.json").write_text(
-            json.dumps({"products": [["Q999", "Zeta Editor", "desc", "https://zeta.example", [], [], 10, ["ZetaIDE"]]]})
-        )
-        hits = self.call("search_products", query="ZetaIDE")[0]["results"]
-        self.assertEqual(hits, [{"id": "Q999", "name": "Zeta Editor", "category": "directory", "researched": False}])
-
     def test_bad_arguments_are_tool_errors_the_caller_can_correct(self):
         for args in ({"id": "../etc"}, {"id": "acme\n"}, {}, {"id": "acme", "extra": 1}):
             text, failed = self.call("get_product", **args)
