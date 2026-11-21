@@ -104,10 +104,11 @@ class Server(unittest.TestCase):
         )
 
     def test_bad_arguments_are_tool_errors_the_caller_can_correct(self):
-        for args in ({"id": "../etc"}, {}, {"id": "acme", "extra": 1}):
+        for args in ({"id": "../etc"}, {"id": "acme\n"}, {}, {"id": "acme", "extra": 1}):
             text, failed = self.call("get_product", **args)
             self.assertTrue(failed, args)
             self.assertIn("Invalid arguments", text)
+        self.assertTrue(self.call("changes_since", since="2026-11-01\n")[1])
 
     def test_protocol_errors_use_json_rpc_codes(self):
         self.assertEqual(

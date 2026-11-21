@@ -61,9 +61,9 @@ def validate(inst, schema, path="$"):
     return inst
 
 
-ID = r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+ID = r"\A[A-Za-z0-9][A-Za-z0-9._-]{0,63}\Z"
 _ID = {"type": "string", "pattern": ID}
-_DATE = {"type": "string", "pattern": r"^\d{4}-\d{2}-\d{2}$"}
+_DATE = {"type": "string", "pattern": r"\A\d{4}-\d{2}-\d{2}\Z"}
 MAX_STACK = 25
 
 TOOL_ARGS = {
