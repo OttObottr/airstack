@@ -82,7 +82,10 @@ TOOL_ARGS = {
         "type": "object",
         "additionalProperties": False,
         "required": ["since"],
-        "properties": {"since": _DATE},
+        "properties": {
+            "since": _DATE,
+            "ids": {"type": "array", "minItems": 1, "maxItems": MAX_STACK, "items": _ID},
+        },
     },
     "review_stack": {
         "type": "object",

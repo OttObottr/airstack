@@ -17,8 +17,11 @@ FACT = {
 }
 
 
-def write_site(root):
-    index = {"index": [["acme", "Acme Docs", "docs", ["acmedocs"]], ["beta", "Beta Chat", "chat", []]]}
+def write_site(root, checked_at="2026-11-02", extra=None):
+    index = {
+        "index": [["acme", "Acme Docs", "docs", ["acmedocs"]], ["beta", "Beta Chat", "chat", []], *(extra or [])],
+        "meta": {"checked_at": checked_at},
+    }
     (root / "site-data.js").write_text(f"window.AIRSTACK_DATA = {json.dumps(index)};\n")
     (root / "profiles.json").write_text(json.dumps({"acme": {"free_plan": {"value": True}}}))
     entities = {
@@ -96,7 +99,17 @@ class Server(unittest.TestCase):
     def test_changes_since_is_newest_first_and_bounded_by_date(self):
         rows = self.call("changes_since", since="2026-09-01")[0]
         self.assertEqual([r["id"] for r in rows["facts"]], ["acme", "gamma"])
+        self.assertEqual(rows["as_of"], "2026-11-02")
         self.assertEqual(self.call("changes_since", since="2026-10-15")[0]["total"], 1)
+        scoped = self.call("changes_since", since="2026-09-01", ids=["GAMMA"])[0]
+        self.assertEqual([r["id"] for r in scoped["facts"]], ["gamma"])
+        self.assertTrue(self.call("changes_since", since="2026-09-01", ids=[])[1])
+
+    def test_reloads_updated_files_without_restarting(self):
+        self.assertEqual(self.call("get_product", id="delta")[0]["known"], False)
+        write_site(self.root, checked_at="2026-11-09", extra=[["delta", "Delta DB", "db", []]])
+        got = self.call("get_product", id="delta")[0]
+        self.assertEqual((got["known"], got["name"], got["as_of"]), (True, "Delta DB", "2026-11-09"))
 
     def test_a_stack_review_returns_one_entry_per_id(self):
         self.assertEqual(
