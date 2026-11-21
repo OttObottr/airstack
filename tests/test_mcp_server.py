@@ -60,7 +60,7 @@ class Server(unittest.TestCase):
         tools = self.rpc("tools/list")["result"]["tools"]
         self.assertEqual(
             [t["name"] for t in tools],
-            ["changes_since", "get_evidence", "get_product", "review_stack", "search_products"],
+            ["changes_since", "compare_products", "get_evidence", "get_product", "review_stack", "search_products"],
         )
         self.assertTrue(all(t["description"] and t["inputSchema"]["type"] == "object" for t in tools))
 
@@ -115,6 +115,31 @@ class Server(unittest.TestCase):
         self.assertEqual(
             [r["known"] for r in self.call("review_stack", ids=["acme", "nope"])[0]["results"]], [True, False]
         )
+
+    def test_compare_products_shows_differences_and_keeps_unobserved_separate(self):
+        entities = json.loads((self.root / "chain-data.json").read_text())["entities"]
+        entities["acme"]["facts"].append(
+            {**FACT, "metric": "platforms", "value": ["Web", "CLI"], "retrieved": "2026-11-01", "verified": "2026-11-02"}
+        )
+        entities["gamma"]["facts"].append(
+            {**FACT, "metric": "platforms", "value": ["Web"], "url": "https://gamma.example/", "retrieved": "2026-10-01", "verified": None}
+        )
+        (self.root / "chain-data.json").write_text(json.dumps({"entities": entities}))
+        out, failed = self.call("compare_products", ids=["acme", "gamma", "beta"])
+        self.assertFalse(failed)
+        self.assertEqual((out["as_of"], out["oldest_source"], out["differing_metrics"]), ("2026-11-02", "2026-10-01", ["platforms"]))
+        by_m = {f["metric"]: f for f in out["fields"]}
+        self.assertIsNone(by_m["platforms"]["values"]["beta"])
+        self.assertFalse(by_m["free_plan"]["differs"])  # True vs True vs None (unobserved is not a difference)
+        self.assertTrue(self.call("compare_products", ids=["acme"])[1])
+
+    def test_directory_json_extends_search_when_present(self):
+        self.assertEqual(self.call("search_products", query="Zeta")[0]["results"], [])
+        (self.root / "directory.json").write_text(
+            json.dumps({"products": [["Q999", "Zeta Editor", "desc", "https://zeta.example", [], [], 10, ["ZetaIDE"]]]})
+        )
+        hits = self.call("search_products", query="ZetaIDE")[0]["results"]
+        self.assertEqual(hits, [{"id": "Q999", "name": "Zeta Editor", "category": "directory", "researched": False}])
 
     def test_bad_arguments_are_tool_errors_the_caller_can_correct(self):
         for args in ({"id": "../etc"}, {"id": "acme\n"}, {}, {"id": "acme", "extra": 1}):

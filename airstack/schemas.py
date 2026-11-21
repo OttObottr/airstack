@@ -93,4 +93,10 @@ TOOL_ARGS = {
         "required": ["ids"],
         "properties": {"ids": {"type": "array", "minItems": 1, "maxItems": MAX_STACK, "items": _ID}},
     },
+    "compare_products": {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["ids"],
+        "properties": {"ids": {"type": "array", "minItems": 2, "maxItems": 5, "items": _ID}},
+    },
 }

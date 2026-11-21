@@ -18,10 +18,18 @@ DESCRIPTIONS = {
     "get_evidence": "Every published fact about a product: its verbatim quote, source URL, source class and the date the page was read.",
     "changes_since": "Facts whose page was read or re-checked on or after a date (YYYY-MM-DD), newest first. Pass ids to limit to a stack.",
     "review_stack": "Profiles and fact counts for a list of product ids, so a stack can be reviewed against its sources.",
+    "compare_products": "Compare 2 to 5 products side by side from their published facts, noting which fields differ and the oldest source date.",
 }
 FACT_KEYS = ("metric", "value", "quote", "url", "class", "retrieved", "verified", "first_read", "checked", "archived")
+TEXT_METRICS = frozenset({"what_it_does", "license", "pricing_basis", "customers_claimed"})
 LIMIT = 200
 NOT_OBSERVED = "Not observed: no fact from this product's own pages is published."
+
+
+def _norm(v):
+    if isinstance(v, list):
+        return "|".join(sorted(str(x).lower() for x in v))
+    return str(v).lower()
 
 
 class Site:
@@ -40,7 +48,9 @@ class Site:
         return json.loads((self.root / name).read_text())
 
     def _get(self, key, load):
-        stamp = tuple((st.st_mtime_ns, st.st_size) for name in FILES for st in ((self.root / name).stat(),))
+        extra = self.root / "directory.json"
+        dir_stamp = (st.st_mtime_ns, st.st_size) if extra.exists() and (st := extra.stat()) else None
+        stamp = tuple((st.st_mtime_ns, st.st_size) for name in FILES for st in ((self.root / name).stat(),)) + (dir_stamp,)
         if stamp != self._stamp:
             self._cache.clear()
             self._stamp = stamp
@@ -70,12 +80,17 @@ class Site:
 
     @property
     def products(self):
-        """Every product with a name, as [id, name, category, aliases]: the curated index, then every product with published facts."""
+        """Every product with a name, as [id, name, category, aliases]: the curated index, published facts, and optional directory.json."""
 
         def load():
             rows = {r[0]: r for r in self.site_data.get("index", [])}
             for pid, e in self.entities.items():
                 rows.setdefault(pid, [pid, e.get("name") or pid, "", []])
+            extra = self.root / "directory.json"
+            if extra.exists():
+                for r in json.loads(extra.read_text()).get("products", []):
+                    if r and r[0] not in rows:
+                        rows[r[0]] = [r[0], r[1], "directory", r[7] if len(r) > 7 and isinstance(r[7], list) else []]
             return rows
 
         return self._get("products", load)
@@ -142,6 +157,54 @@ class Site:
 
     def review_stack(self, ids):
         return {"as_of": self.as_of, "results": [self.get_product(pid) for pid in ids]}
+
+    def compare_products(self, ids):
+        pids = list(dict.fromkeys(self.resolve(pid) for pid in ids))
+        products = [
+            {
+                "id": pid,
+                "known": pid in self.products,
+                **({"name": self.products[pid][1], "facts": len(self.facts(pid))} if pid in self.products else {}),
+            }
+            for pid in pids
+        ]
+        by_pid = {}
+        metrics = set()
+        for pid in pids:
+            grouped = {}
+            for f in sorted(self.facts(pid), key=lambda x: x.get("class") != "vendor"):
+                m = f.get("metric")
+                if not m:
+                    continue
+                metrics.add(m)
+                grouped.setdefault(m, []).append(f)
+            by_pid[pid] = grouped
+        fields, dates = [], []
+        for m in sorted(metrics):
+            vals = {}
+            for pid in pids:
+                fs = by_pid[pid].get(m)
+                if not fs:
+                    vals[pid] = None
+                    continue
+                first = fs[0]
+                if isinstance(first.get("value"), list):
+                    val = list(dict.fromkeys(x for f in fs if isinstance(f.get("value"), list) for x in f["value"]))
+                else:
+                    val = first.get("value")
+                dt = first.get("verified") or first.get("retrieved")
+                if dt:
+                    dates.append(dt)
+                vals[pid] = {"value": val, "quote": first.get("quote"), "url": first.get("url"), "date": dt}
+            seen = {_norm(c["value"]) for c in vals.values() if c is not None}
+            fields.append({"metric": m, "differs": m not in TEXT_METRICS and len(seen) > 1, "values": vals})
+        return {
+            "as_of": self.as_of,
+            "oldest_source": min(dates) if dates else None,
+            "products": products,
+            "fields": fields,
+            "differing_metrics": [f["metric"] for f in fields if f["differs"]],
+        }
 
 
 def error(text):

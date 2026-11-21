@@ -15,8 +15,8 @@ Add it to your MCP client, with the folder's full path:
 {"mcpServers": {"airstack": {"command": "python3", "args": ["-m", "airstack.mcp_server"], "env": {"PYTHONPATH": "/full/path/to/airstack"}}}}
 ```
 
-Tools: `search_products`, `get_product`, `get_evidence`, `changes_since`, `review_stack`. A product with no published fact says
-"Not observed". Run `./pull.sh` again for newer data.
+Tools: `search_products`, `get_product`, `get_evidence`, `changes_since`, `review_stack`, `compare_products`. A product with no published fact says
+"Not observed". Run `./pull.sh` again for newer data; the running server picks up updates automatically.
 
 Tests: `python3 -m unittest discover tests`
 
