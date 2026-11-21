@@ -63,6 +63,7 @@ class Server(unittest.TestCase):
             ["changes_since", "compare_products", "get_evidence", "get_product", "review_stack", "search_products"],
         )
         self.assertTrue(all(t["description"] and t["inputSchema"]["type"] == "object" for t in tools))
+        self.assertTrue(all(t["annotations"]["readOnlyHint"] and not t["annotations"]["destructiveHint"] for t in tools))
 
     def test_search_finds_by_name_and_alias_with_exact_matches_first(self):
         self.assertEqual([r["id"] for r in self.call("search_products", query="acmedocs")[0]["results"]], ["acme"])
@@ -147,6 +148,13 @@ class Server(unittest.TestCase):
         self.assertEqual(self.rpc("resources/list")["error"]["code"], -32601)
         self.assertEqual(self.server.handle([])["error"]["code"], -32600)
         self.assertIsNone(self.server.handle({"jsonrpc": "2.0", "method": "notifications/initialized"}))
+
+    def test_bidi_and_control_characters_are_stripped_from_tool_output(self):
+        entities = json.loads((self.root / "chain-data.json").read_text())["entities"]
+        entities["acme"]["facts"][0]["quote"] = "Safe\u202ehidden\x07text"
+        (self.root / "chain-data.json").write_text(json.dumps({"entities": entities}))
+        got = self.call("get_evidence", id="acme")[0]["facts"][0]["quote"]
+        self.assertEqual(got, "Safehiddentext")
 
     def test_without_pulled_data_every_tool_says_how_to_get_it(self):
         res = McpServer(self.root / "missing").call_tool("search_products", {"query": "acme"})

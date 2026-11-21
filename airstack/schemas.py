@@ -72,7 +72,7 @@ TOOL_ARGS = {
         "additionalProperties": False,
         "required": ["query"],
         "properties": {
-            "query": {"type": "string", "minLength": 2, "maxLength": 80, "pattern": r"\S.*\S"},   # two characters that are not spaces, anywhere
+            "query": {"type": "string", "minLength": 2, "maxLength": 80, "pattern": r"\S.*\S"},   # at least two non-whitespace characters
             "limit": {"type": "integer", "minimum": 1, "maximum": 50},
         },
     },

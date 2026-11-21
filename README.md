@@ -6,7 +6,7 @@ files and calls nothing else. Python 3.10 or later, no dependencies.
 
 ```bash
 git clone https://github.com/OttObottr/airstack.git && cd airstack
-./pull.sh                                   # the published data into data/site
+./pull.sh                                   # download published data into data/site
 ```
 
 Add it to your MCP client, with the folder's full path:
