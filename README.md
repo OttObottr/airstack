@@ -12,7 +12,7 @@ git clone https://github.com/OttObottr/airstack.git && cd airstack
 Add it to your MCP client, with the folder's full path:
 
 ```json
-{"mcpServers": {"airstack": {"command": "python3", "args": ["-m", "airstack.mcp_server"], "env": {"PYTHONPATH": "/full/path/to/airstack"}}}}
+{"mcpServers": {"airstack": {"command": "python3", "args": ["/full/path/to/airstack/server.py"]}}}
 ```
 
 Tools: `search_products`, `get_product`, `get_evidence`, `changes_since`, `review_stack`, `compare_products`. A product with no published fact says
